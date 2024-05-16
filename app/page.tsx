@@ -19,6 +19,15 @@ import ListingValue from "./components/listing/ListingValue";
 import TourPriceCard from "./components/listing/TourPriceCard";
 import ListingCardMain from "./components/listing/ListingCardMain";
 import TourCardSecondary from "./components/listing/TourCardSecondary";
+import EmblaMobile from "./mainpage/components/EmblaMobile";
+
+
+import imageone from "../public/images/a.jpg"
+import imagetwo from "../public/images/a.png"
+import imagethree from "../public/images/ab.jpg"
+import imagefour from "../public/images/ac.png"
+import imagefive from "../public/images/adventure.jpeg"
+import imagesix from "../public/images/agentina.jpg"
 
 // Define the interface for the Home component props
 interface HomeProps {
@@ -28,6 +37,64 @@ interface HomeProps {
 
 // Home component is defined as an asynchronous function
 const Home = async ({ searchParams, tourParams }: HomeProps) => {
+
+  const cardsData = [
+  {
+    image: imageone,
+    title: 'AmzonCorp',
+    country: 'Get prime land?',
+    description: 'Brussels is a quick train ride from all the action',
+  },
+  {
+    image: imagetwo,
+    title: 'Devancatour',
+    country: 'Seize the moment!',
+    description: 'Save 15% or more when you book and stay before October 1, 2024',
+  },
+  {
+    image: imageone,
+    title: 'AmzonCorp',
+    country: 'Our prime hotel?',
+    description: 'Brussels is a quick train ride from all the action',
+  },
+  {
+    image: imagefour,
+    title: 'Title 4',
+    country: 'Country 4',
+    description: 'Description 4',
+  },
+  {
+    image: imagefive,
+    title: 'Title 5',
+    country: 'Country 5',
+    description: 'Description 5',
+  },
+  {
+    image: imagesix,
+    title: 'Title 6',
+    country: 'Country 6',
+    description: 'Description 6',
+  },
+  // {
+  //   image: imageone,
+  //   title: 'Title 7',
+  //   country: 'Country 7',
+  //   description: 'Description 7',
+  //   },
+  // {
+  //   image: imagesix,
+  //   title: 'Title 8',
+  //   country: 'Country 7',
+  //   description: 'Description 7',
+  //   },
+  // {
+  //   image: imageone,
+  //   title: 'Title 9',
+  //   country: 'Country 7',
+  //   description: 'Description 7',
+  // },
+];
+
   // Fetch listings and current user asynchronously
   let currentUser: any;
     if (searchParams.userId) {
@@ -63,8 +130,19 @@ const Home = async ({ searchParams, tourParams }: HomeProps) => {
       <Container>
       <div className="SearchMain-page w-full text-center rounded-full">
         <SearchMain />
-      </div>
+          </div>
       </Container>
+      </div>
+      <div className="flex items-center justify-center">
+       <Container>
+          <div className="mt-5">
+            <div className="my-3">
+              <h1 className="mb-1 text-2xl font-bold text-black">Great deals</h1>
+              <p className="text-neutral-600">Premium deals and great offers for you</p>  
+            </div> 
+            <EmblaMobile cardsData={cardsData} />  
+          </div>   
+        </Container>
       </div>
       {filteredTours && filteredTours.length > 0 && (
         <Container>
