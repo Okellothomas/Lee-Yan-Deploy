@@ -189,7 +189,7 @@ const EmblaMobile: React.FC<EmblaCarouselProps> = ({ cardsData }) => {
                       {card.description}
                       {/* <span><Link href="/" className='text-black'><FiArrowRightCircle size={19} /></Link></span> */}
                     </p>
-                    <Link href="/" className='text-black caroe-embla-link px-5 py-2 shadow-md rounded-3xl'>Explore</Link>
+                    <Link href="/" className='caroe-embla-link px-5 py-2 text-sm shadow-md rounded-3xl'>Explore</Link>
                     </div>
                     <Image src={card.image} alt="Image" className="image-carousel image-carousel-t shadow-lg rounded-lg object-cover" />
                   </div>
