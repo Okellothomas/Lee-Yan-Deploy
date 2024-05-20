@@ -7,7 +7,6 @@ import Container from "./components/container/Container";
 import EmptyState from "./components/container/EmptyState";
 import Banner from "./mainpage/components/Banner";
 import SearchMain from "./mainpage/components/SearchMain";
-import Link from "next/link";
 import CardDisplay from "./mainpage/components/CardDisplay";
 import { FaStar } from "react-icons/fa";
 import { FaThreads } from "react-icons/fa6";
@@ -22,6 +21,7 @@ import TourCardSecondary from "./components/listing/TourCardSecondary";
 import EmblaMobile from "./mainpage/components/EmblaMobile";
 
 
+import imagebook from "../public/images/maint.jpg"
 import imageone from "../public/images/a.jpg"
 import imagetwo from "../public/images/a.png"
 import imagethree from "../public/images/ab.jpg"
@@ -31,6 +31,9 @@ import imagesix from "../public/images/agentina.jpg"
 import Stay from "./mainpage/components/Stays";
 import Emblawebsite from "./mainpage/components/Emblawebsite";
 import "./main.css"
+import TourCardLists from "./components/listing/TourCardLists";
+import Image from "next/image"
+import Link from "next/link"
 
 // Define the interface for the Home component props
 interface HomeProps {
@@ -220,7 +223,7 @@ const cardsDatas = [
 
   const filteredTours = tours.filter((tour: any) => tour.tourists.length < tour.guestCount).slice(0, 4);
 
-  const filteredTourss = tours.filter((tour: any) => tour.tourists.length < tour.guestCount).slice(4, 8);
+  const filteredTourss = tours.filter((tour: any) => tour.tourists.length < tour.guestCount).slice(1, 20);
 
   const filteredToursss = tours.filter((tour: any) => tour.tourists.length < tour.guestCount).slice(0, 20);
 
@@ -305,116 +308,101 @@ const cardsDatas = [
           </div>
         </Container>
       )}
-     </div>
-      
-      <div className="tour-inconfort flex flex-col py-12 my-9 items-center justify-center text-lg font-bold">
-        <h1 className="color-h1-white-page pb-4">Tour in comfort and style</h1>
-
-          <Container>
-            <div className="booking-card booking-card-nine grid w-full px-5 gap-32 grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 sm:my-3 sm:py-2 md:py-4 lg:py-5 xl:py-7 2xl:py-7 my-9">
-            <CardDisplay
-              icon={FaStar}
-              // label="Insightful experiences"
-              label="1000+ Insightful Experiences"
-              />
-              <CardDisplay
-              icon={FaThreads}
-              // label="Make travel matter"
-              label="60+ ways to make travel matter"
-              />
-              <CardDisplay
-              icon={MdFoodBank}
-              label="800+ Superior first class hotels"
-              />
-              <CardDisplay
-              icon={GiClockwork}
-              label="20+ years of experience"
-                />
-            </div>
-            </Container>
       </div>
-
-      {listings && listings.length > 0 && (
-      <Container>
-        <div className="flex flex-col gap-1 pt-1">
-          <h1 className="main-header-black w-full text-center">INTERCONTINENTAL <span className="main-header-gradient">CLASS HOTELS</span></h1>
-          <p className="text-neutral-500 text-sm w-full text-center">Experience timeless luxury and impeccable service at our handpicked collection of iconic five-star hotels spanning the globe.</p>
-        </div>
-        <div className="grid-cols-page-s pt-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-          {listings.slice(0, 4).map((listing: any) => (
-            <ListingCardMain
-              currentUser={currentUser ? {
-                ...currentUser,
-                createdAt: currentUser.createdAt.toISOString(),
-                updatedAt: currentUser.updatedAt.toISOString(),
-                emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-              } : null} // Pass the current user to each ListingCard
-              key={listing.id} // Use the listing ID as the unique key
-              data={listing} // Pass the listing data to each ListingCard
-            />
-          ))}
-        </div>
-      </Container>
-    )}
-
-      {/* Next part of the page */}
-      <div className="tour-booking flex flex-col py-12 my-9 items-center justify-center text-lg font-bold">
-        <h1 className="color-h1-white-page">How to book with us</h1>
+      
+    <div className="pt-1 pb-9">
+      {filteredTours && filteredTours.length > 0 && (
         <Container>
-          <div className="pt-10 pb-5 main-page-cards">
-            <BookingCard />
+          <div className="mt-9">
+              <h1 className="mb-2 text-2xl font-bold text-black">Book our prime unique properties</h1>
+              <p className="text-neutral-600">Book from our top rated properties for unforgettable stay</p>  
+          </div> 
+          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+            {filteredTours.map((tour: any) => (
+              <TourPriceCard
+                currentUser={currentUser ? {
+                  ...currentUser,
+                  createdAt: currentUser.createdAt.toISOString(),
+                  updatedAt: currentUser.updatedAt.toISOString(),
+                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+                } : null} // Pass the current user to each ListingCard
+                key={tour.id} // Use the listing ID as the unique key
+                data={tour} // Pass the listing data to each ListingCard
+              />
+            ))} 
           </div>
         </Container>
-      </div>
-
-      {/* second last */}
-      {filteredTourss && filteredTourss.length > 0 && (
-      <Container>
-        <div className="flex flex-col gap-1 pt-1">
-          <h1 className="main-header-black w-full text-center">CLASSIC <span className="main-header-gradient">ADVENTURE TOURS</span></h1>
-          <p className="text-neutral-500 text-sm w-full text-center">Experience the thrill of a lifetime on our curated selection of active, immersive tours full of adrenaline, culture and natural wonder.</p>
-        </div>
-        <div className="grid-cols-page-s pt-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-          {/* Map through the listings array and render ListingCard components */}
-          {filteredTourss.map((tour: any) => (
-            <TourCardSecondary
-              currentUser={currentUser ? {
-                ...currentUser,
-                createdAt: currentUser.createdAt.toISOString(),
-                updatedAt: currentUser.updatedAt.toISOString(),
-                emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-              } : null} // Pass the current user to each ListingCard
-              key={tour.id} // Use the listing ID as the unique key
-              data={tour} // Pass the listing data to each ListingCard
-            />
-          ))}
-        </div>
-        <div className="w-full text-center pt-4">
-          <Link className="outline-main-btn px-4 hover:bg-slate-400 hover:text-green-400 hover:shadow-md" href="/alldestinations">View classic adventure tours</Link>
-        </div>
-      </Container>
       )}
+      </div>
       
-      {/* last part of the code */}
+    <div className="pt-1 pb-9">
+      {filteredTours && filteredTours.length > 0 && (
+        <Container>
+          <div className="">
+              <h1 className="mb-2 text-2xl font-bold text-black">Exclusive comfort</h1>
+              <p className="text-neutral-600">Luxurious sanctuaries you will find comfortable</p>  
+          </div> 
+          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+            {filteredTours.map((tour: any) => (
+              <TourCardSecondary
+                currentUser={currentUser ? {
+                  ...currentUser,
+                  createdAt: currentUser.createdAt.toISOString(),
+                  updatedAt: currentUser.updatedAt.toISOString(),
+                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+                } : null} // Pass the current user to each ListingCard
+                key={tour.id} // Use the listing ID as the unique key
+                data={tour} // Pass the listing data to each ListingCard
+              />
+            ))} 
+          </div>
+        </Container>
+      )}
+    </div>
 
-      {filteredToursss && filteredToursss.length > 0 && (
-      <Container>
-        <div className="flex w-full py-6 h-auto flex-col gap-1 pt-11">
-          <h1 className="main-header-black w-full text-center">PREMIUM <span className="main-header-gradient">TRENDING TOURS</span></h1>
-          <p className="text-neutral-500 text-sm w-full text-center">Be the envy of your friends by booking one of our highly coveted, limited-availability tours to the world&lsquo;s hottest, must-visit destinations.</p>
-        </div>
-        <div className="trending-list-main-page pt-4 pl-16 pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-6">
-          {filteredToursss.map((tour: any) => (
-            <ListingValue
-              data={tour}
-              key={tour.id}
-              title={tour.title} 
-              locationValue={""}              
-            />
-          ))}
-        </div>
-      </Container>
-    )}
+    <div className="pt-1 pb-9">
+      {filteredTourss && filteredTourss.length > 0 && (
+        <Container>
+          <div className="">
+              <h1 className="mb-2 text-2xl font-bold text-black">Trending destinations you will love</h1>
+              <p className="text-neutral-600">Luxurious sanctuaries you will find comfortable</p>  
+          </div> 
+          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
+            {filteredTourss.map((tour: any) => (
+              <TourCardLists
+                currentUser={currentUser ? {
+                  ...currentUser,
+                  createdAt: currentUser.createdAt.toISOString(),
+                  updatedAt: currentUser.updatedAt.toISOString(),
+                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+                } : null} // Pass the current user to each ListingCard
+                key={tour.id} // Use the listing ID as the unique key
+                data={tour} // Pass the listing data to each ListingCard
+              />
+            ))} 
+          </div>
+        </Container>
+      )}
+      </div>
+    
+
+     <div className="pt-1 pb-0">
+        <Container>
+          <div className="border flex justify-start gap-9 items-center border-solid border-neutral-400 py-10 px-11 rounded-xl shadow-sm">
+            <div>
+              <Image src={imagebook} alt=""  className="h-[230px] w-[230px] shadow-md rounded-br-full rounded-t-full"/>
+            </div>
+            <div>
+              <h3 className="pb-5 font-bold text-2xl">Get great discounts</h3>
+              <p className="pb-5 text-neutral-600">Book now and save 8% plus while the offers still last.</p>
+              <div className="flex justify-start items-center gap-9">
+                <Link href="/" className="bg-green-500 px-6 py-2 rounded-3xl">Sign Up</Link>
+                <Link href="/" className="bg-green-500 px-6 py-2 rounded-3xl">Login</Link>
+              </div>
+            </div>
+          </div>
+        </Container>
+    </div>
 
 
     </div>

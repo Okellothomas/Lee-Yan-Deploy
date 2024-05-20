@@ -21,7 +21,7 @@ interface ListingCardProps {
     currentUser?: SafeUser | null;
 }
 
-const TourCardSecondary: React.FC<ListingCardProps> = ({
+const TourCardLists: React.FC<ListingCardProps> = ({
     data,
     reservation,
     onAction,
@@ -68,40 +68,16 @@ const TourCardSecondary: React.FC<ListingCardProps> = ({
         onClick={() => router.push(`/tours/${data?.id}`)} //added ?
         className="col-span-1 cursor-pointer group"
       >
-          <div className="flex h-[50vh] flex-col gap-2 w-full main-image-small-screen main-image-small-screen-x">
-              <div className="aspect-square w-full relative overflow-hidden rounded-xl">
-                  <Image
-                      fill
-                      alt="Listing"
-                      src={data?.imageSrc[0]} //added ?
-                      className="object-cover h-full w-full transition group-hover:scale-110 main-image-small-screen-i main-image-small-screen"
-                  />
-                  <div className="absolute top-3 right-3">
-                      {/* <HeartButton
-                          listingId={data?.id} //added ?
-                          currentUser={currentUser}
-                      /> */}
-                  </div>
-              </div>
+          <div className="flex h-auto flex-col gap-2 w-full main-image-small-screen main-image-small-screen-x">
               <div className="text-sm pt-1 pb-2 font-semibold text-md truncate max-w-[20rem]">
                  <span className="text-neutral-700">{data.title}</span>
               </div>
               <div className="font-light mt-[-16px] text-neutral-500">
                  {reservationDate || data.category} 
               </div>
-              <div className="flex flex-row items-center gap-1">
               </div>
-              {/* {onAction && actionLabel && (
-                  <Button
-                      disabled={disabled}
-                      small
-                      label={actionLabel}
-                      onClick={handleCancel}
-                  />
-              )} */}
-          </div>   
-    </div>
+          </div> 
   )
 }
 
-export default TourCardSecondary
+export default TourCardLists
