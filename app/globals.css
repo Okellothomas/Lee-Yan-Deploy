@@ -509,7 +509,7 @@
 }
 
 .all-main-property-sales {
-  background-image: url('../public/images/pse.jpg');
+  background-image: url('../public/images/naivaha.jpg');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.45);
   /* Red color with 60% opacity */
@@ -525,6 +525,21 @@
 
 .all-main-property-rentals {
   background-image: url('../public/images/rents.jpg');
+  /* Replace 'your-image.jpg' with the path to your image */
+  background-color: rgba(0, 0, 0, 0.25);
+  /* Red color with 60% opacity */
+  background-blend-mode: overlay;
+  /* Blend the background image and color */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+  height: 62vh;
+  margin-top: -8% !important;
+}
+
+.all-land-sales {
+  background-image: url('../public/images/virtual.jpg');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.25);
   /* Red color with 60% opacity */
