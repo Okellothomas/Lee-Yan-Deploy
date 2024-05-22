@@ -256,7 +256,7 @@ const cardsDatas = [
           <div className="mt-5">
             <div className="my-3">
               <h1 className="mb-2 text-2xl font-bold text-black">Great deals</h1>
-              <p className="text-neutral-600">Premium deals and great offers for you</p>  
+              <p className="text-neutral-600">Premium deals and offers for you</p>  
             </div> 
             <EmblaMobile cardsData={cardsData} />  
           </div>   

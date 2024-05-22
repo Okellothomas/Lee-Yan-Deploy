@@ -40,11 +40,11 @@
   /* Style the logo image background with custom CSS variables */
   .logo-image-background {
     display: inline-flex;
-    padding: 10px;
+    padding: 6px;
     align-items: flex-start;
     gap: 10px;
     border-radius: 60px;
-    background: var(--logocolor, #55E4D6);
+    background: var(--logocolor, #497a75);
   }
 
   /* Style text with the main color gradient */
@@ -274,6 +274,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  background-color: green;
   border-radius: 20px;
   border: 2px solid var(--whitebutton-Color, #FFF);
 }
@@ -294,17 +295,17 @@
 }
 
 .banner-btn h1 {
-  color: rgb(6, 4, 36);
+  color: wheat;
   /* color: var(--logocolor, #55E4D6); */
   font-family: "Abril Fatface", serif;
-  font-size: 53px;
+  font-size: 45px;
   font-style: normal;
   font-weight: 800;
   line-height: normal;
 }
 
 .banner-btn h2 {
-  color: #FFF;
+  color: white;
   text-align: center;
   font-family: Kanit;
   font-size: 40px;

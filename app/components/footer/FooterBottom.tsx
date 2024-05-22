@@ -12,7 +12,7 @@ const FooterBottom = () => {
   return (
     <div className="flex flex-row justify-between items-center text-black py-5">
       <div className="text-md footer-main-texts">
-        &copy; 2018 - 2024 Lee-yan smart properties.
+        All rights reserved Lee-yan smart properties &copy;2024
       </div>
       <div className="flex flex-row gap-7 text-neutral-600 justify-end items-center">
         <Link href="https://chat.whatsapp.com/FaQxPk0LG9KAA7L8w4JA6E" target="_blank"><IoLogoWhatsapp size={27} /></Link>
