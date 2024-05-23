@@ -230,10 +230,10 @@ const cardsDatas = [
   // Render the Home component with the fetched listings
   return (
     <div>
-    <div className="all-land-sales flex flex-col items-center justify-center text-lg font-bold">
+    <div className="all-about flex flex-col items-center justify-center text-lg font-bold">
         {/* <h1 className="color-property-sales-main text-white pb-5">PREMIUM PROPERTIES ON SALE</h1>
         <p className="text-white font-semibold text-2xl">Buy now, save more</p> */}
-        <h1 className="banner-title color-property-sales-main text-wheat pb-5">PRIME PARCELS OF LAND FOR SALE</h1> 
+        <h1 className="banner-title color-property-sales-main text-wheat pb-5">HOME OF PREMIUM PROPERTIES ON RENTAL AND SALE</h1> 
         <h2 className="banner-title-one text-white font-semibold text-2xl">Discounted premium properties available</h2> 
         {/* <div className="destination-search">
           <Search /> 
