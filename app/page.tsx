@@ -34,6 +34,7 @@ import "./main.css"
 import TourCardLists from "./components/listing/TourCardLists";
 import Image from "next/image"
 import Link from "next/link"
+import TourPriceCardMain from "./components/listing/TourPriceCardMain";
 
 // Define the interface for the Home component props
 interface HomeProps {
@@ -276,9 +277,14 @@ const cardsDatas = [
       <div className="flex items-center mt-6 pb-6 justify-center">
        <Container>
           <div className="mt-5">
-            <div className="my-3">
+            <div className="my-3 flex justify-between items-center">
+              <div>
               <h1 className="mb-2 text-2xl font-bold text-black">Exclusive Properties</h1>
-              <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p>  
+              <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p>
+              </div>  
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
             </div> 
             <Emblawebsite cardsData={cardsDatas} />  
           </div>   
@@ -288,9 +294,14 @@ const cardsDatas = [
       <div className="first-card-main pt-1 pb-9">
       {filteredTours && filteredTours.length > 0 && (
         <Container>
-          <div className="mt-9">
+            <div className="mt-9 flex justify-between items-center">
+              <div>
               <h1 className="mb-2 text-2xl font-bold text-black">Luxurious Properties</h1>
-              <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p>  
+                <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p> 
+              </div>
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
           </div> 
           <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
             {filteredTours.map((tour: any) => (
@@ -313,13 +324,18 @@ const cardsDatas = [
     <div className="pt-1 pb-9">
       {filteredTours && filteredTours.length > 0 && (
         <Container>
-          <div className="mt-9">
-              <h1 className="mb-2 text-2xl font-bold text-black">Book our prime unique properties</h1>
-              <p className="text-neutral-600">Book from our top rated properties for unforgettable stay</p>  
+          <div className="mt-9 flex justify-between items-center">
+              <div>
+                <h1 className="mb-2 text-2xl font-bold text-black">Book our prime unique properties</h1>
+                <p className="text-neutral-600">Book from our top rated properties for unforgettable stay</p> 
+              </div>
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
           </div> 
           <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
             {filteredTours.map((tour: any) => (
-              <TourPriceCard
+              <TourPriceCardMain
                 currentUser={currentUser ? {
                   ...currentUser,
                   createdAt: currentUser.createdAt.toISOString(),
@@ -338,9 +354,14 @@ const cardsDatas = [
     <div className="pt-1 pb-9">
       {filteredTours && filteredTours.length > 0 && (
         <Container>
-          <div className="">
+            <div className="flex justify-between items-center">
+              <div>
               <h1 className="mb-2 text-2xl font-bold text-black">Exclusive comfort</h1>
-              <p className="text-neutral-600">Luxurious sanctuaries you will find comfortable</p>  
+              <p className="text-neutral-600">Luxurious sanctuaries you will find comfortable</p> 
+              </div>  
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
           </div> 
           <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
             {filteredTours.map((tour: any) => (

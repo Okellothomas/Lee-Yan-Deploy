@@ -123,7 +123,7 @@ const RegisterModal = () => {
                 error={errors}
                 required
             />
-            <Input
+            {/* <Input
                 id='country'
                 label='country'
                 type='text'
@@ -131,7 +131,7 @@ const RegisterModal = () => {
                 register={register}
                 error={errors}
                 required
-            />
+            /> */}
             <Input
                 id='email'
                 label='Email'

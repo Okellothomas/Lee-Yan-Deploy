@@ -112,7 +112,8 @@
 
   /* Styles for the main modal background */
   .modal-main {
-    background-color: rgb(38 38 38);
+    /* background-color: rgb(38 38 38); */
+    background-color: white;
   }
 
   /* Styles for the content inside the main modal */
@@ -331,6 +332,13 @@
 
 .SearchMain-page {
   margin-top: -10% !important;
+  position: relative;
+  z-index: 10 !important;
+
+}
+
+.Search-main-page {
+  margin-top: -3.2% !important;
   position: relative;
   z-index: 10 !important;
 
@@ -644,6 +652,21 @@
   background-repeat: no-repeat;
   flex-shrink: 0;
   height: 24vh;
+  margin-top: -8% !important;
+}
+
+.offers-main {
+  background-image: url('../public/images/virtual.jpg');
+  /* Replace 'your-image.jpg' with the path to your image */
+  background-color: rgba(0, 0, 0, 0.42);
+  /* Red color with 60% opacity */
+  background-blend-mode: overlay;
+  /* Blend the background image and color */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+  height: 43vh;
   margin-top: -8% !important;
 }
 
