@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { GiAfrica, GiSpeedBoat } from "react-icons/gi";
+import { CiFilter } from "react-icons/ci";
 
 interface Product {
   id: number;
@@ -34,9 +35,9 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
     <div className='bg-white outline-none shadow-md py-4 px-2 rounded-xl'>
       <ul>
         <div className='flex flex-row items-center gap-2'>
-          <GiSpeedBoat size={25} />
-          <p>Tour Categories</p>
-              </div>
+          <CiFilter size={25} />
+          <p>Popular filters</p>
+          </div>
         <div className='py-3'>
           <hr />
         </div>
@@ -48,7 +49,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('adventure')}
               className='p-2 h-5 w-5'
             />
-            Adventure
+            Castle
             </label>
             <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -57,7 +58,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('discovery')}
               className='p-2 h-5 w-5'
             />
-            Discovery Journey
+            Appartments
             </label>
            <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -66,7 +67,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('wildlife')}
               className='p-2 h-5 w-5'
             />
-            Wildlife
+            Mansion
             </label>
              <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -75,7 +76,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('regional')}
               className='p-2 h-5 w-5'
             />
-            Regional
+            Resort
                   </label>
             <label className='gap-2 flex flex-row items-center'>
             <input
@@ -84,7 +85,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('local')}
               className='p-2 h-5 w-5'
             />
-            Local Escape
+            Swimming pool
             </label>
             <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -93,7 +94,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('hiking')}
               className='p-2 h-5 w-5'
             />
-            Hiking
+            Villas
             </label>
            <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -102,7 +103,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('yatch')}
               className='p-2 h-5 w-5'
             />
-            Yatch
+            Plots
             </label>
              <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -111,8 +112,8 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('solo')}
               className='p-2 h-5 w-5'
             />
-            Solo Tours
-                  </label>
+            Guest houses
+            </label>
             <label className='gap-2 text-sm flex flex-row items-center'>
             <input
               type="checkbox"
@@ -120,7 +121,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('country')}
               className='p-2 h-5 w-5'
             />
-            Country Roads
+            Treehouses
             </label>
             <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -129,7 +130,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('easy')}
               className='p-2 h-5 w-5'
             />
-            Easy Pace
+            Countryside
             </label>
            <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -138,7 +139,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('camping')}
               className='p-2 h-5 w-5'
             />
-            Camping
+            Tiny homes
             </label>
             <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -147,7 +148,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('game')}
               className='p-2 h-5 w-5'
             />
-            Game Pack
+            Farms
           </label>
         </li>
         {/* Add similar checkboxes for other categories */}

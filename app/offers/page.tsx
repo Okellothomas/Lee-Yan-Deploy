@@ -51,7 +51,7 @@ export default function AllDestinationsPage({ tourParams }: IParams) {
           </h1>
         </div>
         <Container>
-      <div className="Search-main-page w-full justify-center items-center text-center rounded-full">
+      <div className="Search-main-page w-full flex justify-center items-center text-center rounded-full">
         <SearchMain />
       </div>
       </Container>
@@ -67,9 +67,9 @@ export default function AllDestinationsPage({ tourParams }: IParams) {
           <div className="flex flex-row justify-between items-center py-3">
             <div className="flex font-bold flex-row gap-40 items-center">
               <div className="filter-bg-color rounded-2xl items-center py-2 pl-2 pr-6 sm:pr-1 text-start all-destination-filter">
-                <p className="">Filter Results</p>
+                <p className="">Filter By:</p>
               </div>
-              <div className="font-semibold text-xl">{visibleTours.length} Tours</div>
+              <div className="font-semibold text-xl">{visibleTours.length} Offers</div>
             </div>
             <div>
               <Sort products={products} />
@@ -82,7 +82,7 @@ export default function AllDestinationsPage({ tourParams }: IParams) {
               <Contients products={products} />
               <TourStyles products={products} />
               <TourOperators products={products} />
-              <TourSize products={products}/>
+              {/* <TourSize products={products}/> */}
             </div>
             <div className="col-span-4 all-destination-tour-main-card">
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-8 all-destination-tours">

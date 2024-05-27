@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { GiAfrica, GiSpeedBoat } from "react-icons/gi";
 import { FcAssistant } from "react-icons/fc";
+import { MdOutlineLocalOffer } from "react-icons/md";
 
 interface Product {
   id: number;
@@ -35,9 +36,9 @@ const TourOperators: React.FC<ProductListProps> = ({ products }) => {
     <div className='bg-white outline-none shadow-md py-4 px-2 rounded-xl'>
       <ul>
         <div className='flex flex-row items-center gap-2'>
-          <FcAssistant size={25} />
-          <p>Operators</p>
-              </div>
+          <MdOutlineLocalOffer size={25} />
+          <p>Offers Types</p>
+          </div>
         <div className='py-3'>
           <hr />
         </div>
@@ -49,7 +50,7 @@ const TourOperators: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('Devance')}
               className='p-2 h-5 w-5'
             />
-            Devanca Tours
+            Stays
             </label>
             <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -58,7 +59,7 @@ const TourOperators: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('Burric')}
               className='p-2 h-5 w-5'
             />
-            Burrinct Tours
+            Property sales
             </label>
            <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -67,7 +68,7 @@ const TourOperators: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('Collete')}
               className='p-2 h-5 w-5'
             />
-            Collete Tours
+            Property rentals
             </label>
              <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -76,9 +77,9 @@ const TourOperators: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleCategoryChange('Contiki')}
               className='p-2 h-5 w-5'
             />
-            Contiki Tours
-                  </label>
-            <label className='gap-2 text-sm flex flex-row items-center'>
+            Land sales
+            </label>
+            {/* <label className='gap-2 text-sm flex flex-row items-center'>
             <input
               type="checkbox"
               checked={selectedCategories.includes('apt')}
@@ -86,7 +87,7 @@ const TourOperators: React.FC<ProductListProps> = ({ products }) => {
               className='p-2 h-5 w-5'
             />
             APT Tours
-            </label>
+            </label> */}
         </li>
         {/* Add similar checkboxes for other categories */}
       </ul>

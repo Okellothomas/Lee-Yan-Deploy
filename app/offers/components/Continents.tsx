@@ -13,102 +13,59 @@ interface ProductListProps {
   products: Product[];
 }
 
-const Contients: React.FC<ProductListProps> = ({ products }) => {
+const Continents: React.FC<ProductListProps> = ({ products }) => {
   const [sortOption, setSortOption] = useState<string>('popularity');
   const [sortDirection, setSortDirection] = useState<boolean>(true);
+  const [maxPrice, setMaxPrice] = useState<number>(1000);
 
   const sortedProducts = (): Product[] => {
-    const sorted = products.slice().sort((a, b) => {
-      const multiplier = sortDirection ? 1 : -1;
-      switch (sortOption) {
-        case 'priceLowestFirst':
-          return multiplier * (a.price - b.price);
-        case 'priceHighestFirst':
-          return multiplier * (b.price - a.price);
-        case 'lengthShortestFirst':
-          return multiplier * (a.length - b.length);
-        case 'lengthLongestFirst':
-          return multiplier * (b.length - a.length);
-        default:
-          // 'popularity' or default sorting
-          return 0;
-      }
-    });
+    const sorted = products
+      .filter(product => product.price <= maxPrice)
+      .slice()
+      .sort((a, b) => {
+        const multiplier = sortDirection ? 1 : -1;
+        switch (sortOption) {
+          case 'priceLowestFirst':
+            return multiplier * (a.price - b.price);
+          case 'priceHighestFirst':
+            return multiplier * (b.price - a.price);
+          case 'lengthShortestFirst':
+            return multiplier * (a.length - b.length);
+          case 'lengthLongestFirst':
+            return multiplier * (b.length - a.length);
+          default:
+            // 'popularity' or default sorting
+            return 0;
+        }
+      });
     return sorted;
   };
 
-  const handleSortChange = (option: string): void => {
-    if (sortOption === option) {
-      setSortDirection(!sortDirection); // Toggle direction if the same option is selected
-    } else {
-      setSortOption(option);
-      setSortDirection(true); // Reset direction when a new option is selected
-    }
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMaxPrice(parseInt(e.target.value));
   };
 
   return (
     <div className='bg-white outline-none shadow-md py-4 px-2 rounded-xl'>
-        <ul>
-        <div className='flex flex-row items-center gap-2'>
-            <GiAfrica size={24} />  
-            <p>Africa</p>      
-        </div>
-        <div className='py-3'>
-          <hr />
-        </div>
-        <li className='w-full flex flex-col justify-start gap-4'>
-          <label className='gap-2 flex flex-row items-center'>
-            <input
-              type="checkbox"
-              checked={sortOption === 'popularity'}
-                onChange={() => handleSortChange('popularity')}
-                className='p-2 h-5 w-5'
-            />
-            Kenya
-          </label>
-          <label className='gap-2 text-sm flex flex-row items-center'>
-            <input
-              type="checkbox"
-              checked={sortOption === 'priceLowestFirst'}
-              onChange={() => handleSortChange('priceLowestFirst')}
-              className='p-2 h-5 w-5'
-            />
-            Uganda
-          </label>
-          <label className='gap-2 text-sm flex flex-row items-center'>
-            <input
-              type="checkbox"
-              checked={sortOption === 'priceHighestFirst'}
-              onChange={() => handleSortChange('priceHighestFirst')}
-              className='p-2 h-5 w-5'
-            />
-            Tanzania
-          </label>
-          <label className='gap-2 text-sm flex flex-row items-center'>
-            <input
-              type="checkbox"
-              checked={sortOption === 'lengthShortestFirst'}
-              onChange={() => handleSortChange('lengthShortestFirst')}
-              className='p-2 h-5 w-5'
-            />
-            DRC
-          </label>
-          <label className='gap-2 text-sm flex flex-row items-center'>
-            <input
-              type="checkbox"
-              checked={sortOption === 'lengthLongestFirst'}
-              onChange={() => handleSortChange('lengthLongestFirst')}
-              className='p-2 h-5 w-5'
-            />
-            South Africa
-          </label>
-        </li>
-      </ul>
 
+      <span className=''>Your budget for the offer:</span>
+      <div className='py-3'>
+        <hr />
+      </div>
+      <div className='flex flex-col'>
+        <p>Ksh 0 - Ksh {maxPrice}</p>
+        <input
+          type='range'
+          min='0'
+          max='980000000'
+          value={maxPrice}
+          onChange={handlePriceChange}
+          className='w-full'
+        />
+      </div>
       <ul>
         {sortedProducts().map((product) => (
           <li key={product.id}>
-            {/* Display your product information here */}
             {product.name} - Price: ${product.price} - Length: {product.length} units
           </li>
         ))}
@@ -117,4 +74,4 @@ const Contients: React.FC<ProductListProps> = ({ products }) => {
   );
 };
 
-export default Contients;
+export default Continents;
