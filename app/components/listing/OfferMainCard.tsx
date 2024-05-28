@@ -9,6 +9,7 @@ import Image from "next/image";
 import HeartButton from "../container/HeartButton";
 import Button from "../container/Button";
 import { safeTour } from "@/app/types";
+import { FaCheck } from "react-icons/fa6";
 
 
 interface ListingCardProps {
@@ -91,40 +92,40 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
                 <span> {data.title} </span>
               </div>
               <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c text-neutral-800">
-                <span>{ data.days}</span> Days from {data.locStart} to {data.locEnd}
+                Offer Available for: <span className="text-neutral-500 text-sm">{ data.days} days</span>
               </div>
             <div>
              <span className="text-sm px-3 py-[4px] mb-[6px] border-neutral-300 border-solid border-2 text-neutral-700 rounded-lg">{data.category }</span>            
             </div>
               <div className="flex flex-row py-0.5 items-center gap-1">
                   <div>
-                     <span className="font-normal main-image-small-spans-c">Operator:</span> <span className="text-green-500 underline">{data.operator}</span>
+                     <span className="font-normal main-image-small-spans-c">Location:</span> <span className="text-green-500 underline">Diani</span>
                   </div>
                 </div> 
             <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c-main text-neutral-800">
                 <span className="font-normal">Departures:</span> <span className="font-light text-sm text-neutral-600">{data.depStart}</span> to <span className="font-light text-sm text-neutral-600">{data.depEnd}</span> 
             </div>
-             <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c ">
-                <span className="font-normal text-neutral-800">Tour Styles:</span> <span className="font-light text-sm text-neutral-600">{data.tripStyle}</span> 
+            <div className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
+                <span className="font-normal text-green-700">Breakfast included</span> <span className="text-green-700"> <FaCheck size={18} /></span>
             </div>
-               <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c">
-                <span className="font-normal text-neutral-800">Countries Visited:</span> <span className="font-light text-sm text-neutral-600">{data.countries}</span> 
-                </div> 
-            <div>
+            <div className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
+                <span className="font-normal text-green-700">Initial deposit</span> <span className="text-green-700"> <FaCheck size={18} /></span>
+            </div> 
+            {/* <div>
              <span className="text-sm px-2 py-0.5 mb-1 border-red-500 border-solid border-2 text-red-500 rounded-xl">{data.deal}</span>            
-            </div>            
+            </div>             */}
                 </div>
             </div>
                 
             <div className="flex flex-col items-center pr-5 gap-3">
-            <div className="text-green-500">
-                 <div className="text-sm main-image-small-spans-c-btn"><span>Save</span></div>   
-                <div className="main-image-small-spans-c-btn">$ <span className="text-xl">{data.save }</span></div>
+            <div className="text-red-600">
+                 {/* <div className="text-sm main-image-small-spans-c-btn"><span>Save</span></div>    */}
+                <div className="main-image-small-spans-c-btn">Ksh. <span className="text-md line-through">{data.save }</span></div>
               </div>
             <div className="flex flex-row items-center gap-1">
                   <div><span>Price</span></div> 
                   <div>
-                      <span className="text-md font-semibold">${data.price} <span className="tour-p-main-c">pp</span></span>
+                      <span className="text-md font-semibold">Ksh. {data.price}</span>
                   </div>
             </div>
                 <div>
