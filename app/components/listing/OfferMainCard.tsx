@@ -103,7 +103,7 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
                   </div>
                 </div> 
             <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c-main text-neutral-800">
-                <span className="font-normal">Departures:</span> <span className="font-light text-sm text-neutral-600">{data.depStart}</span> to <span className="font-light text-sm text-neutral-600">{data.depEnd}</span> 
+                <span className="font-normal"></span> <span className="font-light text-sm text-neutral-700">One time offer</span>
             </div>
             <div className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
                 <span className="font-normal text-green-700">Breakfast included</span> <span className="text-green-700"> <FaCheck size={18} /></span>
