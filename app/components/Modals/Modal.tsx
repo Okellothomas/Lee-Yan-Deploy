@@ -71,9 +71,9 @@ const Modal: React.FC<ModalProps> = ({
         <IoMdClose size={18} />
       </button>
       <div className="items-center flex overflow-x-hidden justify-center overflow-y-auto fixed inset-0 z-40 outline-none focus:outline-none bg-white modal-main">
-        <div className="relative w-full md:w-4/6 lg:w-[400px] xl:w-[400px] border-[1px] border-solid border-neutral-300 rounded-lg my-6 mx-auto h-full lg:h-auto md:h-auto">
+        <div className="relative w-full md:w-4/6 lg:w-[400px] xl:w-[400px]  my-6 mx-auto h-full lg:h-auto md:h-auto">
           {/* Content */}
-          <div className={`translate duration-300 h-full ${showModal ? 'translate-y-0' : 'translate-y-full'} ${showModal ? 'opacity-100' : 'opacity-0'}`}>
+          <div className={`translate border-[1px] border-solid border-neutral-300 rounded-lg duration-300 h-full ${showModal ? 'translate-y-0' : 'translate-y-full'} ${showModal ? 'opacity-100' : 'opacity-0'}`}>
             <div className="translate h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none modal-main-content">
               {/* Header */}
               <div className="flex items-center px-6 py-3 rounded-t justify-center relative border-b-[0.001px]">

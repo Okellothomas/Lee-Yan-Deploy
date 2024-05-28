@@ -20,6 +20,7 @@ import { signIn } from 'next-auth/react';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import getCurrentUser from '@/app/actions/getCurrentUsers';
 import Lago from '../navbar/Lago';
+import Link from "next/link"
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
@@ -150,6 +151,7 @@ const RegisterModal = () => {
                 error={errors}
                 required
             />
+            <p className='text-[12px]'>By continuing, you agree to Lee-yan smart properties <Link href="/" className='text-blue-600'>Conditions of Use</Link> and <Link href="/" className='text-blue-600'>Privacy Notice.</Link></p>
         </div>
     )
 

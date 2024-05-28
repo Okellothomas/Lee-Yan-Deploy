@@ -74,7 +74,7 @@ const LoginModal = () => {
                 subtitle='Login to your account'
                 // center
             /> */}
-            <p className='font-semibold'>Sign In</p>
+            <p className='font-semibold'>Login to your account</p>
             <Input
                 id='email'
                 label='Email'
