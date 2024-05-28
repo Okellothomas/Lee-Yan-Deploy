@@ -26,7 +26,8 @@ const ProfilePage = async ({ searchParams, tourParams }: HotelPageProps) => {
       return (
         <RestrictedEmptyState/>
       );
-    }
+  }
+  
   return (
     <div>
     <div className="all-destinations-main-admin-profile flex flex-col items-center justify-center text-lg font-bold">
