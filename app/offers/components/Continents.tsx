@@ -45,10 +45,16 @@ const Continents: React.FC<ProductListProps> = ({ products }) => {
     setMaxPrice(parseInt(e.target.value));
   };
 
+  const handlePriceInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value);
+    if (!isNaN(value)) {
+      setMaxPrice(value);
+    }
+  };
+
   return (
     <div className='bg-white outline-none shadow-md py-4 px-2 rounded-xl'>
-
-      <span className=''>Your budget for the offer:</span>
+      <span>Your budget for the offer:</span>
       <div className='py-3'>
         <hr />
       </div>
@@ -61,6 +67,12 @@ const Continents: React.FC<ProductListProps> = ({ products }) => {
           value={maxPrice}
           onChange={handlePriceChange}
           className='w-full'
+        />
+        <input
+          type='number'
+          value={maxPrice}
+          onChange={handlePriceInputChange}
+          className='mt-2 p-2 border rounded'
         />
       </div>
       <ul>

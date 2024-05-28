@@ -1,7 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { GiAfrica, GiSpeedBoat } from "react-icons/gi";
-import { FcAssistant } from "react-icons/fc";
 import { MdOutlineLocalOffer } from "react-icons/md";
 
 interface Product {
@@ -79,23 +77,12 @@ const TourOperators: React.FC<ProductListProps> = ({ products }) => {
             />
             Land sales
             </label>
-            {/* <label className='gap-2 text-sm flex flex-row items-center'>
-            <input
-              type="checkbox"
-              checked={selectedCategories.includes('apt')}
-              onChange={() => handleCategoryChange('apt')}
-              className='p-2 h-5 w-5'
-            />
-            APT Tours
-            </label> */}
         </li>
-        {/* Add similar checkboxes for other categories */}
       </ul>
 
       <ul>
         {filteredProducts().map((product) => (
           <li key={product.id}>
-            {/* Display your product information here */}
             {product.name} - Length: {product.length} units - Category: {product.category}
           </li>
         ))}

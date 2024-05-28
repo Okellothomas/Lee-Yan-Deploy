@@ -66,10 +66,10 @@ export default function AllDestinationsPage({ tourParams }: IParams) {
         <Container>
           <div className="flex flex-row justify-between items-center py-3">
             <div className="flex font-bold flex-row gap-40 items-center">
-              <div className="filter-bg-color rounded-2xl items-center py-2 pl-2 pr-6 sm:pr-1 text-start all-destination-filter">
+              <div className="rounded-2xl items-center py-2 pl-2 pr-6 sm:pr-1 text-start all-destination-filter">
                 <p className="">Filter By:</p>
               </div>
-              <div className="font-semibold text-xl">{visibleTours.length} Offers</div>
+              <div className="font-semibold text-xl">{visibleTours.length} Offers Available</div>
             </div>
             <div>
               <Sort products={products} />

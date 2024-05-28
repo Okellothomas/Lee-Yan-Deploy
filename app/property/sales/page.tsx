@@ -1,31 +1,31 @@
-import getCurrentUser from "../actions/getCurrentUsers";
-import getListings, { IListingsParams } from "../actions/getListings";
-import Container from "../components/container/Container";
-import EmptyState from "../components/container/EmptyState";
-import ListingCard from "../components/listing/ListingCard";
-import Categories from "../components/navbar/Categories";
-import Search from "../components/navbar/Search";
+import getCurrentUser from "../../actions/getCurrentUsers";
+import getListings, { IListingsParams } from "../../actions/getListings";
+import Container from "../../components/container/Container";
+import EmptyState from "../../components/container/EmptyState";
+import ListingCard from "../../components/listing/ListingCard";
+import Categories from "../../components/navbar/Categories";
+import Search from "../../components/navbar/Search";
 import Link from "next/link";
-import BookingCard from "../mainpage/components/BookingCard";
-import ListingValue from "../components/listing/ListingValue";
-import getTours, { IToursParams } from "../actions/getTours";
-import TourCard from "../components/listing/TourCard";
+import BookingCard from "../../mainpage/components/BookingCard";
+import ListingValue from "../../components/listing/ListingValue";
+import getTours, { IToursParams } from "../../actions/getTours";
+import TourCard from "../../components/listing/TourCard";
 import TheCategoriess from "./TheCategoriess";
-import getListingsHotels from "../actions/getListingsHotels";
+import getListingsHotels from "../../actions/getListingsHotels";
 import { Metadata } from "next";
-import TourCardSecondary from "../components/listing/TourCardSecondary";
+import TourCardSecondary from "../../components/listing/TourCardSecondary";
 
-import imagebook from "../../public/images/maint.jpg"
-import imageone from "../../public/images/ps.jpeg"
-import imagetwo from "../../public/images/psa.jpeg"
-import imagethree from "../../public/images/psb.jpg"
-import imagefour from "../../public/images/psc.jpg"
-import imagefive from "../../public/images/ps.jpg"
-import imagesix from "../../public/images/psd.jpg"
-import Emblawebsite from "../mainpage/components/Emblawebsite";
-import TourPriceCard from "../components/listing/TourPriceCard";
-import TourCardLists from "../components/listing/TourCardLists";
-import EmblaMobile from "../mainpage/components/EmblaMobile";
+import imagebook from "../../../public/images/maint.jpg"
+import imageone from "../../../public/images/ps.jpeg"
+import imagetwo from "../../../public/images/psa.jpeg"
+import imagethree from "../../../public/images/psb.jpg"
+import imagefour from "../../../public/images/psc.jpg"
+import imagefive from "../../../public/images/ps.jpg"
+import imagesix from "../../../public/images/psd.jpg"
+import Emblawebsite from "../../mainpage/components/Emblawebsite";
+import TourPriceCard from "../../components/listing/TourPriceCard";
+import TourCardLists from "../../components/listing/TourCardLists";
+import EmblaMobile from "../../mainpage/components/EmblaMobile";
 
 // Define the interface for the Home component props
 interface HotelPageProps {
