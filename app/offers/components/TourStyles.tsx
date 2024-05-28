@@ -32,7 +32,7 @@ const TourStyles: React.FC<ProductListProps> = ({ products }) => {
   };
 
   return (
-    <div className='bg-white outline-none shadow-md py-4 px-2 rounded-xl'>
+    <div className='border-[1px] border-solid border-neutral-300 outline-none shadow-sm py-4 px-2 rounded-xl'>
       <ul>
         <div className='flex flex-row items-center gap-2'>
           <CiFilter size={25} />

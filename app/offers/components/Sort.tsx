@@ -39,7 +39,7 @@ const Sort: React.FC<ProductListProps> = ({ products }) => {
     <div>
       <label>
         Sort by:
-        <select className='p-2 bg-slate-200 outline-none hover:outline-none text-neutral-800 rounded-xl' value={sortOption} onChange={(e) => handleSortChange(e.target.value)}>
+        <select className='p-2 border-[1px] border-solid border-neutral-300 outline-none hover:outline-none text-neutral-800 rounded-xl' value={sortOption} onChange={(e) => handleSortChange(e.target.value)}>
           <option value="popularity">Popularity</option>
           <option value="priceLowestFirst">Price (Lowest First)</option>
           <option value="priceHighestFirst">Price (Highest First)</option>
