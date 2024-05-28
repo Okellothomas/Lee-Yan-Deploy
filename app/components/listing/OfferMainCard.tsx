@@ -87,7 +87,7 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
                   </div> */}
                 </div>
             
-           <div className="w-[35.6vw] main-image-small-spans">
+           <div className="w-[32vw] main-image-small-spans">
               <div className="text-lg py-0.5 w-[30vw] font-semibold main-image-small-spans-c-title">
                 <span> {data.title} </span>
               </div>
@@ -129,7 +129,7 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
                   </div>
             </div>
                 <div>
-                  <span className=" border-green-500 text-green-500 border-solid px-4 py-2 border-2 bg-white hover:bg-green-500 hover:text-white cursor-pointer text-md rounded-xl main-image-small-spans-c-btn" >Availability</span>        
+                  <span className=" border-green-500 text-green-500 border-solid px-4 py-2 border-2 bg-white hover:bg-green-500 hover:text-white cursor-pointer text-md rounded-xl main-image-small-spans-c-btn" >See availability</span>        
                 </div>
             </div> 
 

@@ -38,12 +38,12 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
     // console.log(tours);
 
     // Render the component with the fetched tours
-    if(currentUser?.userType !== "client") {
-      // Render link to homepage if the current user is not an admin
-      return (
-        <RestrictedEmptyState/>
-      );
-    }
+    // if(currentUser?.userType !== "client") {
+    //   // Render link to homepage if the current user is not an admin
+    //   return (
+    //     <RestrictedEmptyState/>
+    //   );
+    // }
     return (
       <div>
         <div className="all-destinations-main-admin-profile flex flex-col items-center justify-center text-lg font-bold">
