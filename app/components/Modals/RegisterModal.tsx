@@ -19,6 +19,8 @@ import Button from '../container/Button';
 import { signIn } from 'next-auth/react';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import getCurrentUser from '@/app/actions/getCurrentUsers';
+import Lago from '../navbar/Lago';
+import Link from "next/link"
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
@@ -102,8 +104,8 @@ const RegisterModal = () => {
     const bodyContent = (
         <div className='flex flex-col gap-4'>
             <Heading
-                title='Welcome to DevanceTours'
-                subtitle='Create an Account'
+                title='Create a new account'
+                subtitle=''
                 // center
             />
             <Input
@@ -149,6 +151,7 @@ const RegisterModal = () => {
                 error={errors}
                 required
             />
+            <p className='text-[12px]'>By continuing, you agree to Lee-yan smart properties <Link href="/" className='text-blue-600'>Conditions of Use</Link> and <Link href="/" className='text-blue-600'>Privacy Notice.</Link></p>
         </div>
     )
 
@@ -165,13 +168,10 @@ const RegisterModal = () => {
             </div> */}
             <div className='text-normal-500 text-center mt-4 font-light'>
                 <div className='justify-center flex flex-row items-center gap-2'>
-                    <div>
-                        Already have an account?
-                    </div>
                     <div
                         onClick={toggle}
-                        className='text-neutral-800 cursor-pointer hover:underline'>
-                        Log in
+                        className='text-neutral-800 w-full justify-center hover:bg-neutral-100 border-[1px] border-solid border-neutral-300 rounded-lg px-5 py-[6px] text-sm hover:shadow-md cursor-pointer'>
+                        Already have an account? Log in
                     </div>
                 </div>
             </div>
@@ -181,7 +181,7 @@ const RegisterModal = () => {
     <Modal
           disabled={isLoading}  
           isOpen={registerModal.isOpen} 
-          title='Register'
+          title={<Lago />}
           actionLabel='Continue'
           onClose={registerModal.onClose}
           onSubmit={handleSubmit(onSubmit)} 

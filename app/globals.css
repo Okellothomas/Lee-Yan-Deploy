@@ -837,7 +837,7 @@
 
   .main-image-small-image-main-one {
     height: auto !important;
-    width: 22vw !important;
+    /* width: 22vw !important; */
   }
 
   .main-image-small-image {
@@ -1135,10 +1135,10 @@
     z-index: 10 !important;
   }
 
-  .main-image-small-image-main-one {
+  /* .main-image-small-image-main-one {
     height: 20.5vh !important;
     width: 20.5vw !important;
-  }
+  } */
 
   .trending-list-main-page {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -1245,11 +1245,11 @@
     height: 35vh !important;
     /* width: 91vw !important; */
   }
-
+/* 
   .main-image-small-image-main-one {
     height: 20.5vh !important;
     width: 20.5vw !important;
-  }
+  } */
 
   .trending-list-main-page {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -1368,10 +1368,10 @@
     visibility: hidden !important;
   }
 
-  .main-image-small-image-main-one {
+  /* .main-image-small-image-main-one {
     height: 20.5vh !important;
     width: 20.5vw !important;
-  }
+  } */
 
   .trending-list-main-page {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;

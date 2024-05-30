@@ -53,7 +53,7 @@ const Continents: React.FC<ProductListProps> = ({ products }) => {
   };
 
   return (
-    <div className='bg-white outline-none shadow-md py-4 px-2 rounded-xl'>
+    <div className='border-[1px] border-solid border-neutral-300 outline-none shadow-sm py-4 px-2 rounded-xl'>
       <span>Your budget for the offer:</span>
       <div className='py-3'>
         <hr />

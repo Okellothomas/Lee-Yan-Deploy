@@ -68,13 +68,13 @@ const LoginModal = () => {
     }, [LoginModal, registerModal]);
 
     const bodyContent = (
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-3'>
             {/* <Heading
                 title='Welcome back'
                 subtitle='Login to your account'
                 // center
             /> */}
-            <p className=''>Sign In</p>
+            <p className='font-semibold'>Login to your account</p>
             <Input
                 id='email'
                 label='Email'
@@ -99,25 +99,26 @@ const LoginModal = () => {
     const footerContent = (
         <div className='flex flex-col gap-4 mt-0'>
             <hr />
-            {/* <div className='google-btn'>
-            <Button
+            <div className=''>
+            {/* <Button
                 outline
                 label='Continue with Google'
                 icon={FcGoogle}
                 onClick={() => signIn('google')}
-                />
-            </div> */}
+                /> */}
+                <p className='border-[1px] border-solid hover:cursor-pointer py-[6px] gap-3 border-neutral-300 w-full flex justify-center hover:shadow-md items-center rounded-md' onClick={() => signIn('google')}><span className='text-neutral-600'>Sign in with google</span> <span><FcGoogle size={24} /> </span></p>
+            </div>
             <div className='text-normal-500 text-center mt-1 font-light'>
                 <div className='items-center gap-2'>
-                    <div className='flex mb-3 gap-2 justify-center items-center'>
-                        <div className='w-[90px] h-[3px]'><hr /></div>
+                    <div className='flex mb-3 gap-1 justify-center items-center'>
+                        <div className='w-[90px] h-[4px]'><hr /></div>
                         <div><p className='text-sm text-neutral-600'>New to Lee-yan smart properties?</p></div>
-                        <div  className='w-[90px] h-[3px]'><hr /></div>
+                        <div  className='w-[90px] h-[4px]'><hr /></div>
                     </div>
                     <div
                         onClick={toggle}
-                        className='text-neutral-800 justify-center hover:bg-neutral-100 border-[0.8px] border-solid border-neutral-400 rounded-xl px-5 py-[6px] text-sm hover:shadow-md cursor-pointer hover:underline'>
-                        Create your Lee-yan smart properties account
+                        className='text-neutral-800 justify-center hover:bg-neutral-100 border-[1px] border-solid border-neutral-300 rounded-lg px-5 py-[6px] text-sm hover:shadow-md cursor-pointer'>
+                        Create a new your  account
                     </div>
                 </div>
             </div>
