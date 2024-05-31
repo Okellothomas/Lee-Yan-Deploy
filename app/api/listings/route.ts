@@ -138,15 +138,13 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
         else 
         {
 
-       
-           
 
 
         if (country && country!=='') {
             searchParamss.country =  country.toLowerCase();
         }
         if (city && city!=='') {
-            searchParamss.city =  city.toLowerCase();
+            searchParamss.city =  city;
         }
 
         console.log("Search params", searchParamss)

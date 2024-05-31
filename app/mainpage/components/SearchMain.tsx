@@ -28,8 +28,8 @@ const SearchMain = () => {
 
 
     const[searchDestination, setSearchDestination]=useState(  {
-        country: 0,
-        city: 0})
+        country: '',
+        city: ''})
 
     const [options, setOptions] = useState(
       {
@@ -37,6 +37,8 @@ const SearchMain = () => {
       rooms: 0}
   )
 
+
+  
   const [openoptions, setOpenoptions] = useState(false)
 
     useEffect(()=>{
@@ -57,6 +59,8 @@ const SearchMain = () => {
     }
 
    
+
+    
    // setTotalPrice(numberOfDays * listing.price*options.guests + options.rooms*(listing.save ||0));
 
 
@@ -68,10 +72,32 @@ setOptions((prev) => {
 });
 
 };
+
+const inputRef = useRef<HTMLInputElement>(null);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        inputRef.current &&
+        !inputRef.current.contains(event.target as Node)
+      ) {
+        setOpenOptions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   return (  
-    <div className="shadow-md 2xl:w-[850px] xl:w-[850px] border-[1px] border-solid border-neutral-300 bg-white rounded-full py-2 px-4 flex justify-between relative items-center gap-2">
-              <div className="pl-4 items-center text-center hover:rounded-full hover:cursor-pointer">
-              <div className="flex flex-auto gap-4 items-center">
+    <div className="shadow-md 2xl:w-[1000px] xl:w-[1000px] border-[1px] border-solid border-neutral-300 bg-white rounded-full py-2 px-4 flex justify-between  items-center gap-2">
+              <div className="pl-4 w-auto items-center text-center hover:rounded-full hover:cursor-pointer">
+              <div className="flex flex-auto gap-4 items-center w-auto">
                   <IoSearchOutline size={24} className="flex-none" />
                       {/* <input
                           placeholder="Place to go ?"
@@ -84,32 +110,41 @@ setOptions((prev) => {
 
               </div>
               <hr className="h-[24px] w-[0.8px] bg-neutral-400 mx-auto"/>
-                <div className="px-6 items-center text-center hover:bg-neutral-200 hover:rounded-full hover:cursor-pointer">
+                <div className="px-6 w-auto items-center text-center hover:bg-neutral-200 hover:rounded-full hover:cursor-pointer">
                 <p className="text-black">Check In</p>
                 <DatePicker selected={checkinDate} onChange={(date) => setCheckinDate(date)} minDate={new Date()} className="px-4 py-2 rounded-md outline-none"/>
               </div>
               <hr className="h-[24px] w-[0.8px] bg-neutral-400 mx-auto"/>
-               <div className="px-6 items-center text-center  hover:bg-neutral-200 hover:rounded-full hover:cursor-pointer">
-                 <p className="text-black">Check out</p>
-                 <DatePicker selected={checkoutDate} onChange={(date) => setCheckoutDate(date)} minDate={new Date()} className="px-4 py-2 rounded-md outline-none"/>
+               <div className="px-6 items-center w-auto text-center   hover:rounded-full hover:cursor-pointer">
+                 
+               <DatePicker
+                    selected={checkoutDate}
+                    onChange={(date) => setCheckoutDate(date)}
+                     minDate={new Date()}
+                     className="px-4 py-2 rounded-md outline-none datepicker-label-up"
+                    >
+                         Checkout Date
+                </DatePicker>
+
                 </div>
                 <hr className="h-[24px] w-[0.8px] bg-neutral-400 mx-auto"></hr>
                
                     
 
-                <div className="flex flex-col px-4 justify-between item-center gap-1">
+                <div className="flex flex-col px-2 justify-between item-center gap-1 relative">
                
                
-                <div className="flex flex-row items-center mt-2">
-                    <label htmlFor="guests" className="text-right mr-4 text-gray-700">
+                <div className="flex flex-row items-center mt-2" ref={dropdownRef}>
+                    <label htmlFor="guests" className="text-right mr-4 text-gray-500">
                         Guests:
                     </label>
                     <input
                         id="guests"
                         type="text"
                         value={`${options.guests} Guests ${options.rooms} Rooms`}
-                        className="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="shadow border rounded w-auto py-2 px-2 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                         onClick={toggleOptions}
+                        ref={inputRef}
                         readOnly
                     />
                 </div>
