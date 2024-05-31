@@ -128,7 +128,7 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
     }, [sortOption]);
   
     const sortedTours = [...tours]
-      .filter(tour => tour.tourists.length < tour.guestCount)
+      .filter(tour => 0 < tour.guestCount)
       .sort((a, b) => {
         if (sortOption === 'priceLowestFirst') {
           return a.price - b.price;
@@ -145,11 +145,11 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
     const products: any = [];
 
     // Check if there are no listings, display EmptyState component
-    if (visibleTours.length === 0) {
+    if (visibleTours?.length === 0) {
       return <EmptyState showReset />;
     }
 
-    const totalPages = Math.ceil(tours.length / PAGE_SIZE);
+    const totalPages = Math.ceil(tours?.length / PAGE_SIZE);
 
     return (
       <div>
@@ -172,7 +172,7 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
               <div className="filter-bg-color rounded-2xl items-center py-2 pl-2 pr-6 sm:pr-1 text-start all-destination-filter">
                 <p className="">Filter Results</p>
               </div>
-              <div className="font-semibold text-xl">{visibleTours.length} Tours</div>
+              <div className="font-semibold text-xl">{visibleTours?.length} Tours</div>
             </div>
             <div>
               <Sort products={products} sortOption ={sortOption} setSortOption={setSortOption}/>
