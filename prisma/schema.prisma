@@ -5,7 +5,6 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["filterJson"]
-
 }
 
 // Datasource block for connecting to MongoDB, using the URL from the environment variables
@@ -35,6 +34,8 @@ model User {
   reservations Reservation[] // One-to-many relationship with the "Reservation" model
   tours        Tour[]
   reserv       Reserv[]
+  propertysale Property[]
+  land         Land[]
 }
 
 // Model representing the "Account" entity in the database
@@ -121,27 +122,37 @@ model Blog {
   createdAt        DateTime @default(now()) // Date and time when the reservation was created
 }
 
+model Offers {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  title      String // Title of the listing
+  days       String?
+  action     String?
+  category   String?
+  type       String?
+  inclusion  String?
+  imageSrc   String[] // URL for the listing image
+  price      String?
+  offerprice String?
+  createdAt  DateTime @default(now()) // Date and time when the reservation was created
+}
 
 // Model representing the "PaymentLog" entity in the database
 model Paymentlog {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
-  paymentDetails Json? // Field for holding payment details
-  merchantRequestId    String?
-  checkoutRequestId    String?
-  createdAt        DateTime @default(now()) // Date and time when the log was created
- 
-
-
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  paymentDetails    Json? // Field for holding payment details
+  merchantRequestId String?
+  checkoutRequestId String?
+  createdAt         DateTime @default(now()) // Date and time when the log was created
 }
 
 // Model representing the "Reservation" entity in the database
 model Reservation {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  
-  user           User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId         String?  @db.ObjectId // Foreign key referencing the "User" model
-  Listing        Listing? @relation(fields: [listingId], references: [id], onDelete: Cascade)
-  listingId      String?  @db.ObjectId // Foreign key referencing the "Listing" model
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String?  @db.ObjectId // Foreign key referencing the "User" model
+  Listing   Listing? @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String?  @db.ObjectId // Foreign key referencing the "Listing" model
 
   numberOfGuests Int // Guest specified for this reservatione
   numberOfRooms  Int //Number of rooms specified for reservation
@@ -209,6 +220,55 @@ model Tour {
   // Relationship with the "User" model
   user   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   reserv Reserv[]
+}
+
+model Property {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  title         String // Title of the listing
+  roomCount     Int // Description of the listing
+  bathRoomCount Int // URL for the listing image
+  bedRoomCount  Int // URL for the listing image
+  toiletCount   Int // Description of the listing
+  county        String?
+  town          String?
+  size          Int
+  houseType     String?
+  imageSrc      String[] // URL for the listing image
+  option        String?
+  availability  String?
+  type          String?
+  intialDeposit Int?
+  parking_space Int?
+  covered_area  Int? // URL
+  price         Int?
+  offerPrice    Int? // Description
+  amenities     String[]
+  overview      String?
+  userId        String   @db.ObjectId // Foreign key referencing the "User" model
+  // Relationship with the "User" model
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // reserv Reserv[]
+}
+
+model Land {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  title         String // Title of the listing
+  county        String?
+  town          String?
+  size          Int
+  imageSrc      String[] // URL for the listing image
+  availability  String?
+  type          String?
+  intialDeposit Int?
+  covered_area  Int? // URL
+  price         Int?
+  offerPrice    Int? // Description
+  titleDeed     String? //
+  overview      String?
+  userId        String   @db.ObjectId // Foreign key referencing the "User" model
+  // Relationship with the "User" model
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // reserv Reserv[]
 }
 
 model Reserv {
