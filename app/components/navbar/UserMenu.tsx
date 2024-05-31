@@ -202,7 +202,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
                           signUpModal.onOpen("admin");
                           handleMenuItemClick();
                         }}
-                        label="Add administrator"
+                        label="Create an admin"
                       />
                         </div>
                     <div className="flex flex-row items-center">
@@ -212,7 +212,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
                           signUpModal.onOpen("operator");
                           handleMenuItemClick();
                         }}
-                        label="Add an agent"
+                        label="Create an agent"
                       />
                     </div>
                     <div className="flex flex-row items-center">
