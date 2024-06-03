@@ -220,6 +220,7 @@ const cardsDatas = [
         currentUser = await getCurrentUser();
     }
   const listings = await getListings(searchParams);
+
   const tours: any = await getTours(tourParams);
 
   const filteredTours = tours.filter((tour: any) => tour.tourists.length < tour.guestCount).slice(0, 4);
@@ -249,7 +250,7 @@ const cardsDatas = [
       <Container>
       <div className="SearchMain-page w-full text-center rounded-full">
         <SearchMain />
-          </div>
+      </div>
       </Container>
       </div>
       <div className="flex items-center mt-6 justify-center">

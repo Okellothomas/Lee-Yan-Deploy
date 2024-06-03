@@ -95,10 +95,10 @@ const inputRef = useRef<HTMLInputElement>(null);
     };
   }, []);
   return (  
-    <div className="shadow-md 2xl:w-[1000px] xl:w-[1000px] border-[1px] border-solid border-neutral-300 bg-white rounded-full py-2 px-4 flex justify-between  items-center gap-2">
+    <div className="shadow-md 2xl:w-[900px] xl:w-[900px] border-[1px] border-solid border-neutral-300 bg-white rounded-full py-2 px-4 flex justify-center items-center">
               <div className="pl-4 w-auto items-center text-center hover:rounded-full hover:cursor-pointer">
               <div className="flex flex-auto gap-4 items-center w-auto">
-                  <IoSearchOutline size={24} className="flex-none" />
+                  {/* <IoSearchOutline size={24} className="flex-none" /> */}
                       {/* <input
                           placeholder="Place to go ?"
                           type="text"
@@ -110,34 +110,31 @@ const inputRef = useRef<HTMLInputElement>(null);
 
               </div>
               <hr className="h-[24px] w-[0.8px] bg-neutral-400 mx-auto"/>
-                <div className="px-6 w-auto items-center text-center hover:bg-neutral-200 hover:rounded-full hover:cursor-pointer">
-                <p className="text-black">Check In</p>
-                <DatePicker selected={checkinDate} onChange={(date) => setCheckinDate(date)} minDate={new Date()} className="px-4 py-2 rounded-md outline-none"/>
-              </div>
+                <div className="w-auto items-center text-center hover:rounded-full hover:cursor-pointer">
+                <label htmlFor="checkin-date" className="text-md hover:cursor-pointer">Check In</label>
+                <DatePicker id="checkin-date" selected={checkinDate} onChange={(date) => setCheckinDate(date)} placeholderText="Add date in" minDate={new Date()} className="hover:cursor-pointer outline-none text-center rounded-bl-lg rounded-br-lg items-center"/>
+                </div>
               <hr className="h-[24px] w-[0.8px] bg-neutral-400 mx-auto"/>
-               <div className="px-6 items-center w-auto text-center   hover:rounded-full hover:cursor-pointer">
-                 
-               <DatePicker
+               <div className="items-center w-auto text-center  hover:rounded-full hover:cursor-pointer">
+              <label htmlFor="checkout-date" className="text-md hover:cursor-pointer">Check Out</label>
+              <DatePicker
+                   id="checkout-date"
                     selected={checkoutDate}
                     onChange={(date) => setCheckoutDate(date)}
-                     minDate={new Date()}
-                     className="px-4 py-2 rounded-md outline-none datepicker-label-up"
+                    minDate={new Date()}
+                    placeholderText="Add date out"
+                    className="hover:cursor-pointer outline-none text-center rounded-bl-lg rounded-br-lg items-center"
                     >
-                         Checkout Date
                 </DatePicker>
-
                 </div>
                 <hr className="h-[24px] w-[0.8px] bg-neutral-400 mx-auto"></hr>
-               
-                    
-
                 <div className="flex flex-col px-2 justify-between item-center gap-1 relative">
                
                
                 <div className="flex flex-row items-center mt-2" ref={dropdownRef}>
-                    <label htmlFor="guests" className="text-right mr-4 text-gray-500">
+                    {/* <label htmlFor="guests" className="text-right mr-4 text-gray-500">
                         Guests:
-                    </label>
+                    </label> */}
                     <input
                         id="guests"
                         type="text"

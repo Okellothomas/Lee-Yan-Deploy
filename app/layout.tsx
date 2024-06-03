@@ -17,12 +17,13 @@ import Footer from './components/footer/Footer'
 import TourModal from './components/Modals/TourModal'
 import BlogModal from './components/Modals/BlogModal'
 import NewsModal from './components/Modals/NewsModal'
+import OfferModal from './components/Modals/OfferModal'
 
 // Define metadata for the page
 export const metadata: Metadata = {
   title: {
-    default: "Devanca Tours: Your Ultimate Travel and Tour Agency!",
-    template: "%s - Devanca Tours: Your Ultimate Travel and Tour Agency!"
+    default: "Lee-yan smart properties: Your Ultimate Travel and Tour Agency!",
+    template: "%s - Lee-yan smart properties: Your Ultimate Travel and Tour Agency!"
   },
   description: 'Book customized vacations, tours, and travel packages worldwide with Devanca Tours, your ultimate bespoke travel agency.',
   keywords: "Tour Travel Vacations Holidays Packages Worldwide Bespoke"
@@ -52,6 +53,7 @@ export default async function RootLayout({
         <TourModal />
         <BlogModal />
         <NewsModal />
+        <OfferModal />
         {/* Render the main navigation bar with the current user information */}
         <div className='layout-navbar'><Navbar currentUser={currentUser} /></div>
         {/* Main content container with top and bottom padding */}

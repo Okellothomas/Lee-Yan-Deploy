@@ -21,7 +21,7 @@ import imagetwo from "../../../public/images/psa.jpeg"
 import imagethree from "../../../public/images/psb.jpg"
 import imagefour from "../../../public/images/psc.jpg"
 import imagefive from "../../../public/images/ps.jpg"
-import imagesix from "../../../public/images/psd.jpg"
+import imagesix from "../../../public/images/psd.jpg" 
 import Emblawebsite from "../../mainpage/components/Emblawebsite";
 import TourPriceCard from "../../components/listing/TourPriceCard";
 import TourCardLists from "../../components/listing/TourCardLists";
@@ -34,7 +34,7 @@ interface HotelPageProps {
 }
 
 export const metadata: Metadata =  {
-  title: "Hotel",
+  title: "Property sales",
 }
 
 // Home component is defined as an asynchronous function

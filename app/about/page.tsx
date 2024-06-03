@@ -34,7 +34,7 @@ interface HotelPageProps {
 }
 
 export const metadata: Metadata =  {
-  title: "Hotel",
+  title: "About",
 }
 
 // Home component is defined as an asynchronous function

@@ -15,9 +15,20 @@ import { GrBlog } from "react-icons/gr";
 import { MdOutlineAdminPanelSettings, MdOutlineHotel, MdOutlineHouseboat } from "react-icons/md";
 import { GiKangaroo } from "react-icons/gi";
 import { CiLogin } from "react-icons/ci";
+import { MdOutlineLocalOffer } from "react-icons/md";
 import { IoIosHeartEmpty } from "react-icons/io";
+import { FaHouseCircleCheck } from "react-icons/fa6";
+import { GiSpookyHouse } from "react-icons/gi";
+import { FaPenClip } from "react-icons/fa6";
+import { GiIsland } from "react-icons/gi";
+import { BsPen } from "react-icons/bs";
+import { TbToolsKitchen3 } from "react-icons/tb";
+import { BiBuildingHouse } from "react-icons/bi";
+import { RiAdminLine } from "react-icons/ri";
+import { MdOutlineRealEstateAgent } from "react-icons/md";
 import useBlogModal from "@/app/hooks/useBlogModel";
 import useNewsModal from "@/app/hooks/useNewsModel";
+import useOfferModal from "@/app/hooks/useOfferModal";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -31,6 +42,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
   const rentModal = useRentModal();
   const tourModal = useTourModal();
   const blogModal = useBlogModal();
+  const offerModel = useOfferModal();
   const newsModal = useNewsModal();
   const signUpModal = useRegisterModal();
   const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +91,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
     <div className="relative" ref={menuRef}>
       <div className="flex flex-row items-center gap-3">
         <div
-          className={`p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition ${
+          className={`p-4 md:py-1 md:px-2 border-[1.5px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition ${
             isOpen ? "" : ""
           }`}
           onClick={toggleOpen}
@@ -91,7 +103,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
         </div>
       </div>
       {isOpen && (
-        <div className="absolute nav-small-menu rounded-xl shadow-md bg-white text-black overflow-hidden right-0 top-11 text-sm user-menu-width">
+        <div className="absolute nav-small-menu rounded-xl border-[1.5px] border-neutral-300 shadow-md bg-white text-black overflow-hidden right-0 top-11 text-sm user-menu-width">
           <div className="flex flex-col px-2 w-full cursor-pointer">
             {currentUser ? (
               <>
@@ -196,7 +208,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
                       />
                     </div>
                     <div className="flex flex-row items-center">
-                      <MdOutlineAdminPanelSettings className="nav-icons-items" size={23} />{" "}
+                      <RiAdminLine className="nav-icons-items" size={23} />{" "}
                       <MenuItem
                         onClick={() => {
                           signUpModal.onOpen("admin");
@@ -204,9 +216,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
                         }}
                         label="Create an admin"
                       />
-                        </div>
+                    </div>
                     <div className="flex flex-row items-center">
-                      <MdOutlineAdminPanelSettings className="nav-icons-items" size={23} />{" "}
+                      <MdOutlineRealEstateAgent className="nav-icons-items" size={23} />{" "}
                       <MenuItem
                         onClick={() => {
                           signUpModal.onOpen("operator");
@@ -216,30 +228,50 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
                       />
                     </div>
                     <div className="flex flex-row items-center">
-                      <MdOutlineHotel className="nav-icons-items" size={23} />
+                      <TbToolsKitchen3 className="nav-icons-items" size={23} />
                       <MenuItem
                         onClick={() => {
                           rentModal.onOpen();
                           handleMenuItemClick();
                         }}
-                        label="Add hotel/house"
+                        label="Create new stay"
                       />
                     </div>
                     <div className="flex flex-row items-center">
-                      <GrBlog className="nav-icons-items" size={23} />{" "}
+                      <BsPen className="nav-icons-items" size={23} />{" "}
                           <MenuItem onClick={() => {
                               blogModal.onOpen();
                               handleMenuItemClick();
-                          }} label="Add blog" />
+                          }} label="Create new blog" />
                     </div>
                     <div className="flex flex-row items-center">
-                      <GiKangaroo className="nav-icons-items" size={23} />
+                      <GiSpookyHouse className="nav-icons-items" size={23} />
                       <MenuItem
                         onClick={() => {
                           tourModal.onOpen();
                           handleMenuItemClick();
                         }}
-                        label="Add tour"
+                        label="Create new property"
+                      />
+                    </div>
+                     <div className="flex flex-row items-center">
+                      <GiIsland className="nav-icons-items" size={23} />
+                      <MenuItem
+                        onClick={() => {
+                          tourModal.onOpen();
+                          handleMenuItemClick();
+                        }}
+                        label="Create new landsale"
+                      />
+                    </div>
+                    <div className="flex flex-row items-center">
+                      <MdOutlineLocalOffer className="nav-icons-items" size={23} />
+                      <MenuItem
+                        onClick={() => {
+                          offerModel.onOpen();
+                          handleMenuItemClick();
+                        }}
+                        label="Create new offer"
                       />
                     </div>
                     <hr />
