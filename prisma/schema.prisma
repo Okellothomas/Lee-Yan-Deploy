@@ -61,41 +61,45 @@ model Account {
 
 // Model representing the "Listing" entity in the database
 model Listing {
-  id            String        @id @default(auto()) @map("_id") @db.ObjectId
-  title         String // Title of the listing
-  house         String? // Description of the listing
-  hotel         String?
-  hotelLink     String?
-  description   String
-  imageSrc      String[] // URL for the listing image
-  createAt      DateTime      @default(now()) // Date and time when the listing was created
-  category      String // Category of the listing
-  roomCount     Int // Number of rooms in the listing
-  bathRoomCount Int // Number of bathrooms in the listing
-  guestCount    Int // Number of guests the listing can accommodate
-  locationValue String // Location value of the listing
-  userId        String        @db.ObjectId // Foreign key referencing the "User" model
-  price         Int // Price of the listing
-  save          Int?
-  city          String?
-  hostName      String?
-  cohostName    String?
-  hostContact   String?
-  startDate     String?
-  endDate       String?
-  distance      String?
-  country       String?
-  continent     String?
-  offers        String?
-  overView      String?
-  oneBedroom    String?
-  twoBedroom    String?
-  threebedRoom  String?
-  commonPlace   String?
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  title          String // Title of the listing
+  hotelLink      String?
+  imageSrc       String[] // URL for the listing image
+  createAt       DateTime      @default(now()) // Date and time when the listing was created
+  category       String // Category of the listing
+  roomCount      Int // Number of rooms in the listing
+  bathRoomCount  Int // Number of bathrooms in the listing
+  guestCount     Int // Number of guests the listing can accommodate
+  bedcount       Int // Number of
+  bedroomCount   Int // Number of
+  ratings        Int
+  hostExperience String?
+  county         String?
+  town           String?
+  bedroom        String[]
+  beds           String[]
+  offers         String[]
+  hostPhoto      String
+  Availability   String[]
+  userId         String        @db.ObjectId // Foreign key referencing the "User" model
+  price          Int? // Price of the listing
+  offerPrice     Int?
+  hostName       String?
+  verified       String?
+  joinDate       String?
+  hostType       String?
+  hostEmail      String?
+  hostContact    String?
+  distance       String?
+  overView       String?
+  oneBedroom     String?
+  twoBedroom     String?
+  threebedRoom   String?
+  commonPlace    String?
   // Relationship with the "User" model
-  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  reservations  Reservation[] // One-to-many relationship with the "Reservation" model
-  Reserv        Reserv[]
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reservations   Reservation[] // One-to-many relationship with the "Reservation" model
+  Reserv         Reserv[]
 }
 
 // Blog Modal
@@ -129,7 +133,7 @@ model Offers {
   action     String?
   category   String?
   type       String?
-  inclusion  String?
+  inclusion  String[]
   imageSrc   String[] // URL for the listing image
   price      String?
   offerprice String?

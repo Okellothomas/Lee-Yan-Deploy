@@ -12,7 +12,8 @@ import dynamic from "next/dynamic";
 import Counter from "../Inputs/Counter";
 import ImageUpload from "../Inputs/ImageUpload";
 import Input from "../Inputs/Input";
-import Select from "../Inputs/Select"; // Import the Select component
+import MultiSelect from "../Inputs/MultiSelect"; // Import the MultiSelect component
+import Select from "../Inputs/Select"; // Import the MultiSelect component
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -54,8 +55,8 @@ const OfferModal = () => {
             days: '',
             action: '',
             category: '',
-            type: '',
-            inclusion: '',
+            type: [],
+            inclusion: [],
             imageSrc: [],
             price: '',
             offerprice: '',
@@ -67,9 +68,9 @@ const OfferModal = () => {
     const guestCount = watch('guestCount');
     const roomCount = watch('roomCount');
     const bathRoomCount = watch('bathRoomCount');
-    const imageSrc = watch('imageSrc'); // done
-    const title = watch('title'); // done
-    const description = watch('description'); // done
+    const imageSrc = watch('imageSrc');
+    const title = watch('title');
+    const description = watch('description');
     const depStart = watch('depStart');
     const depEnd = watch('depEnd');
     const type = watch('type');
@@ -133,8 +134,6 @@ const OfferModal = () => {
         return 'Back';
     }, [step]);
 
-    // the body of the modal
-
     let bodyContent = (
         <div className="flex flex-col gap-8">
             <Heading
@@ -158,7 +157,7 @@ const OfferModal = () => {
 
     if (step === STEPS.DESCRIPTION) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[65vh] overflow-y-auto">
                 <Heading
                     title="How would you best describe this offer?"
                     subtitle="Provide the following details!"
@@ -182,9 +181,17 @@ const OfferModal = () => {
                     className="p-0"
                 />
                 <hr />
-                <Input
+                <MultiSelect
                     id="inclusion"
                     label="What is included in the offer"
+                    options={[
+                        { value: 'Breakfast included', label: 'Breakfast included' },
+                        { value: 'Spacious parking space', label: 'Spacious parking space' },
+                        { value: 'Free title deed', label: 'Free title deed' },
+                        { value: 'Spacious balcony', label: 'Spacious balcony' },
+                    ]}
+                    value={type}
+                    onChange={(value) => setCustomValue('type', value)}
                     disabled={isLoading}
                     register={register}
                     error={errors}
@@ -195,7 +202,7 @@ const OfferModal = () => {
 
     if (step === STEPS.DESCRIPTION1) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[80vh]">
                 <Heading
                     title="Provide more details on the offer?"
                     subtitle="Provide the details below!"
@@ -221,6 +228,7 @@ const OfferModal = () => {
                     onChange={(value) => setCustomValue('type', value)}
                     disabled={isLoading}
                     register={register}
+                    style={{ height: '8vh', width: '100%' }}
                     error={errors}
                 />
             </div>
@@ -248,7 +256,7 @@ const OfferModal = () => {
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                    style={{ height: '10vh', width: '100%' }}
+                    // style={{ height: '10vh', width: '100%' }}
                     className="p-0"
                 />
             </div>
@@ -259,8 +267,8 @@ const OfferModal = () => {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="Add the first photo of your place"
-                    subtitle="Show guests what your place looks like!"
+                    title="Add the first photo of your offer"
+                    subtitle="Show the clients the offer!"
                 /> 
                 <ImageUpload
                     value={imageSrc[0] || ''}
@@ -274,8 +282,8 @@ const OfferModal = () => {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="Add more photos of your place"
-                    subtitle="Show guests what your place looks like!"
+                    title="Add more photos of your offer"
+                    subtitle="Show the clients the offer!"
                 /> 
                 <ImageUpload
                     value={imageSrc.slice(1)}
@@ -300,3 +308,4 @@ const OfferModal = () => {
 };
 
 export default OfferModal;
+
