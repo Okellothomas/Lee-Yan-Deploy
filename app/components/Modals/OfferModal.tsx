@@ -74,6 +74,7 @@ const OfferModal = () => {
     const depStart = watch('depStart');
     const depEnd = watch('depEnd');
     const type = watch('type');
+    const inclusion = watch('inclusion');
 
     const Map = useMemo(() => dynamic(() => import('../container/Map'), {
         ssr: false
@@ -190,8 +191,8 @@ const OfferModal = () => {
                         { value: 'Free title deed', label: 'Free title deed' },
                         { value: 'Spacious balcony', label: 'Spacious balcony' },
                     ]}
-                    value={type}
-                    onChange={(value) => setCustomValue('type', value)}
+                    value={inclusion}
+                    onChange={(value) => setCustomValue('inclusion', value)}
                     disabled={isLoading}
                     register={register}
                     error={errors}

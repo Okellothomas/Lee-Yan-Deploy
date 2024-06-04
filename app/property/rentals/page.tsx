@@ -26,6 +26,7 @@ import Emblawebsite from "../../mainpage/components/Emblawebsite";
 import TourPriceCard from "../../components/listing/TourPriceCard";
 import TourCardLists from "../../components/listing/TourCardLists";
 import EmblaMobile from "../../mainpage/components/EmblaMobile";
+import TourPriceCardMain from "@/app/components/listing/TourPriceCardMain";
 
 // Define the interface for the Home component props
 interface HotelPageProps {
@@ -214,18 +215,18 @@ const cardsDatas = [
     if (searchParams.userId) {
         currentUser = await getCurrentUser();
     }
-  const listings = await getListingsHotels({ ...searchParams, hotel: "hotel" });
+  // const listings = await getListingsHotels({ ...searchParams, hotel: "hotel" });
   const tours = await getTours(tourParams);
   const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
   const filteredTourss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
   // const isEmpty = true;
 
   // Check if there are no listings, display EmptyState component
-  if (listings.length && tours.length === 0) {
-    return (
-      <EmptyState showReset />
-    );
-  }
+  // if (listings.length && tours.length === 0) {
+  //   return (
+  //     <EmptyState showReset />
+  //   );
+  // }
 
   // Render the Home component with the fetched listings
   return (
@@ -295,7 +296,7 @@ const cardsDatas = [
           </div> 
           <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
             {filteredTours.map((tour: any) => (
-              <TourPriceCard
+              <TourPriceCardMain
                 currentUser={currentUser ? {
                   ...currentUser,
                   createdAt: currentUser.createdAt.toISOString(),

@@ -16,19 +16,26 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import Lago from "../navbar/Lago"
+import Select from "../Inputs/Select"
+import MultiSelect from "../Inputs/MultiSelect"
+import Models from "./Models"
  
 enum STEPS {
     CATEGORY = 0,
-    LOCATION = 1,
+    // LOCATION = 1,
+    DESCRIPTION = 1,
     INFO = 2,
-    IMAGES = 3, 
-    DESCRIPTION = 4,
-    DESCRIPTION1 = 5,
-    // DESCRIPTION2 = 6,
-    DESCRIPTION3 = 6,
-    DESCRIPTION4 = 7,
-    DESCRIPTION5 = 8,
-    PRICE = 9
+    INFOS = 3,
+    IMAGES = 4,
+    MORE_IMAGES = 5,
+    DESCRIPTION2 = 6,
+    // DESCRIPTION = 6,
+    DESCRIPTION1 = 7,
+    DESCRIPTION3 = 8,
+    HOST_IMAGE = 9,
+    DESCRIPTION4 = 10,
+    DESCRIPTION5 = 11,
+    PRICE = 12
 }
 
 const RentModal = () => {
@@ -48,32 +55,39 @@ const RentModal = () => {
         reset
     } = useForm<FieldValues>({
         defaultValues: {
+            title: '',
             category: '',
+            bedcount: 1,
+            bedroomCount: 1,
+            ratings: 5,
+            hostExperience: '',
+            county: '',
+            town: '',
+            bedroom: [],
+            beds: '',
+            offers: '',
+            hostPhoto: '',
+            Availability: '',
+            offerPrice: 1,
+            hostName: '',
+            verified: '',
+            joinDate: '',
+            hostType: '',
+            hostEmail: '',
+            hostContact: '',
+            distance: '',
+            overView: '',
+            oneBedroom: '',
+            twoBedroom: '',
+            threebedRoom: '',
+            commonPlace: '',
             location: null,
             guestCount: 1,
             roomCount: 1,
             bathRoomCount: 1,
             imageSrc: [],
             price: 1,
-            city: '',
-            save: 1,
-            cohostName: '',
-            hostContact: '',
-            oneBedroom:  '',
-            twoBedroom: '',
-            threebedRoom: '',
-            commonPlace: '',
-            hostName: '',
-            house: '',
-            country: '',
-            continent: '',
-            hotel: '',
             hotelLink: '',
-            startDate: '',
-            endDate: '',
-            distance: '',
-            offers: '',
-            overView: ''
         }
     });
 
@@ -83,6 +97,14 @@ const RentModal = () => {
     const roomCount = watch('roomCount');
     const bathRoomCount = watch('bathRoomCount');
     const imageSrc = watch('imageSrc');
+    const bedcount = watch('bedcount');
+    const bedroomCount = watch('bedroomCount');
+    const ratings = watch('ratings');
+    const Availability = watch('Availability');
+    const offers = watch('offers');
+    const hostPhoto = watch('hostPhoto');
+    const verified = watch('verified');
+
 
     const Map = useMemo(() => dynamic(() => import('../container/Map'), {
         ssr: false
@@ -119,9 +141,9 @@ const RentModal = () => {
 
         setIsLoading(true)
         
-        axios.post('/api/listings', data)
+        axios.post('/api/stays', data)
             .then(() => {
-                toast.success('Listing Created!');
+                toast.success('Your stay has been created successfully!');
                 router.refresh();
                 reset();
                 setStep(STEPS.CATEGORY);
@@ -146,8 +168,8 @@ const RentModal = () => {
     let bodyContent = (
         <div className="flex flex-col gap-8">
             <Heading
-                title="Which of these best describe your place?"
-                subtitle="Pick a category"
+                title="Which of these best describe the stay?"
+                subtitle="choose the stay category"
             />
             <div className="
             grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
@@ -167,20 +189,56 @@ const RentModal = () => {
         </div>
     )
 
-    if (step === STEPS.LOCATION) {
+     if (step === STEPS.DESCRIPTION) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[50vh] overflow-y-auto">
                 <Heading
-                    title="Where is your place located?"
-                    subtitle="Help guests find you!"
+                    title="Provide key info about the stay?"
+                    subtitle="Enter the following details!"
                 />
-                <CountrySelect
-                    value={location}
-                    onChange={(value) => setCustomValue('location', value)}
+                <Input
+                    id="title"
+                    label="Title"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
                 />
-                <Map
-                    center={location?.latlng}
+                <hr />
+                <Input
+                    id="overView"
+                    label="Indepth overview of the stay"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
                 />
+                <hr />
+                <Input
+                    id="bedroom"
+                    label="County of location"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
+                />
+                {/* <hr />
+                <Input
+                    id="county"
+                    label="County of location"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
+                />
+                <Input
+                    id="town"
+                    label="Town of location"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
+                /> */}
             </div>
         )
     }
@@ -189,8 +247,8 @@ const RentModal = () => {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="Share some basics about your place"
-                    subtitle="What amenities do you have?"
+                    title="Provide more basics about your stay"
+                    subtitle="Provide the details below?"
                 />
                 <Counter
                     title="Guests"
@@ -217,76 +275,87 @@ const RentModal = () => {
         )
     }
 
-    if (step === STEPS.IMAGES) {
+     if (step === STEPS.INFOS) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="Add 4 photos of your place"
-                    subtitle="Show guests what your place looks like!"
+                    title="Provide additional basics about your stay"
+                    subtitle="Provide the details below?"
                 />
-                <ImageUpload
-                    value={imageSrc}
-                    onChange={(value) => setCustomValue('imageSrc', [...imageSrc,value])}
+                <Counter
+                    title="Beds"
+                    subtitle="How beds to you have?"
+                    value={bedcount}
+                    onChange={(value) => setCustomValue('bedcount', value)}
                 />
+                <hr />
+                <Counter
+                    title="Beds"
+                    subtitle="How many bed room do you have?"
+                    value={bedroomCount}
+                    onChange={(value) => setCustomValue('bedroomCount', value)}
+                />
+                <hr />
+                <Counter
+                    title="Rating"
+                    subtitle="Initial stay ratings?"
+                    value={ratings}
+                    onChange={(value) => setCustomValue('ratings', value)}
+                />
+                
             </div>
         )
     }
 
-    if (step === STEPS.DESCRIPTION) {
+
+    if (step === STEPS.IMAGES) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="How would you describe your place?"
-                    subtitle="Short and sweet works best!"
-                />
-                <Input
-                    id="title"
-                    label="Title"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                    required
-                />
-                <hr />
-                <Input
-                    id="description"
-                    label="Description"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                    required
-                />
-                <hr />
-                <Input
-                    id="city"
-                    label="City or town of location"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                    required
+                    title="Add the first photo of your offer"
+                    subtitle="Show the clients the offer!"
+                /> 
+                <ImageUpload
+                    value={imageSrc[0] || ''}
+                    onChange={(value) => setCustomValue('imageSrc', [value])}
                 />
             </div>
-        )
+        );
+    }
+
+    if (step === STEPS.MORE_IMAGES) {
+        bodyContent = (
+            <div className="flex flex-col gap-8">
+                <Heading
+                    title="Add more photos of your offer"
+                    subtitle="Show the clients the offer!"
+                /> 
+                <ImageUpload
+                    value={imageSrc.slice(1)}
+                    onChange={(value) => setCustomValue('imageSrc', [...imageSrc, value])}
+                />
+            </div>
+        );
     }
 
     if (step === STEPS.DESCRIPTION1) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="How would you describe your place?"
-                    subtitle="Choose one, enter house or hotel!"
+                    title="Wher is the stay located?"
+                    subtitle="Enter the details below!"
                 />
                 <Input
-                    id="house"
-                    label="house(strictly small letters)"
+                    id="county"
+                    label="County location"
                     disabled={isLoading}
                     register={register}
                     error={errors}
                 />
                 <hr />
                 <Input
-                    id="hotel"
-                    label="hotel(strictly small letters)"
+                    id="town"
+                    label="Town location"
                     disabled={isLoading}
                     register={register}
                     error={errors}
@@ -294,7 +363,7 @@ const RentModal = () => {
                  <hr />
                 <Input
                     id="hotelLink"
-                    label="Hotel or House Link"
+                    label="stay youtube link"
                     disabled={isLoading}
                     register={register}
                     error={errors}
@@ -304,46 +373,87 @@ const RentModal = () => {
     }
 
     
-    // if (step === STEPS.DESCRIPTION2) {
-    //     bodyContent = (
-    //         <div className="flex flex-col gap-8">
-    //             <Heading
-    //                 title="How would you describe your place?"
-    //                 subtitle="Short and sweet works best!"
-    //             />
-    //             <Input
-    //                 id="startDate"
-    //                 label="Start Date when the facility is free"
-    //                 disabled={isLoading}
-    //                 register={register}
-    //                 error={errors}
-    //                 required
-    //             />
-    //             <hr />
-    //             <Input
-    //                 id="endDate"
-    //                 label="End Date when the facility is free"
-    //                 disabled={isLoading}
-    //                 register={register}
-    //                 error={errors}
-    //                 required
-    //             />
-    //             <hr />
-    //             <Input
-    //                 id="distance"
-    //                 label="Approximate the distance from the city"
-    //                 disabled={isLoading}
-    //                 register={register}
-    //                 error={errors}
-    //                 required
-    //             />
-    //         </div>
-    //     )
-    // }
+    if (step === STEPS.DESCRIPTION2) {
+        bodyContent = (
+            <div className="flex flex-col gap-8 max-h-[56vh] overflow-y-auto">
+                <Heading
+                    title="Privide more details of the stay?"
+                    subtitle="Enter details above!"
+                />
+                <Select
+                    id="Availability"
+                    label="stay available"
+                    options={[
+                        { value: 'Yes', label: 'Yes' },
+                        { value: 'No', label: 'No' },
+                    ]}
+                    value={Availability}
+                    onChange={(value) => setCustomValue('Availability', value)}
+                    disabled={isLoading}
+                    register={register}
+                    style={{ height: '7vh', width: '100%' }}
+                    error={errors}
+                />
+                <hr />
+                <Input
+                    id="distance"
+                    label="Approximate the distance from the town"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
+                />
+                <hr />
+                <MultiSelect
+                    id="offers"
+                    label="What is included in the offer"
+                    options={[
+                        { value: 'Kitchen', label: 'Kitchen' },
+                        { value: 'WiFi', label: 'WiFi' },
+                        { value: 'Free parking space', label: 'Free parking space' },
+                        { value: 'Pets allowed', label: 'Pets allowed' },
+                        { value: 'Washer', label: 'Washer' },
+                        { value: 'Dedicated workspace', label: 'Dedicated workspace' },
+                        { value: 'Spacious working place', label: 'Spacious working place' },
+                        { value: 'Bathin tab', label: 'Bathing tab' },
+                        { value: 'Valley view', label: 'Valley view' },
+                        { value: 'Hot water', label: 'Hot water' },
+                        { value: 'Iron', label: 'Iron' },
+                        { value: 'Bed linens', label: 'Bed linens' },
+                        { value: 'Hangers', label: 'Hangers' },
+                        { value: 'Refrigerator', label: 'Refrigerator' },
+                        { value: 'Microwave', label: 'Microwave' },
+                        { value: 'Oven', label: 'Oven' },
+                        { value: 'Coffee maker', label: 'Coffee maker' },
+                        { value: 'Gas store', label: 'Gas store' },
+                        { value: 'Fire pit', label: 'Fire pit' },
+                        { value: 'Outdoor furniture', label: 'Outdoor furniture' },
+                        { value: 'Private patio or balcony', label: 'Private patio or balcony' },
+                        { value: 'Outdoor dining area', label: 'Outdoor dining area' },
+                        { value: 'Free parking on premises', label: 'Free parking on premises' },
+                        { value: 'TV', label: 'TV' },
+                        { value: 'Dryer', label: 'Dryer' },
+                        { value: 'Air Conditioning', label: 'Air Conditioning' },
+                        { value: 'Heating', label: 'Heating' },
+                        { value: 'Swimming pool', label: 'Swimming pool' },
+                        { value: 'Smart Lock', label: 'Smart Lock' },
+                        { value: 'Self check-in', label: 'Self check-in' },
+                        { value: 'Backyard', label: 'Backyard' },
+                        { value: 'Smooking allowed', label: 'Smooking allowed' },
+                    ]}
+                    value={offers}
+                    onChange={(value) => setCustomValue('offers', value)}
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                />
+            </div>
+        )
+    }
 
     if (step === STEPS.DESCRIPTION3) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[56vh] overflow-y-auto">
                 <Heading
                     title="How would you describe your place?"
                     subtitle="Short and sweet works best!"
@@ -387,7 +497,7 @@ const RentModal = () => {
 
      if (step === STEPS.DESCRIPTION4) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[50vh] overflow-y-auto">
                 <Heading
                     title="How would you describe your place?"
                     subtitle="Short and sweet works best!"
@@ -402,8 +512,8 @@ const RentModal = () => {
                 />
                 <hr />
                 <Input
-                    id="cohostName"
-                    label="Co-host Name"
+                    id="hostEmail"
+                    label="host Email"
                     disabled={isLoading}
                     register={register}
                     error={errors}
@@ -418,50 +528,89 @@ const RentModal = () => {
                 />
                 <hr />
                 <Input
-                    id="offers"
-                    label="What else does your place offer!"
+                    id="joinDate"
+                    label="When did the host join!"
                     disabled={isLoading}
                     register={register}
                     error={errors}
+                />
+                <hr />
+                <Select
+                    id="verified"
+                    label="host verified?"
+                    options={[
+                        { value: 'Yes', label: 'Yes' },
+                        { value: 'No', label: 'No' },
+                    ]}
+                    value={verified}
+                    onChange={(value) => setCustomValue('verified', value)}
+                    disabled={isLoading}
+                    register={register}
+                    style={{ height: '7vh', width: '100%' }}
+                    error={errors}
+                />
+                <hr />
+                <Input
+                    id="hostExperience"
+                    label="Incidate the host experience!"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
                 />
             </div>
         )
      }
-    
-     if (step === STEPS.DESCRIPTION5) {
+
+        if (step === STEPS.HOST_IMAGE) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="How would you describe your place?"
-                    subtitle="Short and sweet works best!"
-                />
-                <Input
-                    id="country"
-                    label="Host country(strictly small letters)"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                    required
-                />
-                <hr />
-                <Input
-                    id="continent"
-                    label="Host continent(strictly small letters)"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                    required
+                    title="Add the host image"
+                    subtitle="Show the clients the host!"
+                /> 
+                <ImageUpload
+                    value={hostPhoto || ''}
+                    onChange={(value) => setCustomValue('hostPhoto', value)}
                 />
             </div>
-        )
+        );
     }
+    
+    //  if (step === STEPS.DESCRIPTION5) {
+    //     bodyContent = (
+    //         <div className="flex flex-col gap-8">
+    //             <Heading
+    //                 title="How would you describe your place?"
+    //                 subtitle="Short and sweet works best!"
+    //             />
+    //             <Input
+    //                 id="country"
+    //                 label="Host country(strictly small letters)"
+    //                 disabled={isLoading}
+    //                 register={register}
+    //                 error={errors}
+    //                 required
+    //             />
+    //             <hr />
+    //             <Input
+    //                 id="continent"
+    //                 label="Host continent(strictly small letters)"
+    //                 disabled={isLoading}
+    //                 register={register}
+    //                 error={errors}
+    //                 required
+    //             />
+    //         </div>
+    //     )
+    // }
 
     if (step === STEPS.PRICE) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="Now, set your price"
-                    subtitle="How much do you charge per night?"
+                    title="What is the cost of the stay"
+                    subtitle="charge per night?"
                 />
                 <Input
                     id="price"
@@ -475,20 +624,19 @@ const RentModal = () => {
                 />
                <hr />
                 <Input
-                    id="save"
-                    label="Save"
+                    id="offerPrice"
+                    label="Offer Price (Optional)"
                     type="number"
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                    required
                 />
             </div>
         )
     }
 
   return (
-      <Modal
+      <Models
           title={<Lago />}
           isOpen={rentModal.isOpen}
           onClose={rentModal.onClose}
