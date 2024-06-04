@@ -19,7 +19,7 @@ import Lago from "../navbar/Lago"
 import Select from "../Inputs/Select"
 import MultiSelect from "../Inputs/MultiSelect"
 import Models from "./Models"
- 
+
 enum STEPS {
     CATEGORY = 0,
     // LOCATION = 1,
@@ -64,7 +64,7 @@ const RentModal = () => {
             county: '',
             town: '',
             bedroom: [],
-            beds: '',
+            beds: [],
             offers: '',
             hostPhoto: '',
             Availability: '',
@@ -140,7 +140,7 @@ const RentModal = () => {
         }
 
         setIsLoading(true)
-        
+
         axios.post('/api/stays', data)
             .then(() => {
                 toast.success('Your stay has been created successfully!');
@@ -152,7 +152,7 @@ const RentModal = () => {
                 toast.error('Something went wrong');
             }).finally(() => {
                 setIsLoading(false);
-        })
+            })
     }
 
     const secondaryActionLabel = useMemo(() => {
@@ -173,23 +173,23 @@ const RentModal = () => {
             />
             <div className="
             grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-            {categories.map((item) => (
-                <div key={item.label} className="col-span-1">
-                    <CategoryInput
-                        onClick={(category) => setCustomValue(
-                            'category', category
-                        )}
-                        selected={category === item.label}
-                        label={item.label}
-                        icon={item.icon}
-                    />
-               </div> 
-            ))} 
+                {categories.map((item) => (
+                    <div key={item.label} className="col-span-1">
+                        <CategoryInput
+                            onClick={(category) => setCustomValue(
+                                'category', category
+                            )}
+                            selected={category === item.label}
+                            label={item.label}
+                            icon={item.icon}
+                        />
+                    </div>
+                ))}
             </div>
         </div>
     )
 
-     if (step === STEPS.DESCRIPTION) {
+    if (step === STEPS.DESCRIPTION) {
         bodyContent = (
             <div className="flex flex-col gap-8 max-h-[50vh] overflow-y-auto">
                 <Heading
@@ -270,12 +270,12 @@ const RentModal = () => {
                     value={bathRoomCount}
                     onChange={(value) => setCustomValue('bathRoomCount', value)}
                 />
-                
+
             </div>
         )
     }
 
-     if (step === STEPS.INFOS) {
+    if (step === STEPS.INFOS) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
@@ -302,7 +302,7 @@ const RentModal = () => {
                     value={ratings}
                     onChange={(value) => setCustomValue('ratings', value)}
                 />
-                
+
             </div>
         )
     }
@@ -314,7 +314,7 @@ const RentModal = () => {
                 <Heading
                     title="Add the first photo of your offer"
                     subtitle="Show the clients the offer!"
-                /> 
+                />
                 <ImageUpload
                     value={imageSrc[0] || ''}
                     onChange={(value) => setCustomValue('imageSrc', [value])}
@@ -329,7 +329,7 @@ const RentModal = () => {
                 <Heading
                     title="Add more photos of your offer"
                     subtitle="Show the clients the offer!"
-                /> 
+                />
                 <ImageUpload
                     value={imageSrc.slice(1)}
                     onChange={(value) => setCustomValue('imageSrc', [...imageSrc, value])}
@@ -360,7 +360,7 @@ const RentModal = () => {
                     register={register}
                     error={errors}
                 />
-                 <hr />
+                <hr />
                 <Input
                     id="hotelLink"
                     label="stay youtube link"
@@ -372,7 +372,7 @@ const RentModal = () => {
         )
     }
 
-    
+
     if (step === STEPS.DESCRIPTION2) {
         bodyContent = (
             <div className="flex flex-col gap-8 max-h-[56vh] overflow-y-auto">
@@ -458,7 +458,7 @@ const RentModal = () => {
                     title="How would you describe your place?"
                     subtitle="Short and sweet works best!"
                 />
-              
+
                 <Input
                     id="oneBedroom"
                     label="How many one bedrooms"
@@ -495,7 +495,7 @@ const RentModal = () => {
         )
     }
 
-     if (step === STEPS.DESCRIPTION4) {
+    if (step === STEPS.DESCRIPTION4) {
         bodyContent = (
             <div className="flex flex-col gap-8 max-h-[50vh] overflow-y-auto">
                 <Heading
@@ -560,15 +560,15 @@ const RentModal = () => {
                 />
             </div>
         )
-     }
+    }
 
-        if (step === STEPS.HOST_IMAGE) {
+    if (step === STEPS.HOST_IMAGE) {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
                     title="Add the host image"
                     subtitle="Show the clients the host!"
-                /> 
+                />
                 <ImageUpload
                     value={hostPhoto || ''}
                     onChange={(value) => setCustomValue('hostPhoto', value)}
@@ -576,7 +576,7 @@ const RentModal = () => {
             </div>
         );
     }
-    
+
     //  if (step === STEPS.DESCRIPTION5) {
     //     bodyContent = (
     //         <div className="flex flex-col gap-8">
@@ -622,7 +622,7 @@ const RentModal = () => {
                     error={errors}
                     required
                 />
-               <hr />
+                <hr />
                 <Input
                     id="offerPrice"
                     label="Offer Price (Optional)"
@@ -635,18 +635,18 @@ const RentModal = () => {
         )
     }
 
-  return (
-      <Models
-          title={<Lago />}
-          isOpen={rentModal.isOpen}
-          onClose={rentModal.onClose}
-          secondaryAction={step === STEPS.CATEGORY ? undefined: onBack}
-          secondaryLabel={secondaryActionLabel}
-          onSubmit={handleSubmit(onSubmit)}
-          actionLabel={actionLabel}
-          body={bodyContent}
-      />
-  )
+    return (
+        <Models
+            title={<Lago />}
+            isOpen={rentModal.isOpen}
+            onClose={rentModal.onClose}
+            secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
+            secondaryLabel={secondaryActionLabel}
+            onSubmit={handleSubmit(onSubmit)}
+            actionLabel={actionLabel}
+            body={bodyContent}
+        />
+    )
 }
 
 export default RentModal

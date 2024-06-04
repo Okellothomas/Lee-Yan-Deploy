@@ -65,6 +65,7 @@ model Listing {
   title          String // Title of the listing
   hotelLink      String?
   imageSrc       String[] // URL for the listing image
+  bedPhotos      String[] // URL for the
   createAt       DateTime      @default(now()) // Date and time when the listing was created
   category       String // Category of the listing
   roomCount      Int // Number of rooms in the listing
