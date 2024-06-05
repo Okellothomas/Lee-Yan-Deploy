@@ -24,10 +24,10 @@ const Logo = () => {
         <div className="text-xl font-bold">
           <div className="items-center">
             <Link href="/">
-              <p style={{ maxWidth: "max-content" }}>
+              {/* <p style={{ maxWidth: "max-content" }}>
                 <span className="block">Lee-yan</span>
                 <span className="block text-sm software-logo">smart properties</span>
-              </p>
+              </p> */}
             </Link>
           </div>
        </div>

@@ -29,12 +29,12 @@ export async function POST(
         ratings,
         hostExperience,
         county,
+        bedPhotos,
         town,
         bedroom,
         beds,
         offers,
         hostPhoto,
-        Availability,
         userId,
         price,
         offerPrice,
@@ -46,10 +46,6 @@ export async function POST(
         hostContact,
         distance,
         overView,
-        oneBedroom,
-        twoBedroom,
-        threebedRoom,
-        commonPlace,
     } = body;
 
     Object.keys(body).forEach((value: any) => {
@@ -69,6 +65,7 @@ export async function POST(
         bathRoomCount,
         guestCount,
         bedcount,
+        bedPhotos,
         bedroomCount,
         ratings,
         hostExperience,
@@ -78,7 +75,6 @@ export async function POST(
         beds,
         offers,
         hostPhoto,
-        Availability,
         price: parseInt(price, 10),
         offerPrice: parseInt(offerPrice, 10),
         hostName,
@@ -88,11 +84,7 @@ export async function POST(
         hostEmail,
         hostContact,
         distance,
-        overView,
-        oneBedroom,
-        twoBedroom,
-        threebedRoom,
-        commonPlace, 
+        overView, 
         userId: currentUser.id
         }
     });

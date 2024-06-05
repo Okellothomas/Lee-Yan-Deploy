@@ -81,7 +81,6 @@ model Listing {
   beds           String[]
   offers         String[]
   hostPhoto      String
-  Availability   String[]
   userId         String        @db.ObjectId // Foreign key referencing the "User" model
   price          Int? // Price of the listing
   offerPrice     Int?
@@ -93,10 +92,6 @@ model Listing {
   hostContact    String?
   distance       String?
   overView       String?
-  oneBedroom     String?
-  twoBedroom     String?
-  threebedRoom   String?
-  commonPlace    String?
   // Relationship with the "User" model
   user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations   Reservation[] // One-to-many relationship with the "Reservation" model

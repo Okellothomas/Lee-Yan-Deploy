@@ -19,17 +19,16 @@ import Lago from "../navbar/Lago"
 import Select from "../Inputs/Select"
 import MultiSelect from "../Inputs/MultiSelect"
 import Models from "./Models"
+import Textarea from "../Inputs/Textarea"
 
 enum STEPS {
     CATEGORY = 0,
-    // LOCATION = 1,
     DESCRIPTION = 1,
     INFO = 2,
     INFOS = 3,
     IMAGES = 4,
     MORE_IMAGES = 5,
     DESCRIPTION2 = 6,
-    // DESCRIPTION = 6,
     DESCRIPTION1 = 7,
     DESCRIPTION3 = 8,
     HOST_IMAGE = 9,
@@ -65,9 +64,9 @@ const RentModal = () => {
             town: '',
             bedroom: [],
             beds: [],
+            bedPhotos: [],
             offers: '',
             hostPhoto: '',
-            Availability: '',
             offerPrice: 1,
             hostName: '',
             verified: '',
@@ -77,11 +76,6 @@ const RentModal = () => {
             hostContact: '',
             distance: '',
             overView: '',
-            oneBedroom: '',
-            twoBedroom: '',
-            threebedRoom: '',
-            commonPlace: '',
-            location: null,
             guestCount: 1,
             roomCount: 1,
             bathRoomCount: 1,
@@ -100,10 +94,12 @@ const RentModal = () => {
     const bedcount = watch('bedcount');
     const bedroomCount = watch('bedroomCount');
     const ratings = watch('ratings');
-    const Availability = watch('Availability');
     const offers = watch('offers');
     const hostPhoto = watch('hostPhoto');
     const verified = watch('verified');
+    const bedroom = watch('bedroom');
+    const beds = watch('beds');
+    const bedPhotos = watch('bedPhotos');
 
 
     const Map = useMemo(() => dynamic(() => import('../container/Map'), {
@@ -205,7 +201,7 @@ const RentModal = () => {
                     required
                 />
                 <hr />
-                <Input
+                <Textarea
                     id="overView"
                     label="Indepth overview of the stay"
                     disabled={isLoading}
@@ -214,31 +210,6 @@ const RentModal = () => {
                     required
                 />
                 <hr />
-                <Input
-                    id="bedroom"
-                    label="County of location"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                    required
-                />
-                {/* <hr />
-                <Input
-                    id="county"
-                    label="County of location"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                    required
-                />
-                <Input
-                    id="town"
-                    label="Town of location"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                    required
-                /> */}
             </div>
         )
     }
@@ -380,21 +351,6 @@ const RentModal = () => {
                     title="Privide more details of the stay?"
                     subtitle="Enter details above!"
                 />
-                <Select
-                    id="Availability"
-                    label="stay available"
-                    options={[
-                        { value: 'Yes', label: 'Yes' },
-                        { value: 'No', label: 'No' },
-                    ]}
-                    value={Availability}
-                    onChange={(value) => setCustomValue('Availability', value)}
-                    disabled={isLoading}
-                    register={register}
-                    style={{ height: '7vh', width: '100%' }}
-                    error={errors}
-                />
-                <hr />
                 <Input
                     id="distance"
                     label="Approximate the distance from the town"
@@ -455,42 +411,58 @@ const RentModal = () => {
         bodyContent = (
             <div className="flex flex-col gap-8 max-h-[56vh] overflow-y-auto">
                 <Heading
-                    title="How would you describe your place?"
-                    subtitle="Short and sweet works best!"
+                    title="How would you describe your bedrooms?"
+                    subtitle="Info of bed and bedrooms!"
                 />
-
-                <Input
-                    id="oneBedroom"
-                    label="How many one bedrooms"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                    required
-                />
-                <hr />
-                <Input
-                    id="twoBedroom"
-                    label="How many two bedrooms"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                />
-                <hr />
-                <Input
-                    id="threebedRoom"
-                    label="How many three bedrooms"
+                <MultiSelect
+                    id="beds"
+                    label="Types of beds in the stay"
+                    options={[
+                        { value: 'King bed', label: 'King bed' },
+                        { value: 'Queen bed', label: 'Queen bed' },
+                        { value: 'Double bed', label: 'Double bed' },
+                        { value: 'Twin bed', label: 'Twin bed' },
+                        { value: 'California King bed', label: 'California King bed' },
+                    ]}
+                    value={beds}
+                    onChange={(value) => setCustomValue('beds', value)}
                     disabled={isLoading}
                     register={register}
                     error={errors}
                 />
                 <hr />
-                <Input
-                    id="commonPlace"
-                    label="How many common places such as sofa bed"
+                <MultiSelect
+                    id="bedroom"
+                    label="Types of bedrooms in the stay"
+                    options={[
+                        { value: 'Standard Room', label: 'Standard Room' },
+                        { value: 'One-Bedroom Suite', label: 'One-Bedroom Suite' },
+                        { value: 'Two-Bedroom Suite', label: 'Two-Bedroom Suite' },
+                        { value: 'Deluxe Room', label: 'Deluxe Room' },
+                        { value: 'Family Room', label: 'Family Room' },
+                        { value: 'Executive Room', label: 'Executive Room' },
+                    ]}
+                    value={bedroom}
+                    onChange={(value) => setCustomValue('bedroom', value)}
                     disabled={isLoading}
                     register={register}
                     error={errors}
                 />
+                <hr />
+                <Heading
+                    title=""
+                    subtitle="Add the images of the bedroom!"
+                />
+                <ImageUpload
+                value={bedPhotos.slice(0, 2)}
+                onChange={(value) => {
+                    if (bedPhotos.length < 2) {
+                        setCustomValue('bedPhotos', [...bedPhotos.slice(0, 2), value]);
+                    } else {
+                        alert("You can only upload up to two images.");
+                    }
+                }}
+            />
             </div>
         )
     }
@@ -550,7 +522,7 @@ const RentModal = () => {
                     error={errors}
                 />
                 <hr />
-                <Input
+                <Textarea
                     id="hostExperience"
                     label="Incidate the host experience!"
                     disabled={isLoading}
@@ -576,34 +548,6 @@ const RentModal = () => {
             </div>
         );
     }
-
-    //  if (step === STEPS.DESCRIPTION5) {
-    //     bodyContent = (
-    //         <div className="flex flex-col gap-8">
-    //             <Heading
-    //                 title="How would you describe your place?"
-    //                 subtitle="Short and sweet works best!"
-    //             />
-    //             <Input
-    //                 id="country"
-    //                 label="Host country(strictly small letters)"
-    //                 disabled={isLoading}
-    //                 register={register}
-    //                 error={errors}
-    //                 required
-    //             />
-    //             <hr />
-    //             <Input
-    //                 id="continent"
-    //                 label="Host continent(strictly small letters)"
-    //                 disabled={isLoading}
-    //                 register={register}
-    //                 error={errors}
-    //                 required
-    //             />
-    //         </div>
-    //     )
-    // }
 
     if (step === STEPS.PRICE) {
         bodyContent = (
