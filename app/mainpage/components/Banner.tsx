@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from "next/navigation"
-"./banner.css"
+import "./banner.css"
 
 const Banner = () => {
     const router = useRouter();
@@ -9,7 +9,7 @@ const Banner = () => {
       {/* <h2>LEE-YAN SMART PROPERTIES</h2>  */}
       <h1 className="banner-title">LEE-YAN SMART PROPERTIES</h1> 
       <h2 className="banner-title-one">Secure. Reliable. Affordable</h2> 
-      <div className="secondary-button secondary-btn-p py-2 cursor-pointer" onClick={() => router.push("/offers")}>Premium deals</div>    
+      <div className="secondary-button secondary-btn-p py-2 cursor-pointer premium_btn" onClick={() => router.push("/offers")}>Premium deals</div>    
     </div>
   )
 }

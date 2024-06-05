@@ -33,7 +33,8 @@ const SearchMain = () => {
 
     const [options, setOptions] = useState(
       {
-      guests: 0,
+      adults: 1,
+      children:0,
       rooms: 0}
   )
 
@@ -51,7 +52,7 @@ const SearchMain = () => {
       setOpenoptions(!openoptions)
   };
 
-  const handleOptions = (name: 'guests' | 'rooms', operations: any) => {
+  const handleOptions = (name: 'adults' |'children' | 'rooms', operations: any) => {
       
     const guestsDets = {
         ...options,
@@ -85,7 +86,7 @@ const inputRef = useRef<HTMLInputElement>(null);
         inputRef.current &&
         !inputRef.current.contains(event.target as Node)
       ) {
-        setOpenOptions(false);
+        setOpenoptions(false);
       }
     };
 
@@ -131,25 +132,70 @@ const inputRef = useRef<HTMLInputElement>(null);
                 <div className="flex flex-col px-2 justify-between item-center gap-1 relative">
                
                
-                <div className="flex flex-row items-center mt-2" ref={dropdownRef}>
-                    {/* <label htmlFor="guests" className="text-right mr-4 text-gray-500">
+                <div className="flex flex-row items-center mt-2 " ref={dropdownRef}>
+                    {/* <label htmlFor="guests" className="text-right mr-4 text-gray-500">   shadow border rounded
                         Guests:
                     </label> */}
                     <input
                         id="guests"
                         type="text"
-                        value={`${options.guests} Guests ${options.rooms} Rooms`}
-                        className="shadow border rounded w-auto py-2 px-2 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
+                        value={`${options.adults} adults ${options.children} children ${options.rooms} Rooms`}
+                        className="w-auto py-2 px-2 text-gray-500 leading-tight focus:outline-none focus:shadow-outline"
                         onClick={toggleOptions}
                         ref={inputRef}
                         readOnly
                     />
-                </div>
+                
                 {openoptions && (
                     <div className="listing-rooms-main-id bg-white p-5 md:p-7 shadow-md absolute top-full left-0 z-10" ref={numberOfGuestsRef}>
                         <div className="flex flex-col gap-3">
-                            <div className="flex flex-col gap-3">
-                                <span className="text-lg">Rooms</span>
+                            
+
+                            <div className="flex flex-row gap-3">
+                                <span className="text-lg">Adults  </span>
+                                <div className="flex gap-3 items-center">
+                                    <button
+                                        className="border border-#FDAB08 rounded-full py-1 px-3 focus:outline-none"
+                                        onClick={() => handleOptions("adults", "d")}
+                                        disabled={options.adults <= 1}
+                                    >
+                                        -
+                                    </button>
+                                    <span className="text-xl">{options.adults}</span>
+                                    <button
+                                        className="border border-#FDAB08 rounded-full py-1 px-3 focus:outline-none"
+                                        onClick={() => {
+                                            handleOptions("adults", "i");
+                                            
+                                        }}
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-row gap-3">
+                                <span className="text-lg">Children</span>
+                                <div className="flex gap-3 items-center">
+                                    <button
+                                        className="border rounded-full py-1 px-3 focus:outline-none"
+                                        onClick={() => handleOptions("children", "d")}
+                                        disabled={options.children <= 0}
+                                    >
+                                        -
+                                    </button>
+                                    <span className="text-xl">{options.children}</span>
+                                    <button
+                                        className="border rounded-full py-1 px-3 focus:outline-none"
+                                        onClick={() => handleOptions("children", "i")}
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-row gap-3">
+                                <span className="text-lg">Rooms   </span>
                                 <div className="flex gap-3 items-center">
                                     <button
                                         className="border rounded-full py-1 px-3 focus:outline-none"
@@ -167,32 +213,10 @@ const inputRef = useRef<HTMLInputElement>(null);
                                     </button>
                                 </div>
                             </div>
-
-                            <div className="flex flex-col gap-3">
-                                <span className="text-lg">Guests</span>
-                                <div className="flex gap-3 items-center">
-                                    <button
-                                        className="border rounded-full py-1 px-3 focus:outline-none"
-                                        onClick={() => handleOptions("guests", "d")}
-                                        disabled={options.guests <= 1}
-                                    >
-                                        -
-                                    </button>
-                                    <span className="text-xl">{options.guests}</span>
-                                    <button
-                                        className="border rounded-full py-1 px-3 focus:outline-none"
-                                        onClick={() => {
-                                            handleOptions("guests", "i");
-                                            
-                                        }}
-                                    >
-                                        +
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 )}
+                </div>
             </div>
 
 

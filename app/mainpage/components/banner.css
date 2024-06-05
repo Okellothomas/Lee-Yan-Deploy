@@ -1,2 +1,9 @@
 .banner-title{
 }
+
+.premium_btn 
+{
+    background: linear-gradient(45deg, #FF5733, #FFBD33, #b3c50d);
+    margin-bottom: 6px;
+
+}
