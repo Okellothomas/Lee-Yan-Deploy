@@ -59,6 +59,7 @@ const RentModal = () => {
             bedcount: 1,
             bedroomCount: 1,
             ratings: 5,
+            type: '',
             hostExperience: '',
             county: '',
             town: '',
@@ -100,6 +101,7 @@ const RentModal = () => {
     const bedroom = watch('bedroom');
     const beds = watch('beds');
     const bedPhotos = watch('bedPhotos');
+    const type = watch('type');
 
 
     const Map = useMemo(() => dynamic(() => import('../container/Map'), {
@@ -210,6 +212,23 @@ const RentModal = () => {
                     required
                 />
                 <hr />
+                <Select
+                    id="type"
+                    label="stay type?"
+                    options={[
+                        { value: 'premium', label: 'Top premium' },
+                        { value: 'exclusive', label: 'Exclusive' },
+                        { value: 'luxurious', label: 'Luxurious' },
+                        { value: 'prime', label: 'Prime unique' },
+                        { value: 'comfortable', label: 'Comfortable' },
+                    ]}
+                    value={type}
+                    onChange={(value) => setCustomValue('type', value)}
+                    disabled={isLoading}
+                    register={register}
+                    style={{ height: '7vh', width: '100%' }}
+                    error={errors}
+                />
             </div>
         )
     }

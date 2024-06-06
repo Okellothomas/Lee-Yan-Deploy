@@ -77,6 +77,7 @@ model Listing {
   hostExperience String?
   county         String?
   town           String?
+  type           String?
   bedroom        String[]
   beds           String[]
   offers         String[]
