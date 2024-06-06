@@ -36,6 +36,7 @@ model User {
   reserv       Reserv[]
   propertysale Property[]
   land         Land[]
+  offers       Offers[]
 }
 
 // Model representing the "Account" entity in the database
@@ -135,6 +136,8 @@ model Offers {
   price      String?
   offerprice String?
   createdAt  DateTime @default(now()) // Date and time when the reservation was created
+  userId     String?  @db.ObjectId // Foreign key referencing the "User" model
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Model representing the "PaymentLog" entity in the database

@@ -66,7 +66,7 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
 
   return (
       <div
-        onClick={() => router.push(`/tours/${data?.id}`)} //added ?
+        onClick={() => router.push(`/offer/${data?.id}`)} //added ?
         className="col-span-1 group"
       >
           <div className="flex flex-col h-[40vh] w-full border-[1px] rounded-xl border-solid border-neutral-300 py-4 px-4">

@@ -21,6 +21,7 @@ import useOfferModal from "@/app/hooks/useOfferModal";
 import Modals from "./Modals";
 import Lago from "../navbar/Lago";
 import Models from "./Models";
+import Textarea from "../Inputs/Textarea";
 
 enum STEPS {
     CATEGORY = 0,
@@ -172,13 +173,12 @@ const OfferModal = () => {
                     required
                 />
                 <hr />
-                <Input
+                <Textarea
                     id="action"
                     label="Promotion message"
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                    style={{ height: '10vh', width: '100%' }}
                     className="p-0"
                 />
                 <hr />

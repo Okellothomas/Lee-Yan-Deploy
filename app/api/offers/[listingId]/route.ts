@@ -25,7 +25,7 @@ export async function DELETE(
     const listing = await prisma.offers.deleteMany({
         where: {
             id: offerId,
-            // userId: currentUser.id
+            userId: currentUser.id
         }
     });
 

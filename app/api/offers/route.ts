@@ -43,6 +43,7 @@ export async function POST(
             imageSrc,
             price,
             offerprice,
+            userId: currentUser.id
         }
     });
 
