@@ -263,11 +263,12 @@ model Land {
   county        String?
   town          String?
   size          Int
+  category      String?
   imageSrc      String[] // URL for the listing image
   availability  String?
   type          String?
   intialDeposit Int?
-  covered_area  Int? // URL
+  covered_area  String? // URL
   price         Int?
   offerPrice    Int? // Description
   titleDeed     String? //
