@@ -131,6 +131,9 @@ model Offers {
   action     String?
   category   String?
   type       String?
+  subtitle   String?
+  county     String?
+  town       String?
   inclusion  String[]
   imageSrc   String[] // URL for the listing image
   price      String?

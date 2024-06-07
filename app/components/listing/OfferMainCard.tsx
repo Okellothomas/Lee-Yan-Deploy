@@ -1,6 +1,6 @@
 'use client'
 import useCountries from "@/app/hooks/useCountries";
-import { SafeUser, safeListing, safeReservation } from "@/app/types";
+import { SafeUser, safeListing, safeOffer, safeReservation } from "@/app/types";
 import { Listing, Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
@@ -13,7 +13,7 @@ import { FaCheck } from "react-icons/fa6";
 
 
 interface ListingCardProps {
-    data: safeTour;
+    data: safeOffer;
     reservation?: safeReservation;
     onAction?: (id: string) => void;
     disabled?: boolean;
@@ -33,7 +33,7 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
 }) => {
     const router = useRouter();
     const { getByValue } = useCountries();
-    const location = getByValue(data?.locationValue); //added ?
+    // const location = getByValue(data?.locationValue); //added ?
 
     const handleCancel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -64,6 +64,12 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
         return `${format(start, 'pp')} - ${format(end, 'pp')}`
     }, [reservation])
 
+//     if (!data.inclusion || data.inclusion.length === 0) {
+//         console.error('data.inclusion is either undefined or empty');
+//         console.log('data.inclusion:', data.inclusion);
+//     return null; // or handle the case appropriately
+//   }
+
   return (
       <div
         onClick={() => router.push(`/offer/${data?.id}`)} //added ?
@@ -92,22 +98,27 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
                 <span> {data.title} </span>
               </div>
               <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c text-neutral-800">
-                Offer Available for: <span className="text-neutral-500 text-sm">{ data.days} days</span>
+                Offer Available for: <span className="text-neutral-500 text-sm">{ data.days}</span>
               </div>
             <div>
              <span className="text-sm px-3 py-[4px] mb-[6px] border-neutral-300 border-solid border-2 text-neutral-700 rounded-lg">{data.category }</span>            
             </div>
               <div className="flex flex-row py-0.5 items-center gap-1">
                   <div>
-                     <span className="font-normal main-image-small-spans-c">Location:</span> <span className="text-green-500 underline">Diani</span>
+                     <span className="font-normal main-image-small-spans-c">Location:</span> <span className="text-neutral-700 underline">{ data.county },</span> <span className="text-neutral-500 underline">{ data.town }</span>
                   </div>
                 </div> 
             <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c-main text-neutral-800">
-                <span className="font-normal"></span> <span className="font-light text-sm text-neutral-700">One time offer</span>
+                              <span className="font-normal"></span> <span className="font-light text-sm text-neutral-700">{ data.type}</span>
             </div>
-            <div className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
-                <span className="font-normal text-green-700">Breakfast included</span> <span className="text-green-700"> <FaCheck size={18} /></span>
-            </div>
+             {data.inclusion.map((item, index) => (
+                    <div key={index} className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
+                    <span className="font-normal text-green-700">{item}</span>
+                    <span className="text-green-700">
+                        <FaCheck size={18} />
+                    </span>
+                    </div>
+                ))}
             <div className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
                 <span className="font-normal text-green-700">Initial deposit</span> <span className="text-green-700"> <FaCheck size={18} /></span>
             </div> 
@@ -120,12 +131,12 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
             <div className="flex flex-col items-center pr-5 gap-3">
             <div className="text-red-600">
                  {/* <div className="text-sm main-image-small-spans-c-btn"><span>Save</span></div>    */}
-                <div className="main-image-small-spans-c-btn">Ksh. <span className="text-md line-through">{data.save }</span></div>
+                <div className="main-image-small-spans-c-btn">Ksh. <span className="text-md line-through">{data.price }</span></div>
               </div>
             <div className="flex flex-row items-center gap-1">
                   <div><span>Price</span></div> 
                   <div>
-                      <span className="text-md font-semibold">Ksh. {data.price}</span>
+                      <span className="text-md font-semibold">Ksh. {data.offerprice}</span>
                   </div>
             </div>
                 <div>

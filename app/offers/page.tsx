@@ -13,27 +13,31 @@ import TourSize from "./components/TourSize";
 import { Metadata } from "next";
 import SearchMain from "../mainpage/components/SearchMain";
 import OfferMainCard from "../components/listing/OfferMainCard";
+import getOffers, { OffersParams } from "../actions/getOffers";
 
 // Define the interface for component props
 interface IParams {
   tourId?: string;
   tourParams: IToursParams;
+  offerParams: OffersParams;
 }
 
 export const metadata: Metadata =  {
   title: "All Destinations",
 }
 // Define the AllDestinationsPage component as a server component
-export default function AllDestinationsPage({ tourParams }: IParams) {
+export default function AllDestinationsPage({ tourParams, offerParams }: IParams) {
   // Fetch data inside the render function (server component behavior)
   const getToursAndRender = async () => {
     const tours = await getTours(tourParams);
     const currentUser = await getCurrentUser();
+    const offers =  await getOffers(offerParams);
 
     const PAGE_SIZE = 15;
     const currentPage = 1;
     const startIndex = (currentPage - 1) * PAGE_SIZE;
     const visibleTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(startIndex, startIndex + PAGE_SIZE);
+    const visibleOffers = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(startIndex, startIndex + PAGE_SIZE);
 
     const products: any = [];
 
@@ -42,7 +46,7 @@ export default function AllDestinationsPage({ tourParams }: IParams) {
       return <EmptyState showReset />;
     }
 
-    const totalPages = Math.ceil(tours.length / PAGE_SIZE);
+    const totalPages = Math.ceil(offers.length / PAGE_SIZE);
 
     return (
       <div>
@@ -70,7 +74,7 @@ export default function AllDestinationsPage({ tourParams }: IParams) {
               <div className="rounded-2xl items-center py-2 pl-2 pr-6 sm:pr-1 text-start all-destination-filter">
                 <p className="">Filter By:</p>
               </div>
-              <div className="font-semibold text-xl">{visibleTours.length} Offers Available</div>
+              <div className="font-semibold text-xl">{offers.length} Offers Available</div>
             </div>
             <div>
               <Sort products={products} />
@@ -88,7 +92,7 @@ export default function AllDestinationsPage({ tourParams }: IParams) {
             <div className="col-span-4 all-destination-tour-main-card">
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-8 all-destination-tours">
                 {/* Map through the visible listings array and render ListingCard components */}
-                {visibleTours.map((tour: any) => (
+                {offers.map((tour: any) => (
                   <OfferMainCard
                     currentUser={currentUser ? {
                       ...currentUser,
@@ -131,75 +135,3 @@ export default function AllDestinationsPage({ tourParams }: IParams) {
   // Return the result of the render function
   return getToursAndRender();
 }
-
-
-// import React from "react";
-// import { Metadata } from "next";
-// import Container from "../components/container/Container";
-// import SearchMain from "../mainpage/components/SearchMain";
-// import Sort from "./components/Sort";
-// import Contients from "./components/Continents";
-// import TourStyles from "./components/TourStyles";
-// import TourOperators from "./components/TourOperators";
-// import TourComponent from "./TourComponent";
-// import { IToursParams } from "../actions/getTours";
-
-// interface IParams {
-//   tourId?: string;
-//   tourParams: IToursParams;
-// }
-
-// export const metadata: Metadata = {
-//   title: "All Destinations",
-// };
-
-// export default function AllDestinationsPage({ tourParams }: IParams) {
-//   const products: any = [];
-
-//   return (
-//     <div>
-//       <div className="offers-main flex flex-col items-center justify-center text-lg font-bold">
-//         <h1 className="alldestinations-white-main">
-//           Premium offers <span className="color-span-green"></span>
-//         </h1>
-//       </div>
-//       <Container>
-//         <div className="Search-main-page w-full flex justify-center items-center text-center rounded-full">
-//           <SearchMain />
-//         </div>
-//       </Container>
-//       <Container>
-//         <div className="py-3">
-//           <hr />
-//         </div>
-//       </Container>
-//       <Container>
-//         <div className="flex flex-row justify-between items-center py-3">
-//           <div className="flex font-bold flex-row gap-40 items-center">
-//             <div className="rounded-2xl items-center py-2 pl-2 pr-6 sm:pr-1 text-start all-destination-filter">
-//               <p className="">Filter By:</p>
-//             </div>
-//             <div className="font-semibold text-xl">Offers Available</div>
-//           </div>
-//           <div>
-//             <Sort products={products} />
-//           </div>
-//         </div>
-//       </Container>
-//       <Container>
-//         <div className="pt-0 items-start grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
-//           <div className="col-span-1 flex flex-col gap-6 all-destination-products">
-//             <Contients products={products} />
-//             <TourStyles products={products} />
-//             <TourOperators products={products} />
-//           </div>
-//           <div className="col-span-4 all-destination-tour-main-card">
-//             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-8 all-destination-tours">
-//               <TourComponent tourParams={tourParams} />
-//             </div>
-//           </div>
-//         </div>
-//       </Container>
-//     </div>
-//   );
-// }

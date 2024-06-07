@@ -55,6 +55,9 @@ const OfferModal = () => {
             title: '',
             days: '',
             action: '',
+            town: '',
+            county: '',
+            subtitle: '',
             category: '',
             type: [],
             inclusion: [],
@@ -76,6 +79,7 @@ const OfferModal = () => {
     const depEnd = watch('depEnd');
     const type = watch('type');
     const inclusion = watch('inclusion');
+    const subtitle = watch('subtitle');
 
     const Map = useMemo(() => dynamic(() => import('../container/Map'), {
         ssr: false
@@ -173,6 +177,24 @@ const OfferModal = () => {
                     required
                 />
                 <hr />
+                <Input
+                    id="county"
+                    label="County"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
+                />
+                <hr />
+                <Input
+                    id="town"
+                    label="Town"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
+                />
+                <hr />
                 <Textarea
                     id="action"
                     label="Promotion message"
@@ -227,6 +249,31 @@ const OfferModal = () => {
                     ]}
                     value={type}
                     onChange={(value) => setCustomValue('type', value)}
+                    disabled={isLoading}
+                    register={register}
+                    style={{ height: '8vh', width: '100%' }}
+                    error={errors}
+                />
+                <hr />
+                <Select
+                    id="subtitle"
+                    label="offer subtitle"
+                    options={[
+                        { value: 'Castle', label: 'Castle' },
+                        { value: 'Appartment', label: 'Appartment' },
+                        { value: 'Mansion', label: 'Mansion' },
+                        { value: 'Resort', label: 'Resort' },
+                        { value: 'swimming', label: 'Swimming pool' },
+                        { value: 'Villas', label: 'Villas' },
+                        { value: 'Plots', label: 'Plots' },
+                        { value: 'Guest', label: 'Guest house' },
+                        { value: 'Tree', label: 'Tree house' },
+                        { value: 'Country', label: 'Countryside' },
+                        { value: 'Tinyhouse', label: 'Tinyhouse' },
+                        { value: 'Farms', label: 'Farms' },
+                    ]}
+                    value={subtitle}
+                    onChange={(value) => setCustomValue('subtitle', value)}
                     disabled={isLoading}
                     register={register}
                     style={{ height: '8vh', width: '100%' }}
