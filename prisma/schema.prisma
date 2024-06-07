@@ -136,8 +136,8 @@ model Offers {
   town       String?
   inclusion  String[]
   imageSrc   String[] // URL for the listing image
-  price      String?
-  offerprice String?
+  price      Int?
+  offerprice Int?
   createdAt  DateTime @default(now()) // Date and time when the reservation was created
   userId     String?  @db.ObjectId // Foreign key referencing the "User" model
   user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
