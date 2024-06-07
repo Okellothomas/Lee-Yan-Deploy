@@ -258,24 +258,22 @@ model Property {
 }
 
 model Land {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  title          String // Title of the listing
-  county         String?
-  town           String?
-  size           Int
-  category       String?
-  imageSrc       String[] // URL for the listing image
-  availability   String?
-  type           String?
-  initialDeposit Int?
-  covered_area   String? // URL
-  price          Int?
-  offerPrice     Int? // Description
-  titleDeed      String? //
-  overview       String?
-  userId         String   @db.ObjectId // Foreign key referencing the "User" model
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  title        String // Title of the listing
+  county       String?
+  town         String?
+  size         Int
+  category     String?
+  imageSrc     String[] // URL for the listing image
+  type         String?
+  covered_area String? // URL
+  price        Int?
+  offerPrice   Int? // Description
+  titleDeed    String? //
+  overview     String?
+  userId       String   @db.ObjectId // Foreign key referencing the "User" model
   // Relationship with the "User" model
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   // reserv Reserv[]
 }
 

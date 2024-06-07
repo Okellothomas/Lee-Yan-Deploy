@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import Heading from "../container/Heading";
 import CategoryInput from "../Inputs/CategoryInput";
 import { offers } from "../navbar/OfferCategories";
+import { lands } from "../navbar/LandCategories";
 import CountrySelect from "../Inputs/CountrySelect";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import dynamic from "next/dynamic";
@@ -22,6 +23,7 @@ import Modals from "./Modals";
 import Lago from "../navbar/Lago";
 import Models from "./Models";
 import Textarea from "../Inputs/Textarea";
+import useLandModal from "@/app/hooks/useLandModal";
 
 enum STEPS {
     CATEGORY = 0,
@@ -36,7 +38,8 @@ enum STEPS {
 const LandModal = () => {
 
     const offerModal = useOfferModal();
-    const tourModal  = useTourModal();
+    const tourModal = useTourModal();
+    const landModal = useLandModal();
     const router = useRouter();
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
@@ -53,17 +56,17 @@ const LandModal = () => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: '',
-            days: '',
-            action: '',
+            category: '',
+            size: '',
+            covered_area: '',
+            titleDeed: '',
+            overview: '',
+            type: '',
             town: '',
             county: '',
-            subtitle: '',
-            category: '',
-            type: [],
-            inclusion: [],
+            price : '',
+            offerPrice: '',
             imageSrc: [],
-            price: '',
-            offerprice: '',
         }
     });
 
@@ -80,6 +83,7 @@ const LandModal = () => {
     const type = watch('type');
     const inclusion = watch('inclusion');
     const subtitle = watch('subtitle');
+    const titleDeed = watch('titleDeed');
 
     const Map = useMemo(() => dynamic(() => import('../container/Map'), {
         ssr: false
@@ -118,13 +122,13 @@ const LandModal = () => {
 
         setIsLoading(true);
         
-        axios.post('/api/offers', data)
+        axios.post('/api/lands', data)
             .then(() => {
-                toast.success('Offer Created Successfully!');
+                toast.success('Land Created Successfully!');
                 router.refresh();
                 reset();
                 setStep(STEPS.CATEGORY);
-                offerModal.onClose();
+                landModal.onClose();
             }).catch(() => {
                 toast.error('Something went wrong');
             }).finally(() => {
@@ -147,7 +151,7 @@ const LandModal = () => {
                 subtitle="Choose the correct category"
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-                {offers.map((item) => (
+                {lands.map((item) => (
                     <div key={item.label} className="col-span-1">
                         <CategoryInput
                             onClick={(category) => setCustomValue('category', category)}
@@ -196,14 +200,14 @@ const LandModal = () => {
                 />
                 <hr />
                 <Textarea
-                    id="action"
-                    label="Promotion message"
+                    id="overview"
+                    label="Provide precise overview"
                     disabled={isLoading}
                     register={register}
                     error={errors}
                     className="p-0"
                 />
-                <hr />
+                {/* <hr />
                 <MultiSelect
                     id="inclusion"
                     label="What is included in the offer"
@@ -218,7 +222,7 @@ const LandModal = () => {
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                />
+                /> */}
             </div>
         );
     }
@@ -231,8 +235,8 @@ const LandModal = () => {
                     subtitle="Provide the details below!"
                 />
                 <Input
-                    id="days"
-                    label="How long will the offer last?"
+                    id="size"
+                    label="Provide land size?"
                     disabled={isLoading}
                     register={register}
                     error={errors}
@@ -242,10 +246,10 @@ const LandModal = () => {
                     id="type"
                     label="offer type"
                     options={[
-                        { value: 'Gateway deal', label: 'Gateway deal' },
-                        { value: 'Life-time deal', label: 'Life-time deal' },
-                        { value: 'One-time deal', label: 'One-time deal' },
-                        { value: 'Limited time deal', label: 'Limited time deal' },
+                        { value: 'Surveyers', label: 'Surveyers availabe' },
+                        { value: 'Surveyers', label: 'Surveyers not available' },
+                        // { value: 'One-time deal', label: 'One-time deal' },
+                        // { value: 'Limited time deal', label: 'Limited time deal' },
                     ]}
                     value={type}
                     onChange={(value) => setCustomValue('type', value)}
@@ -256,24 +260,24 @@ const LandModal = () => {
                 />
                 <hr />
                 <Select
-                    id="subtitle"
-                    label="offer subtitle"
+                    id="titleDeed"
+                    label="title deed"
                     options={[
-                        { value: 'Castle', label: 'Castle' },
-                        { value: 'Appartment', label: 'Appartment' },
-                        { value: 'Mansion', label: 'Mansion' },
-                        { value: 'Resort', label: 'Resort' },
-                        { value: 'swimming', label: 'Swimming pool' },
-                        { value: 'Villas', label: 'Villas' },
-                        { value: 'Plots', label: 'Plots' },
-                        { value: 'Guest', label: 'Guest house' },
-                        { value: 'Tree', label: 'Tree house' },
-                        { value: 'Country', label: 'Countryside' },
-                        { value: 'Tinyhouse', label: 'Tinyhouse' },
-                        { value: 'Farms', label: 'Farms' },
+                        { value: 'titleDeed', label: 'Title deed' },
+                        { value: 'notitleDeed', label: 'No title deed' },
+                        // { value: 'Mansion', label: 'Mansion' },
+                        // { value: 'Resort', label: 'Resort' },
+                        // { value: 'swimming', label: 'Swimming pool' },
+                        // { value: 'Villas', label: 'Villas' },
+                        // { value: 'Plots', label: 'Plots' },
+                        // { value: 'Guest', label: 'Guest house' },
+                        // { value: 'Tree', label: 'Tree house' },
+                        // { value: 'Country', label: 'Countryside' },
+                        // { value: 'Tinyhouse', label: 'Tinyhouse' },
+                        // { value: 'Farms', label: 'Farms' },
                     ]}
-                    value={subtitle}
-                    onChange={(value) => setCustomValue('subtitle', value)}
+                    value={titleDeed}
+                    onChange={(value) => setCustomValue('titleDeed', value)}
                     disabled={isLoading}
                     register={register}
                     style={{ height: '8vh', width: '100%' }}
@@ -299,7 +303,7 @@ const LandModal = () => {
                 />
                 <hr />
                 <Input
-                    id="offerprice"
+                    id="offerPrice"
                     label="Offer price"
                     disabled={isLoading}
                     register={register}
@@ -344,8 +348,8 @@ const LandModal = () => {
     return (
         <Models
             title={<Lago />}
-            isOpen={offerModal.isOpen}
-            onClose={offerModal.onClose}
+            isOpen={landModal.isOpen}
+            onClose={landModal.onClose}
             secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
             secondaryLabel={secondaryActionLabel}
             onSubmit={handleSubmit(onSubmit)}
