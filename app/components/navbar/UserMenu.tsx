@@ -29,6 +29,9 @@ import { MdOutlineRealEstateAgent } from "react-icons/md";
 import useBlogModal from "@/app/hooks/useBlogModel";
 import useNewsModal from "@/app/hooks/useNewsModel";
 import useOfferModal from "@/app/hooks/useOfferModal";
+import useLandModal from "@/app/hooks/useLandModal";
+import usePropertyModal from "@/app/hooks/usePropertyModal";
+import { MdOutlineAccountBalance } from "react-icons/md";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -42,8 +45,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
   const rentModal = useRentModal();
   const tourModal = useTourModal();
   const blogModal = useBlogModal();
+  const propertyModal = usePropertyModal();
   const offerModel = useOfferModal();
   const newsModal = useNewsModal();
+  const landModal = useLandModal();
   const signUpModal = useRegisterModal();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
@@ -248,7 +253,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
                       <GiSpookyHouse className="nav-icons-items" size={23} />
                       <MenuItem
                         onClick={() => {
-                          tourModal.onOpen();
+                          propertyModal.onOpen();
                           handleMenuItemClick();
                         }}
                         label="Create new property"
@@ -258,10 +263,20 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
                       <GiIsland className="nav-icons-items" size={23} />
                       <MenuItem
                         onClick={() => {
-                          tourModal.onOpen();
+                          landModal.onOpen();
                           handleMenuItemClick();
                         }}
                         label="Create new landsale"
+                      />
+                      </div>  
+                      <div className="flex flex-row items-center">
+                      <MdOutlineAccountBalance className="nav-icons-items" size={23} />
+                      <MenuItem
+                        onClick={() => {
+                          landModal.onOpen();
+                          handleMenuItemClick();
+                        }}
+                        label="Create new county"
                       />
                     </div>
                     <div className="flex flex-row items-center">

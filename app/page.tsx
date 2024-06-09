@@ -40,63 +40,6 @@ interface HomeProps {
 // Home component is defined as an asynchronous function
 const Home = async ({ searchParams, tourParams, offerParams }: HomeProps) => {
 
-  const cardsData = [
-  {
-    image: imageone,
-    title: 'AmzonCorp',
-    country: 'Get prime land?',
-    description: 'Brussels is a quick train ride from all the action',
-  },
-  {
-    image: imagetwo,
-    title: 'Devancatour',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagesix,
-    title: 'AmzonCorp',
-    country: 'Our prime hotel?',
-    description: 'Brussels is a quick train ride from all the action',
-  },
-  {
-    image: imagefour,
-    title: 'Title 4',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagefive,
-    title: 'Title 5',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagesix,
-    title: 'Title 6',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imageone,
-    title: 'Title 7',
-    country: 'Country 7',
-    description: 'Description 7',
-    },
-  {
-    image: imagesix,
-    title: 'Title 8',
-    country: 'Country 7',
-    description: 'Description 7',
-    },
-  {
-    image: imageone,
-    title: 'Title 9',
-    country: 'Country 7',
-    description: 'Description 7',
-  },
-  ];
-  
 
 const cardsDatas = [
   {
@@ -218,18 +161,6 @@ const cardsDatas = [
 
   const offers = await getOffers(offerParams);
 
-  // const transformedOffers: safeOffer[] = offers.map(offer => ({
-  //   id: offer.id,
-  //   title: offer.title,
-  //   days: offer.days,
-  //   action: offer.action,
-  //   category: offer.category,
-  //   type: offer.type,
-  //   inclusion: offer.inclusion,
-  //   imageSrc: offer.imageSrc,
-  //   price: offer.price,
-  //   offerprice: offer.offerprice,
-  // }));
 
   const tours: any = await getTours(tourParams);
 
@@ -360,7 +291,7 @@ const cardsDatas = [
                 <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
         </div>
-        <div className="grid-cols-page-s mt-6 pb-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+        <div className="grid-cols-page-s mt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
           {listings.slice(0, 4).map((listing: any) => (
             <ListingCardSecondary
               currentUser={currentUser ? {

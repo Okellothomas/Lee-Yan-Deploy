@@ -19,6 +19,7 @@ import BlogModal from './components/Modals/BlogModal'
 import NewsModal from './components/Modals/NewsModal'
 import OfferModal from './components/Modals/OfferModal'
 import LandModal from './components/Modals/LandModal'
+import PropertyModal from './components/Modals/PropertyModal'
 
 // Define metadata for the page
 export const metadata: Metadata = {
@@ -56,6 +57,7 @@ export default async function RootLayout({
         <NewsModal />
         <OfferModal />
         <LandModal />
+        <PropertyModal />
         {/* Render the main navigation bar with the current user information */}
         <div className='layout-navbar'><Navbar currentUser={currentUser} /></div>
         {/* Main content container with top and bottom padding */}

@@ -37,6 +37,7 @@ model User {
   propertysale Property[]
   land         Land[]
   offers       Offers[]
+  county       County[]
 }
 
 // Model representing the "Account" entity in the database
@@ -237,16 +238,13 @@ model Property {
   bedRoomCount  Int // URL for the listing image
   toiletCount   Int // Description of the listing
   county        String?
+  category      String? //
   town          String?
-  size          Int
-  houseType     String?
+  size          String?
   imageSrc      String[] // URL for the listing image
-  option        String?
   availability  String?
   type          String?
-  intialDeposit Int?
-  parking_space Int?
-  covered_area  Int? // URL
+  parking_space String?
   price         Int?
   offerPrice    Int? // Description
   amenities     String[]
@@ -257,12 +255,23 @@ model Property {
   // reserv Reserv[]
 }
 
+model County {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  county   String?
+  category String? //
+  imageSrc String // URL for the listing image
+  userId   String  @db.ObjectId // Foreign key referencing the "User" model
+  // Relationship with the "User" model
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // reserv Reserv[]
+}
+
 model Land {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   title        String // Title of the listing
   county       String?
   town         String?
-  size         Int
+  size         String?
   category     String?
   imageSrc     String[] // URL for the listing image
   type         String?
