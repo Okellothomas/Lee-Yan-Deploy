@@ -3,7 +3,7 @@ import getCurrentUser from "@/app/actions/getCurrentUsers";
 import prisma from "@/app/libs/prismadb";
 
 interface IParams {
-    offerId?: string;
+    countyId?: string;
 }
 
 export async function DELETE(
@@ -16,20 +16,20 @@ export async function DELETE(
         return NextResponse.error();
     }
 
-    const { offerId } = params;
+    const { countyId } = params;
 
-    if (!offerId || typeof offerId !== 'string') {
+    if (!countyId || typeof countyId !== 'string') {
         throw new Error('Invalid ID');
     }
 
-    const listing = await prisma.offers.deleteMany({
+    const counties = await prisma.county.deleteMany({
         where: {
-            id: offerId,
+            id: countyId,
             userId: currentUser.id
         }
     });
 
-    return NextResponse.json(listing)
+    return NextResponse.json(counties)
 }
 
 
@@ -43,22 +43,22 @@ export async function GET(
         return NextResponse.error();
     }
 
-    const { offerId } = params;
+    const { countyId } = params;
 
-    if (!offerId || typeof offerId !== 'string') {
+    if (!countyId || typeof countyId !== 'string') {
         throw new Error('Invalid ID');
     }
 
-    const listing = await prisma.offers.findUnique({
+    const counties = await prisma.county.findUnique({
         where: {
-            id: offerId
+            id: countyId
         }
     });
    
 
-    if (!listing) {
+    if (!counties) {
          return NextResponse.json({ message: "Internal Server Error" }, { status: 404 });
     }
 
-    return NextResponse.json(listing);
+    return NextResponse.json(counties);
 }

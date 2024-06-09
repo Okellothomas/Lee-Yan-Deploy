@@ -15,18 +15,9 @@ export async function POST(
     const body = await request.json();
 
     const {
-    title,
-    days,
-    action,
+    county,
     category,
-    type,
-    town,
-    county, 
-    subtitle,
-    inclusion,
     imageSrc,
-    price,
-    offerprice,
     } = body;
 
     Object.keys(body).forEach((value: any) => {
@@ -35,23 +26,14 @@ export async function POST(
         }
     });
 
-    const offer = await prisma.offers.create({
+    const counties = await prisma.county.create({
         data: {
-            title,
-            days,
-            action,
-            category,
-            type,
-            subtitle,
-            inclusion,
-            imageSrc,
-            town, 
             county,
-            price: parseInt(price, 10),
-            offerprice: parseInt(offerprice, 10),
+            category,
+            imageSrc,
             userId: currentUser.id
         }
     });
 
-    return NextResponse.json(offer);
+    return NextResponse.json(counties);
 }

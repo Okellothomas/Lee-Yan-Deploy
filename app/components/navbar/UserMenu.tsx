@@ -32,6 +32,7 @@ import useOfferModal from "@/app/hooks/useOfferModal";
 import useLandModal from "@/app/hooks/useLandModal";
 import usePropertyModal from "@/app/hooks/usePropertyModal";
 import { MdOutlineAccountBalance } from "react-icons/md";
+import useCountyModal from "@/app/hooks/useCountyModal";
 
 interface UserMenuProps {
   currentUser?: SafeUser | null;
@@ -45,6 +46,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
   const rentModal = useRentModal();
   const tourModal = useTourModal();
   const blogModal = useBlogModal();
+  const countyModal = useCountyModal();
   const propertyModal = usePropertyModal();
   const offerModel = useOfferModal();
   const newsModal = useNewsModal();
@@ -273,7 +275,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
                       <MdOutlineAccountBalance className="nav-icons-items" size={23} />
                       <MenuItem
                         onClick={() => {
-                          landModal.onOpen();
+                          countyModal.onOpen();
                           handleMenuItemClick();
                         }}
                         label="Create new county"
