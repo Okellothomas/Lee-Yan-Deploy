@@ -16,17 +16,17 @@ export async function POST(
 
     const {
     title,
-    days,
-    action,
     category,
+    size,
+    covered_area,
+    titleDeed,
+    overview,
     type,
     town,
     county, 
-    subtitle,
-    inclusion,
     imageSrc,
     price,
-    offerprice,
+    offerPrice,
     } = body;
 
     Object.keys(body).forEach((value: any) => {
@@ -35,23 +35,23 @@ export async function POST(
         }
     });
 
-    const offer = await prisma.offers.create({
+    const land = await prisma.land.create({
         data: {
             title,
-            days,
-            action,
             category,
+            size,
+            covered_area,
+            titleDeed,
+            overview,
             type,
-            subtitle,
-            inclusion,
+            town,
+            county, 
             imageSrc,
-            town, 
-            county,
-            price: parseInt(price, 10),
-            offerprice: parseInt(offerprice, 10),
+            price : parseInt(price, 10),
+            offerPrice: parseInt(offerPrice, 10),
             userId: currentUser.id
         }
     });
 
-    return NextResponse.json(offer);
+    return NextResponse.json(land);
 }

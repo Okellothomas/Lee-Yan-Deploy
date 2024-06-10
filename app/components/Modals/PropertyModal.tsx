@@ -5,7 +5,7 @@ import Modal from "./Modal";
 import { useMemo, useState } from "react";
 import Heading from "../container/Heading";
 import CategoryInput from "../Inputs/CategoryInput";
-import { offers } from "../navbar/OfferCategories";
+import { properties } from "../navbar/PropertyCategories";
 import CountrySelect from "../Inputs/CountrySelect";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import dynamic from "next/dynamic";
@@ -17,7 +17,7 @@ import Select from "../Inputs/Select"; // Import the MultiSelect component
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import useOfferModal from "@/app/hooks/useOfferModal";
+import usePropertyModal from "@/app/hooks/usePropertyModal";
 import Modals from "./Modals";
 import Lago from "../navbar/Lago";
 import Models from "./Models";
@@ -26,16 +26,17 @@ import Textarea from "../Inputs/Textarea";
 enum STEPS {
     CATEGORY = 0,
     IMAGES = 1,
-    MORE_IMAGES = 2,
-    DESCRIPTION = 3,
-    DESCRIPTION1 = 4,
-    DESCRIPTION2 = 5,
-    PRICE = 6
+    INFO = 2,
+    MORE_IMAGES = 3,
+    DESCRIPTION = 4,
+    DESCRIPTION1 = 5,
+    DESCRIPTION2 = 6,
+    PRICE = 7
 }
 
-const OfferModal = () => {
+const PropertyModal = () => {
 
-    const offerModal = useOfferModal();
+    const propertyModal = usePropertyModal();
     const tourModal  = useTourModal();
     const router = useRouter();
     const [step, setStep] = useState(STEPS.CATEGORY);
@@ -53,17 +54,22 @@ const OfferModal = () => {
     } = useForm<FieldValues>({
         defaultValues: {
             title: '',
-            days: '',
-            action: '',
-            town: '',
+            roomCount: 1,
+            bathRoomCount: 1,
+            bedRoomCount: 1,
+            toiletCount: 1,
             county: '',
-            subtitle: '',
             category: '',
-            type: [],
-            inclusion: [],
+            town: '',
+            size: '',
             imageSrc: [],
+            availability: '',
+            type: '',
+            parking_space: '',
             price: 1,
-            offerprice: 1,
+            offerPrice: 1,
+            amenities: [],
+            overview: '',
         }
     });
 
@@ -73,13 +79,17 @@ const OfferModal = () => {
     const roomCount = watch('roomCount');
     const bathRoomCount = watch('bathRoomCount');
     const imageSrc = watch('imageSrc');
+    const bedRoomCount = watch('bedRoomCount');
     const title = watch('title');
+    const toiletCount = watch('toiletCount');
     const description = watch('description');
     const depStart = watch('depStart');
     const depEnd = watch('depEnd');
     const type = watch('type');
     const inclusion = watch('inclusion');
     const subtitle = watch('subtitle');
+    const amenities = watch('amenities');
+    const availability = watch('availability');
 
     const Map = useMemo(() => dynamic(() => import('../container/Map'), {
         ssr: false
@@ -118,13 +128,13 @@ const OfferModal = () => {
 
         setIsLoading(true);
         
-        axios.post('/api/offers', data)
+        axios.post('/api/property', data)
             .then(() => {
-                toast.success('Offer Created Successfully!');
+                toast.success('Property Created Successfully!');
                 router.refresh();
                 reset();
                 setStep(STEPS.CATEGORY);
-                offerModal.onClose();
+                propertyModal.onClose();
             }).catch(() => {
                 toast.error('Something went wrong');
             }).finally(() => {
@@ -143,11 +153,11 @@ const OfferModal = () => {
     let bodyContent = (
         <div className="flex flex-col gap-8">
             <Heading
-                title="Which category does your offer fall in?"
+                title="Which category does the property falls in?"
                 subtitle="Choose the correct category"
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-                {offers.map((item) => (
+                {properties.map((item) => (
                     <div key={item.label} className="col-span-1">
                         <CategoryInput
                             onClick={(category) => setCustomValue('category', category)}
@@ -165,7 +175,7 @@ const OfferModal = () => {
         bodyContent = (
             <div className="flex flex-col gap-8 max-h-[65vh] overflow-y-auto">
                 <Heading
-                    title="How would you best describe this offer?"
+                    title="How would you best describe this Property?"
                     subtitle="Provide the following details!"
                 />
                 <Input
@@ -195,57 +205,12 @@ const OfferModal = () => {
                     required
                 />
                 <hr />
-                <Textarea
-                    id="action"
-                    label="Promotion message"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                    className="p-0"
-                />
-                <hr />
-                <MultiSelect
-                    id="inclusion"
-                    label="What is included in the offer"
-                    options={[
-                        { value: 'Breakfast included', label: 'Breakfast included' },
-                        { value: 'Spacious parking space', label: 'Spacious parking space' },
-                        { value: 'Free title deed', label: 'Free title deed' },
-                        { value: 'Spacious balcony', label: 'Spacious balcony' },
-                    ]}
-                    value={inclusion}
-                    onChange={(value) => setCustomValue('inclusion', value)}
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                />
-            </div>
-        );
-    }
-
-    if (step === STEPS.DESCRIPTION1) {
-        bodyContent = (
-            <div className="flex flex-col gap-8 max-h-[80vh]">
-                <Heading
-                    title="Provide more details on the offer?"
-                    subtitle="Provide the details below!"
-                />
-                <Input
-                    id="days"
-                    label="How long will the offer last?"
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                />
-                <hr />
                 <Select
                     id="type"
-                    label="offer type"
+                    label="property type"
                     options={[
-                        { value: 'Gateway deal', label: 'Gateway deal' },
-                        { value: 'Life-time deal', label: 'Life-time deal' },
-                        { value: 'One-time deal', label: 'One-time deal' },
-                        { value: 'Limited time deal', label: 'Limited time deal' },
+                        { value: 'sale', label: 'Property sale' },
+                        { value: 'rental', label: 'Property rental' },
                     ]}
                     value={type}
                     onChange={(value) => setCustomValue('type', value)}
@@ -255,28 +220,123 @@ const OfferModal = () => {
                     error={errors}
                 />
                 <hr />
-                <Select
-                    id="subtitle"
-                    label="offer subtitle"
+                <MultiSelect
+                    id="amenities"
+                    label="What are the amenities included"
                     options={[
-                        { value: 'Castle', label: 'Castle' },
-                        { value: 'Appartment', label: 'Appartment' },
-                        { value: 'Mansion', label: 'Mansion' },
-                        { value: 'Resort', label: 'Resort' },
-                        { value: 'swimming', label: 'Swimming pool' },
-                        { value: 'Villas', label: 'Villas' },
-                        { value: 'Plots', label: 'Plots' },
-                        { value: 'Guest', label: 'Guest house' },
-                        { value: 'Tree', label: 'Tree house' },
-                        { value: 'Country', label: 'Countryside' },
-                        { value: 'Tinyhouse', label: 'Tinyhouse' },
-                        { value: 'Farms', label: 'Farms' },
+                        { value: 'Ample parking', label: 'Ample parking' },
+                        { value: 'Well manicured garden', label: 'Well manicured garden' },
+                        { value: 'Kids play area', label: 'Kids play area' },
+                        { value: 'Pantry', label: 'Pantry' },
+                        { value: 'Laundary area', label: 'Laundary area' },
+                        { value: '24/7 Security', label: '24/7 Security' },
+                        { value: 'CCTv', label: 'CCTv' },
+                        { value: 'Swimming Pool', label: 'Swimming Pool' },
+                        { value: 'Fitness Center', label: 'Fitness Center' },
+                        { value: 'Playground', label: 'Playground' },
+                        { value: 'Clubhouse', label: 'Clubhouse' },
+                        { value: 'High-Speed Internet', label: 'High-Speed Internet' },
+                        { value: 'Pet-Friendly Facilities', label: 'Pet-Friendly Facilities' },
+                        { value: 'Walking Trails', label: 'Walking Trails' },
+                        { value: 'Balcony/Patio', label: 'Balcony/Patio' },
+                        { value: 'Storage Units', label: 'Storage Units' },
+                        { value: 'Rooftop Deck', label: 'Rooftop Deck' },
+                        { value: 'Smart Home Features', label: 'Smart Home Features' },
                     ]}
-                    value={subtitle}
-                    onChange={(value) => setCustomValue('subtitle', value)}
+                    value={amenities}
+                    onChange={(value) => setCustomValue('amenities', value)}
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                />
+            </div>
+        );
+    }
+
+    if (step === STEPS.INFO) {
+        bodyContent = (
+            <div className="flex flex-col gap-8 max-h-[65vh] overflow-y-auto">
+                <Heading
+                    title="Provide more basics about the property"
+                    subtitle="Provide the details below?"
+                />
+                <Counter
+                    title="bed Rooms"
+                    subtitle="Number of bed rooms?"
+                    value={bedRoomCount}
+                    onChange={(value) => setCustomValue('bedRoomCount', value)}
+                />
+                <hr />
+                <Counter
+                    title="Rooms"
+                    subtitle="How many rooms do you have?"
+                    value={roomCount}
+                    onChange={(value) => setCustomValue('roomCount', value)}
+                />
+                <hr />
+                <Counter
+                    title="Bathrooms"
+                    subtitle="How many bathrooms do you have?"
+                    value={bathRoomCount}
+                    onChange={(value) => setCustomValue('bathRoomCount', value)}
+                />
+                <hr />
+                <Counter
+                    title="Washrooms"
+                    subtitle="How many washrooms do you have?"
+                    value={toiletCount}
+                    onChange={(value) => setCustomValue('toiletCount', value)}
+                />
+
+            </div>
+        )
+    }
+
+    if (step === STEPS.DESCRIPTION1) {
+        bodyContent = (
+            <div className="flex flex-col gap-8 max-h-[65vh] overflow-y-auto">
+                <Heading
+                    title="Provide more details on the offer?"
+                    subtitle="Provide the details below!"
+                />
+                <Input
+                    id="size"
+                    label="What is the size of the property?"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                />
+                <hr />
+                <Select
+                    id="availability"
+                    label="property availability"
+                    options={[
+                        { value: 'yes', label: 'Yes' },
+                        { value: 'no', label: 'No' },
+                        // { value: 'One-time deal', label: 'One-time deal' },
+                        // { value: 'Limited time deal', label: 'Limited time deal' },
+                    ]}
+                    value={availability}
+                    onChange={(value) => setCustomValue('availability', value)}
                     disabled={isLoading}
                     register={register}
                     style={{ height: '8vh', width: '100%' }}
+                    error={errors}
+                />
+                <hr />
+                <Input
+                    id="parking_space"
+                    label="Indicate the parking space?"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                />
+                <hr />
+                <Textarea
+                    id="overview"
+                    label="Provide overview?"
+                    disabled={isLoading}
+                    register={register}
                     error={errors}
                 />
             </div>
@@ -315,8 +375,8 @@ const OfferModal = () => {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="Add the first photo of your offer"
-                    subtitle="Show the clients the offer!"
+                    title="Add the first photo of the property"
+                    subtitle="Show the clients the property!"
                 /> 
                 <ImageUpload
                     value={imageSrc[0] || ''}
@@ -330,8 +390,8 @@ const OfferModal = () => {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="Add more photos of your offer"
-                    subtitle="Show the clients the offer!"
+                    title="Add more photos of the property"
+                    subtitle="Show the clients the property!"
                 /> 
                 <ImageUpload
                     value={imageSrc.slice(1)}
@@ -344,8 +404,8 @@ const OfferModal = () => {
     return (
         <Models
             title={<Lago />}
-            isOpen={offerModal.isOpen}
-            onClose={offerModal.onClose}
+            isOpen={propertyModal.isOpen}
+            onClose={propertyModal.onClose}
             secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
             secondaryLabel={secondaryActionLabel}
             onSubmit={handleSubmit(onSubmit)}
@@ -355,5 +415,5 @@ const OfferModal = () => {
     );
 };
 
-export default OfferModal;
+export default PropertyModal;
 

@@ -1,4 +1,4 @@
-// import { useRouter } from "next/navigation";
+
 import getCurrentUser from "./actions/getCurrentUsers";
 import getListings, { IListingsParams } from "./actions/getListings";
 import getTours, { IToursParams } from "./actions/getTours";
@@ -7,15 +7,6 @@ import Container from "./components/container/Container";
 import EmptyState from "./components/container/EmptyState";
 import Banner from "./mainpage/components/Banner";
 import SearchMain from "./mainpage/components/SearchMain";
-import CardDisplay from "./mainpage/components/CardDisplay";
-import { FaStar } from "react-icons/fa";
-import { FaThreads } from "react-icons/fa6";
-import { MdFoodBank } from "react-icons/md";
-import { GiClockwork } from "react-icons/gi";
-import Categoriess from "./mainpage/components/Categoriess";
-import BookingCard from "./mainpage/components/BookingCard";
-import ListingValue from "./components/listing/ListingValue";
-import TourPriceCard from "./components/listing/TourPriceCard";
 import ListingCardMain from "./components/listing/ListingCardMain";
 import TourCardSecondary from "./components/listing/TourCardSecondary";
 import EmblaMobile from "./mainpage/components/EmblaMobile";
@@ -37,73 +28,18 @@ import Link from "next/link"
 import TourPriceCardMain from "./components/listing/TourPriceCardMain";
 import ListingCardSecondary from "./components/listing/ListingCardSecondary";
 import ListingTartiary from "./components/listing/ListingTartiary";
+import getOffers, {OffersParams} from "./actions/getOffers";
 
 // Define the interface for the Home component props
 interface HomeProps {
   searchParams: IListingsParams; // Search parameters for fetching listings
   tourParams: IToursParams;
+  offerParams: OffersParams; //
 }
 
 // Home component is defined as an asynchronous function
-const Home = async ({ searchParams, tourParams }: HomeProps) => {
+const Home = async ({ searchParams, tourParams, offerParams }: HomeProps) => {
 
-  const cardsData = [
-  {
-    image: imageone,
-    title: 'AmzonCorp',
-    country: 'Get prime land?',
-    description: 'Brussels is a quick train ride from all the action',
-  },
-  {
-    image: imagetwo,
-    title: 'Devancatour',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagesix,
-    title: 'AmzonCorp',
-    country: 'Our prime hotel?',
-    description: 'Brussels is a quick train ride from all the action',
-  },
-  {
-    image: imagefour,
-    title: 'Title 4',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagefive,
-    title: 'Title 5',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagesix,
-    title: 'Title 6',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imageone,
-    title: 'Title 7',
-    country: 'Country 7',
-    description: 'Description 7',
-    },
-  {
-    image: imagesix,
-    title: 'Title 8',
-    country: 'Country 7',
-    description: 'Description 7',
-    },
-  {
-    image: imageone,
-    title: 'Title 9',
-    country: 'Country 7',
-    description: 'Description 7',
-  },
-  ];
-  
 
 const cardsDatas = [
   {
@@ -223,6 +159,9 @@ const cardsDatas = [
     }
   const listings = await getListings(searchParams);
 
+  const offers = await getOffers(offerParams);
+
+
   const tours: any = await getTours(tourParams);
 
   const filteredTours = tours.filter((tour: any) => tour.tourists.length < tour.guestCount).slice(0, 4);
@@ -256,15 +195,31 @@ const cardsDatas = [
       </Container>
       </div>
       <div className="flex items-center mt-6 justify-center">
-       <Container>
-          <div className="mt-5">
-            <div className="my-3">
-              <h1 className="mb-2 text-2xl font-bold text-black">Great deals</h1>
-              <p className="text-neutral-600">Premium deals and offers for you</p>  
-            </div> 
-            <EmblaMobile cardsData={cardsData} />  
-          </div>   
-        </Container>
+        {offers && Array.isArray(offers) && offers.length > 0 && (
+    <Container>
+      <div className="mt-5">
+        <div className="my-3">
+          <h1 className="mb-2 text-2xl font-bold text-black">Great deals</h1>
+          <p className="text-neutral-600">Premium deals and offers for you</p>
+        </div>
+        <EmblaMobile
+          data={offers}
+          currentUser={
+            currentUser
+              ? {
+                  ...currentUser,
+                  createdAt: currentUser.createdAt.toISOString(),
+                  updatedAt: currentUser.updatedAt.toISOString(),
+                  emailVerified: currentUser.emailVerified
+                    ? currentUser.emailVerified.toISOString()
+                    : null,
+                }
+              : null
+          }
+        />
+      </div>
+    </Container>
+  )}
       </div>
       <div className="mt-7">
        <Container>
@@ -330,13 +285,13 @@ const cardsDatas = [
         <div className="mt-9 flex justify-between items-center">
               <div>
               <h1 className="mb-2 text-2xl font-bold text-black">Luxurious Properties</h1>
-                <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p> 
+                <p className="text-neutral-600">Find amazing high-end places to stay, discover your dream palace</p> 
               </div>
               <div>
                 <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
         </div>
-        <div className="grid-cols-page-s mt-6 pb-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+        <div className="grid-cols-page-s mt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
           {listings.slice(0, 4).map((listing: any) => (
             <ListingCardSecondary
               currentUser={currentUser ? {
@@ -449,9 +404,9 @@ const cardsDatas = [
         <Container>
           <div className="">
               <h1 className="mb-2 text-2xl font-bold text-black">Trending destinations you will love</h1>
-              <p className="text-neutral-600">Luxurious sanctuaries you will find comfortable</p>  
+              <p className="text-neutral-600">Explore in-demand holiday properties, enjoy exciting places to stay.</p>  
           </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
+          <div className="grid-cols-page-s pt-4 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
             {filteredTourss.map((tour: any) => (
               <TourCardLists
                 currentUser={currentUser ? {

@@ -36,6 +36,8 @@ model User {
   reserv       Reserv[]
   propertysale Property[]
   land         Land[]
+  offers       Offers[]
+  county       County[]
 }
 
 // Model representing the "Account" entity in the database
@@ -130,11 +132,16 @@ model Offers {
   action     String?
   category   String?
   type       String?
+  subtitle   String?
+  county     String?
+  town       String?
   inclusion  String[]
   imageSrc   String[] // URL for the listing image
-  price      String?
-  offerprice String?
+  price      Int?
+  offerprice Int?
   createdAt  DateTime @default(now()) // Date and time when the reservation was created
+  userId     String?  @db.ObjectId // Foreign key referencing the "User" model
+  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // Model representing the "PaymentLog" entity in the database
@@ -231,44 +238,54 @@ model Property {
   bedRoomCount  Int // URL for the listing image
   toiletCount   Int // Description of the listing
   county        String?
+  category      String? //
   town          String?
-  size          Int
-  houseType     String?
+  size          String?
   imageSrc      String[] // URL for the listing image
-  option        String?
   availability  String?
   type          String?
-  intialDeposit Int?
-  parking_space Int?
-  covered_area  Int? // URL
+  parking_space String?
   price         Int?
   offerPrice    Int? // Description
   amenities     String[]
   overview      String?
+  createdAt     DateTime @default(now()) // Date and time when the reservation was created
   userId        String   @db.ObjectId // Foreign key referencing the "User" model
   // Relationship with the "User" model
   user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   // reserv Reserv[]
 }
 
-model Land {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  title         String // Title of the listing
-  county        String?
-  town          String?
-  size          Int
-  imageSrc      String[] // URL for the listing image
-  availability  String?
-  type          String?
-  intialDeposit Int?
-  covered_area  Int? // URL
-  price         Int?
-  offerPrice    Int? // Description
-  titleDeed     String? //
-  overview      String?
-  userId        String   @db.ObjectId // Foreign key referencing the "User" model
+model County {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  county    String?
+  category  String? //
+  createdAt DateTime @default(now()) // Date and time when the reservation was created
+  imageSrc  String // URL for the listing image
+  userId    String   @db.ObjectId // Foreign key referencing the "User" model
   // Relationship with the "User" model
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // reserv Reserv[]
+}
+
+model Land {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  title        String // Title of the listing
+  county       String?
+  town         String?
+  size         String?
+  category     String?
+  imageSrc     String[] // URL for the listing image
+  type         String?
+  covered_area String? // URL
+  price        Int?
+  createdAt    DateTime @default(now()) // Date and time when the reservation was created
+  offerPrice   Int? // Description
+  titleDeed    String? //
+  overview     String?
+  userId       String   @db.ObjectId // Foreign key referencing the "User" model
+  // Relationship with the "User" model
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   // reserv Reserv[]
 }
 
