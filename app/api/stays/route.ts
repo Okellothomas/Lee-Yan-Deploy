@@ -56,7 +56,7 @@ export async function POST(
     });
 
     const listing = await prisma.listing.create({
-        data: {
+        data: { 
         title,
         hotelLink,
         imageSrc,
@@ -64,9 +64,9 @@ export async function POST(
         category,
         roomCount,
         bathRoomCount,
+        bedPhotos,
         guestCount,
         bedcount,
-        bedPhotos,
         bedroomCount,
         ratings,
         hostExperience,

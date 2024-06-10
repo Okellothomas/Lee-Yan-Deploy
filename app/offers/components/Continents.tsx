@@ -11,9 +11,10 @@ interface Product {
 
 interface ProductListProps {
   products: Product[];
+  setMaximumPrice:React.Dispatch<React.SetStateAction<number>>;  
 }
-
-const Continents: React.FC<ProductListProps> = ({ products }) => {
+ 
+const Continents: React.FC<ProductListProps> = ({ products, setMaximumPrice }) => {
   const [sortOption, setSortOption] = useState<string>('popularity');
   const [sortDirection, setSortDirection] = useState<boolean>(true);
   const [maxPrice, setMaxPrice] = useState<number>(1000);
@@ -43,12 +44,14 @@ const Continents: React.FC<ProductListProps> = ({ products }) => {
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMaxPrice(parseInt(e.target.value));
+    setMaximumPrice(parseInt(e.target.value))
   };
 
   const handlePriceInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value)) {
       setMaxPrice(value);
+      setMaximumPrice(value)
     }
   };
 
