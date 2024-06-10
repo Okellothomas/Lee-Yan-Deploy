@@ -28,8 +28,8 @@ const SearchMain = () => {
 
 
     const[searchDestination, setSearchDestination]=useState(  {
-        country: '',
-        city: ''})
+        county: '',
+        town: ''})
 
     const [options, setOptions] = useState(
       {
@@ -225,7 +225,7 @@ const inputRef = useRef<HTMLInputElement>(null);
 
 
                 <div className="px-4 items-center text-center">
-                <Link href={{ pathname: '/destination', query: { destination: searchDestination.city, country:searchDestination.country,  
+                <Link href={{ pathname: '/destination', query: { destination: searchDestination.town, country:searchDestination.county,  
                   checkinDate: checkinDate ? checkinDate.toLocaleDateString('en-US', {
                     day: '2-digit',
                     month: '2-digit',
