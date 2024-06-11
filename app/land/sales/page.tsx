@@ -55,6 +55,9 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
   const tours = await getTours(tourParams);
   const counties = await getCounties(countyParams);
   const lands = await getLands(landParams);
+  const landPremium = lands.filter(property => property.deal === "premium");
+  const landTrending = lands.filter(property => property.deal === "trending");
+  const LandHot = lands.filter(property => property.deal === "hot");
   const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
   const filteredTourss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
   // const isEmpty = true;
@@ -79,11 +82,11 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
       <div className="flex items-center mt-6 pb-6 justify-center">
       {lands && lands.length > 0 && (
        <Container>
-          <div className="mt-5">
+          <div className="mt-9">
             <div className="my-3 flex justify-between items-center">
               <div>
               <h1 className="mb-2 text-2xl font-bold text-black">Premium plots on sale</h1>
-              <p className="text-neutral-600">From Castle to Villas, our premium properties on sale</p>  
+              <p className="text-neutral-600">Land investment opportunities await, invest in prime locations.</p>  
               </div>  
               <div>
                 <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
@@ -164,7 +167,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
               <h1 className="mb-2 text-2xl font-bold text-black">Book our prime unique properties</h1>
               <p className="text-neutral-600">Book from our top rated properties for unforgettable stay</p>  
           </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+          <div className="grid-cols-page-s pt-6 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
             {filteredTours.map((tour: any) => (
               <TourPriceCardMain
                 currentUser={currentUser ? {
@@ -182,7 +185,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
       )}
       </div>
     
-      <div className="pt-1 pb-9">
+      {/* <div className="pt-1 pb-9">
       {filteredTourss && filteredTourss.length > 0 && (
         <Container>
           <div className="">
@@ -205,19 +208,19 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
           </div>
         </Container>
       )}
-      </div>
+      </div> */}
 
-      <div className="flex items-center mt-6 justify-center">
+      {/* <div className="flex items-center mt-6 justify-center">
        <Container>
           <div className="mt-5">
             <div className="my-3">
               <h1 className="mb-2 text-2xl font-bold text-black">Great deals</h1>
               <p className="text-neutral-600">Premium deals and great offers for you</p>  
             </div> 
-            {/* <EmblaMobile cardsData={cardsData} />   */}
+            <EmblaMobile cardsData={cardsData} />  
           </div>   
         </Container>
-      </div>
+      </div> */}
 
     </div>
   );
