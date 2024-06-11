@@ -245,7 +245,7 @@ const cardsDatas = [
           <div className="mt-5">
             <div className="my-3 flex justify-between items-center">
               <div>
-              <h1 className="mb-2 text-2xl font-bold text-black">Properties On Sale</h1>
+              <h1 className="mb-2 text-2xl font-bold text-black">Premium plots on sale</h1>
               <p className="text-neutral-600">From Castle to Villas, our premium properties on sale</p>  
               </div>  
               <div>
