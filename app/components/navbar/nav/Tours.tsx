@@ -19,7 +19,7 @@ const Tours: React.FC<DestinationsItemProp> = ({ onClick, label, handleMenuToggl
 
   return (
     <div className="relative">
-      <div className="text-md font-semibold hover:underline hover:cursor-pointer" onClick={() => {router.push("/land-sales")}}>Land sales</div>
+      <div className="text-md font-semibold cursor-pointer hover:underline hover:cursor-pointer" onClick={() => {router.push("/land/sales")}}>Land sales</div>
     </div>
   );
 };

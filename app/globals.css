@@ -518,7 +518,7 @@
 }
 
 .all-main-property-sales {
-  background-image: url('../public/images/naivaha.jpg');
+  background-image: url('../public/images/rental5.jpg');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.45);
   /* Red color with 60% opacity */
@@ -533,7 +533,7 @@
 }
 
 .all-main-property-rentals {
-  background-image: url('../public/images/rents.jpg');
+  background-image: url('../public/images/lands.jpg');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.33);
   /* Red color with 60% opacity */

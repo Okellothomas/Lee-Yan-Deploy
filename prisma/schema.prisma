@@ -244,6 +244,7 @@ model Property {
   imageSrc      String[] // URL for the listing image
   availability  String?
   type          String?
+  deal          String? //
   parking_space String?
   price         Int?
   offerPrice    Int? // Description

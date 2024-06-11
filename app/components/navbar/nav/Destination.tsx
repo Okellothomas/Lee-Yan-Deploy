@@ -19,7 +19,7 @@ const Destinations: React.FC<DestinationsItemProp> = ({ onClick, label, handleMe
 
   return (
     <div className="relative">
-          <div className="text-md font-semibold hover:underline hover:cursor-pointer" onClick={() => { router.push("/") }}>Stays</div>
+          <div className="text-md font-semibold cursor-pointer hover:underline hover:cursor-pointer" onClick={() => { router.push("/") }}>Stays</div>
     </div>
   );
 };

@@ -20,7 +20,7 @@ const Hotels: React.FC<DestinationsItemProp> = ({ onClick, label, handleMenuTogg
   
   return (
     <div className="relative">
-      <div className="text-md font-semibold hover:underline hover:cursor-pointer" onClick={() => {router.push("/property/sales")}}>Property sales</div>
+      <div className="text-md font-semibold cursor-pointer hover:underline hover:cursor-pointer" onClick={() => {router.push("/property/sales")}}>Property sales</div>
     </div>
   );
 };

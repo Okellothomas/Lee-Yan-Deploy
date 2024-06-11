@@ -61,6 +61,7 @@ const PropertyModal = () => {
             county: '',
             category: '',
             town: '',
+            deal: '',
             size: '',
             imageSrc: [],
             availability: '',
@@ -90,6 +91,7 @@ const PropertyModal = () => {
     const subtitle = watch('subtitle');
     const amenities = watch('amenities');
     const availability = watch('availability');
+    const deal = watch('deal');
 
     const Map = useMemo(() => dynamic(() => import('../container/Map'), {
         ssr: false
@@ -214,6 +216,22 @@ const PropertyModal = () => {
                     ]}
                     value={type}
                     onChange={(value) => setCustomValue('type', value)}
+                    disabled={isLoading}
+                    register={register}
+                    style={{ height: '8vh', width: '100%' }}
+                    error={errors}
+                />
+                <hr />
+                <Select
+                    id="deal"
+                    label="property deal"
+                    options={[
+                        { value: 'premium', label: 'Premium' },
+                        { value: 'affordable', label: 'Affordable' },
+                        { value: 'trending', label: 'Exclusive' },
+                    ]}
+                    value={deal}
+                    onChange={(value) => setCustomValue('deal', value)}
                     disabled={isLoading}
                     register={register}
                     style={{ height: '8vh', width: '100%' }}

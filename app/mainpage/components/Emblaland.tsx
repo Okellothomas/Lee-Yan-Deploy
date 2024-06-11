@@ -5,12 +5,12 @@ import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import { CiCircleChevLeft, CiCircleChevRight } from 'react-icons/ci';
 import Link from 'next/link';
-import { safeReservation, SafeUser, safeCounty, safeListing } from '@/app/types';
+import { safeReservation, SafeUser, safeLand, safeCounty, safeListing } from '@/app/types';
 import './embla.css';
 
 interface ListingCardProps {
   data: safeCounty[] | safeCounty;
-  datas: safeListing[] | safeListing;
+  datas: safeLand[] | safeLand;
   reservation?: safeReservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
@@ -19,7 +19,7 @@ interface ListingCardProps {
   currentUser?: SafeUser | null;
 }
 
-const Emblawebsite: React.FC<ListingCardProps> = ({
+const Emblaland: React.FC<ListingCardProps> = ({
   data,
   datas,
   reservation,
@@ -131,4 +131,4 @@ const Emblawebsite: React.FC<ListingCardProps> = ({
   );
 };
 
-export default Emblawebsite;
+export default Emblaland;

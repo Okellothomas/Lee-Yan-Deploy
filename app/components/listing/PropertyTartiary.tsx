@@ -1,6 +1,6 @@
 'use client'
 import useCountries from "@/app/hooks/useCountries";
-import { SafeUser, safeListing, safeReservation } from "@/app/types";
+import { SafeUser, safeListing, safeReservation, safeProperty } from "@/app/types";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from 'date-fns';
@@ -10,7 +10,7 @@ import Button from "../container/Button";
 import "./listing.css"
 
 interface ListingCardProps {
-    data: safeListing;
+    data: safeProperty;
     reservation?: safeReservation;
     onAction?: (id: string) => void;
     disabled?: boolean;
@@ -19,7 +19,7 @@ interface ListingCardProps {
     currentUser?: SafeUser | null;
 }
 
-const ListingTartiary: React.FC<ListingCardProps> = ({
+const PropertyTartiary: React.FC<ListingCardProps> = ({
     data,
     reservation,
     onAction,
@@ -62,7 +62,7 @@ const ListingTartiary: React.FC<ListingCardProps> = ({
 
     return (
         <div
-            onClick={() => router.push(`/stays/${data?.id}`)}
+            onClick={() => router.push(`/property/${data?.id}`)}
             className="col-span-1 pb-3 rounded-xl cursor-pointer group"
         >
             <div className="flex h-[50vh] flex-col gap-2 w-full main-image-small-screen main-image-small-screen-x">
@@ -84,7 +84,7 @@ const ListingTartiary: React.FC<ListingCardProps> = ({
                     <span className="text-neutral-700">{data.title}</span>
                 </div>
                 <div className="font-light px-2 flex items-center justify-between mt-[-12px] text-neutral-500">
-                    <span className="text-neutral-500 text-sm text-start line-clamp-2">{data.overView}</span>
+                    <span className="text-neutral-500 text-sm text-start line-clamp-2">{data.overview}</span>
                 </div>
                 <div className="font-light  px-2 flex items-center justify-between mt-[-6px] text-neutral-500">
                     <span className="text-neutral-800 text-sm">Price: Ksh. {data.price}</span>
@@ -104,4 +104,4 @@ const ListingTartiary: React.FC<ListingCardProps> = ({
     );
 };
 
-export default ListingTartiary;
+export default PropertyTartiary;
