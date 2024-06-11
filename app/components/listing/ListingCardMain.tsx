@@ -84,15 +84,15 @@ const ListingCardMain: React.FC<ListingCardProps> = ({
               </div>
               <div className="flex flex-row justify-between px-4">
               <div>
-                <span className="font-bold text-neutral-800">{data.title}</span>      
+                <span className="font-bold text-neutral-800">{data?.title}</span>      
               </div>
              </div>
               <div className="flex flex-row gap-1 items-center px-4">
               <div>
-                <span className="font-bold text-neutral-800">{data.county},</span>      
+                <span className="font-bold text-neutral-800">{data?.county},</span>      
               </div>
               <div className="text-sm truncate max-w-[10rem]">
-                 {data.town}
+                 {data?.town}
               </div>
              </div>
               <div className="flex flex-row items-center gap-1 font-light px-4 text-neutral-400">

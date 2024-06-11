@@ -227,7 +227,7 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
                 )}
               </div>
             </div>
-          </div>
+          </div> 
         </Container>
       </div>
     );

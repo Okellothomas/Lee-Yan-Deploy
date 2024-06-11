@@ -322,7 +322,7 @@ const cardsDatas = [
               </div>
         </div> 
         <div className="grid-cols-page-s pt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-          {listings.slice(0, 4).map((listing: any) => (
+          {/* {listings.slice(0, 4).map((listing: any) => (
             <ListingCardMain
               currentUser={currentUser ? {
                 ...currentUser,
@@ -333,7 +333,7 @@ const cardsDatas = [
               key={listing.id} // Use the listing ID as the unique key
               data={listing} // Pass the listing data to each ListingCard
             />
-          ))}
+          ))} */}
         </div>
       </Container>
      )}

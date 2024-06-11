@@ -67,13 +67,15 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
     .then((response) => {
       console.log("cities response", response) 
       const listings = response.data;
+
+      console.log("Listings", listings)
       // Extract the unique countries from the tours data
       const uniqueCounties = [...new Set(listings.map((listing) => listing.county))];
 
       const uniqueCityCountries = [...new Set(
         listings.map((listing) => ({
-          city: listing.city,
-          country: listing.country,
+          city: listing.town,
+          country: listing.county,
         }))
       )];
 
@@ -111,8 +113,10 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
         cityCountry.county.toLowerCase().includes(searchTerm)
       );
     });
+
+    console.log("Filtered City Countries ---->", filteredCityCountries)
     setFilteredCountries(filtered);
-    setSearchDestination(filteredCityCountries.length > 0 ? {country: filteredCityCountries[0].county, city: filteredCityCountries[0].town}: {city:inputValue, country:''});
+    setSearchDestination(filteredCityCountries.length === 111 ? {country: filteredCityCountries[0].county, city: filteredCityCountries[0].town}: {city:inputValue, country:''});
       setFilteredCountries(filteredCityCountries);
     };
   // setSearchDestination(filtered.length > 0 ? {country: filtered[0], city: filteredCityCountries[0].city}: {city:inputValue, country:''});
@@ -155,7 +159,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
                 onClick={() => handleCountryClick(country.town, country.county)}
                 className="px-4 py-2 cursor-pointer hover:bg-gray-100"
               >
-                 {country.town}, <span className="text-gray-500">{country.county}</span>
+                 {country?.town}, <span className="text-gray-500">{country?.county}</span>
               </li>
             ))}
           </ul>

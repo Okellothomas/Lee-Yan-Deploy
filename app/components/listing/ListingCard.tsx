@@ -85,11 +85,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
        
               <div className="text-sm flex flex-row justify-between">
-                  <div><span className="font-semibold">{ data.county }</span></div>
-                  <div>{data.town}</div>
+                  <div><span className="font-semibold">{ data?.county }</span></div>
+                  <div>{data?.town}</div>
               </div>
               <div className="font-light text-neutral-500">
-                 {reservationDate || data.category} 
+                 {reservationDate || data?.category} 
               </div>
               <div className="flex flex-row items-center gap-1">
                   <div className="font-semibold">

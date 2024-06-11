@@ -88,7 +88,7 @@ const Emblawebsite: React.FC<ListingCardProps> = ({
           {chunkedData.map((slide, slideIndex) => (
             <div key={slideIndex} className="embla__slide grid grid-cols-6 gap-4">
               {slide.map((offer, cardIndex) => {
-                const listingCount = offer.county ? countyCountMap[offer.county] : 0;
+                const listingCount = offer?.county ? countyCountMap[offer.county] : 0;
                 return (
                   <div key={cardIndex} className="grid-cols-1 pb-4 relative">
                     <div className="h-[20vh] w-full mx-auto shadow-lg rounded-lg mb-4 relative">
@@ -99,7 +99,7 @@ const Emblawebsite: React.FC<ListingCardProps> = ({
                     </div>
                     <div className="text-start relative">
                       <p className="text-sm text-gray-600 pb-1">
-                        <Link href={`/offer/${offer.id}`} className='text-black'>{offer.county}</Link>
+                        <Link href={`/offer/${offer.id}`} className='text-black'>{offer?.county}</Link>
                       </p>
                       <p className="text-sm text-gray-600 pb-1">
                         <Link href={`/offer/${offer.id}`} className='text-black'>{listingCount} properties</Link>

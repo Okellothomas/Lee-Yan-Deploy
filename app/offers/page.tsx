@@ -14,7 +14,7 @@ import { Metadata } from "next";
 import SearchMain from "../mainpage/components/SearchMain";
 import OfferMainCard from "../components/listing/OfferMainCard";
 import getOffers, { OffersParams } from "../actions/getOffers";
-import { useState } from "react";
+//import { useState } from "react";
 
 // Define the interface for component props
 interface IParams {
@@ -29,13 +29,13 @@ export const metadata: Metadata =  {
 // Define the AllDestinationsPage component as a server component
 export default function AllDestinationsPage({ tourParams, offerParams }: IParams) {
   // Fetch data inside the render function (server component behavior)
-  const [maximumPrice, setMaximumPrice] = useState<number>(1000);
+  //const [maximumPrice, setMaximumPrice] = useState<number>(1000);
 
   const getToursAndRender = async () => {
     const tours = await getTours(tourParams);
     const currentUser = await getCurrentUser();
     const offers =  await getOffers(offerParams);
-
+ 
     const PAGE_SIZE = 15;
     const currentPage = 1;
     const startIndex = (currentPage - 1) * PAGE_SIZE;
@@ -89,7 +89,7 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
         <Container>
           <div className="pt-0 items-start grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
             <div className="col-span-1 flex flex-col gap-6 all-destination-products">
-            <Contients products={products} setMaximumPrice={setMaximumPrice} />
+            {/* <Contients products={products} setMaximumPrice={setMaximumPrice} /> */}
               <TourStyles products={products} />
               <TourOperators products={products} />
               {/* <TourSize products={products}/> */}
