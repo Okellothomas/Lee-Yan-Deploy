@@ -79,7 +79,7 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
         const [listingsResponse,
           //  userResponse
           ] = await Promise.all([
-          axios.get(`/api/listings?checkinDate=${checkinDate}&checkoutDate=${checkoutDate}&city=${city}`),
+          axios.get(`/api/stays?checkinDate=${checkinDate}&checkoutDate=${checkoutDate}&city=${city}`),
           // axios.get(`/api/user`)
         ]);
 

@@ -25,8 +25,8 @@ interface AutocompleteInputProps {
 }
 
 interface CityCountry {
-  city: string;
-  country: string;
+  town: string;
+  county: string;
 }
 
 
@@ -63,12 +63,12 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
   useEffect(() => {
     // Fetch the tours data
     axios
-    .get<Tour[]>('/api/listings')
+    .get<Tour[]>('/api/stays')
     .then((response) => {
       console.log("cities response", response) 
       const listings = response.data;
       // Extract the unique countries from the tours data
-      const uniqueCountries = [...new Set(listings.map((listing) => listing.city))];
+      const uniqueCounties = [...new Set(listings.map((listing) => listing.county))];
 
       const uniqueCityCountries = [...new Set(
         listings.map((listing) => ({
@@ -79,7 +79,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
 
 
       setCityCountry(uniqueCityCountries) 
-      setCountries(uniqueCountries);
+      //setCountries(uniqueCounties);
     })
     .catch((error) => console.error(error));
     // getTours({})
@@ -99,22 +99,25 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
     //const exactMatch = cityCountry.find((citCoun) => citCoun.city.toLowerCase() === inputValue);
   //setSearchDestination(exactMatch || {city:''});
 
-    const filtered = countries.filter((country) =>
-      country.toLowerCase().includes(inputValue.toLowerCase())
+    const filtered = countries.filter((county) =>
+      county.toLowerCase().includes(inputValue.toLowerCase())
     );
 
   
     const filteredCityCountries = cityCountry.filter((cityCountry) => {
       const searchTerm = inputValue.toLowerCase();
       return (
-        cityCountry.city.toLowerCase().includes(searchTerm) ||
-        cityCountry.country.toLowerCase().includes(searchTerm)
+        cityCountry.town.toLowerCase().includes(searchTerm) ||
+        cityCountry.county.toLowerCase().includes(searchTerm)
       );
     });
-    // setFilteredCountries(filtered);
-  setSearchDestination(filteredCityCountries.length > 0 ? {country: filteredCityCountries[0].country, city: filteredCityCountries[0].city}: {city:inputValue, country:''});
-    setFilteredCountries(filteredCityCountries);
-  };
+    setFilteredCountries(filtered);
+    setSearchDestination(filteredCityCountries.length > 0 ? {country: filteredCityCountries[0].county, city: filteredCityCountries[0].town}: {city:inputValue, country:''});
+      setFilteredCountries(filteredCityCountries);
+    };
+  // setSearchDestination(filtered.length > 0 ? {country: filtered[0], city: filteredCityCountries[0].city}: {city:inputValue, country:''});
+  //   setFilteredCountries(filteredCityCountries);
+  // };
 
   const handleInputFocus = () => {
     setShowDropdown(true);
@@ -149,10 +152,10 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
             {filteredCountries.map((country, index) => (
               <li
                 key={index}
-                onClick={() => handleCountryClick(country.city, country.country)}
+                onClick={() => handleCountryClick(country.town, country.county)}
                 className="px-4 py-2 cursor-pointer hover:bg-gray-100"
               >
-                 {country.city}, <span className="text-gray-500">{country.country}</span>
+                 {country.town}, <span className="text-gray-500">{country.county}</span>
               </li>
             ))}
           </ul>

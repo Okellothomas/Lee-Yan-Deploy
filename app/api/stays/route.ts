@@ -56,7 +56,7 @@ export async function POST(
     });
 
     const listing = await prisma.listing.create({
-        data: {
+        data: { 
         title,
         hotelLink,
         imageSrc,
@@ -64,9 +64,9 @@ export async function POST(
         category,
         roomCount,
         bathRoomCount,
+        bedPhotos,
         guestCount,
         bedcount,
-        bedPhotos,
         bedroomCount,
         ratings,
         hostExperience,
@@ -102,25 +102,24 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
 
     // const { destination } = req.query;
     let cityValue = req.nextUrl.searchParams.get("city")
-    let countryValue = req.nextUrl.searchParams.get("country")
+    let countyValue = req.nextUrl.searchParams.get("county")
     let continentValue = req.nextUrl.searchParams.get('continent')
     let checkinDateValue = req.nextUrl.searchParams.get('checkinDate')
     let checkoutDateValue = req.nextUrl.searchParams.get('checkoutDate')
   
-    let country= countryValue !== 'undefined' ? countryValue : '';
+    let county= countyValue !== 'undefined' ? countyValue : '';
     let city = cityValue !== 'undefined' ? cityValue : '';
     let checkinDate = checkinDateValue !== 'undefined' ? checkinDateValue : '';
     let checkoutDate = checkoutDateValue !== 'undefined' ? checkoutDateValue : '';
 
-    console.log("----->", country)
-    console.log("Country----->", country)
+    console.log("County----->", county)
     console.log("checkinDate-->", checkinDate)
     console.log("checkoutDate-->", checkoutDate)
     let searchParamss: any = {};
 
         // Remove the userId from the destructuring and handle it separately
        //const { userId: userIdParam, ...restParams } = params || {};
-       if(country && country ==='all')
+       if(county && county ==='all')
         {
             
             const tours = await prisma.tour.findMany({
@@ -142,11 +141,11 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
 
 
 
-        if (country && country!=='') {
-            searchParamss.country =  country.toLowerCase();
+        if (county && county!=='') {
+            searchParamss.country =  county.toLowerCase();
         }
         if (city && city!=='') {
-            searchParamss.city =  city;
+            searchParamss.town =  city;
         }
 
         console.log("Search params", searchParamss)
