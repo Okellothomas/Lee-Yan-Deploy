@@ -29,11 +29,15 @@ interface SearchParams {
   destination:string,
   checkinDate:string,
   checkoutDate:string,
-  country:string
+  county:string
   }
 }
 
-
+interface Stay {
+  county: string;
+ town : string;
+  // Add other properties as needed
+}
  
 
 
@@ -49,7 +53,7 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
     const [error, setError] = useState(null);
     const [currentUser, setCurrentUser] = useState<SafeUser | null>(null)
     const [city, setCity] = useState(searchParams.destination)
-    const [country, setCountry] = useState(searchParams.country)
+    const [county, setCounty] = useState(searchParams.county)
 
     const [checkinDate, setCheckinDate] = useState(searchParams.checkinDate) 
     const [checkoutDate, setCheckoutDate] = useState(searchParams.checkoutDate) 
@@ -58,7 +62,8 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
     const [sortOption, setSortOption] = useState<string>('popularity');
     const [currentPage, setCurrentPage] = useState(1);
 
-
+    const [cityCountry, setCityCountry] = useState<string[]>([]);
+    const [counties, setCounties] = useState<string[]>([])
 
 
 
@@ -66,6 +71,48 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
   console.log("Checkin from  page", checkinDate)
   
  
+
+  useEffect(() => {
+    // Fetch the tours data
+    axios
+    .get<Stay[]>('/api/stays')
+    .then((response) => {
+      console.log("cities response", response) 
+      const listings = response.data;
+
+      console.log("Listings", listings)
+      // Extract the unique countries from the tours data
+
+      // const uniqueCityCounties = [...new Set(
+      //   listings.map((listing) => ({
+      //     town: listing.town,
+      //     county: listing.county,
+      //   }))
+      // )];
+
+      const uniqueCityCounties = Array.from(
+        new Map(listings.map(listing => [`${listing.town}-${listing.county}`, listing])).values()
+      );
+ 
+      const uniqueCounties = [...new Set(listings.map((listing) => listing.county))];
+
+      setCounties(uniqueCounties) 
+
+      console.log("UniqueCityCojntries----]]", uniqueCityCounties)
+      //setCountries(uniqueCounties);
+    })
+    .catch((error) => console.error(error));
+    // getTours({})
+    //   .then((tours) => {
+    //     // Extract the unique countries from the tours data
+    //     const uniqueCountries = [...new Set(tours.map((tour) => tour.country))].filter((country): country is string => country !== null);
+    //     setCountries(uniqueCountries);
+    //     console.log('Unique Countries', uniqueCountries)
+    //   })
+    //   .catch((error) => console.error(error));
+  }, []);
+
+
 
   useEffect(() => {
     const handleSearch = async () => {
@@ -79,7 +126,7 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
         const [listingsResponse,
           //  userResponse
           ] = await Promise.all([
-          axios.get(`/api/stays?checkinDate=${checkinDate}&checkoutDate=${checkoutDate}&city=${city}`),
+          axios.get(`/api/stays?checkinDate=${checkinDate}&checkoutDate=${checkoutDate}&city=${city}&county=${county}`),
           // axios.get(`/api/user`)
         ]);
 
@@ -110,7 +157,7 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
     };
 
     handleSearch();
-  }, [country, checkinDate, checkoutDate]);
+  }, [county, checkinDate, checkoutDate]);
   
   //console.log('destination', destination)
 
@@ -182,7 +229,7 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
         <Container>
           <div className="pt-0 items-start grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
             <div className="col-span-1 flex flex-col gap-6 all-destination-products">
-              <Contients products={products} country={country} setCountry={setCountry} />
+              <Contients products={products} country={county} setCounty={setCounty} setCity={setCity} counties={counties} /> 
                {/* //country={country} setCountry={setCountry} /> */}
               <TourStyles products={products} />
               <TourOperators products={products} />

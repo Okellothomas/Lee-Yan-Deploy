@@ -15,7 +15,7 @@ import getListingsHotels from "../../actions/getListingsHotels";
 import { Metadata } from "next";
 import TourCardSecondary from "../../components/listing/TourCardSecondary";
 
-import imagebook from "../../../public/images/maint.jpg"
+import imagebook from "../../../public/images/family3.jpg"
 import imageone from "../../../public/images/ps.jpeg"
 import imagetwo from "../../../public/images/psa.jpeg"
 import imagethree from "../../../public/images/psb.jpg"
@@ -27,11 +27,21 @@ import TourPriceCard from "../../components/listing/TourPriceCard";
 import TourCardLists from "../../components/listing/TourCardLists";
 import EmblaMobile from "../../mainpage/components/EmblaMobile";
 import TourPriceCardMain from "@/app/components/listing/TourPriceCardMain";
+import Image from "next/image";
+import Emblaland from "@/app/mainpage/components/Emblaland";
+import getCounties, { CountiesParams } from "@/app/actions/getCounties";
+import getProperty, { PropertyParams } from "@/app/actions/getProperty";
+import PropertyTartiary from "@/app/components/listing/PropertyTartiary";
+import PropertyCardMain from "@/app/components/listing/PropertyCardMain";
+import PropertyCardSecondary from "@/app/components/listing/PropertyCardSecondary";
+import PropertyTartiaryList from "@/app/components/listing/PropertyTartiaryList";
 
 // Define the interface for the Home component props
 interface HotelPageProps {
-    searchParams: IListingsParams; // Search parameters for fetching listings
-     tourParams: IToursParams;
+  searchParams: IListingsParams; // Search parameters for fetching listings
+  tourParams: IToursParams;
+  countyParams: CountiesParams;
+  propertyParams: PropertyParams;
 }
 
 export const metadata: Metadata =  {
@@ -39,177 +49,8 @@ export const metadata: Metadata =  {
 }
 
 // Home component is defined as an asynchronous function
-const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => {
+const DestinationPage = async ({ searchParams, tourParams, countyParams, propertyParams }: HotelPageProps) => {
   // Fetch listings and current user asynchronously
-
-  const cardsData = [
-  {
-    image: imageone,
-    title: 'AmzonCorp',
-    country: 'Get prime land?',
-    description: 'Brussels is a quick train ride from all the action',
-  },
-  {
-    image: imagetwo,
-    title: 'Devancatour',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagesix,
-    title: 'AmzonCorp',
-    country: 'Our prime hotel?',
-    description: 'Brussels is a quick train ride from all the action',
-  },
-  {
-    image: imagefour,
-    title: 'Title 4',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagefive,
-    title: 'Title 5',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagesix,
-    title: 'Title 6',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imageone,
-    title: 'Title 7',
-    country: 'Country 7',
-    description: 'Description 7',
-    },
-  {
-    image: imagesix,
-    title: 'Title 8',
-    country: 'Country 7',
-    description: 'Description 7',
-    },
-  {
-    image: imageone,
-    title: 'Title 9',
-    country: 'Country 7',
-    description: 'Description 7',
-  },
-  ];
-  
-
-const cardsDatas = [
-  {
-    image: imageone,
-    title: 'AmzonCorp',
-    country: 'Meru',
-    description: '100 properties',
-  },
-  {
-    image: imagetwo,
-    title: 'Devancatour',
-    country: 'Diani',
-    description: '40 properties',
-  },
-  {
-    image: imagesix,
-    title: 'AmzonCorp',
-    country: 'Kisii',
-    description: '140 properties',
-  },
-  {
-    image: imagefour,
-    title: 'Title 4',
-    country: 'Naivasha',
-    description: '20 properties',
-  },
-  {
-    image: imagefive,
-    title: 'Title 5',
-    country: 'Kakamega',
-    description: '30 properties',
-  },
-  {
-    image: imagesix,
-    title: 'Title 6',
-    country: 'Homabay',
-    description: '10 properties',
-  },
-  {
-    image: imageone,
-    title: 'Title 7',
-    country: 'Machakos',
-    description: '30 properties',
-    },
-  {
-    image: imagesix,
-    title: 'Title 8',
-    country: 'Garisa',
-    description: '10 properties',
-    },
-  {
-    image: imageone,
-    title: 'Title 9',
-    country: 'Kirinyaga',
-    description: '64 properties',
-  },
-  {
-    image: imageone,
-    title: 'AmzonCorp',
-    country: 'Meru',
-    description: '100 properties',
-  },
-  {
-    image: imagetwo,
-    title: 'Devancatour',
-    country: 'Diani',
-    description: '40 properties',
-  },
-  {
-    image: imagesix,
-    title: 'AmzonCorp',
-    country: 'Kisii',
-    description: '140 properties',
-  },
-  {
-    image: imagefour,
-    title: 'Title 4',
-    country: 'Naivasha',
-    description: '20 properties',
-  },
-  {
-    image: imagefive,
-    title: 'Title 5',
-    country: 'Kakamega',
-    description: '30 properties',
-  },
-  {
-    image: imagesix,
-    title: 'Title 6',
-    country: 'Homabay',
-    description: '10 properties',
-  },
-  {
-    image: imageone,
-    title: 'Title 7',
-    country: 'Machakos',
-    description: '30 properties',
-    },
-  {
-    image: imagesix,
-    title: 'Title 8',
-    country: 'Garisa',
-    description: '10 properties',
-    },
-  {
-    image: imageone,
-    title: 'Title 9',
-    country: 'Kirinyaga',
-    description: '64 properties',
-  },
-];
 
   let currentUser: any;
     if (searchParams.userId) {
@@ -217,6 +58,15 @@ const cardsDatas = [
     }
   // const listings = await getListingsHotels({ ...searchParams, hotel: "hotel" });
   const tours = await getTours(tourParams);
+
+  const properties = await getProperty(propertyParams); 
+  const propertySales = properties.filter(property => property.type === "sale");
+  const propertyRentals = properties.filter(property => property.type === "rental");
+  const propertyPremium = properties.filter(property => property.type === "sale" && property.deal === "premium");
+  const propertyTrending = properties.filter(property => property.type === "sale" && property.deal === "affordable");
+  const propertyAffordable = properties.filter(property => property.type === "sale" && property.deal === "trending");
+
+  const counties = await getCounties(countyParams);
   const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
   const filteredTourss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
   // const isEmpty = true;
@@ -233,32 +83,58 @@ const cardsDatas = [
     <div>
     <div className="all-main-property-sales flex flex-col items-center justify-center text-lg font-bold">
         <h1 className="color-property-sales-main text-white pb-5">PREMIUM PROPERTIES ON SALE</h1>
-        <p className="text-white font-semibold text-2xl">Buy now, save more</p>
+        <p className="text-white banner-title-one font-bold text-3xl">Purchase high-end properties</p>
         {/* <div className="destination-search">
           <Search /> 
         </div> */}
       </div>
-       <div className="flex items-center mt-6 pb-6 justify-center">
-       <Container>
-          <div className="mt-5">
-            <div className="my-3">
-              <h1 className="mb-2 text-2xl font-bold text-black">Properties On Sale</h1>
-              <p className="text-neutral-600">From Castle to Villas, our premium properties on sale</p>  
-            </div> 
-            <Emblawebsite cardsData={cardsDatas} />  
+      <div className="flex items-center mt-9 pb-0 justify-center">
+        {propertySales && propertySales.length > 0 && (
+        <Container>
+          <div className="mt-0">
+            <div className="my-3 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-bold text-black">Exclusive properties on sale</h1>
+              <p className="text-neutral-600">From Apparments to Heights, buy our premium properties on sale</p>  
+              </div>  
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
+            </div>
+            <Emblaland
+              data={counties}
+              datas={propertySales}
+              currentUser={
+              currentUser
+              ? {
+                  ...currentUser,
+                  createdAt: currentUser.createdAt.toISOString(),
+                  updatedAt: currentUser.updatedAt.toISOString(),
+                  emailVerified: currentUser.emailVerified
+                    ? currentUser.emailVerified.toISOString()
+                    : null,
+                }
+              : null
+          } /> 
           </div>   
         </Container>
+        )}
       </div>
       <div className="pt-1 pb-9">
-      {filteredTours && filteredTours.length > 0 && (
+      {propertyPremium && propertyPremium.length > 0 && (
         <Container>
-          <div className="mt-9">
-              <h1 className="mb-2 text-2xl font-bold text-black">Luxurious Properties</h1>
-              <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p>  
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
-              <TourCardSecondary
+          <div className="mt-6 mb-3 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-bold text-black">Our top trending properties</h1>
+              <p className="text-neutral-600">Premium choices: highly desirable properties on the market</p>  
+              </div>  
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
+            </div> 
+          <div className="grid-cols-page-s pt-2 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+            {propertyPremium.map((tour: any) => (
+              <PropertyTartiary
                 currentUser={currentUser ? {
                   ...currentUser,
                   createdAt: currentUser.createdAt.toISOString(),
@@ -274,15 +150,20 @@ const cardsDatas = [
       )}
       </div>
      <div className="first-card-main pt-1 pb-9">
-      {filteredTours && filteredTours.length > 0 && (
-        <Container>
-          <div className="mt-9">
-              <h1 className="mb-2 text-2xl font-bold text-black">Luxurious Properties</h1>
-              <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p>  
+      {propertyTrending && propertyTrending.length > 0 && (
+          <Container>
+          <div className="mt-9 mb-3 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-bold text-black">Hot deals, affordable prices</h1>
+              <p className="text-neutral-600">Unbeatable offers, budget-friendly, easy on the wallet</p>  
+              </div>  
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
           </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
-              <TourCardSecondary
+          <div className="grid-cols-page-s pt-3 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+            {propertyTrending.map((tour: any) => (
+              <PropertyCardSecondary
                 currentUser={currentUser ? {
                   ...currentUser,
                   createdAt: currentUser.createdAt.toISOString(),
@@ -298,16 +179,21 @@ const cardsDatas = [
       )}
       </div>
       
-    <div className="pt-1 pb-9">
-      {filteredTours && filteredTours.length > 0 && (
-        <Container>
-          <div className="mt-9">
-              <h1 className="mb-2 text-2xl font-bold text-black">Book our prime unique properties</h1>
-              <p className="text-neutral-600">Book from our top rated properties for unforgettable stay</p>  
+    <div className="pt-1 pb-6">
+      {propertyAffordable && propertyAffordable.length > 0 && (
+          <Container>
+          <div className="mt-9 mb-3 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-bold text-black">Purchase our great bargains</h1>
+              <p className="text-neutral-600">Amazing deals available, lock in fantastic discounts before they&lsquo;re gone</p>  
+              </div>  
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
           </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
-              <TourPriceCardMain
+          <div className="grid-cols-page-s pt-3 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+            {propertyAffordable.map((tour: any) => (
+              <PropertyCardMain
                 currentUser={currentUser ? {
                   ...currentUser,
                   createdAt: currentUser.createdAt.toISOString(),
@@ -323,16 +209,21 @@ const cardsDatas = [
       )}
       </div>
     
-      <div className="pt-1 pb-9">
-      {filteredTourss && filteredTourss.length > 0 && (
-        <Container>
-          <div className="">
-              <h1 className="mb-2 text-2xl font-bold text-black">Trending destinations you will love</h1>
-              <p className="text-neutral-600">Luxurious sanctuaries you will find comfortable</p>  
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
-            {filteredTourss.map((tour: any) => (
-              <TourCardLists
+      <div className="pt-1 pb-5">
+      {propertySales && propertySales.length > 0 && (
+          <Container>
+          <div className="mt-9 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-bold text-black">Secure unbeatable offers today</h1>
+              <p className="text-neutral-600">Unparalleled bargains available, seize the opportunity today!</p>   
+              </div>  
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
+          </div>
+          <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
+            {propertySales.map((tour: any) => (
+              <PropertyTartiaryList
                 currentUser={currentUser ? {
                   ...currentUser,
                   createdAt: currentUser.createdAt.toISOString(),
@@ -348,17 +239,23 @@ const cardsDatas = [
       )}
       </div>
 
-      <div className="flex items-center mt-6 justify-center">
-       <Container>
-          <div className="mt-5">
-            <div className="my-3">
-              <h1 className="mb-2 text-2xl font-bold text-black">Great deals</h1>
-              <p className="text-neutral-600">Premium deals and great offers for you</p>  
-            </div> 
-            <EmblaMobile cardsData={cardsData} />  
-          </div>   
+      <div className="pt-0 pb-0">
+        <Container>
+          <div className="border flex justify-start gap-9 items-center border-solid border-neutral-400 py-10 px-11 rounded-xl shadow-sm">
+            <div>
+              <Image src={imagebook} alt=""  className="h-[230px] w-[230px] shadow-md rounded-br-full rounded-t-full"/>
+            </div>
+            <div>
+              <h3 className="pb-5 font-bold text-2xl">Get one in a lifetime affordable deals </h3>
+              <p className="pb-5 text-neutral-600">buys our properties at varied discounts, to meet your needs.</p>
+              <div className="flex justify-start items-center gap-9">
+                <Link href="/" className="bg-green-500 px-6 py-2 rounded-3xl">Sign Up</Link>
+                <Link href="/" className="bg-green-500 px-6 py-2 rounded-3xl">Login</Link>
+              </div>
+            </div>
+          </div>
         </Container>
-      </div>
+    </div>
 
     </div>
   );

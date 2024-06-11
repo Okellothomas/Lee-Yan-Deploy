@@ -244,6 +244,7 @@ model Property {
   imageSrc      String[] // URL for the listing image
   availability  String?
   type          String?
+  deal          String? //
   parking_space String?
   price         Int?
   offerPrice    Int? // Description
@@ -277,6 +278,7 @@ model Land {
   category     String?
   imageSrc     String[] // URL for the listing image
   type         String?
+  deal         String? //
   covered_area String? // URL
   price        Int?
   createdAt    DateTime @default(now()) // Date and time when the reservation was created

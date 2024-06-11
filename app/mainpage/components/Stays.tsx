@@ -2,9 +2,9 @@ import React from 'react';
 import Image from "next/image";
 import imageone from "../../../public/images/nairobi.jpg";
 import imagetwo from "../../../public/images/diane.jpg";
-import imagethree from "../../../public/images/kiambu.jpg";
-import imagefour from "../../../public/images/kisumus.jpg";
-import imagefive from "../../../public/images/naivaha.jpg";
+import imagethree from "../../../public/images/flamingo.jpg";
+import imagefour from "../../../public/images/kutus.jpg";
+import imagefive from "../../../public/images/adventure.jpeg";
 import Link from "next/link"
 
 const Stay: React.FC = () => {
@@ -18,7 +18,7 @@ const Stay: React.FC = () => {
             alt="Image 1"
             className="object-cover w-full h-[35vh] rounded-lg shadow-lg"
           />
-          <div className="absolute inset-0 bg-black opacity-30 rounded-lg shadow-lg"></div>
+          <div className="absolute inset-0 bg-black opacity-40 rounded-lg shadow-lg"></div>
           <div className="absolute bottom-0 left-0 p-2 text-white">
             <h2 className="text-xl font-bold">Nairobi</h2>
           </div>
@@ -31,7 +31,7 @@ const Stay: React.FC = () => {
             alt="Image 2"
             className="object-cover w-full h-[35vh] rounded-lg shadow-lg"
           />
-          <div className="absolute inset-0 bg-black opacity-30 rounded-lg shadow-lg"></div>
+          <div className="absolute inset-0 bg-black opacity-40 rounded-lg shadow-lg"></div>
           <div className="absolute bottom-0 left-0 p-2 text-white">
             <h2 className="text-xl font-bold">Mombasa</h2>
          </div>
@@ -44,9 +44,9 @@ const Stay: React.FC = () => {
             alt="Image 3"
             className="object-cover w-full h-[35vh] rounded-lg shadow-lg"
           />
-          <div className="absolute inset-0 bg-black opacity-30 rounded-lg shadow-lg"></div>
+          <div className="absolute inset-0 bg-black opacity-40 rounded-lg shadow-lg"></div>
           <div className="absolute bottom-0 left-0 p-2 text-white">
-            <h2 className="text-xl font-bold">Kiambu</h2>
+            <h2 className="text-xl font-bold">Naivasha</h2>
          </div>
          </Link>
         </div>
@@ -59,7 +59,7 @@ const Stay: React.FC = () => {
             alt="Image 4"
             className="object-cover w-full h-[40vh] rounded-lg shadow-lg"
           />
-          <div className="absolute inset-0 bg-black opacity-30 rounded-lg shadow-lg"></div>
+          <div className="absolute inset-0 bg-black opacity-40 rounded-lg shadow-lg"></div>
           <div className="absolute bottom-0 left-0 p-2 text-white">
             <h2 className="text-xl font-bold">Kisumu</h2>
          </div>
@@ -72,9 +72,9 @@ const Stay: React.FC = () => {
             alt="Image 5"
             className="object-cover w-full h-[40vh] rounded-lg shadow-lg"
           />
-          <div className="absolute inset-0 bg-black opacity-30 rounded-lg shadow-lg"></div>
+          <div className="absolute inset-0 bg-black opacity-40 rounded-lg shadow-lg"></div>
           <div className="absolute bottom-0 left-0 p-2 text-white">
-            <h2 className="text-xl font-bold">Nakuru</h2>
+            <h2 className="text-xl font-bold">Kajiado</h2>
           </div>
           </Link>
         </div>

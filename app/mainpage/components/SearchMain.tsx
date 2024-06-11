@@ -12,7 +12,7 @@ import { IoSearch } from "react-icons/io5";
 
 import React, { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import './search.css'
+import './search.css' 
 import 'react-datepicker/dist/react-datepicker.css'; // Import CSS for styling
 import AutocompleteInput from "@/app/components/forms/AutoCompleteInput";
 import Link from "next/link";

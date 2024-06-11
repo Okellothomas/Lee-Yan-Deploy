@@ -142,7 +142,7 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
 
 
         if (county && county!=='') {
-            searchParamss.country =  county.toLowerCase();
+            searchParamss.county =  county;
         }
         if (city && city!=='') {
             searchParamss.town =  city;

@@ -46,7 +46,7 @@ const Ways: React.FC<DestinationsItemProp> = ({ onClick, label, handleMenuToggle
 
   return (
     <div className="relative">
-      <div className="text-md font-semibold hover:underline hover:cursor-pointer" onClick={() => {router.push("/about")}}>About</div>
+      <div className="text-md cursor-pointer font-semibold hover:underline hover:cursor-pointer" onClick={() => {router.push("/about")}}>About</div>
     </div>
   );
 };

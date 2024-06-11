@@ -94,7 +94,7 @@ const Emblawebsite: React.FC<ListingCardProps> = ({
                     <div className="h-[20vh] w-full mx-auto shadow-lg rounded-lg mb-4 relative">
                       <Link href={`/offer/${offer.id}`} className='text-black'>
                         <div className="overlay absolute inset-0 bg-black opacity-25 rounded-lg"></div>
-                        <Image src={offer.imageSrc} alt="Image" className="h-full w-full shadow-sm rounded-lg object-cover" />
+                        <Image src={offer.imageSrc} width={300} height={300} alt="Image" className="h-full w-full shadow-sm rounded-lg object-cover" />
                       </Link>
                     </div>
                     <div className="text-start relative">

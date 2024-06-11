@@ -15,18 +15,19 @@ export async function POST(
     const body = await request.json();
 
     const {
-    title,
-    category,
-    size,
-    covered_area,
-    titleDeed,
-    overview,
-    type,
-    town,
-    county, 
-    imageSrc,
-    price,
-    offerPrice,
+        title,
+        category,
+        size,
+        covered_area,
+        titleDeed,
+        overview,
+        deal,
+        type,
+        town,
+        county, 
+        imageSrc,
+        price,
+        offerPrice,
     } = body;
 
     Object.keys(body).forEach((value: any) => {
@@ -44,6 +45,7 @@ export async function POST(
             titleDeed,
             overview,
             type,
+            deal,
             town,
             county, 
             imageSrc,

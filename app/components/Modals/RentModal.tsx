@@ -217,9 +217,9 @@ const RentModal = () => {
                     label="stay type?"
                     options={[
                         { value: 'premium', label: 'Top premium' },
-                        { value: 'exclusive', label: 'Exclusive' },
+                        // { value: 'exclusive', label: 'Exclusive' },
                         { value: 'luxurious', label: 'Luxurious' },
-                        { value: 'prime', label: 'Prime unique' },
+                        // { value: 'prime', label: 'Prime unique' },
                         { value: 'comfortable', label: 'Comfortable' },
                     ]}
                     value={type}

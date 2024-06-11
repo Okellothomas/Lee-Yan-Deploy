@@ -1,43 +1,42 @@
 import prisma from '@/app/libs/prismadb';
 
-export interface ICountiesParams {
-    userId?: string;
+export interface CountiesParams {
+    // userId?: string;
     // guestCount?: number;
     // roomCount?: number;
     // bathroomCount?: number;
     // startDate?: string;
     // endDate?: string;
     // locationValue?: string;
-    category?: string;
+    // category?: string;
 }
 
 export default async function getCounties(
-    params: ICountiesParams
+    params: CountiesParams = {} // Default value added here
 ) {
     try {
         const {
-            userId,
+            // userId,
             // roomCount,
             // guestCount,
             // bathRoomCount,
             // locationValue,
             // startDate,
             // endDate,
-            category
+            // category
         } = params; 
         
         let query: any = {};
 
-        // Remove the userId from the destructuring and handle it separately
-       const { userId: userIdParam, ...restParams } = params || {};
+        // Uncomment and handle these parameters as needed
 
-        if (userIdParam) {
-            query.userId = userIdParam;
-        }
+        // if (userId) {
+        //     query.userId = userId;
+        // }
 
-        if (category) {
-            query.category = category;
-        }
+        // if (category) {
+        //     query.category = category;
+        // }
 
         // if (roomCount) {
         //     query.roomCount = {
@@ -83,19 +82,18 @@ export default async function getCounties(
         const countries = await prisma.county.findMany({
             where: query,
             orderBy: {
-                createAt: 'desc'
+                createdAt: 'desc'
             }
         });
 
         const safeListing = countries.map((country) => ({
             ...country,
-            createAt: country.createAt.toISOString(),
+            createdAt: country.createdAt.toISOString(),
         }));
 
         return safeListing; 
         
     } catch (error: any) {
-        throw new Error(error);
+        throw new Error(error.message);
     }
 }
-
