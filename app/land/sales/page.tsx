@@ -27,11 +27,16 @@ import TourPriceCard from "../../components/listing/TourPriceCard";
 import TourCardLists from "../../components/listing/TourCardLists";
 import EmblaMobile from "../../mainpage/components/EmblaMobile";
 import TourPriceCardMain from "../../components/listing/TourPriceCardMain";
+import EmblaLands from "@/app/mainpage/components/EmblaLands";
+import getCounties, {CountiesParams} from "@/app/actions/getCounties";
+import getLands, {LandParams} from "@/app/actions/getLands.";
 
 // Define the interface for the Home component props
 interface HotelPageProps {
-    searchParams: IListingsParams; // Search parameters for fetching listings
-     tourParams: IToursParams;
+  searchParams: IListingsParams; // Search parameters for fetching listings
+  tourParams: IToursParams;
+  countyParams: CountiesParams;
+  landParams: LandParams;
 }
 
 export const metadata: Metadata =  {
@@ -39,177 +44,8 @@ export const metadata: Metadata =  {
 }
 
 // Home component is defined as an asynchronous function
-const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => {
+const DestinationPage = async ({ searchParams, tourParams, countyParams, landParams }: HotelPageProps) => {
   // Fetch listings and current user asynchronously
-
-  const cardsData = [
-  {
-    image: imageone,
-    title: 'AmzonCorp',
-    country: 'Get prime land?',
-    description: 'Brussels is a quick train ride from all the action',
-  },
-  {
-    image: imagetwo,
-    title: 'Devancatour',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagesix,
-    title: 'AmzonCorp',
-    country: 'Our prime hotel?',
-    description: 'Brussels is a quick train ride from all the action',
-  },
-  {
-    image: imagefour,
-    title: 'Title 4',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagefive,
-    title: 'Title 5',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagesix,
-    title: 'Title 6',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imageone,
-    title: 'Title 7',
-    country: 'Country 7',
-    description: 'Description 7',
-    },
-  {
-    image: imagesix,
-    title: 'Title 8',
-    country: 'Country 7',
-    description: 'Description 7',
-    },
-  {
-    image: imageone,
-    title: 'Title 9',
-    country: 'Country 7',
-    description: 'Description 7',
-  },
-  ];
-  
-
-const cardsDatas = [
-  {
-    image: imageone,
-    title: 'AmzonCorp',
-    country: 'Meru',
-    description: '100 properties',
-  },
-  {
-    image: imagetwo,
-    title: 'Devancatour',
-    country: 'Diani',
-    description: '40 properties',
-  },
-  {
-    image: imagesix,
-    title: 'AmzonCorp',
-    country: 'Kisii',
-    description: '140 properties',
-  },
-  {
-    image: imagefour,
-    title: 'Title 4',
-    country: 'Naivasha',
-    description: '20 properties',
-  },
-  {
-    image: imagefive,
-    title: 'Title 5',
-    country: 'Kakamega',
-    description: '30 properties',
-  },
-  {
-    image: imagesix,
-    title: 'Title 6',
-    country: 'Homabay',
-    description: '10 properties',
-  },
-  {
-    image: imageone,
-    title: 'Title 7',
-    country: 'Machakos',
-    description: '30 properties',
-    },
-  {
-    image: imagesix,
-    title: 'Title 8',
-    country: 'Garisa',
-    description: '10 properties',
-    },
-  {
-    image: imageone,
-    title: 'Title 9',
-    country: 'Kirinyaga',
-    description: '64 properties',
-  },
-  {
-    image: imageone,
-    title: 'AmzonCorp',
-    country: 'Meru',
-    description: '100 properties',
-  },
-  {
-    image: imagetwo,
-    title: 'Devancatour',
-    country: 'Diani',
-    description: '40 properties',
-  },
-  {
-    image: imagesix,
-    title: 'AmzonCorp',
-    country: 'Kisii',
-    description: '140 properties',
-  },
-  {
-    image: imagefour,
-    title: 'Title 4',
-    country: 'Naivasha',
-    description: '20 properties',
-  },
-  {
-    image: imagefive,
-    title: 'Title 5',
-    country: 'Kakamega',
-    description: '30 properties',
-  },
-  {
-    image: imagesix,
-    title: 'Title 6',
-    country: 'Homabay',
-    description: '10 properties',
-  },
-  {
-    image: imageone,
-    title: 'Title 7',
-    country: 'Machakos',
-    description: '30 properties',
-    },
-  {
-    image: imagesix,
-    title: 'Title 8',
-    country: 'Garisa',
-    description: '10 properties',
-    },
-  {
-    image: imageone,
-    title: 'Title 9',
-    country: 'Kirinyaga',
-    description: '64 properties',
-  },
-];
 
   let currentUser: any;
     if (searchParams.userId) {
@@ -217,6 +53,8 @@ const cardsDatas = [
     }
   // const listings = await getListingsHotels({ ...searchParams, hotel: "hotel" });
   const tours = await getTours(tourParams);
+  const counties = await getCounties(countyParams);
+  const lands = await getLands(landParams);
   const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
   const filteredTourss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
   // const isEmpty = true;
@@ -232,15 +70,14 @@ const cardsDatas = [
   return (
     <div>
     <div className="all-land-sales flex flex-col items-center justify-center text-lg font-bold">
-        {/* <h1 className="color-property-sales-main text-white pb-5">PREMIUM PROPERTIES ON SALE</h1>
-        <p className="text-white font-semibold text-2xl">Buy now, save more</p> */}
         <h1 className="banner-title color-property-sales-main text-wheat pb-5">PRIME PARCELS OF LAND FOR SALE</h1> 
         <h2 className="banner-title-one text-white font-semibold text-2xl">Discounted premium properties available</h2> 
         {/* <div className="destination-search">
           <Search /> 
         </div> */}
       </div>
-       <div className="flex items-center mt-6 pb-6 justify-center">
+      <div className="flex items-center mt-6 pb-6 justify-center">
+      {lands && lands.length > 0 && (
        <Container>
           <div className="mt-5">
             <div className="my-3 flex justify-between items-center">
@@ -252,10 +89,24 @@ const cardsDatas = [
                 <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
             </div>
-
-            {/* <Emblawebsite cardsData={cardsDatas} />   */}
+            <EmblaLands
+              data={counties}
+              datas={lands}
+              currentUser={
+              currentUser
+              ? {
+                  ...currentUser,
+                  createdAt: currentUser.createdAt.toISOString(),
+                  updatedAt: currentUser.updatedAt.toISOString(),
+                  emailVerified: currentUser.emailVerified
+                    ? currentUser.emailVerified.toISOString()
+                    : null,
+                }
+              : null
+          } /> 
           </div>   
-        </Container>
+          </Container>
+        )}
       </div>
       <div className="pt-1 pb-9">
       {filteredTours && filteredTours.length > 0 && (

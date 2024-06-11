@@ -62,6 +62,7 @@ const LandModal = () => {
             titleDeed: '',
             overview: '',
             type: '',
+            deal:'',
             town: '',
             county: '',
             price : '',
@@ -81,6 +82,7 @@ const LandModal = () => {
     const depStart = watch('depStart');
     const depEnd = watch('depEnd');
     const type = watch('type');
+    const deal = watch('deal');
     const inclusion = watch('inclusion');
     const subtitle = watch('subtitle');
     const titleDeed = watch('titleDeed');
@@ -275,6 +277,22 @@ const LandModal = () => {
                         // { value: 'Country', label: 'Countryside' },
                         // { value: 'Tinyhouse', label: 'Tinyhouse' },
                         // { value: 'Farms', label: 'Farms' },
+                    ]}
+                    value={titleDeed}
+                    onChange={(value) => setCustomValue('titleDeed', value)}
+                    disabled={isLoading}
+                    register={register}
+                    style={{ height: '8vh', width: '100%' }}
+                    error={errors}
+                />
+                <hr />
+                <Select
+                    id="deal"
+                    label="land deals"
+                    options={[
+                        { value: 'premium', label: 'Premium' },
+                        { value: 'trending', label: 'Trending' },
+                        { value: 'hot', label: 'Hot deals' },
                     ]}
                     value={titleDeed}
                     onChange={(value) => setCustomValue('titleDeed', value)}
