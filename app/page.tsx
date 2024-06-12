@@ -1,4 +1,3 @@
-
 import getCurrentUser from "./actions/getCurrentUsers";
 import getListings, { IListingsParams } from "./actions/getListings";
 import getTours, { IToursParams } from "./actions/getTours";
@@ -360,4 +359,3 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
 };
 
 export default Home;
-

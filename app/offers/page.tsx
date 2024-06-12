@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+'use client'
+>>>>>>> 8b6d0539e00e3b7a3e0c0773e6f4a8266ab6548c
 import Link from "next/link";
 import getCurrentUser from "../actions/getCurrentUsers";
 import getTours, { IToursParams } from "../actions/getTours";
@@ -9,7 +13,7 @@ import Sort from "./components/Sort";
 import TourStyles from "./components/TourStyles";
 import TourOperators from "./components/TourOperators";
 import TourSize from "./components/TourSize";
-import { Metadata } from "next";
+// import { Metadata } from "next";
 import SearchMain from "../mainpage/components/SearchMain";
 import OfferMainCard from "../components/listing/OfferMainCard";
 import getOffers, { OffersParams } from "../actions/getOffers";
@@ -22,9 +26,9 @@ interface IParams {
   offerParams: OffersParams;
 }
 
-export const metadata: Metadata =  {
-  title: "All Destinations",
-}
+// export const metadata: Metadata =  {
+//   title: "All Destinations",
+// }
 // Define the AllDestinationsPage component as a server component
 export default function AllDestinationsPage({ tourParams, offerParams }: IParams) {
   // Fetch data inside the render function (server component behavior)
@@ -34,7 +38,7 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
     const tours = await getTours(tourParams);
     const currentUser = await getCurrentUser();
     const offers =  await getOffers(offerParams);
-
+ 
     const PAGE_SIZE = 15;
     const currentPage = 1;
     const startIndex = (currentPage - 1) * PAGE_SIZE;

@@ -12,7 +12,7 @@ import { IoSearch } from "react-icons/io5";
 
 import React, { useEffect, useRef, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import './search.css'
+import './search.css' 
 import 'react-datepicker/dist/react-datepicker.css'; // Import CSS for styling
 import AutocompleteInput from "@/app/components/forms/AutoCompleteInput";
 import Link from "next/link";
@@ -225,7 +225,7 @@ const inputRef = useRef<HTMLInputElement>(null);
 
 
                 <div className="px-4 items-center text-center">
-                <Link href={{ pathname: '/destination', query: { destination: searchDestination.town, country:searchDestination.county,  
+                <Link href={{ pathname: '/destination', query: { destination: searchDestination.town, county:searchDestination?.county,  
                   checkinDate: checkinDate ? checkinDate.toLocaleDateString('en-US', {
                     day: '2-digit',
                     month: '2-digit',

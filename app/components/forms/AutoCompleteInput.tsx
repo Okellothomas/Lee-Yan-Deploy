@@ -4,9 +4,9 @@ import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 
 // Define the Tour interface
-interface Tour {
-  country: string;
-  city: string;
+interface Stay {
+  county: string;
+ town : string;
   // Add other properties as needed
 }
 
@@ -63,22 +63,30 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
   useEffect(() => {
     // Fetch the tours data
     axios
-    .get<Tour[]>('/api/stays')
+    .get<Stay[]>('/api/stays')
     .then((response) => {
       console.log("cities response", response) 
       const listings = response.data;
+
+      console.log("Listings", listings)
       // Extract the unique countries from the tours data
       const uniqueCounties = [...new Set(listings.map((listing) => listing.county))];
 
-      const uniqueCityCountries = [...new Set(
-        listings.map((listing) => ({
-          city: listing.city,
-          country: listing.country,
-        }))
-      )];
+      // const uniqueCityCounties = [...new Set(
+      //   listings.map((listing) => ({
+      //     town: listing.town,
+      //     county: listing.county,
+      //   }))
+      // )];
+
+      const uniqueCityCounties = Array.from(
+        new Map(listings.map(listing => [`${listing.town}-${listing.county}`, listing])).values()
+      );
 
 
-      setCityCountry(uniqueCityCountries) 
+      setCityCountry(uniqueCityCounties) 
+
+      console.log("UniqueCityCojntries----]]", uniqueCityCounties)
       //setCountries(uniqueCounties);
     })
     .catch((error) => console.error(error));
@@ -111,8 +119,10 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
         cityCountry.county.toLowerCase().includes(searchTerm)
       );
     });
+
+    console.log("Filtered City Countries ---->", filteredCityCountries)
     setFilteredCountries(filtered);
-    setSearchDestination(filteredCityCountries.length > 0 ? {country: filteredCityCountries[0].county, city: filteredCityCountries[0].town}: {city:inputValue, country:''});
+    setSearchDestination(filteredCityCountries.length > 0 ? {county: filteredCityCountries[0].county, town: filteredCityCountries[0].town}: {town:inputValue, county:inputValue});
       setFilteredCountries(filteredCityCountries);
     };
   // setSearchDestination(filtered.length > 0 ? {country: filtered[0], city: filteredCityCountries[0].city}: {city:inputValue, country:''});
@@ -129,7 +139,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
 
   const handleCountryClick = (city:string, country: string) => {
     setInputValue(city);
-    setSearchDestination({country: country, city:city})
+    setSearchDestination({county: country, town:city})
     setShowDropdown(false);
   };
 

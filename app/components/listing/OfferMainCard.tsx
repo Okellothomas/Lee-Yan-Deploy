@@ -98,14 +98,14 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
                 <span> {data.title} </span>
               </div>
               <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c text-neutral-800">
-                Offer Available for: <span className="text-neutral-500 text-sm">{ data.days}</span>
+                Offer Available for: <span className="text-neutral-500 text-sm">{ data?.days}</span>
               </div>
             <div>
-             <span className="text-sm px-3 py-[4px] mb-[6px] border-neutral-300 border-solid border-2 text-neutral-700 rounded-lg">{data.category }</span>            
+             <span className="text-sm px-3 py-[4px] mb-[6px] border-neutral-300 border-solid border-2 text-neutral-700 rounded-lg">{data?.category }</span>            
             </div>
               <div className="flex flex-row py-0.5 items-center gap-1">
                   <div>
-                     <span className="font-normal main-image-small-spans-c">Location:</span> <span className="text-neutral-700 underline">{ data.county },</span> <span className="text-neutral-500 underline">{ data.town }</span>
+                     <span className="font-normal main-image-small-spans-c">Location:</span> <span className="text-neutral-700 underline">{ data?.county },</span> <span className="text-neutral-500 underline">{ data.town }</span>
                   </div>
                 </div> 
             <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c-main text-neutral-800">
