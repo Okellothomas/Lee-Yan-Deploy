@@ -30,6 +30,10 @@ import TourPriceCardMain from "../../components/listing/TourPriceCardMain";
 import EmblaLands from "@/app/mainpage/components/EmblaLands";
 import getCounties, {CountiesParams} from "@/app/actions/getCounties";
 import getLands, {LandParams} from "@/app/actions/getLands.";
+import LandCardMain from "@/app/components/listing/LandCardMain";
+import LandCardSecondary from "@/app/components/listing/LandCardSecondary";
+import PropertyTartiary from "@/app/components/listing/PropertyTartiary";
+import LandTartiaryList from "@/app/components/listing/LandTartiaryList";
 
 // Define the interface for the Home component props
 interface HotelPageProps {
@@ -112,15 +116,15 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
         )}
       </div>
       <div className="pt-1 pb-9">
-      {filteredTours && filteredTours.length > 0 && (
+      {landPremium && landPremium.length > 0 && (
         <Container>
           <div className="mt-9">
-              <h1 className="mb-2 text-2xl font-bold text-black">Luxurious Properties</h1>
-              <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p>  
+              <h1 className="mb-2 text-2xl font-bold text-black">Buy our unique plots</h1>
+              <p className="text-neutral-600">Exclusive parcels, seize incomparable land investment opportunities.</p>  
           </div> 
           <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
-              <TourCardSecondary
+            {landPremium.slice(0,4).map((tour: any) => (
+              <LandCardMain
                 currentUser={currentUser ? {
                   ...currentUser,
                   createdAt: currentUser.createdAt.toISOString(),
@@ -136,15 +140,15 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
       )}
       </div>
      <div className="first-card-main pt-1 pb-9">
-      {filteredTours && filteredTours.length > 0 && (
+      {landTrending && landTrending.length > 0 && (
         <Container>
           <div className="mt-9">
-              <h1 className="mb-2 text-2xl font-bold text-black">Luxurious Properties</h1>
-              <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p>  
+              <h1 className="mb-2 text-2xl font-bold text-black">Exclusive land offerings</h1>
+              <p className="text-neutral-600">Prime real estate gems, elevate your investment portfolio</p>  
           </div> 
           <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
-              <TourCardSecondary
+            {landTrending.slice(0,4).map((tour: any) => (
+              <LandCardSecondary
                 currentUser={currentUser ? {
                   ...currentUser,
                   createdAt: currentUser.createdAt.toISOString(),
@@ -161,15 +165,45 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
       </div>
       
     <div className="pt-1 pb-9">
-      {filteredTours && filteredTours.length > 0 && (
+      {LandHot && LandHot.length > 0 && (
         <Container>
           <div className="mt-9">
               <h1 className="mb-2 text-2xl font-bold text-black">Book our prime unique properties</h1>
               <p className="text-neutral-600">Book from our top rated properties for unforgettable stay</p>  
           </div> 
           <div className="grid-cols-page-s pt-6 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
-              <TourPriceCardMain
+            {LandHot.slice(0,4).map((tour: any) => (
+              <PropertyTartiary
+                currentUser={currentUser ? {
+                  ...currentUser,
+                  createdAt: currentUser.createdAt.toISOString(),
+                  updatedAt: currentUser.updatedAt.toISOString(),
+                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+                } : null} // Pass the current user to each ListingCard
+                key={tour.id} // Use the listing ID as the unique key
+                data={tour} // Pass the listing data to each ListingCard
+              />
+            ))} 
+          </div>
+        </Container>
+      )}
+      </div>
+
+      <div className="pt-1 pb-5">
+      {lands && lands.length > 0 && (
+          <Container>
+          <div className="mt-3 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-bold text-black">Rent our top-tier properties</h1>
+              <p className="text-neutral-600">Unlock the extraordinary now - rent top-notch properties and residences!</p>   
+              </div>  
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
+          </div>
+          <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
+            {lands.slice(0,20).map((tour: any) => (
+              <LandTartiaryList
                 currentUser={currentUser ? {
                   ...currentUser,
                   createdAt: currentUser.createdAt.toISOString(),
