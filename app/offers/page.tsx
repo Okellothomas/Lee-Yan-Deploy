@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 'use client'
->>>>>>> 8b6d0539e00e3b7a3e0c0773e6f4a8266ab6548c
 import Link from "next/link";
 import getCurrentUser from "../actions/getCurrentUsers";
 import getTours, { IToursParams } from "../actions/getTours";

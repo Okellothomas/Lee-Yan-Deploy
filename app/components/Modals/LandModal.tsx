@@ -209,22 +209,6 @@ const LandModal = () => {
                     error={errors}
                     className="p-0"
                 />
-                {/* <hr />
-                <MultiSelect
-                    id="inclusion"
-                    label="What is included in the offer"
-                    options={[
-                        { value: 'Breakfast included', label: 'Breakfast included' },
-                        { value: 'Spacious parking space', label: 'Spacious parking space' },
-                        { value: 'Free title deed', label: 'Free title deed' },
-                        { value: 'Spacious balcony', label: 'Spacious balcony' },
-                    ]}
-                    value={inclusion}
-                    onChange={(value) => setCustomValue('inclusion', value)}
-                    disabled={isLoading}
-                    register={register}
-                    error={errors}
-                /> */}
             </div>
         );
     }
@@ -267,16 +251,6 @@ const LandModal = () => {
                     options={[
                         { value: 'titleDeed', label: 'Title deed' },
                         { value: 'notitleDeed', label: 'No title deed' },
-                        // { value: 'Mansion', label: 'Mansion' },
-                        // { value: 'Resort', label: 'Resort' },
-                        // { value: 'swimming', label: 'Swimming pool' },
-                        // { value: 'Villas', label: 'Villas' },
-                        // { value: 'Plots', label: 'Plots' },
-                        // { value: 'Guest', label: 'Guest house' },
-                        // { value: 'Tree', label: 'Tree house' },
-                        // { value: 'Country', label: 'Countryside' },
-                        // { value: 'Tinyhouse', label: 'Tinyhouse' },
-                        // { value: 'Farms', label: 'Farms' },
                     ]}
                     value={titleDeed}
                     onChange={(value) => setCustomValue('titleDeed', value)}
