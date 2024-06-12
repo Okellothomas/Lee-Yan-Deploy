@@ -60,8 +60,8 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
   const counties = await getCounties(countyParams);
   const lands = await getLands(landParams);
   const landPremium = lands.filter(property => property.deal === "premium");
-  const landTrending = lands.filter(property => property.deal === "trending");
-  const LandHot = lands.filter(property => property.deal === "hot");
+  const landTrending = lands.filter(property => property.deal === "exclusive");
+  const LandHot = lands.filter(property => property.deal === "prime");
   const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
   const filteredTourss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
   // const isEmpty = true;
@@ -83,10 +83,10 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
           <Search /> 
         </div> */}
       </div>
-      <div className="flex items-center mt-6 pb-6 justify-center">
+      <div className="flex items-center pb-6 justify-center">
       {lands && lands.length > 0 && (
        <Container>
-          <div className="mt-9">
+          <div className="mt-11">
             <div className="my-3 flex justify-between items-center">
               <div>
               <h1 className="mb-2 text-2xl font-bold text-black">Premium plots on sale</h1>
@@ -118,11 +118,16 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
       <div className="pt-1 pb-9">
       {landPremium && landPremium.length > 0 && (
         <Container>
-          <div className="mt-9">
+          <div className="mt-3 mb-3 flex justify-between items-center">
+              <div>
               <h1 className="mb-2 text-2xl font-bold text-black">Buy our unique plots</h1>
               <p className="text-neutral-600">Exclusive parcels, seize incomparable land investment opportunities.</p>  
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+              </div>  
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
+            </div>  
+          <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
             {landPremium.slice(0,4).map((tour: any) => (
               <LandCardMain
                 currentUser={currentUser ? {
@@ -139,40 +144,20 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
         </Container>
       )}
       </div>
-     <div className="first-card-main pt-1 pb-9">
+     <div className="first-card-main pt-1 pb-6">
       {landTrending && landTrending.length > 0 && (
         <Container>
-          <div className="mt-9">
-              <h1 className="mb-2 text-2xl font-bold text-black">Exclusive land offerings</h1>
-              <p className="text-neutral-600">Prime real estate gems, elevate your investment portfolio</p>  
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+          <div className="mt-9 mb-3 flex justify-between items-center">
+              <div>
+              <h1 className="mb-0 text-2xl font-bold text-black">Exclusive land offerings</h1>
+              <p className="text-neutral-600">Prime real estate gems, elevate your investment portfolio</p>    
+              </div>  
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
+            </div>   
+          <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
             {landTrending.slice(0,4).map((tour: any) => (
-              <LandCardSecondary
-                currentUser={currentUser ? {
-                  ...currentUser,
-                  createdAt: currentUser.createdAt.toISOString(),
-                  updatedAt: currentUser.updatedAt.toISOString(),
-                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                } : null} // Pass the current user to each ListingCard
-                key={tour.id} // Use the listing ID as the unique key
-                data={tour} // Pass the listing data to each ListingCard
-              />
-            ))} 
-          </div>
-        </Container>
-      )}
-      </div>
-      
-    <div className="pt-1 pb-9">
-      {LandHot && LandHot.length > 0 && (
-        <Container>
-          <div className="mt-9">
-              <h1 className="mb-2 text-2xl font-bold text-black">Book our prime unique properties</h1>
-              <p className="text-neutral-600">Book from our top rated properties for unforgettable stay</p>  
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {LandHot.slice(0,4).map((tour: any) => (
               <PropertyTartiary
                 currentUser={currentUser ? {
                   ...currentUser,
@@ -188,14 +173,44 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
         </Container>
       )}
       </div>
+      
+    <div className="pt-1 pb-2">
+      {LandHot && LandHot.length > 0 && (
+        <Container>
+          <div className="mt-9 mb-3 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-bold text-black">Prime real estate gems</h1>
+              <p className="text-neutral-600">Remarkable selections available, embrace unmatched potential</p>     
+              </div>  
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
+            </div>  
+          <div className="grid-cols-page-s pt-3 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+            {LandHot.slice(0,4).map((tour: any) => (
+              <LandCardSecondary
+                currentUser={currentUser ? {
+                  ...currentUser,
+                  createdAt: currentUser.createdAt.toISOString(),
+                  updatedAt: currentUser.updatedAt.toISOString(),
+                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+                } : null} // Pass the current user to each ListingCard
+                key={tour.id} // Use the listing ID as the unique key
+                data={tour} // Pass the listing data to each ListingCard
+              />
+            ))} 
+          </div>
+        </Container>
+      )}
+      </div>
 
-      <div className="pt-1 pb-5">
+      <div className="pt-1">
       {lands && lands.length > 0 && (
           <Container>
           <div className="mt-3 flex justify-between items-center">
               <div>
-              <h1 className="mb-2 text-2xl font-bold text-black">Rent our top-tier properties</h1>
-              <p className="text-neutral-600">Unlock the extraordinary now - rent top-notch properties and residences!</p>   
+              <h1 className="mb-0 text-2xl font-bold text-black">Buy our top-tier plots</h1>
+              <p className="text-neutral-600">One-of-a-kind offerings - acquire premium real estate land!</p>   
               </div>  
               <div>
                 <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>

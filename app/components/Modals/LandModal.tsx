@@ -291,11 +291,11 @@ const LandModal = () => {
                     label="land deals"
                     options={[
                         { value: 'premium', label: 'Premium' },
-                        { value: 'trending', label: 'Trending' },
-                        { value: 'hot', label: 'Hot deals' },
+                        { value: 'exclusive', label: 'Exclusive' },
+                        { value: 'prime', label: 'Prime' },
                     ]}
-                    value={titleDeed}
-                    onChange={(value) => setCustomValue('titleDeed', value)}
+                    value={deal}
+                    onChange={(value) => setCustomValue('deal', value)}
                     disabled={isLoading}
                     register={register}
                     style={{ height: '8vh', width: '100%' }}
