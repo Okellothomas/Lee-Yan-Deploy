@@ -29,6 +29,13 @@ import { BsFileEarmarkPerson } from "react-icons/bs";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdOutlineMeetingRoom } from "react-icons/md";
 import { MdOutlineBathroom } from "react-icons/md";
+import { GiBed } from "react-icons/gi";
+import { PiStarThin } from "react-icons/pi";
+import { FaBedPulse } from "react-icons/fa6";
+import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import Image from 'next/image';
+import { GiStarGate } from "react-icons/gi";
 
 
 const initialDateRange = {
@@ -140,7 +147,8 @@ const handleOptions = (name: 'guests' | 'rooms', operations: any) => {
         [name]: operations === 'i' ? options[name] + 1 : options[name] - 1,
     }
 
-    setTotalPrice((guestsDets.guests * listing.price)*numberOfDays)
+// setTotalPrice((guestsDets.guests * listing.price)*numberOfDays)
+    setTotalPrice((guestsDets.guests * (listing.price || 0)) * numberOfDays);
    // setTotalPrice(numberOfDays * listing.price*options.guests + options.rooms*(listing.save ||0));
 
 
@@ -181,8 +189,30 @@ const findAvailableDate = () => {
     const [paymentMade, setPaymentMade] = useState(false)
     const [amountPayable, setAmountPeyable] = useState(0)
     const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+
+
+    const [showAll, setShowAll] = useState(false);
+  
+    const offers = listing.offers || [];
+    const displayedOffers = showAll ? offers : offers.slice(0, 7);
+
+    const handleShowMore = () => {
+        setShowAll(true);
+    };
     
-    
+    // const OverviewComponent = ({ listing: any }) => {
+
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [itExpanded, setItExpanded] = useState(false);
+
+    const toggleExpand = () => {
+        setIsExpanded(!isExpanded);
+    };
+
+    const ToggleExpands = () => {
+        setItExpanded(!itExpanded);
+    };
+
     const handlePaymentComplete = async(data: any) => {
         // Handle the data passed from PaymentModal
         console.log('Payment completed with data:', data);
@@ -313,136 +343,161 @@ const findAvailableDate = () => {
                   <ListingHead
                       title={listing.title}
                       imageSrc={listing.imageSrc}
-                      locationValue={listing.locationValue}
+                      county={listing.county}
                       id={listing.id}
                       currentUser={currentUser}
                   /> 
                   <div className="order-first-main-main grid grid-cols-1 gap-7 md:grid-cols-7 lg:grid-cols-7 xl:grid-cols-7 2xl:grid-cols-7 md:grid-10 mt-6">
                       <div className="order-first-s-main w-full col-span-4">
-                          
-                          <div className="border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
-                        
-                              {listing.city !== "" && (
+                        <div className="flex justify-between items-center">
+                              <div><span className="font-bold text-lg pb-2">{listing.title}, in</span> <span className="font-normal text-md text-neutral-500">{listing.county} </span>: <span className="font-normal text-md text-green-500">{listing.town }</span></div>
+                        </div>
+                          <div className="border-[1px] mt-[13px] border-solid flex items-center gap-[13px] py-4 px-1 border-neutral-300 h-auto w-full rounded-lg">
+                              {listing.bedroomCount !== 0 && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><CiLocationArrow1 size={23} /></span><span className="text-md">Location:</span></div> <span className="text-neutral-500">{listing.city}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><GiBed size={23} /></span><span className="text-md">Bedrooms: </span></div> <span className="text-neutral-500">{listing.bedroomCount}</span>
                                   </div>
                               )}
-
-                          <div className="w-full py-4">
-                           <hr />
-                          </div>
                               {listing.bathRoomCount !== 0 && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><MdOutlineBathroom size={23} /></span><span className="text-md">Bathrooms:</span></div> <span className="text-neutral-500">{listing.bathRoomCount}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><MdOutlineBathroom size={23} /></span><span className="text-md">Bathrooms: </span></div> <span className="text-neutral-500">{listing.bathRoomCount}</span>
                                   </div>
                               )}
-                          <div className="w-full py-4">
-                           <hr />
-                          </div>
-
                               {listing.guestCount !== 0 && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><FaPeopleGroup size={23} /></span><span className="text-md">Guests:</span></div><span className="text-neutral-500">{listing.guestCount}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><FaPeopleGroup size={23} /></span><span className="text-md">Guests: </span></div><span className="text-neutral-500">{listing.guestCount}</span>
                                   </div>
                               )}
-                          <div className="w-full py-4">
-                           <hr />
-                         </div>
-
                               {listing.roomCount !== 0 && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-neutral-600"><MdOutlineMeetingRoom size={23} /></span><span className="text-md">Rooms:</span></div><span className="text-neutral-500">{listing.roomCount}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-neutral-600"><MdOutlineMeetingRoom size={23} /></span><span className="text-md">Rooms: </span></div><span className="text-neutral-500">{listing.roomCount}</span>
                                   </div>
-                              )}
-                          <div className="w-full py-4">
-                           <hr />
-                        </div>
-                              
-                              {listing.category !== "" && (
+                              )}                        
+                              {listing.ratings !== 0 && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-yellow-600"><MdOutlineTipsAndUpdates size={23} /></span><span className="text-md">Category:</span></div><span className="text-neutral-500">{listing.category}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-yellow-600"><PiStarThin size={23} /></span><span className="text-md">Rating: </span></div><span className="text-neutral-500">{listing.ratings}</span>
                                   </div>
                               )}
                           </div>
-                        
-                        <p className="pt-6 pb-5 text-lg font-bold text-neutral-500">Over View</p>
+
+                        <p className="pt-6 pb-5 text-lg font-bold text-neutral-800">What this place offers</p>
 
                          <div className="border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
-                        
-                              {listing.description !== "" && (
+                         
+                              {/* {listing.offers !== "" && (
                                   <div className="flex flex-row justify-between">
-                                      <span className="text-neutral-500">{listing.description}</span>
+                                      <span className="text-neutral-500"> <span className="text-green-500"><IoCheckmarkDoneCircleOutline size={23} /> </span>{listing.offers} <span className="text-blue-400"> <IoInformationCircleOutline size={23} /></span></span>
                                   </div>
-                              )}
- 
-                        </div>
+                              )} */}
 
-                        <p className="pt-6 pb-5 text-lg font-bold text-neutral-500">Where you will sleep!</p>
-                        
 
-                        <div className="border-[1px] gap-4 grid grid-cols-4 border-solid py-6 px-4 border-neutral-300 h-auto w-full rounded-lg">
-                        
-                          {listing.oneBedroom !== "" && (
-                          <div className="border-[1px] where-you-sleep border-solid rounded-lg border-neutral-300 p-4 col-span-1">
-                            <div className="flex flex-col p-2 items-start gap-2"> <span className="text-neutral-500"><LuBedDouble size={ 23 } /></span><span className="text-md">One Bedroom</span></div> <span className="text-neutral-500">{listing.oneBedroom} qeen bed</span>
-                          </div>
-                          )}
-                              
-                          {listing.twoBedroom !== "" && (
-                          <div className="border-[1px] where-you-sleep border-solid rounded-lg border-neutral-300 p-4 col-span-1">
-                            <div className="flex flex-col p-2 items-start gap-2"> <span className="text-neutral-500"><LuBedDouble size={23} /></span><span className="text-md">Two Bedroom</span></div> <span className="text-neutral-500">{listing.twoBedroom} qeen bed</span>
-                                  </div>
-                          )}
-                            
-                          {listing.threebedRoom !== "" && (
-                          <div className="border-[1px] where-you-sleep border-solid rounded-lg border-neutral-300 p-4 col-span-1">
-                            <div className="flex flex-col p-2 items-start gap-2"> <span className="text-neutral-600"><LuBedDouble size={23} /></span><span className="text-md">Three Bedroom</span></div><span className="text-neutral-500">{listing.threebedRoom} queen bed</span>
-                          </div>
-                          )}
-                              
-                           {listing.commonPlace !== "" && (
-                            <div className="border-[1px] where-you-sleep border-solid rounded-lg border-neutral-300 p-4 col-span-1">
-                                <div className="flex flex-col p-2 items-start gap-2"> 
-                                <span className="text-neutral-600"><LuBedDouble size={23} /></span>
-                                <span className="text-md">Common spaces</span>
+                        { offers.length > 0 && (
+                            <div>
+                            {displayedOffers.map((offer, index) => (
+                            <div key={index} className="flex flex-col gap-2 justify-start">
+                                <span className="text-neutral-500 flex flex-row gap-3 justify-start">
+                                <span className="text-neutral-700"><IoCheckmarkDoneCircleOutline size={23} /></span>
+                                {offer}
+                                <span className="text-neutral-400"><IoInformationCircleOutline size={23} /></span>
+                                    </span>
+                                <div className="pb-2 text-neutral-500">
+                                <hr />
                                 </div>
-                                <span className="text-neutral-500">{listing.commonPlace} sofa bed</span>
                             </div>
+                            ))}
+                            {!showAll && offers.length > 7 && (
+                            <button onClick={handleShowMore} className="text-blue-500 mt-2">
+                                Show More
+                            </button>
                             )}
-
+                        </div>
+                        )}
+ 
                           </div>
+                          
+                         <p className="pt-6 pb-5 text-lg font-bold text-neutral-700">Available beds!</p>
+                        
+                        {listing.beds.length > 0 && (
+                            <div className="border-[1px] gap-4 grid grid-cols-4 border-solid py-6 px-4 border-neutral-300 h-auto w-full rounded-lg">
+                                {listing.beds.map((bed: any, index: any) => (
+                                bed !== "" && (
+                                    <div key={index} className="border-[1px] where-you-sleep border-solid rounded-lg border-neutral-300 p-4 col-span-1">
+                                    <div className="flex flex-col p-2 items-start gap-2">
+                                        <span className="text-neutral-500"><LuBedDouble size={23} /></span>
+                                        <span className="text-md">{listing.beds[index]}</span>
+                                    </div>
+                                    </div>
+                                )
+                                ))}
+                            </div>
+                          )}
+                          
+                        
 
-                        <p className="pt-6 pb-5 text-lg font-bold text-neutral-500">Host Info!</p>
+                        <p className="pt-6 pb-5 text-lg font-bold text-neutral-700">Available bedrooms!</p>
+                        
+                        {listing.bedroom.length > 0 && (
+                            <div className="border-[1px] gap-4 grid grid-cols-4 border-solid py-6 px-4 border-neutral-300 h-auto w-full rounded-lg">
+                                {listing.bedroom.map((bed: any, index: any) => (
+                                bed !== "" && (
+                                    <div key={index} className="border-[1px] where-you-sleep border-solid rounded-lg border-neutral-300 p-4 col-span-1">
+                                    <div className="flex flex-col p-2 items-start gap-2">
+                                        <span className="text-neutral-500"><FaBedPulse size={23} /></span>
+                                        <span className="text-md">{listing.bedroom[index]}</span>
+                                    </div>
+                                    </div>
+                                )
+                                ))}
+                            </div>
+                        )}
+
+                      <p className="pt-6 pb-5 text-lg font-bold text-neutral-700">Where you will sleep!</p>
+                        
+                        {listing.bedPhotos.length > 0 && (
+                            <div className="border-[1px] gap-4 grid grid-cols-4 border-solid py-3 px-2 border-neutral-300 h-auto w-full rounded-lg">
+                                {listing.bedPhotos.map((bed: any, index: any) => (
+                                bed !== "" && (
+                                    <div key={index} className="border-[1px] where-you-sleep border-solid rounded-lg border-neutral-300 p-[1px] col-span-2">
+                                    <div className="flex flex-col p-2 items-start gap-2">
+                                        {index < listing.bedPhotos.length && (
+                                        <Image 
+                                            src={listing.bedPhotos[index]} 
+                                            alt={`Bed ${index + 1}`} 
+                                            width={200} // Adjust width as needed
+                                            height={150} // Adjust height as needed
+                                            className="rounded-lg h-[auto] w-[100%]"
+                                        />
+                                        )}
+                                    </div>
+                                    </div>
+                                )
+                                ))}
+                            </div>
+                        )}
+        
+                        <p className="pt-6 pb-5 text-lg font-bold text-neutral-700">Over View</p>
 
                          <div className="border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
                         
-                              {listing.hostName !== "" && (
-                                  <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><BsPersonCircle size={23} /></span><span className="text-md">Host name:</span></div> <span className="text-neutral-500">{listing.hostName}</span>
-                                  </div>
+                              {listing.overView !== "" && (
+                                    <div className="flex flex-row justify-between">
+                                        <span className={`text-neutral-500 ${isExpanded ? '' : 'line-clamp-4'}`}>
+                                            {listing.overView} {!isExpanded && (
+                                            <button onClick={toggleExpand} className="text-blue-600 ml-2">
+                                                Read more
+                                            </button>
+                                            )}
+                                        </span>
+                                    </div>
                               )}
-
-                          <div className="w-full py-4">
-                           <hr />
+                            
                           </div>
+                          
+                        <p className="pt-6 pb-5 text-lg font-bold text-neutral-700">Video Overview</p>
 
-                              {listing.cohostName !== "" && (
-                                  <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><GoPerson size={23} /></span><span className="text-md">Co-Host Name:</span></div> <span className="text-neutral-500">{listing.cohostName}</span>
-                                  </div>
-                              )}
+                        <div className="border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
 
-                          <div className="w-full py-4">
-                           <hr />
-                          </div>
-
-                              {listing.hostContact !== "" && (
-                                  <div className="flex flex-row pb-3 justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><BsFileEarmarkPerson size={23} /></span><span className="text-md">Host Contact</span></div><span className="text-neutral-500">{listing.hostContact}</span>
-                                  </div>
-                              )}
-
-                       {listing.hotelLink && listing.hotelLink.length > 0 && (
+                        {listing.hotelLink && listing.hotelLink.length > 0 && (
                         <div className="flex h-[66vh] flex-col gap-5 items-start py-4  w-full">
                         <iframe
                             src={listing?.hotelLink}
@@ -454,11 +509,93 @@ const findAvailableDate = () => {
                             ></iframe>
                         </div>     
                         )}
+                        </div>
+
+                        <p className="pt-6 pb-5 text-lg font-bold text-neutral-700">Host Information!</p>
+
+                         <div className="border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
+                        
+                              {listing.hostPhoto !== "" && (
+                                  <div className="flex flex-row items-center justify-start gap-3">
+                                      <div>
+                                          <Image 
+                                            src={listing.hostPhoto} 
+                                            alt={`Host ${listing.hostName}`} 
+                                            width={200} // Adjust width as needed
+                                            height={250} // Adjust height as needed
+                                            className="rounded-full h-[100px] w-[100px]"
+                                          />
+                                      </div>
+                                      <div className="flex flex-col text-start items-start gap-2">
+                                          <span className="text-neutral-700 text-lg font-bold">Hosted by {listing.hostName}</span>
+                                          <span className="text-md text-neutral-500">Joined in {listing.joinDate}</span>
+                                      </div>
+                                  </div>
+                              )}
+
+                          <div className="w-full py-4">
+                           <hr />
+                          </div>
+                              
+                              <div className="mt-[13px] flex items-center gap-[13px] py-2 px-1 h-auto w-full">
+                                  
+                              {listing.verified !== '' && (
+                                  <div className="flex flex-row justify-between">
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><GiStarGate size={23} /></span><span className="text-md">Verfied: </span></div> <span className="text-neutral-500">{listing.verified}</span>
+                                  </div>
+                              )}
+                              {/* {listing.bathRoomCount !== 0 && (
+                                  <div className="flex flex-row justify-between">
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><MdOutlineBathroom size={23} /></span><span className="text-md">Bathrooms: </span></div> <span className="text-neutral-500">{listing.bathRoomCount}</span>
+                                  </div>
+                              )} */}
+                              {/* {listing.guestCount !== 0 && (
+                                  <div className="flex flex-row justify-between">
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><FaPeopleGroup size={23} /></span><span className="text-md">Guests: </span></div><span className="text-neutral-500">{listing.hostType}</span>
+                                  </div>
+                              )}
+                              {listing.roomCount !== 0 && (
+                                  <div className="flex flex-row justify-between">
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-neutral-600"><MdOutlineMeetingRoom size={23} /></span><span className="text-md">Rooms: </span></div><span className="text-neutral-500">{listing.roomCount}</span>
+                                  </div>
+                              )}                        
+                              {listing.ratings !== 0 && (
+                                  <div className="flex flex-row justify-between">
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-yellow-600"><PiStarThin size={23} /></span><span className="text-md">Rating: </span></div><span className="text-neutral-500">{listing.ratings}</span>
+                                  </div>
+                              )} */}
+                              </div>
+                              
+                            <div className="w-full py-4">
+                           <hr />
+                            </div>
+
+                              {listing.hostExperience !== "" && (
+                                    <div className="flex flex-row justify-between">
+                                        <span className={`text-neutral-500 ${itExpanded ? '' : 'line-clamp-4'}`}>
+                                            {listing.hostExperience} {!itExpanded && (
+                                            <button onClick={ToggleExpands} className="text-blue-600 ml-2">
+                                                Read more
+                                            </button>
+                                            )}
+                                        </span>
+                                    </div>
+                              )}
+
+                          <div className="w-full py-4">
+                           <hr />
+                          </div>
+
+                              {listing.hostType !== "" && (
+                                  <div className="flex flex-row pb-3 justify-start gap-3">
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><BsFileEarmarkPerson size={23} /></span><span className="text-md">Host Type</span></div><span className="text-neutral-500">{listing.hostType}</span>
+                                  </div>
+                              )}
                               
                         </div>
 
                       </div>
-                      <div className="order-first h-[85vh] w-full mb-10 md:order-last col-span-3" style={{position: 'sticky', top: '10vh'}}>
+                      <div className="order-first h-[105vh] w-full mb-10 md:order-last col-span-3" style={{position: 'sticky', top: '10vh'}}>
                           <ListingReservation
                               price={listing.price}
                               totalPrice={totalPrice}
