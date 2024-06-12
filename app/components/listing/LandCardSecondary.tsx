@@ -1,6 +1,6 @@
 'use client'
 import useCountries from "@/app/hooks/useCountries";
-import { SafeUser, safeListing, safeReservation, safeProperty } from "@/app/types";
+import { SafeUser, safeListing, safeReservation, safeProperty, safeLand } from "@/app/types";
 //import { Listing, Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation";
 import { Key, useCallback, useMemo } from "react";
@@ -11,7 +11,7 @@ import Button from "../container/Button";
 
 
 interface ListingCardProps {
-    data: safeProperty;
+    data: safeLand;
     reservation?: safeReservation;
     onAction?: (id: string) => void;
     disabled?: boolean;
@@ -20,7 +20,7 @@ interface ListingCardProps {
     currentUser?: SafeUser | null;
 }
 
-const PropertyCardSecondary: React.FC<ListingCardProps> = ({
+const LandCardSecondary: React.FC<ListingCardProps> = ({
     data,
     reservation,
     onAction,
@@ -64,7 +64,7 @@ const PropertyCardSecondary: React.FC<ListingCardProps> = ({
  
   return (
       <div
-        onClick={() => router.push(`/property/${data?.id}`)} //added ?
+        onClick={() => router.push(`/lands/${data?.id}`)} //added ?
         className="col-spListingCardSecondaryan-1 pb-3 rounded-xl cursor-pointer group"
       >
           <div className="flex h-[50vh] flex-col gap-2 w-full main-image-small-screen main-image-small-screen-x">
@@ -103,4 +103,4 @@ const PropertyCardSecondary: React.FC<ListingCardProps> = ({
   )
 }
 
-export default PropertyCardSecondary
+export default LandCardSecondary

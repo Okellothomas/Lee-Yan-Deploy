@@ -1,11 +1,11 @@
 'use client';
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { SafeUser, safeListing, safeReservation, safeProperty } from "@/app/types";
+import { SafeUser, safeListing, safeReservation, safeProperty, safeLand } from "@/app/types";
 import "./listing.css";
 
 interface ListingCardProps {
-  data: safeProperty[] | safeProperty;
+  data: safeLand[] | safeLand;
   reservation?: safeReservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
@@ -14,7 +14,7 @@ interface ListingCardProps {
   currentUser?: SafeUser | null;
 }
 
-const PropertyTartiaryList: React.FC<ListingCardProps> = ({
+const LandTartiaryList: React.FC<ListingCardProps> = ({
   data,
   reservation,
   onAction,
@@ -44,7 +44,7 @@ const PropertyTartiaryList: React.FC<ListingCardProps> = ({
       {uniqueCounties.map((county) => (
         <div
           key={county}
-          onClick={() => router.push(`/property/${listingData.find(d => d.county === county)?.id}`)}
+          onClick={() => router.push(`/lands/${listingData.find(d => d.county === county)?.id}`)}
           className="col-span-1 pb-3 rounded-xl cursor-pointer group"
         >
           <div className="flex h-[auto] flex-col gap-2 w-full main-image-small-screen main-image-small-screen-x">
@@ -62,7 +62,7 @@ const PropertyTartiaryList: React.FC<ListingCardProps> = ({
   );
 };
 
-export default PropertyTartiaryList;
+export default LandTartiaryList;
 
 
 
