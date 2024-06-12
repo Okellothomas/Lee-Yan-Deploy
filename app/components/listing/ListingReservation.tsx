@@ -519,6 +519,8 @@ import { Range } from "react-date-range";
 import Calender from "../Inputs/Calender";
 import Button from "../container/Button";
 import React, { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 interface ListingReservationProps {
     price: number;
@@ -536,6 +538,7 @@ interface ListingReservationProps {
     setOpenOptions: React.Dispatch<React.SetStateAction<any>>
     numberOfGuestsRef: any;
     handleOptions: (name: 'guests' | 'rooms', operations: any) => void; // Define the handleOptions prop type
+    handleUnavailableDates:()=>void;
     toggleOptions: () => void; // Define the toggleOptions prop type
 }
 
@@ -555,6 +558,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     setOpenOptions,
     numberOfGuestsRef,
     handleOptions,
+    handleUnavailableDates,
     toggleOptions
 }) => {
 
@@ -571,6 +575,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         setPartialPay(false);
         onSubmit(totalPrice); // Call onSubmit with totalPrice
     }
+
 
     return (
         <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
@@ -591,6 +596,13 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
 
             <div className="flex flex-col px-4 justify-between item-center gap-1">
                 {error && <div className="text-red-400 text-sm pt-1">{error}</div>}
+                <button
+                                        className="border rounded-full py-1 px-3 focus:outline-none"
+                                        onClick={handleUnavailableDates}
+                                        
+                                    >
+                                        Mark selected dates unavailable
+                                    </button>
                 {!guestsEntered && (
                     <div className="text-gray-700 mt-2">Please enter the number of guests to book</div>
                 )}

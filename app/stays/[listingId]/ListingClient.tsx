@@ -7,7 +7,7 @@ import ListingInfo from "@/app/components/listing/ListingInfo";
 import ListingReservation from "@/app/components/listing/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import usePaymentModal from "@/app/hooks/usePaymentModal";
+import usePaymentModal from "@/app/hooks/usePaymentModal"; 
 import { SafeUser, safeListing, safeReservation } from "@/app/types";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import axios from "axios";
@@ -183,6 +183,29 @@ const findAvailableDate = () => {
     const [dateRange, setDateRange] = useState<Range>(initialDateRange);
     
     
+
+    
+    function handleUnavailableDates(): void { 
+              
+        axios.put(`/api/reservations/${listing?.id}`, {
+            datesUnavailableFrom: dateRange.startDate,
+            datesUnavailableTo: dateRange.endDate
+        })
+            .then(async () => {
+                toast.success('Listing reserved!');
+
+               
+                //router.push('/trips');
+            }).catch(() => {
+                toast.error('Something went wrong')
+            }).finally(() => {
+                
+            })
+    
+      
+
+  
+}
     const handlePaymentComplete = async(data: any) => {
         // Handle the data passed from PaymentModal
         console.log('Payment completed with data:', data);
@@ -475,6 +498,7 @@ const findAvailableDate = () => {
                               error = {error}
                               setError = {setError}
                               toggleOptions = {toggleOptions}
+                              handleUnavailableDates={handleUnavailableDates}
                               handleOptions={handleOptions}
                           />
                       </div>

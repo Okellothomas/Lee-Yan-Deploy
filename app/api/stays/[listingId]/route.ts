@@ -64,6 +64,21 @@ export async function GET(
     return NextResponse.json(listing);
 }
 
+
+
+
+const generateDateRange = (startDate:any, endDate:any) => {
+  const dates = [];
+  let currentDate = new Date(startDate);
+
+  while (currentDate <= endDate) {
+    dates.push(new Date(currentDate));
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return dates;
+};
+
 export async function PUT(
     request: Request,
     { params }: { params: IParams }
@@ -88,44 +103,47 @@ export async function PUT(
 
 
     const {id,guestCount,save, roomCount,
-      title, overView, house, hotel, hostName, cohostName, hostContact, hotelLink, oneBedroom, twoBedroom, threebedRoom, commonPlace,price, description
+      title, overView, house, hotel, hostName,datesUnavailableFrom, datesUnavailableTo, cohostName, hostContact, hotelLink, oneBedroom, twoBedroom, threebedRoom, commonPlace,price, description
     } = formData
 
 
-    const finalUpdateValues ={guestCount: parseInt(guestCount, 10),
-      //title, depStart, depEnd, tripStyle,save, rooms, ourLink, guestCount,price,country,continent,Locations,desciption
-    //   room: parseInt(room, 10),
-     save: parseInt(save, 10),
-      roomCount: parseInt(roomCount, 10),
-      price: parseInt(price, 10),
-      title:title,
-      overView:overView,
-      house:house,
-      hotel:hotel,
-      hotelLink:hotelLink,
-      hostName:hostName,
-      cohostName:cohostName,
-      hostContact:hostContact,
-      oneBedroom:oneBedroom,
-      twoBedroom: twoBedroom,
-      threebedRoom: threebedRoom,
-      commonPlace:commonPlace,
-    //   locations:locations,
-      description:description,
-    //   country:country,
-    //   continent:continent,
+    // const finalUpdateValues ={guestCount: parseInt(guestCount, 10),
+    //   //title, depStart, depEnd, tripStyle,save, rooms, ourLink, guestCount,price,country,continent,Locations,desciption
+    // //   room: parseInt(room, 10),
+    //  save: parseInt(save, 10),
+    //   roomCount: parseInt(roomCount, 10),
+    //   price: parseInt(price, 10),
+    //   title:title,
+    //   overView:overView,
+    //   house:house,
+    //   hotel:hotel,
+    //   hotelLink:hotelLink,
+    //   hostName:hostName,
+    //   cohostName:cohostName,
+    //   hostContact:hostContact,
+    //   oneBedroom:oneBedroom,
+    //   twoBedroom: twoBedroom,
+      
+    //   threebedRoom: threebedRoom,
+    //   commonPlace:commonPlace,
+    // //   locations:locations,
+    //   description:description,
+    // //   country:country,
+    // //   continent:continent,
     
-    }
+    // }
+
+    const dateRange = generateDateRange(datesUnavailableFrom, datesUnavailableTo);  
 
     try {
 
-      const updateTour = await prisma.listing.update({
+      const updateStay = await prisma.listing.update({
         where: {
           id: listingId,
         },
-        data: finalUpdateValues, // Use updatedTourData object for selective updates
+        data: { datesUnavailable: { push: dateRange } }, // Use updatedTourData object for selective updates
       });
-      return NextResponse.json(updateTour);
+      return NextResponse.json(updateStay);
 
     } catch (error) {
 
