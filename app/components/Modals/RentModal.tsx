@@ -102,6 +102,7 @@ const RentModal = () => {
     const beds = watch('beds');
     const bedPhotos = watch('bedPhotos');
     const type = watch('type');
+    const hostType  = watch('hostType');
 
 
     const Map = useMemo(() => dynamic(() => import('../container/Map'), {
@@ -535,6 +536,30 @@ const RentModal = () => {
                     ]}
                     value={verified}
                     onChange={(value) => setCustomValue('verified', value)}
+                    disabled={isLoading}
+                    register={register}
+                    style={{ height: '7vh', width: '100%' }}
+                    error={errors}
+                />
+                <hr />
+                <hr />
+                <Select
+                    id="hostType"
+                    label="host type?"
+                    options={[
+                        { value: 'Individual Hosts', label: 'Individual Hosts' },
+                        { value: 'Family Hosts', label: 'Family Hosts' },
+                        { value: 'Couple Hosts', label: 'Couple Hosts' },
+                        { value: 'Property Managers', label: 'Property Managers' },
+                        { value: 'Bed and Breakfast Hosts', label: 'Bed and Breakfast Hosts' },
+                        { value: 'Vacation Rental Hosts', label: 'Vacation Rental Hosts' },
+                        { value: 'Professional Co-Hosts', label: 'Professional Co-Hosts' },
+                        { value: 'Professional Hosts', label: 'Professional Hosts' },
+                        { value: 'Individual Hosts', label: 'Individual Hosts' },
+                        { value: 'Family Hosts', label: 'Family Hosts' },
+                    ]}
+                    value={hostType}
+                    onChange={(value) => setCustomValue('hostType', value)}
                     disabled={isLoading}
                     register={register}
                     style={{ height: '7vh', width: '100%' }}

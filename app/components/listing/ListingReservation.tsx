@@ -462,10 +462,10 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
             <div className="flex flex-row items-center gap-1 p-4">
                 <div className="text-2xpl font-semibold">
-                    $ {price}
+                    Ksh. {price}
                 </div>
                 <div className="font-light text-neutral-600">
-                    night
+                    per night 
                 </div>
             </div>
             <hr />
@@ -479,11 +479,11 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                 {error && <div className="text-red-400 text-sm pt-1">{error}</div>}
                 { (currentUser.userType === 'admin' || currentUser.userType === 'operator') && 
                     <button
-                        className="border rounded-full py-1 px-3 focus:outline-none"
+                        className="border-[1px] border-solid border-green-500 rounded-full py-1 px-3   focus:outline-none"
                         onClick={handleUnavailableDates}
                                         
                     >
-                        Mark selected dates unavailable
+                        Mark selected dates booked
                     </button>
                 }
                 {!guestsEntered && (
