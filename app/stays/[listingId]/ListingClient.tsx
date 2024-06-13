@@ -591,6 +591,8 @@ const findAvailableDate = () => {
                                       <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><BsFileEarmarkPerson size={23} /></span><span className="text-md">Host Type</span></div><span className="text-neutral-500">{listing.hostType}</span>
                                   </div>
                               )}
+
+                       
                               
                         </div>
 
@@ -614,6 +616,24 @@ const findAvailableDate = () => {
                               toggleOptions = {toggleOptions}
                               handleOptions={handleOptions}
                           />
+                          {/* <ListingReservation
+                            price={listing.price}
+                            totalPrice={totalPrice}
+                            onChangeDate={(value) => setDateRange(value)}
+                            dateRange={dateRange}
+                            onSubmit={(payAmount: number) => onCreateReservation(payAmount)}
+                            disabled={isLoading}
+                            disabledDates={disabledDates}
+                            options={options}
+                            setOptions={setOptions}
+                            openoptions={openoptions}
+                            setOpenOptions={setOpenoptions}
+                            numberOfGuestsRef={numberOfGuestsRef}
+                            error={error}
+                            setError={setError}
+                            toggleOptions={toggleOptions}
+                            handleOptions={handleOptions}
+                        /> */}
                       </div>
                   </div>
               </div> 
