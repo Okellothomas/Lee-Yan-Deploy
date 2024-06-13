@@ -126,8 +126,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
     
             return totalGuestsOnDate >= listing.guestCount;
         });
-    
-        // return fullyBookedDates;
         const combinedFullyBoookedDates = [...fullyBookedDates, ...listing.datesUnavailable]
         return combinedFullyBoookedDates;
     }, [reservations, listing]);
