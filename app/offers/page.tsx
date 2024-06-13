@@ -180,9 +180,6 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
 
   // Return the result of the render function
   return getToursAndRender();
-<<<<<<< HEAD
-}
-=======
 }
 
 
@@ -421,4 +418,3 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
 //     </div>
 //   );
 // }
->>>>>>> c287d19ade2f206371ec594f1032101e98d72b17

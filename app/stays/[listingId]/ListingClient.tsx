@@ -200,7 +200,6 @@ const findAvailableDate = () => {
         setShowAll(true);
     };
     
-<<<<<<< HEAD
     // const OverviewComponent = ({ listing: any }) => {
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -213,19 +212,16 @@ const findAvailableDate = () => {
     const ToggleExpands = () => {
         setItExpanded(!itExpanded);
     };
-
-=======
     
-
     
     function handleUnavailableDates(): void { 
               
-        axios.put(`/api/reservations/${listing?.id}`, {
+        axios.put(`/api/stays/${listing?.id}`, {
             datesUnavailableFrom: dateRange.startDate,
             datesUnavailableTo: dateRange.endDate
         })
             .then(async () => {
-                toast.success('Listing reserved!');
+                toast.success('Date(s) marked unavailable!');
 
                
                 //router.push('/trips');
@@ -238,8 +234,8 @@ const findAvailableDate = () => {
       
 
   
-}
->>>>>>> c287d19ade2f206371ec594f1032101e98d72b17
+       }
+
     const handlePaymentComplete = async(data: any) => {
         // Handle the data passed from PaymentModal
         console.log('Payment completed with data:', data);
