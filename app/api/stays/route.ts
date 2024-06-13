@@ -184,13 +184,13 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
             // Add conditions for date range
            ...dateFilters, 
             // Add conditions for guest counts
-            rooms: {
+            roomCount: {
                 gte: parseInt(rooms, 10)  
             },
-            adults: {
+            guestCount: {
                 gte: parseInt(adults, 10)
             },
-            children: {
+            childrenCount: {
                 gte: parseInt(children, 10)
             }
         },
