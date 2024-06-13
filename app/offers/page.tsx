@@ -34,7 +34,7 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
   // Fetch data inside the render function (server component behavior)
   const [maximumPrice, setMaximumPrice] = useState<number>(1000);
   const [offers, setOffers] = useState([])
-  const [vissibleOffers, setVisibleOffers] = useState([])
+  const [visibleOffers, setVisibleOffers] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
 
     const PAGE_SIZE = 15;
