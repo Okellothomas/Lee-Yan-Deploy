@@ -70,8 +70,9 @@ export async function GET(
 const generateDateRange = (startDate:any, endDate:any) => {
   const dates = [];
   let currentDate = new Date(startDate);
+  let end = new Date(endDate)
 
-  while (currentDate <= endDate) {
+  while (currentDate <= end) {
     dates.push(new Date(currentDate));
     currentDate.setDate(currentDate.getDate() + 1);
   }
