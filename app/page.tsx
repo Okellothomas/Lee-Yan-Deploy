@@ -12,12 +12,6 @@ import EmblaMobile from "./mainpage/components/EmblaMobile";
 
 
 import imagebook from "../public/images/maint.jpg"
-import imageone from "../public/images/a.jpg"
-import imagetwo from "../public/images/a.png"
-import imagethree from "../public/images/ab.jpg"
-import imagefour from "../public/images/ac.png"
-import imagefive from "../public/images/adventure.jpeg"
-import imagesix from "../public/images/agentina.jpg"
 import Stay from "./mainpage/components/Stays";
 import Emblawebsite from "./mainpage/components/Emblawebsite";
 import "./main.css"
@@ -160,36 +154,6 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
         </Container>
       </div>
 
-      {/* <div className="first-card-main pt-1 pb-9">
-      {filteredTours && filteredTours.length > 0 && (
-        <Container>
-            <div className="mt-9 flex justify-between items-center">
-              <div>
-              <h1 className="mb-2 text-2xl font-bold text-black">Luxurious Properties</h1>
-                <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p> 
-              </div>
-              <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
-              </div>
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
-              <TourCardSecondary
-                currentUser={currentUser ? {
-                  ...currentUser,
-                  createdAt: currentUser.createdAt.toISOString(),
-                  updatedAt: currentUser.updatedAt.toISOString(),
-                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                } : null} // Pass the current user to each ListingCard
-                key={tour.id} // Use the listing ID as the unique key
-                data={tour} // Pass the listing data to each ListingCard
-              />
-            ))} 
-          </div>
-        </Container>
-      )}
-      </div> */}
-
     <div className="first-card-main pt-1 pb-9">
       {listingsLuxurious && listingsLuxurious.length > 0 && (
       <Container>
@@ -249,36 +213,6 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
       </Container>
      )}
     </div>
-      
-    {/* <div className="pt-1 pb-9">
-      {filteredTours && filteredTours.length > 0 && (
-        <Container>
-          <div className="mt-9 flex justify-between items-center">
-              <div>
-                <h1 className="mb-2 text-2xl font-bold text-black">Book our prime unique properties</h1>
-                <p className="text-neutral-600">Book from our top rated properties for unforgettable stay</p> 
-              </div>
-              <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
-              </div>
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
-              <TourPriceCardMain
-                currentUser={currentUser ? {
-                  ...currentUser,
-                  createdAt: currentUser.createdAt.toISOString(),
-                  updatedAt: currentUser.updatedAt.toISOString(),
-                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                } : null} // Pass the current user to each ListingCard
-                key={tour.id} // Use the listing ID as the unique key
-                data={tour} // Pass the listing data to each ListingCard
-              />
-            ))} 
-          </div>
-        </Container>
-      )}
-      </div> */}
       
     <div className="pt-1 pb-6">
       {listingsComfortable && listingsComfortable.length > 0 && (

@@ -31,6 +31,7 @@ import { GiCash } from "react-icons/gi";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PaymentModal from "@/app/components/Modals/PaymentModal";
 import { IoIosPeople } from "react-icons/io";
+import ListingHead from "@/app/components/listing/ListingHead";
 
 const initialDateRange = {
     startDate: new Date(),
@@ -333,16 +334,44 @@ const TourClient: React.FC<TourClientProps> = ({
   return (
     <Container>
           <div className="max-w-sreen-lg mx-auto">
-              <div className="flex flex-col gap-6">
-                  <TourHead
+              <div className="flex flex-col mt-6 gap-6">
+                  <ListingHead
                       title={tour.title}
                       imageSrc={tour.imageSrc}
                       id={tour.id}
+                      town={tour.town}
                       currentUser={currentUser}
                   /> 
                   {/* <div className="grid grid-cols-1 md:grid-cols-7 md:grid-10 mt-6">    */}
                   <div className="grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5">
-                    <div className="order-first-second-first col-span-3 flex flex-col gap-7">  
+                      <div className="order-first-second-first col-span-3 flex flex-col gap-7"> 
+                          <div className="flex gap-1 items-start justify-start text-lg text-neutral-800">
+                              <span className="font-bold">{tour.title}, </span> <span>in {tour.county},</span> <span>{ tour.town}</span>
+                          </div> 
+                          
+                        <div className="border-[1px] mt-[13px] border-solid flex items-center gap-[13px] py-4 px-1 border-neutral-300 h-auto w-full rounded-lg">
+                              {tour.category !== '' && (
+                                  <div className="flex flex-row justify-between">
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><IoIosPeople size={23} /></span><span className="text-md">Catogry: </span></div> <span className="text-neutral-500">{tour.category}</span>
+                                  </div>
+                              )}
+                              {tour.category !== '' && (
+                                  <div className="flex flex-row justify-between">
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><IoIosPeople size={23} /></span><span className="text-md">Bathrooms: </span></div> <span className="text-neutral-500">{tour.days}</span>
+                                  </div>
+                              )}
+                              {tour.category !== '' && (
+                                  <div className="flex flex-row justify-between">
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><IoIosPeople size={23} /></span><span className="text-md">Guests: </span></div><span className="text-neutral-500">{tour.subtitle}</span>
+                                  </div>
+                              )}
+                              {/* {tour.category !== '' && (
+                                  <div className="flex flex-row justify-between">
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-neutral-600"><IoIosPeople size={23} /></span><span className="text-md">Rooms: </span></div><span className="text-neutral-500">{tour.category}</span>
+                                  </div>
+                              )}                         */}
+                          </div>
+
                     <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
                           
                         <div className="flex w-full flex-row items-center justify-between">
@@ -412,7 +441,7 @@ const TourClient: React.FC<TourClientProps> = ({
                           
                                   <div className="flex w-full flex-row items-center justify-between">
                                       <div className="flex flex-row items-center gap-2">
-                                          <span className="text-xl font-bold">OVERVIEW</span>
+                                          <span className="text-xl font-bold">Offer</span>
                                       </div>
                                   </div>
                                   <div className="py-1 w-full">
@@ -421,7 +450,7 @@ const TourClient: React.FC<TourClientProps> = ({
                         
                                   <div className="flex w-full flex-row items-center justify-between">
                                       <div>
-                                          <span className="text-md text-justify text-neutral-600">{tour.inclusion}</span>
+                                          <span className="text-md text-justify text-neutral-600">{tour.action}</span>
                                       </div>
                                   </div>
                                   <div>
