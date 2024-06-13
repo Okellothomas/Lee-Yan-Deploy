@@ -11,12 +11,15 @@ import Link from "next/link";
 import TourClient from "./TourClient";
 import TourCardSecondary from "@/app/components/listing/TourCardSecondary";
 import getOfferById from "@/app/actions/getOffersById";
+import getOffers, {OffersParams} from "@/app/actions/getOffers";
 
 // Define the interface for the TourPage component props
 interface IParams {
   // tourId?: string;
-  // tourParams: IToursParams;
+  tourParams: IToursParams;
   offerId?: string;
+  offerParams: OffersParams;
+
 }
 
 // TourPage component is defined as an asynchronous function
@@ -27,7 +30,8 @@ const TourPage = async ({ params }: { params: IParams }) => {
   // const reservations = await getReservations(params);
   const reservations = await getReservations({ listingId: params.offerId });
   const currentUser = await getCurrentUser();
-  // const tours = await getTours(params.tourParams);
+  const tours = await getTours(params.tourParams);
+  const offers = await getOffers(params.offerParams)
   // const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
 
   // Check if there is no tour, display EmptyState component
@@ -60,18 +64,19 @@ const TourPage = async ({ params }: { params: IParams }) => {
       </div>
 
       {/* Classic Adventure Tours section */}
-      {/* {filteredTours && filteredTours.length > 0 && (
+       {offers && offers.length > 0 && (
         <Container>
-          <div className="flex flex-col gap-1 pt-5">
-            <h1 className="main-header-black w-full text-center">
-              PREMIUM <span className="main-header-gradient">SIMILAR TOURS</span>
-            </h1>
-            <p className="text-neutral-500 text-sm w-full text-center">
-              You viewed the magical {offer.title} tour - continue your luxury adventure with these premium recommendations for similar exotic journeys handpicked just for you.
-            </p>
-          </div>
-          <div className="grid-cols-page-s pt-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
+         <div className="mt-4 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-bold text-black">More Offers</h1>
+                <p className="text-neutral-600">More affordable offers you may find amazing</p> 
+              </div>
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+            </div>
+           </div>
+          <div className="grid-cols-page-s pt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+            {offers.slice(0,4).map((tour: any) => (
               <TourCardSecondary
                 currentUser={currentUser ? {
                   ...currentUser,
@@ -84,16 +89,8 @@ const TourPage = async ({ params }: { params: IParams }) => {
               />
             ))}
           </div>
-          <div className="w-full text-center pt-8">
-            <Link
-              className="outline-main-btn px-4 hover:bg-slate-400 hover:text-green-400 hover:shadow-md"
-              href="/hotels"
-            >
-              View all similar premium tours
-            </Link>
-          </div>
         </Container>
-      )} */}
+      )} 
         
     </div>
   );
