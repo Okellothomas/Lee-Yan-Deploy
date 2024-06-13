@@ -68,6 +68,7 @@ const RentModal = () => {
             bedPhotos: [],
             offers: '',
             hostPhoto: '',
+            childrenCount: 1,
             offerPrice: 1,
             hostName: '',
             verified: '',
@@ -92,6 +93,7 @@ const RentModal = () => {
     const roomCount = watch('roomCount');
     const bathRoomCount = watch('bathRoomCount');
     const imageSrc = watch('imageSrc');
+    const childrenCount = watch('childrenCount');
     const bedcount = watch('bedcount');
     const bedroomCount = watch('bedroomCount');
     const ratings = watch('ratings');
@@ -261,6 +263,13 @@ const RentModal = () => {
                     value={bathRoomCount}
                     onChange={(value) => setCustomValue('bathRoomCount', value)}
                 />
+                <hr />
+                <Counter
+                    title="Children"
+                    subtitle="How many children do you allow?"
+                    value={childrenCount}
+                    onChange={(value) => setCustomValue('childrenCount', value)}
+                />
 
             </div>
         )
@@ -268,7 +277,7 @@ const RentModal = () => {
 
     if (step === STEPS.INFOS) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[56vh] overflow-y-auto">
                 <Heading
                     title="Provide additional basics about your stay"
                     subtitle="Provide the details below?"
@@ -303,8 +312,8 @@ const RentModal = () => {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="Add the first photo of your offer"
-                    subtitle="Show the clients the offer!"
+                    title="Add the first photo of your stay!"
+                    subtitle="Show the clients the stay!"
                 />
                 <ImageUpload
                     value={imageSrc[0] || ''}
@@ -318,8 +327,8 @@ const RentModal = () => {
         bodyContent = (
             <div className="flex flex-col gap-8">
                 <Heading
-                    title="Add more photos of your offer"
-                    subtitle="Show the clients the offer!"
+                    title="Add more photos of your stay"
+                    subtitle="Show the clients the stay!"
                 />
                 <ImageUpload
                     value={imageSrc.slice(1)}
