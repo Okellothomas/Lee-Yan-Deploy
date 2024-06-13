@@ -238,7 +238,7 @@ const RentModal = () => {
 
     if (step === STEPS.INFO) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[56vh] overflow-y-auto">
                 <Heading
                     title="Provide more basics about your stay"
                     subtitle="Provide the details below?"

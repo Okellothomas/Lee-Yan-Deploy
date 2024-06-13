@@ -510,10 +510,10 @@ const TourClient: React.FC<TourClientProps> = ({
                           <div className="border-neutral-300 pt-4 px-4 border-solid w-full rounded-lg h-auto border-[1px]" style={{ position: 'sticky', top: '10vh' }}>
                           <div className="flex flex-row px-4 justify-between item-center gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="text-blue-400"><SlCalender size={23 } /></span><span>Tour Length</span> 
+                                 <span className="text-blue-400"><SlCalender size={23 } /></span><span>Price</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span>{tour.days}</span> <span>Days</span>
+                                 <span>Ksh. {tour.price}</span> <span></span>
                               </div>
                           </div>
                           <div className="px-4 py-3">
@@ -521,10 +521,10 @@ const TourClient: React.FC<TourClientProps> = ({
                           </div>
                           <div className="flex flex-row px-4 justify-between item-center gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="text-green-400"><SlLocationPin size={23 } /></span><span>Tour Starts</span> 
+                                 <span className="text-green-400"><SlLocationPin size={23 } /></span><span>Offer Price</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span>{tour.action}</span> 
+                                 <span>Ksh. {tour.offerprice}</span> 
                               </div>
                           </div>
                           <div className="px-4 py-3">
