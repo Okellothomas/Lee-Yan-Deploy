@@ -109,7 +109,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
     });
 
     console.log("Filtered City Countries ---->", filteredCityCountries)
-    setFilteredCountries(filtered);
+    //setFilteredCountries(filtered);
     setSearchDestination(filteredCityCountries.length > 0 ? {county: filteredCityCountries[0].county, town: filteredCityCountries[0].town}: {town:inputValue, county:inputValue});
       setFilteredCountries(filteredCityCountries);
     };
