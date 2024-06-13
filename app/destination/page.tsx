@@ -29,7 +29,10 @@ interface SearchParams {
   destination:string,
   checkinDate:string,
   checkoutDate:string,
-  county:string
+  county:string,
+  children:number,
+  adults:number,
+  rooms:number
   }
 }
 
@@ -57,6 +60,7 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
 
     const [checkinDate, setCheckinDate] = useState(searchParams.checkinDate) 
     const [checkoutDate, setCheckoutDate] = useState(searchParams.checkoutDate) 
+    const [options, setOptions] = useState({rooms:searchParams.rooms, adults:searchParams.adults, children:searchParams.children})
     // const [continent, set] = useState(searchParams.continent) 
     const [tours, setTours] = useState([])
     const [sortOption, setSortOption] = useState<string>('popularity');
@@ -113,7 +117,10 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
         const [listingsResponse,
           //  userResponse
           ] = await Promise.all([
-          axios.get(`/api/stays?checkinDate=${checkinDate}&checkoutDate=${checkoutDate}&city=${city}&county=${county}`),
+          axios.get(`/api/stays?checkinDate=${checkinDate}
+            &checkoutDate=${checkoutDate}
+            &city=${city}&county=${county}&adults=${options.adults}
+            &children=${options.children}&rooms=${options.rooms}`),
           // axios.get(`/api/user`)
         ]);
 

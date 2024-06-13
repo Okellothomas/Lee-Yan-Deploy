@@ -34,8 +34,11 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
   // Fetch data inside the render function (server component behavior)
   const [maximumPrice, setMaximumPrice] = useState<number>(1000);
   const [offers, setOffers] = useState([])
+  const [vissibleOffers, setVisibleOffers] = useState([])
+  const [currentPage, setCurrentPage] = useState(1);
 
-     //const offers =  await getOffers(offerParams);
+    const PAGE_SIZE = 15;
+     const startIndex = (currentPage - 1) * PAGE_SIZE;
      useEffect(() => {
       const handleSearch = async () => {
         //setLoading(true);
@@ -74,6 +77,20 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
       handleSearch();
     }, []);
 
+    useEffect(()=>{
+
+      if(maximumPrice>0)
+       {
+         
+         const visible_offers = offers.filter(offer => offer.offerprice <= maximumPrice).slice(startIndex, startIndex + PAGE_SIZE);
+         setVisibleOffers(visible_offers)  
+       }
+         else{
+        setVisibleOffers(offers)    
+     }
+     }, [maximumPrice])
+
+
   const getToursAndRender = async () => {
     //const tours = await getTours(tourParams);
    // const currentUser = await getCurrentUser();
@@ -86,7 +103,8 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
     const currentPage = 1;
     const startIndex = (currentPage - 1) * PAGE_SIZE;
    // const visibleTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(startIndex, startIndex + PAGE_SIZE);
-    const visibleOffers = offers //.filter(tour => tour.tourists.length < tour.guestCount).slice(startIndex, startIndex + PAGE_SIZE);
+   
+  
 
     const products: any = [];
 

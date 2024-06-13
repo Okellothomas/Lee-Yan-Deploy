@@ -101,6 +101,9 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
         //const { searchParams } = new URL(req.nextUrl);  
 
     // const { destination } = req.query;
+    let roomss = req.nextUrl.searchParams.get("rooms")
+    let children = req.nextUrl.searchParams.get("children")
+    let adults = req.nextUrl.searchParams.get("adults")
     let cityValue = req.nextUrl.searchParams.get("city")
     let countyValue = req.nextUrl.searchParams.get("county")
     let continentValue = req.nextUrl.searchParams.get('continent')
@@ -108,6 +111,7 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
     let checkoutDateValue = req.nextUrl.searchParams.get('checkoutDate')
   
     let county= countyValue !== 'undefined' ? countyValue : '';
+    let rooms= roomss !== 'undefined' ? roomss : '';
     let city = cityValue !== 'undefined' ? cityValue : '';
     let checkinDate = checkinDateValue !== 'undefined' ? checkinDateValue : '';
     let checkoutDate = checkoutDateValue !== 'undefined' ? checkoutDateValue : '';
@@ -141,32 +145,99 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
 
 
 
-        if (county && county!=='') {
-            searchParamss.county =  county;
-        }
-        if (city && city!=='') {
-            searchParamss.town =  city;
-        }
+            let searchParamss = {};
 
-        console.log("Search params", searchParamss)
+    // Existing city and county filters
+    if (county && county !== '') {
+        searchParamss.county = county;
+    }
+    if (city && city !== '') {
+        searchParamss.town = city;
+    }
 
-        // if (category) {
-        //     query.category = category;
-        // }
-    
-    const listings = await prisma.listing.findMany({
-        where: searchParamss,
+    let dateFilters = {};
+
+    if (checkinDateValue && checkinDateValue !== 'undefined' && checkoutDateValue && checkoutDateValue !== 'undefined') {
+        const start = new Date(checkinDateValue);
+        const end = new Date(checkoutDateValue);
+
+        if (!isNaN(start.getTime()) && !isNaN(end.getTime())) {
+            dateFilters = {
+                datesUnavailable: {
+                    none: {
+                        between: [start, end]
+                    }
+                }
+            };
+        }
+    }
+    // Build the query object for Prisma
+    let query = {
+        where: {
+            ...searchParamss,
+            // Add conditions for date range
+           ...dateFilters, 
+            // Add conditions for guest counts
+            rooms: {
+                gte: parseInt(rooms, 10) 
+            },
+            adults: {
+                gte: parseInt(adults, 10)
+            },
+            children: {
+                gte: parseInt(children, 10)
+            }
+        },
         orderBy: {
             createAt: 'desc'
         }
-    });
+    };
 
-    const safeListing = listings.map((listing) => ({
-        ...listing,
-        createAt: listing.createAt.toISOString(),
-    }));
-    console.log("Back end listing---->", safeListing)
-    return NextResponse.json(safeListing);
+    console.log("Search query", query);
+
+    try {
+        const listings = await prisma.listing.findMany(query);
+
+        const safeListing = listings.map((listing) => ({
+            ...listing,
+            createAt: listing.createAt.toISOString(),
+        }));
+        
+        console.log("Back end listing---->", safeListing);
+        return NextResponse.json(safeListing);
+    } catch (error) {
+        console.error("Error fetching listings:", error);
+        return NextResponse.json({ error: 'Error fetching listings' }, { status: 500 });
+    }
+
+
+
+    //     if (county && county!=='') {
+    //         searchParamss.county =  county;
+    //     }
+    //     if (city && city!=='') {
+    //         searchParamss.town =  city;
+    //     }
+
+    //     console.log("Search params", searchParamss)
+
+    //     // if (category) {
+    //     //     query.category = category;
+    //     // }
+    
+    // const listings = await prisma.listing.findMany({
+    //     where: searchParamss,
+    //     orderBy: {
+    //         createAt: 'desc'
+    //     }
+    // });
+
+    // const safeListing = listings.map((listing) => ({
+    //     ...listing,
+    //     createAt: listing.createAt.toISOString(),
+    // }));
+    // console.log("Back end listing---->", safeListing)
+    // return NextResponse.json(safeListing);
 }
 } catch (error) {
        console.log("Error----  ", error) 

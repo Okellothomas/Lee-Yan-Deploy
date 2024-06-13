@@ -225,7 +225,7 @@ const inputRef = useRef<HTMLInputElement>(null);
 
 
                 <div className="px-4 items-center text-center">
-                <Link href={{ pathname: '/destination', query: { destination: searchDestination.town, county:searchDestination?.county,  
+                <Link href={{ pathname: '/destination', query: { destination: searchDestination.town, county:searchDestination?.county,adult:options.adults, children:options.children, rooms:options.rooms,  
                   checkinDate: checkinDate ? checkinDate.toLocaleDateString('en-US', {
                     day: '2-digit',
                     month: '2-digit',

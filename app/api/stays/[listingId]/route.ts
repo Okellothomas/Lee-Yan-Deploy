@@ -67,6 +67,8 @@ export async function GET(
 
 
 
+
+
 const generateDateRange = (startDate:any, endDate:any) => {
   const dates = [];
   let currentDate = new Date(startDate);
@@ -133,9 +135,10 @@ export async function PUT(
     // //   continent:continent,
     
     // }
-
+    console.log("datesUnavailableFrom dates", datesUnavailableFrom)
+    console.log("datesUnavailableTo dates", datesUnavailableTo)
     const dateRange = generateDateRange(datesUnavailableFrom, datesUnavailableTo);  
-
+    console.log("date ranges",dateRange)
     try {
 
       const updateStay = await prisma.listing.update({
