@@ -32,6 +32,8 @@ import { RiRadioButtonLine } from "react-icons/ri";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PaymentModal from "@/app/components/Modals/PaymentModal";
 import { IoIosPeople } from "react-icons/io";
+import { FaWhatsapp } from "react-icons/fa";
+ import { FiPhoneCall } from "react-icons/fi";
 import ListingHead from "@/app/components/listing/ListingHead";
 import { MdOutlineCategory } from "react-icons/md";
 import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
@@ -531,10 +533,10 @@ const TourClient: React.FC<TourClientProps> = ({
                           <div className="border-neutral-300 pt-4 px-4 border-solid w-full rounded-lg h-auto border-[1px]" style={{ position: 'sticky', top: '10vh' }}>
                           <div className="flex flex-row px-4 justify-between item-center gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="text-blue-400"><GiTakeMyMoney size={23 } /></span><span>Price</span> 
+                                 <span className="text-red-400"><GiTakeMyMoney size={23 } /></span><span>Price</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span>Ksh. {tour.price}</span> <span></span>
+                                 <span className="text-red-400 line-through">Ksh. {tour.price}</span> <span></span>
                               </div>
                           </div>
                           <div className="px-4 py-3">
@@ -542,10 +544,34 @@ const TourClient: React.FC<TourClientProps> = ({
                           </div>
                           <div className="flex flex-row px-4 justify-between item-center gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="text-green-400"><GiCash size={23 } /></span><span>Offer Price</span> 
+                                 <span className="text-orange-400"><GiCash size={23 } /></span><span>Offer Price</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
                                  <span>Ksh. {tour.offerprice}</span> 
+                              </div>
+                          </div>
+                          <div className="px-4 py-3">
+                          <hr />
+                              </div>
+                           <div className="flex flex-row mx-6 py-1 hover:cursor-pointer justify-center items-center border-[1px] border-solid border-green-500 rounded-lg gap-3">
+                              <div className="flex flex-row gap-3 justify-center items-center">
+                                 <span className="text-green-400"><FaWhatsapp size={24 } /></span>
+                              </div>
+                            </div>
+                          <div className="px-4 py-3">
+                          <hr />
+                              </div>
+                          <div className="flex flex-row mx-6 py-1 hover:cursor-pointer justify-center items-center border-[1px] border-solid border-blue-500 rounded-lg gap-3">
+                              <div className="flex flex-row gap-3 justify-center items-center">
+                                 <span className="text-blue-400"><FiPhoneCall size={24 } /></span> 
+                              </div>
+                          </div>
+                          <div className="px-4 py-3">
+                          <hr />
+                              </div>
+                         <div className="flex flex-row mx-6 py-1 hover:cursor-pointer justify-center items-center border-[1px] border-solid border-neutral-400 rounded-lg gap-3">
+                              <div className="flex flex-row gap-3 justify-between items-center">
+                                 <span>Reserve Offer</span> 
                               </div>
                           </div>
                           <div className="px-4 py-3">
@@ -559,13 +585,13 @@ const TourClient: React.FC<TourClientProps> = ({
                                  <span>{tour.action}</span>
                               </div>
                           </div> */}
-                          <div className="px-4 py-3">
-                          </div>
+                          {/* <div className="px-4 py-3">
+                          </div> */}
                           {/* <TourInfo
                            locationValue={tour.category} /> */}
                           
-                          <div className="px-4 py-3">
-                          </div>
+                          {/* <div className="px-4 py-3">
+                          </div> */}
                           {/* <div className="flex flex-row px-4 justify-between item-center gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
                                 <span className="text-red-400"><GiTakeMyMoney size={23 } /></span><span>Price per person:</span> 
@@ -610,7 +636,7 @@ const TourClient: React.FC<TourClientProps> = ({
                           )} */}
 
         <div className="flex flex-col px-4 justify-between items-center gap-1">
-        {error && <div className="text-red-400 text-sm pt-1">{error}</div>}
+        {/* {error && <div className="text-red-400 text-sm pt-1">{error}</div>}
         <div className="flex flex-row items-center mt-2">
             <label htmlFor="guests" className="text-right mr-4 text-gray-700">
                 Tourists:
@@ -623,10 +649,10 @@ const TourClient: React.FC<TourClientProps> = ({
                 className="shadow border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 onClick={toggleOptions}
             />
-        </div>
+        </div> */}
 
-        {openoptions && (
-            <div className="bg-white p-2 md:p-2 shadow-md w-full"> {/* Remove absolute positioning */}
+        {/* {openoptions && (
+            <div className="bg-white p-2 md:p-2 shadow-md w-full"> 
                 <div className="flex flex-col gap-3">
                     <div className="flex flex-row gap-3">
                         <span className="text-lg">Hotel Rooms(Optional): </span>
@@ -669,7 +695,7 @@ const TourClient: React.FC<TourClientProps> = ({
                     </div>
                 </div>
             </div>
-        )}
+        )} */}
 
 
         <hr />
@@ -710,9 +736,9 @@ const TourClient: React.FC<TourClientProps> = ({
             )} */}
         </>
       )}
-      {options.guests === 0 && (
+      {/* {options.guests === 0 && (
         <div className="text-red-500">Please specify the number of tourists to place an order.</div>
-      )}
+      )} */}
         </div>
     </div>
              
