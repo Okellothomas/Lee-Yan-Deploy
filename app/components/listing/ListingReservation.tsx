@@ -184,9 +184,14 @@
 // export default ListingReservation;
 'use client'
 import React, { useState } from "react";
+<<<<<<< HEAD
 // import CalendarComponent from "../Inputs/CalendarComponent";
 import Button from "../container/Button";
 import CalendarComponent from "../Inputs/Calender";
+=======
+import axios from "axios";
+import toast from "react-hot-toast";
+>>>>>>> c287d19ade2f206371ec594f1032101e98d72b17
 
 interface ListingReservationProps {
     price: number;
@@ -201,8 +206,14 @@ interface ListingReservationProps {
     error: string;
     setOpenOptions: React.Dispatch<React.SetStateAction<any>>;
     numberOfGuestsRef: any;
+<<<<<<< HEAD
     handleOptions: (name: 'guests' | 'rooms', operations: any) => void;
     toggleOptions: () => void;
+=======
+    handleOptions: (name: 'guests' | 'rooms', operations: any) => void; // Define the handleOptions prop type
+    handleUnavailableDates:()=>void;
+    toggleOptions: () => void; // Define the toggleOptions prop type
+>>>>>>> c287d19ade2f206371ec594f1032101e98d72b17
 }
 
 const ListingReservation: React.FC<ListingReservationProps> = ({
@@ -219,6 +230,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     setOpenOptions,
     numberOfGuestsRef,
     handleOptions,
+    handleUnavailableDates,
     toggleOptions
 }) => {
 
@@ -241,6 +253,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         setSelectedDates([]);
     };
 
+
     return (
         <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
             <div className="flex flex-row items-center gap-1 p-4">
@@ -260,6 +273,13 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
 
             <div className="flex flex-col px-4 justify-between item-center gap-1">
                 {error && <div className="text-red-400 text-sm pt-1">{error}</div>}
+                <button
+                                        className="border rounded-full py-1 px-3 focus:outline-none"
+                                        onClick={handleUnavailableDates}
+                                        
+                                    >
+                                        Mark selected dates unavailable
+                                    </button>
                 {!guestsEntered && (
                     <div className="text-gray-700 mt-2">Please enter the number of guests to book</div>
                 )}

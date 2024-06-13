@@ -77,27 +77,14 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
     axios
     .get<Stay[]>('/api/stays')
     .then((response) => {
-      console.log("cities response", response) 
+      
       const listings = response.data;
-
-      console.log("Listings", listings)
-      // Extract the unique countries from the tours data
-
-      // const uniqueCityCounties = [...new Set(
-      //   listings.map((listing) => ({
-      //     town: listing.town,
-      //     county: listing.county,
-      //   }))
-      // )];
-
       const uniqueCityCounties = Array.from(
         new Map(listings.map(listing => [`${listing.town}-${listing.county}`, listing])).values()
       );
- 
       const uniqueCounties = [...new Set(listings.map((listing) => listing.county))];
 
       setCounties(uniqueCounties) 
-
       console.log("UniqueCityCojntries----]]", uniqueCityCounties)
       //setCountries(uniqueCounties);
     })
