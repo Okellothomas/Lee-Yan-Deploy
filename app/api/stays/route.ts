@@ -110,13 +110,13 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
     let checkinDateValue = req.nextUrl.searchParams.get('checkinDate')
     let checkoutDateValue = req.nextUrl.searchParams.get('checkoutDate')
   
-    let county= countyValue !== 'undefined' ? countyValue : '';
-    let rooms= roomss !== 'undefined' ? roomss : 0;
-    let adults= adultss !== 'undefined' ? adultss : 0;
-    let children= childrenn !== 'undefined' ? childrenn : 0;
-    let city = cityValue !== 'undefined' ? cityValue : '';
-    let checkinDate = checkinDateValue !== 'undefined' ? checkinDateValue : '';
-    let checkoutDate = checkoutDateValue !== 'undefined' ? checkoutDateValue : '';
+    let county= countyValue ?? '';
+    let rooms= roomss ?? 0;
+    let adults= adultss ?? 0;
+    let children= childrenn ?? 0;
+    let city = cityValue ?? '';
+    let checkinDate = checkinDateValue ?? '';
+    let checkoutDate = checkoutDateValue ?? '';
 
     console.log("County----->", county)
     console.log("checkinDate-->", checkinDate)
@@ -181,23 +181,23 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
     let query = {
         where: {
             ...searchParamss,
-            // Add conditions for date range
-           ...dateFilters, 
-            // Add conditions for guest counts
-            roomCount: {
-                gte: parseInt(rooms, 10)  
-            },
-            guestCount: {
-                gte: parseInt(adults, 10)
-            },
-            childrenCount: {
-                gte: parseInt(children, 10)
-            }
+            ...dateFilters
         },
         orderBy: {
             createAt: 'desc'
         }
     };
+
+    // Conditionally add guest count filters if provided
+    if (rooms) {
+        query.where.roomCount = { gte: parseInt(rooms, 10) };
+    }
+    if (adults) {
+        query.where.guestCount = { gte: parseInt(adults, 10) };
+    }
+    if (children) {
+        query.where.childrenCount = { gte: parseInt(children, 10) };
+    }
 
     console.log("Search query", query);
 
