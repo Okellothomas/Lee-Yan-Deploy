@@ -16,11 +16,13 @@ import TourHead from "@/app/components/listing/TourHead";
 import TourInfo from "@/app/components/listing/TourInfo";
 import { SlCalender } from "react-icons/sl";
 import dynamic from "next/dynamic";
+import { CiGift } from "react-icons/ci";
 import useCountries from "@/app/hooks/useCountries";
 import { SlLocationPin } from "react-icons/sl";
 import { ImLocation2 } from "react-icons/im";
 import { GiWorld } from "react-icons/gi";
 import { GiTakeMyMoney } from "react-icons/gi";
+import { BsCalendar2Date } from "react-icons/bs";
 import { GiReceiveMoney } from "react-icons/gi";
 import { FaArrowsDownToPeople } from "react-icons/fa6";
 import { MdOutlineDepartureBoard } from "react-icons/md";
@@ -355,14 +357,14 @@ const TourClient: React.FC<TourClientProps> = ({
                                       <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><IoIosPeople size={23} /></span><span className="text-md">Catogry: </span></div> <span className="text-neutral-500">{tour.category}</span>
                                   </div>
                               )}
-                              {tour.category !== '' && (
+                              {tour.days !== '' && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><IoIosPeople size={23} /></span><span className="text-md">Bathrooms: </span></div> <span className="text-neutral-500">{tour.days}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><BsCalendar2Date size={23} /></span><span className="text-md">Duration: </span></div> <span className="text-neutral-500">{tour.days}</span>
                                   </div>
                               )}
-                              {tour.category !== '' && (
+                              {tour.subtitle !== '' && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><IoIosPeople size={23} /></span><span className="text-md">Guests: </span></div><span className="text-neutral-500">{tour.subtitle}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><CiGift size={23} /></span><span className="text-md">Property: </span></div><span className="text-neutral-500">{tour.subtitle}</span>
                                   </div>
                               )}
                               {/* {tour.category !== '' && (
@@ -490,7 +492,7 @@ const TourClient: React.FC<TourClientProps> = ({
                         <div>           
                         </div>
                     </div>  
-                    {tour.action && tour.action.length > 0 && (
+                    {/* {tour.action && tour.action.length > 0 && (
                               <div className="flex h-[65vh] flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 w-full rounded-lg">
                                   <iframe
                                       src={tour?.action? tour?.action : ''}
@@ -501,7 +503,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                       className="w-full h-full"
                                   ></iframe>
                               </div>
-                     )}    
+                     )}     */}
                   </div>
 
                       <div className="order-first-second order-first-second-one col-span-2" style={{ position: 'sticky', top: '10vh' }}>
