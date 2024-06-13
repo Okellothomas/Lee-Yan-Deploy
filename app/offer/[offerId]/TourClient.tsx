@@ -29,11 +29,15 @@ import { MdOutlineDepartureBoard } from "react-icons/md";
 import { FaPlaneArrival } from "react-icons/fa6";
 import { FaPersonMilitaryToPerson } from "react-icons/fa6";
 import { RiRadioButtonLine } from "react-icons/ri";
-import { GiCash } from "react-icons/gi";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PaymentModal from "@/app/components/Modals/PaymentModal";
 import { IoIosPeople } from "react-icons/io";
 import ListingHead from "@/app/components/listing/ListingHead";
+import { MdOutlineCategory } from "react-icons/md";
+import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
+import { IoInformationCircleOutline } from "react-icons/io5";
+import { BiCategoryAlt } from "react-icons/bi";
+import { GiCash } from "react-icons/gi";
 
 const initialDateRange = {
     startDate: new Date(),
@@ -117,6 +121,17 @@ const TourClient: React.FC<TourClientProps> = ({
 
     const [openoptions, setOpenoptions] = useState(false)
     const numberOfGuestsRef = useRef<HTMLInputElement>(null);
+
+
+
+    const [showAll, setShowAll] = useState(false);
+  
+    const offers = tour.inclusion || [];
+    const displayedOffers = showAll ? offers : offers.slice(0, 7);
+
+    const handleShowMore = () => {
+        setShowAll(true);
+    };
 
 //   const handleTouristsChange = (event:React.ChangeEvent<HTMLInputElement>) => {
 //     setNumberOfTourists(parseInt(event.target.value));
@@ -354,7 +369,7 @@ const TourClient: React.FC<TourClientProps> = ({
                         <div className="border-[1px] mt-[13px] border-solid flex items-center gap-[13px] py-4 px-1 border-neutral-300 h-auto w-full rounded-lg">
                               {tour.category !== '' && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><IoIosPeople size={23} /></span><span className="text-md">Catogry: </span></div> <span className="text-neutral-500">{tour.category}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><MdOutlineCategory size={23} /></span><span className="text-md">Catogry: </span></div> <span className="text-neutral-500">{tour.category}</span>
                                   </div>
                               )}
                               {tour.days !== '' && (
@@ -374,21 +389,21 @@ const TourClient: React.FC<TourClientProps> = ({
                               )}                         */}
                           </div>
 
-                    <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
+                    <div className="flex flex-col gap-5 items-start border-[1px] border-solid pt-3 pb-1 px-4 border-neutral-300 h-auto w-full rounded-lg">
                           
                         <div className="flex w-full flex-row items-center justify-between">
                                   <div className="flex flex-row items-center gap-2">
-                                      <span className="text-neutral-500"><MdOutlineDepartureBoard size={ 23} /></span> <span>Departure</span>
+                                      <span className="text-neutral-500"><BiCategoryAlt size={ 23} /></span> <span>Offer Type</span>
                                   </div> 
                                  <div>
-                                      <span>{tour.price }</span>
+                                      <span>{tour.type }</span>
                                 </div>
                               </div>
-                            <div className="py-1 w-full">
+                            {/* <div className="py-1 w-full">
                             <hr />
-                            </div>
+                            </div> */}
                         
-                        <div className="flex w-full flex-row items-center justify-between">
+                        {/* <div className="flex w-full flex-row items-center justify-between">
                                   <div className="flex flex-row items-center gap-2">
                                       <span className="text-red-500"><FaPlaneArrival size={ 23} /></span> <span>End/Return</span>
                                   </div> 
@@ -398,9 +413,9 @@ const TourClient: React.FC<TourClientProps> = ({
                               </div>
                               <div className="py-1 w-full">
                             <hr />
-                              </div>
+                              </div> */}
                         
-                        <div className="flex w-full flex-row items-center justify-between">
+                        {/* <div className="flex w-full flex-row items-center justify-between">
                               <div className="flex flex-row items-center gap-2">
                                 <span className="text-green-500"><GiWorld size={23 } /></span><span>Countries Explored:</span> 
                               </div>
@@ -410,18 +425,18 @@ const TourClient: React.FC<TourClientProps> = ({
                           </div>
                           <div className="px-1 w-full">
                           <hr />
-                          </div>
+                          </div> */}
 
-                       <div className="flex w-full flex-row items-center justify-between">
+                       {/* <div className="flex w-full flex-row items-center justify-between">
                                   <div className="flex flex-row items-center gap-2">
                                       <span className="text-orange-500"><FaPersonMilitaryToPerson size={ 23} /></span> <span>Tour Operator:</span>
                                   </div> 
                                   <div>
                                       <span>{tour.category }</span>
                                   </div>
-                              </div>  
+                              </div>   */}
                         
-                        <div className="px-1 w-full">
+                        {/* <div className="px-1 w-full">
                           <hr />
                           </div>
 
@@ -432,7 +447,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                   <div>
                                       <span>{tour.offerprice }</span>
                                   </div>
-                              </div>  
+                              </div>   */}
                         <div>
                                   
                         </div>
@@ -466,26 +481,32 @@ const TourClient: React.FC<TourClientProps> = ({
                           
                         <div className="flex w-full flex-row items-center justify-between">
                                   <div className="flex flex-row items-center gap-2">
-                                     <span className="text-xl font-bold">TOUR ITINERARY</span>
+                                     <span className="text-xl font-bold">What is included in the Offer</span>
                                   </div>
                               </div>
                             <div className="py-1 w-full">
                             <hr />
                             </div>
                     
-                              
-                        {tour.type !== "" && (
-                        <div className="flex flex-col w-full items-start gap-3" onClick={() => setIsOpen17(!isOpen17)}>
-                            <div className="flex flex-row items-center gap-3 cursor-pointer">
-                            <span>
-                                <RiRadioButtonLine size={23} className={isOpen17 ? 'text-red-400' : ''} />
-                            </span>
-                            <span className="text-md text-justify text-neutral-600">Week 6</span>
+                            { offers.length > 0 && (
+                            <div>
+                            {displayedOffers.map((offer, index) => (
+                            <div key={index} className="flex flex-col gap-2 justify-start">
+                                <span className="text-neutral-500 flex flex-row gap-3 justify-start">
+                                <span className="text-neutral-700"><IoCheckmarkDoneCircleOutline size={23} /></span>
+                                {offer}
+                                <span className="text-neutral-400"><IoInformationCircleOutline size={23} /></span>
+                                    </span>
+                                <div className="pb-2 text-neutral-500">
+                                <hr />
+                                </div>
                             </div>
-                            <div className="w-full">       
-                            <hr />
-                            </div> 
-                            {isOpen17 && <p>{tour.type}</p>}
+                            ))}
+                            {!showAll && offers.length > 7 && (
+                            <button onClick={handleShowMore} className="text-blue-500 mt-2">
+                                Show More
+                            </button>
+                            )}
                         </div>
                         )}
                               
@@ -510,7 +531,7 @@ const TourClient: React.FC<TourClientProps> = ({
                           <div className="border-neutral-300 pt-4 px-4 border-solid w-full rounded-lg h-auto border-[1px]" style={{ position: 'sticky', top: '10vh' }}>
                           <div className="flex flex-row px-4 justify-between item-center gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="text-blue-400"><SlCalender size={23 } /></span><span>Price</span> 
+                                 <span className="text-blue-400"><GiTakeMyMoney size={23 } /></span><span>Price</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
                                  <span>Ksh. {tour.price}</span> <span></span>
@@ -521,7 +542,7 @@ const TourClient: React.FC<TourClientProps> = ({
                           </div>
                           <div className="flex flex-row px-4 justify-between item-center gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="text-green-400"><SlLocationPin size={23 } /></span><span>Offer Price</span> 
+                                 <span className="text-green-400"><GiCash size={23 } /></span><span>Offer Price</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
                                  <span>Ksh. {tour.offerprice}</span> 
@@ -530,14 +551,14 @@ const TourClient: React.FC<TourClientProps> = ({
                           <div className="px-4 py-3">
                           <hr />
                           </div>
-                          <div className="flex flex-row px-4 justify-between item-center gap-3">
+                          {/* <div className="flex flex-row px-4 justify-between item-center gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
                                 <span className="text-red-400"><ImLocation2 size={23 } /></span><span>Tour Ends</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
                                  <span>{tour.action}</span>
                               </div>
-                          </div>
+                          </div> */}
                           <div className="px-4 py-3">
                           </div>
                           {/* <TourInfo
@@ -545,7 +566,7 @@ const TourClient: React.FC<TourClientProps> = ({
                           
                           <div className="px-4 py-3">
                           </div>
-                          <div className="flex flex-row px-4 justify-between item-center gap-3">
+                          {/* <div className="flex flex-row px-4 justify-between item-center gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
                                 <span className="text-red-400"><GiTakeMyMoney size={23 } /></span><span>Price per person:</span> 
                               </div>
@@ -555,7 +576,7 @@ const TourClient: React.FC<TourClientProps> = ({
                           </div>
                           <div className="px-4 py-3">
                           <hr />
-                          </div>
+                          </div> */}
                           {/* {tour.action !== 0 && (
                               <div className="flex flex-row px-4 justify-between items-center gap-3">
                                   <div className="flex flex-row gap-3 justify-between items-center">
