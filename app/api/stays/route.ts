@@ -119,6 +119,10 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
     console.log("County----->", county)
     console.log("checkinDate-->", checkinDate)
     console.log("checkoutDate-->", checkoutDate)
+
+    console.log('Rooms', rooms)
+    console.log("adults", adults)
+    console.log("children", children)
     let searchParamss: any = {};
 
         // Remove the userId from the destructuring and handle it separately
@@ -179,7 +183,7 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
            ...dateFilters, 
             // Add conditions for guest counts
             rooms: {
-                gte: parseInt(rooms, 10) 
+                gte: parseInt(rooms, 10)  
             },
             adults: {
                 gte: parseInt(adults, 10)
