@@ -127,7 +127,9 @@ const ListingClient: React.FC<ListingClientProps> = ({
             return totalGuestsOnDate >= listing.guestCount;
         });
     
-        return fullyBookedDates;
+        // return fullyBookedDates;
+        const combinedFullyBoookedDates = [...fullyBookedDates, ...listing.datesUnavailable]
+        return combinedFullyBoookedDates;
     }, [reservations, listing]);
     
     
@@ -215,7 +217,9 @@ const findAvailableDate = () => {
     
     
     function handleUnavailableDates(): void { 
-              
+        
+        console.log("date range from listingClient",dateRange)
+        
         axios.put(`/api/stays/${listing?.id}`, {
             datesUnavailableFrom: dateRange.startDate,
             datesUnavailableTo: dateRange.endDate
@@ -629,7 +633,8 @@ const findAvailableDate = () => {
                               onSubmit={(payAmount:number)=>onCreateReservation(payAmount)}
                               disabled={isLoading}
                               disabledDates={disabledDates}
-                              options ={options}
+                              options={options}
+                              currentUser={currentUser}
                               setOptions = {setOptions}
                               openoptions ={openoptions}
                               setOpenOptions = {setOpenoptions}

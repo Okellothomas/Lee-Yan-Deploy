@@ -399,10 +399,12 @@ import Button from "../container/Button";
 import React, { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { SafeUser } from "@/app/types";
 
 interface ListingReservationProps {
     price: number;
     dateRange: Range;
+    currentUser: SafeUser;
     totalPrice: number;
     onChangeDate: (value: Range) => void;
     onSubmit: (payAmount: number) => void;
@@ -429,6 +431,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     disabled,
     disabledDates,
     error,
+    currentUser,
     setError,
     options,
     setOptions,
@@ -474,13 +477,15 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
 
             <div className="flex flex-col px-4 justify-between item-center gap-1">
                 {error && <div className="text-red-400 text-sm pt-1">{error}</div>}
-                <button
-                                        className="border rounded-full py-1 px-3 focus:outline-none"
-                                        onClick={handleUnavailableDates}
+                { (currentUser.userType === 'admin' || currentUser.userType === 'operator') && 
+                    <button
+                        className="border rounded-full py-1 px-3 focus:outline-none"
+                        onClick={handleUnavailableDates}
                                         
-                                    >
-                                        Mark selected dates unavailable
-                                    </button>
+                    >
+                        Mark selected dates unavailable
+                    </button>
+                }
                 {!guestsEntered && (
                     <div className="text-gray-700 mt-2">Please enter the number of guests to book</div>
                 )}
