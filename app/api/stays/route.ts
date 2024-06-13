@@ -102,8 +102,8 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
 
     // const { destination } = req.query;
     let roomss = req.nextUrl.searchParams.get("rooms")
-    let children = req.nextUrl.searchParams.get("children")
-    let adults = req.nextUrl.searchParams.get("adults")
+    let childrenn = req.nextUrl.searchParams.get("children")
+    let adultss = req.nextUrl.searchParams.get("adults")
     let cityValue = req.nextUrl.searchParams.get("city")
     let countyValue = req.nextUrl.searchParams.get("county")
     let continentValue = req.nextUrl.searchParams.get('continent')
@@ -111,7 +111,9 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
     let checkoutDateValue = req.nextUrl.searchParams.get('checkoutDate')
   
     let county= countyValue !== 'undefined' ? countyValue : '';
-    let rooms= roomss !== 'undefined' ? roomss : '';
+    let rooms= roomss !== 'undefined' ? roomss : 0;
+    let adults= adultss !== 'undefined' ? adultss : 0;
+    let children= childrenn !== 'undefined' ? childrenn : 0;
     let city = cityValue !== 'undefined' ? cityValue : '';
     let checkinDate = checkinDateValue !== 'undefined' ? checkinDateValue : '';
     let checkoutDate = checkoutDateValue !== 'undefined' ? checkoutDateValue : '';

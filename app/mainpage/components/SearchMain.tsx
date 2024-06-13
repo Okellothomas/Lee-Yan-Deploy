@@ -113,7 +113,7 @@ const inputRef = useRef<HTMLInputElement>(null);
               <hr className="h-[24px] w-[0.8px] bg-neutral-400 mx-auto"/>
                 <div className="w-auto items-center text-center hover:rounded-full hover:cursor-pointer">
                 <label htmlFor="checkin-date" className="text-md hover:cursor-pointer">Check In</label>
-                <DatePicker id="checkin-date" selected={checkinDate} onChange={(date) => setCheckinDate(date)} placeholderText="Add date in" minDate={new Date()} className="hover:cursor-pointer outline-none text-center rounded-bl-lg rounded-br-lg items-center"/>
+                <DatePicker id="checkin-date" autoComplete="off" selected={checkinDate} onChange={(date) => setCheckinDate(date)} placeholderText="Add date in" minDate={new Date()} className="hover:cursor-pointer outline-none text-center rounded-bl-lg rounded-br-lg items-center"/>
                 </div>
               <hr className="h-[24px] w-[0.8px] bg-neutral-400 mx-auto"/>
                <div className="items-center w-auto text-center  hover:rounded-full hover:cursor-pointer">
@@ -124,6 +124,7 @@ const inputRef = useRef<HTMLInputElement>(null);
                     onChange={(date) => setCheckoutDate(date)}
                     minDate={new Date()}
                     placeholderText="Add date out"
+                    autoComplete="off"
                     className="hover:cursor-pointer outline-none text-center rounded-bl-lg rounded-br-lg items-center"
                     >
                 </DatePicker>

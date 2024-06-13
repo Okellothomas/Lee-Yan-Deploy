@@ -72,12 +72,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
       // Extract the unique countries from the tours data
       const uniqueCounties = [...new Set(listings.map((listing) => listing.county))];
 
-      // const uniqueCityCounties = [...new Set(
-      //   listings.map((listing) => ({
-      //     town: listing.town,
-      //     county: listing.county,
-      //   }))
-      // )];
+    
 
       const uniqueCityCounties = Array.from(
         new Map(listings.map(listing => [`${listing.town}-${listing.county}`, listing])).values()
@@ -90,14 +85,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
       //setCountries(uniqueCounties);
     })
     .catch((error) => console.error(error));
-    // getTours({})
-    //   .then((tours) => {
-    //     // Extract the unique countries from the tours data
-    //     const uniqueCountries = [...new Set(tours.map((tour) => tour.country))].filter((country): country is string => country !== null);
-    //     setCountries(uniqueCountries);
-    //     console.log('Unique Countries', uniqueCountries)
-    //   })
-    //   .catch((error) => console.error(error));
+
   }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -176,3 +164,5 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({searchDestination,
 };
 
 export default AutocompleteInput;
+
+
