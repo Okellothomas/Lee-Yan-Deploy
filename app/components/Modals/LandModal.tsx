@@ -232,8 +232,8 @@ const LandModal = () => {
                     id="type"
                     label="offer type"
                     options={[
-                        { value: 'Surveyers', label: 'Surveyers availabe' },
-                        { value: 'Surveyers', label: 'Surveyers not available' },
+                        { value: 'Available', label: 'Surveyers availabe' },
+                        { value: 'Not available', label: 'Surveyers not available' },
                         // { value: 'One-time deal', label: 'One-time deal' },
                         // { value: 'Limited time deal', label: 'Limited time deal' },
                     ]}
@@ -249,8 +249,8 @@ const LandModal = () => {
                     id="titleDeed"
                     label="title deed"
                     options={[
-                        { value: 'titleDeed', label: 'Title deed' },
-                        { value: 'notitleDeed', label: 'No title deed' },
+                        { value: 'Available', label: 'Title deed' },
+                        { value: 'Not Available', label: 'No title deed' },
                     ]}
                     value={titleDeed}
                     onChange={(value) => setCustomValue('titleDeed', value)}

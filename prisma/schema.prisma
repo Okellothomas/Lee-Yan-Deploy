@@ -76,7 +76,7 @@ model Listing {
   guestCount       Int // Number of guests the listing can accommodate
   bedcount         Int // Number of
   bedroomCount     Int // Number of
-  childrenCount    Int
+  childrenCount    Int?
   datesUnavailable DateTime[]
   ratings          Int
   hostExperience   String?

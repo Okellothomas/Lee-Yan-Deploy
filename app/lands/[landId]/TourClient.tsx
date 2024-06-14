@@ -4,7 +4,7 @@ import Container from "@/app/components/container/Container";
 import ListingReservation from "@/app/components/listing/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { SafeUser, safeListing, safeOffer, safeReservation } from "@/app/types";
+import { SafeUser, safeListing, safeOffer, safeReservation, safeProperty, safeLand } from "@/app/types";
 import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -22,24 +22,27 @@ import { SlLocationPin } from "react-icons/sl";
 import { ImLocation2 } from "react-icons/im";
 import { GiWorld } from "react-icons/gi";
 import { GiTakeMyMoney } from "react-icons/gi";
-import { BsCalendar2Date } from "react-icons/bs";
-import { GiReceiveMoney } from "react-icons/gi";
-import { FaArrowsDownToPeople } from "react-icons/fa6";
-import { MdOutlineDepartureBoard } from "react-icons/md";
-import { FaPlaneArrival } from "react-icons/fa6";
-import { FaPersonMilitaryToPerson } from "react-icons/fa6";
-import { RiRadioButtonLine } from "react-icons/ri";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PaymentModal from "@/app/components/Modals/PaymentModal";
 import { IoIosPeople } from "react-icons/io";
 import { FaWhatsapp } from "react-icons/fa";
  import { FiPhoneCall } from "react-icons/fi";
 import ListingHead from "@/app/components/listing/ListingHead";
-import { MdOutlineCategory } from "react-icons/md";
 import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { BiCategoryAlt } from "react-icons/bi";
 import { GiCash } from "react-icons/gi";
+import {MdOutlineMeetingRoom} from "react-icons/md";
+import { MdPhotoSizeSelectSmall } from "react-icons/md";
+import { MdOutlineEventAvailable } from "react-icons/md";
+import { IoCarSportOutline } from "react-icons/io5";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import {SiBandsintown} from "react-icons/si";
+import { FaCity } from "react-icons/fa";
+import { GiModernCity } from "react-icons/gi";
+import { RiArticleFill } from "react-icons/ri";
+import { PiSubtitles } from "react-icons/pi";
+import { MdOutlineCategory } from "react-icons/md";
 
 const initialDateRange = {
     startDate: new Date(),
@@ -49,7 +52,7 @@ const initialDateRange = {
 
 interface TourClientProps {
     reservations?: safeReservation[];
-    tour: safeOffer & {
+    tour: safeLand & {
         user: SafeUser
     };
     currentUser?: SafeUser | null;
@@ -128,36 +131,24 @@ const TourClient: React.FC<TourClientProps> = ({
 
     const [showAll, setShowAll] = useState(false);
   
-    const offers = tour.inclusion || [];
-    const displayedOffers = showAll ? offers : offers.slice(0, 7);
+    // const offers = tour.amenities || [];
+    // const displayedOffers = showAll ? offers : offers.slice(0, 7);
 
-    const handleShowMore = () => {
-        setShowAll(true);
+    // const handleShowMore = () => {
+    //     setShowAll(true);
+    // };
+
+    const [itExpanded, setItExpanded] = useState(false);
+
+    const ToggleExpands = () => {
+        setItExpanded(!itExpanded);
     };
-
-//   const handleTouristsChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-//     setNumberOfTourists(parseInt(event.target.value));
-//     setError('');
-
-//     setTotalPrice(tour.price * parseInt(event.target.value))
-    
-//   };
     
      // Function to handle the payment amount selection
     const handlePaymentAmountSelect = (amount: number) => {
         setSelectedPaymentAmount(amount);
     };
 
-
-
-    // const handlePaymentComplete = (data: any) => {
-    //     // Handle the data passed from PaymentModal
-    //     console.log('Payment completed with data:', data);
-    //     setDataa(data)
-    //     makeReservation(data)
-    //     // You can also update the state or trigger other actions
-    //     // ...
-    //   };
 
         const handlePaymentComplete = (data: any) => {
         // Handle the data passed from PaymentModal
@@ -185,7 +176,7 @@ const TourClient: React.FC<TourClientProps> = ({
               {
                   setShowPay(false)
                   console.log("Payment Data", dataa)
-                  axios.put(`/api/offers/${tour?.id}`, {
+                  axios.put(`/api/property/${tour?.id}`, {
                       from_flag:'reservation',
                       totalPrice: selectedPaymentAmount,
                       startDate: dateRange.startDate,
@@ -254,10 +245,6 @@ const TourClient: React.FC<TourClientProps> = ({
             setError('Specify number of tourists, must be greater than 0.');
             return;
           }
-        // if (options.guests > (tour.guestCount - tour.tourists.length)) {
-        //     setError(`Available slots not enough for requested slots, only ${tour.guestCount - tour.tourists.length} available`);
-        //     return;
-        //   }
 
 
 
@@ -364,72 +351,117 @@ const TourClient: React.FC<TourClientProps> = ({
                   {/* <div className="grid grid-cols-1 md:grid-cols-7 md:grid-10 mt-6">    */}
                   <div className="grid grid-cols-1 gap-8 mt-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5">
                       <div className="order-first-second-first col-span-3 flex flex-col gap-7"> 
-                          <div className="flex gap-1 items-start justify-start text-lg text-neutral-800">
-                              <span className="font-bold">{tour.title}, </span> <span>in {tour.county},</span> <span>{ tour.town}</span>
+                          <div className="flex gap-1 items-start justify-start text-xl text-neutral-800">
+                              <span className="font-bold">{tour.title}</span>
                           </div> 
-                          
+    
                         <div className="border-[1px] mt-[13px] border-solid flex items-center gap-[13px] py-4 px-1 border-neutral-300 h-auto w-full rounded-lg">
-                              {tour.category !== '' && (
+                              {tour.county !== '' && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><MdOutlineCategory size={23} /></span><span className="text-md">Catogry: </span></div> <span className="text-neutral-500">{tour.category}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><FaCity size={23} /></span><span className="text-md">County: </span></div> <span className="text-neutral-500">{tour.county}</span>
                                   </div>
                               )}
-                              {tour.days !== '' && (
+                              {tour.town !== '' && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><BsCalendar2Date size={23} /></span><span className="text-md">Duration: </span></div> <span className="text-neutral-500">{tour.days}</span>
-                                  </div>
-                              )}
-                              {tour.subtitle !== '' && (
-                                  <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><CiGift size={23} /></span><span className="text-md">Property: </span></div><span className="text-neutral-500">{tour.subtitle}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><GiModernCity size={23} /></span><span className="text-md">Town: </span></div> <span className="text-neutral-500">{tour.town}</span>
                                   </div>
                               )}
                           </div>
 
-                    <div className="flex flex-col gap-5 items-start border-[1px] border-solid pt-3 pb-1 px-4 border-neutral-300 h-auto w-full rounded-lg">
+                    <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
                           
                         <div className="flex w-full flex-row items-center justify-between">
                                   <div className="flex flex-row items-center gap-2">
-                                      <span className="text-neutral-500"><BiCategoryAlt size={ 23} /></span> <span>Offer Type</span>
+                                     <span className="text-xl font-bold">Land Info!</span>
+                                  </div>
+                              </div>
+                            <div className="py-1 w-full">
+                            <hr />
+                            </div>
+                    
+                            <div className="flex w-full flex-row items-center justify-between">
+                                  <div className="flex flex-row items-center gap-2">
+                                      <span className="text-neutral-500"><MdOutlineCategory size={ 23} /></span> <span>Land category</span>
+                                  </div> 
+                                 <div>
+                                      <span>{tour.category }</span>
+                                </div>
+                              </div>
+                              
+                            <div className="py-1 w-full">
+                            <hr />
+                            </div>
+                              
+                            <div className="flex w-full flex-row items-center justify-between">
+                                  <div className="flex flex-row items-center gap-2">
+                                      <span className="text-neutral-500"><MdPhotoSizeSelectSmall size={ 23} /></span> <span>Land size</span>
+                                  </div> 
+                                 <div>
+                                      <span>{tour.size }</span>
+                                </div>
+                              </div>
+
+                             {/* <div className="py-1 w-full">
+                            <hr />
+                            </div>
+                              
+                            <div className="flex w-full flex-row items-center justify-between">
+                                  <div className="flex flex-row items-center gap-2">
+                                      <span className="text-neutral-500"><MdPhotoSizeSelectSmall size={ 23} /></span> <span>Covered Area</span>
+                                  </div> 
+                                 <div>
+                                      <span>{tour.covered_area }</span>
+                                </div>
+                              </div> */}
+
+                            <div className="py-1 w-full">
+                            <hr />
+                            </div>
+                              
+                            <div className="flex w-full flex-row items-center justify-between">
+                                  <div className="flex flex-row items-center gap-2">
+                                      <span className="text-neutral-500"><RiArticleFill size={ 23} /></span> <span>Land surveys</span>
                                   </div> 
                                  <div>
                                       <span>{tour.type }</span>
                                 </div>
                               </div>
-                        <div>
-                                  
-                        </div>
-                          </div>
-                
-                          {tour.inclusion && tour.inclusion?.length > 0 && (
-                              <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
-                          
-                                  <div className="flex w-full flex-row items-center justify-between">
-                                      <div className="flex flex-row items-center gap-2">
-                                          <span className="text-xl font-bold">Offer</span>
-                                      </div>
-                                  </div>
-                                  <div className="py-1 w-full">
-                                      <hr />
-                                  </div>
-                        
-                                  <div className="flex w-full flex-row items-center justify-between">
-                                      <div>
-                                          <span className="text-md text-justify text-neutral-600">{tour.action}</span>
-                                      </div>
-                                  </div>
-                                  <div>
-                                  
-                                  </div>
+                              
+                            <div className="py-1 w-full">
+                            <hr />
+                            </div>
+                              
+                            <div className="flex w-full flex-row items-center justify-between">
+                                  <div className="flex flex-row items-center gap-2">
+                                      <span className="text-neutral-500"><PiSubtitles size={ 23} /></span> <span>Land title deed</span>
+                                  </div> 
+                                 <div>
+                                      <span>{tour.titleDeed }</span>
+                                </div>
                               </div>
-                          )}
-                          
+                            <div className="py-1 w-full">
+                            <hr />
+                            </div>
+                             
+                            <div className="flex w-full flex-row items-center justify-between">
+                                  <div className="flex flex-row items-center gap-2">
+                                      <span className="text-neutral-500"><FaMoneyBillTrendUp size={ 23} /></span> <span>Land deal</span>
+                                  </div> 
+                                 <div>
+                                      <span>{tour.deal }</span>
+                                </div>
+                            </div>
+                              
+                        <div>           
+                        </div>
+                          </div> 
+            
 
-                     <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
+                     {/* <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
                           
                         <div className="flex w-full flex-row items-center justify-between">
                                   <div className="flex flex-row items-center gap-2">
-                                     <span className="text-xl font-bold">What is included in the Offer</span>
+                                     <span className="text-xl font-bold">Amenities</span>
                                   </div>
                               </div>
                             <div className="py-1 w-full">
@@ -460,11 +492,42 @@ const TourClient: React.FC<TourClientProps> = ({
                               
                         <div>           
                         </div>
-                    </div>  
+                          </div>   */}
+                          
+
+                        {tour.overview !== "" && (
+                              <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
+                          
+                                  <div className="flex w-full flex-row items-center justify-between">
+                                      <div className="flex flex-row items-center gap-2">
+                                          <span className="text-xl font-bold">Land overview</span>
+                                      </div>
+                                  </div>
+                                  <div className="py-1 w-full">
+                                      <hr />
+                                  </div>
+                        
+                                  {tour.overview !== "" && (
+                                    <div className="flex flex-row justify-between">
+                                        <span className={`text-neutral-500 ${itExpanded ? '' : 'line-clamp-4'}`}>
+                                            {tour.overview} {!itExpanded && (
+                                            <button onClick={ToggleExpands} className="text-blue-600 ml-2">
+                                                Read more
+                                            </button>
+                                            )}
+                                        </span>
+                                    </div>
+                                )}
+                                  <div>
+                                  
+                                  </div>
+                              </div>
+                          )}
+                          
                   </div>
 
                       <div className="order-first-second order-first-second-one col-span-2" style={{ position: 'sticky', top: '10vh' }}>
-                          <div className="border-neutral-300 bg-white pt-4 px-4 border-solid w-full rounded-lg h-auto border-[1px]" style={{ position: 'sticky', top: '10vh' }}>
+                          <div className="border-neutral-300 pt-4 px-4 bg-white border-solid w-full rounded-lg h-auto border-[1px]" style={{ position: 'sticky', top: '10vh' }}>
                           <div className="flex flex-row px-4 justify-between item-center gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
                                  <span className="text-red-400"><GiTakeMyMoney size={23 } /></span><span>Price</span> 
@@ -481,7 +544,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                  <span className="text-orange-400"><GiCash size={23 } /></span><span>Offer Price</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span>Ksh. {tour.offerprice}</span> 
+                                 <span>Ksh. {tour.offerPrice}</span> 
                               </div>
                           </div>
                           <div className="px-4 py-3">
@@ -503,9 +566,9 @@ const TourClient: React.FC<TourClientProps> = ({
                           <div className="px-4 py-3">
                           <hr />
                               </div>
-                         <div className="flex flex-row mx-6 py-1 hover:cursor-pointer bg-green-700 text-white justify-center items-center border-[1px] border-solid border-neutral-400 rounded-lg gap-3">
+                         <div className="flex flex-row mx-6 py-1 hover:cursor-pointer justify-center items-center border-[1px] bg-green-700 text-white border-solid border-neutral-400 rounded-lg gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="font-semibold text-md">Reserve Offer</span> 
+                                 <span className="font-semibold text-md">Reserve Land</span> 
                               </div>
                           </div>
                           <div className="px-4 py-3">

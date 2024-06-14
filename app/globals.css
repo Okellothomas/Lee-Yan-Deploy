@@ -647,7 +647,7 @@
 }
 
 .alldestinations-main {
-  background-image: url('../public/images/adventure2.jpg');
+  background-image: url('../public/images/virtual.jpg');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.42);
   /* Red color with 60% opacity */
@@ -657,7 +657,7 @@
   background-position: center;
   background-repeat: no-repeat;
   flex-shrink: 0;
-  height: 24vh;
+  height: 31vh;
   margin-top: -8% !important;
 }
 
