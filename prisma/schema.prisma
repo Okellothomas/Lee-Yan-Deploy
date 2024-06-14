@@ -11,7 +11,6 @@ generator client {
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
-  
 }
 
 // Model representing the "User" entity in the database
@@ -78,6 +77,8 @@ model Listing {
   bedroomCount     Int // Number of
   childrenCount    Int?
   datesUnavailable DateTime[]
+  funActivities    String[]
+  meals            String[]
   ratings          Int
   hostExperience   String?
   county           String?

@@ -63,6 +63,8 @@ const RentModal = () => {
             hostExperience: '',
             county: '',
             town: '',
+            funActivities: [],
+            meals: [],          
             bedroom: [],
             beds: [],
             bedPhotos: [],
@@ -104,7 +106,9 @@ const RentModal = () => {
     const beds = watch('beds');
     const bedPhotos = watch('bedPhotos');
     const type = watch('type');
-    const hostType  = watch('hostType');
+    const hostType = watch('hostType');
+    const funActivities = watch('funActivities');
+    const meals = watch('meals');
 
 
     const Map = useMemo(() => dynamic(() => import('../container/Map'), {
@@ -428,6 +432,42 @@ const RentModal = () => {
                     ]}
                     value={offers}
                     onChange={(value) => setCustomValue('offers', value)}
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                />
+                <hr />
+                <MultiSelect
+                    id="funActivities"
+                    label="What fun activities do you have at the facility?"
+                    options={[
+                        { value: 'Beach', label: 'Beach' },
+                        { value: 'Diving', label: 'Diving' },
+                        { value: 'Water park', label: 'Water park' },
+                        { value: 'Gulf park', label: 'Gulf park' },
+                        { value: 'Private beach area', label: 'Private beach area' },
+                        { value: 'No fun activity', label: 'No fun activity' },
+                    ]}
+                    value={funActivities}
+                    onChange={(value) => setCustomValue('funActivities', value)}
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                />
+                <hr />
+                <MultiSelect
+                    id="meals"
+                    label="What meals to you serve at the facility?"
+                    options={[
+                        { value: 'Kitchen facility', label: 'Kitchen facility' },
+                        { value: 'Breakfast included', label: 'Breakfast included' },
+                        { value: 'All inclusive', label: 'All inclusive' },
+                        { value: 'Breakfast and lunch included', label: 'Breakfast and lunch included' },
+                        { value: 'Breakfast and Supper included', label: 'Breakfast and Supper included' },
+                        { value: 'No meals included', label: 'No meals included' },
+                    ]}
+                    value={meals}
+                    onChange={(value) => setCustomValue('meals', value)}
                     disabled={isLoading}
                     register={register}
                     error={errors}
