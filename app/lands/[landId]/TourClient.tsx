@@ -4,7 +4,7 @@ import Container from "@/app/components/container/Container";
 import ListingReservation from "@/app/components/listing/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { SafeUser, safeListing, safeOffer, safeReservation, safeProperty } from "@/app/types";
+import { SafeUser, safeListing, safeOffer, safeReservation, safeProperty, safeLand } from "@/app/types";
 import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -28,19 +28,21 @@ import { IoIosPeople } from "react-icons/io";
 import { FaWhatsapp } from "react-icons/fa";
  import { FiPhoneCall } from "react-icons/fi";
 import ListingHead from "@/app/components/listing/ListingHead";
-import { MdOutlineCategory } from "react-icons/md";
 import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { BiCategoryAlt } from "react-icons/bi";
 import { GiCash } from "react-icons/gi";
 import {MdOutlineMeetingRoom} from "react-icons/md";
-import {MdOutlineBathtub} from "react-icons/md";
-import {MdOutlineBedroomParent} from "react-icons/md";
-import { PiToiletBold } from "react-icons/pi";
 import { MdPhotoSizeSelectSmall } from "react-icons/md";
 import { MdOutlineEventAvailable } from "react-icons/md";
 import { IoCarSportOutline } from "react-icons/io5";
- import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import {SiBandsintown} from "react-icons/si";
+import { FaCity } from "react-icons/fa";
+import { GiModernCity } from "react-icons/gi";
+import { RiArticleFill } from "react-icons/ri";
+import { PiSubtitles } from "react-icons/pi";
+import { MdOutlineCategory } from "react-icons/md";
 
 const initialDateRange = {
     startDate: new Date(),
@@ -50,7 +52,7 @@ const initialDateRange = {
 
 interface TourClientProps {
     reservations?: safeReservation[];
-    tour: safeProperty & {
+    tour: safeLand & {
         user: SafeUser
     };
     currentUser?: SafeUser | null;
@@ -129,12 +131,12 @@ const TourClient: React.FC<TourClientProps> = ({
 
     const [showAll, setShowAll] = useState(false);
   
-    const offers = tour.amenities || [];
-    const displayedOffers = showAll ? offers : offers.slice(0, 7);
+    // const offers = tour.amenities || [];
+    // const displayedOffers = showAll ? offers : offers.slice(0, 7);
 
-    const handleShowMore = () => {
-        setShowAll(true);
-    };
+    // const handleShowMore = () => {
+    //     setShowAll(true);
+    // };
 
     const [itExpanded, setItExpanded] = useState(false);
 
@@ -349,39 +351,28 @@ const TourClient: React.FC<TourClientProps> = ({
                   {/* <div className="grid grid-cols-1 md:grid-cols-7 md:grid-10 mt-6">    */}
                   <div className="grid grid-cols-1 gap-8 mt-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5">
                       <div className="order-first-second-first col-span-3 flex flex-col gap-7"> 
-                          <div className="flex gap-1 items-start justify-start text-lg text-neutral-800">
-                              <span className="font-bold">{tour.title}, </span> <span>in {tour.county},</span> <span>{ tour.town}</span>
+                          <div className="flex gap-1 items-start justify-start text-xl text-neutral-800">
+                              <span className="font-bold">{tour.title}</span>
                           </div> 
     
                         <div className="border-[1px] mt-[13px] border-solid flex items-center gap-[13px] py-4 px-1 border-neutral-300 h-auto w-full rounded-lg">
-                              {tour.roomCount !== 0 && (
+                              {tour.county !== '' && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><MdOutlineMeetingRoom size={23} /></span><span className="text-md">Rooms: </span></div> <span className="text-neutral-500">{tour.roomCount}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><FaCity size={23} /></span><span className="text-md">County: </span></div> <span className="text-neutral-500">{tour.county}</span>
                                   </div>
                               )}
-                              {tour.bathRoomCount !== 0 && (
+                              {tour.town !== '' && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><MdOutlineBathtub size={23} /></span><span className="text-md">Bathrooms: </span></div> <span className="text-neutral-500">{tour.bathRoomCount}</span>
-                                  </div>
-                              )}
-                              {tour.bedRoomCount !== 0 && (
-                                  <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><MdOutlineBedroomParent size={23} /></span><span className="text-md">Bedrooms: </span></div><span className="text-neutral-500">{tour.bedRoomCount}</span>
-                                  </div>
-                              )}
-                              {tour.toiletCount !== 0 && (
-                                  <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-neutral-600"><PiToiletBold  size={23} /></span><span className="text-md">Washrooms: </span></div><span className="text-neutral-500">{tour.toiletCount}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><GiModernCity size={23} /></span><span className="text-md">Town: </span></div> <span className="text-neutral-500">{tour.town}</span>
                                   </div>
                               )}
                           </div>
-
 
                     <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
                           
                         <div className="flex w-full flex-row items-center justify-between">
                                   <div className="flex flex-row items-center gap-2">
-                                     <span className="text-xl font-bold">Property Info!</span>
+                                     <span className="text-xl font-bold">Land Info!</span>
                                   </div>
                               </div>
                             <div className="py-1 w-full">
@@ -390,7 +381,46 @@ const TourClient: React.FC<TourClientProps> = ({
                     
                             <div className="flex w-full flex-row items-center justify-between">
                                   <div className="flex flex-row items-center gap-2">
-                                      <span className="text-neutral-500"><BiCategoryAlt size={ 23} /></span> <span>Property type</span>
+                                      <span className="text-neutral-500"><MdOutlineCategory size={ 23} /></span> <span>Land category</span>
+                                  </div> 
+                                 <div>
+                                      <span>{tour.category }</span>
+                                </div>
+                              </div>
+                              
+                            <div className="py-1 w-full">
+                            <hr />
+                            </div>
+                              
+                            <div className="flex w-full flex-row items-center justify-between">
+                                  <div className="flex flex-row items-center gap-2">
+                                      <span className="text-neutral-500"><MdPhotoSizeSelectSmall size={ 23} /></span> <span>Land size</span>
+                                  </div> 
+                                 <div>
+                                      <span>{tour.size }</span>
+                                </div>
+                              </div>
+
+                             {/* <div className="py-1 w-full">
+                            <hr />
+                            </div>
+                              
+                            <div className="flex w-full flex-row items-center justify-between">
+                                  <div className="flex flex-row items-center gap-2">
+                                      <span className="text-neutral-500"><MdPhotoSizeSelectSmall size={ 23} /></span> <span>Covered Area</span>
+                                  </div> 
+                                 <div>
+                                      <span>{tour.covered_area }</span>
+                                </div>
+                              </div> */}
+
+                            <div className="py-1 w-full">
+                            <hr />
+                            </div>
+                              
+                            <div className="flex w-full flex-row items-center justify-between">
+                                  <div className="flex flex-row items-center gap-2">
+                                      <span className="text-neutral-500"><RiArticleFill size={ 23} /></span> <span>Land surveys</span>
                                   </div> 
                                  <div>
                                       <span>{tour.type }</span>
@@ -403,46 +433,19 @@ const TourClient: React.FC<TourClientProps> = ({
                               
                             <div className="flex w-full flex-row items-center justify-between">
                                   <div className="flex flex-row items-center gap-2">
-                                      <span className="text-neutral-500"><MdPhotoSizeSelectSmall size={ 23} /></span> <span>Property size</span>
+                                      <span className="text-neutral-500"><PiSubtitles size={ 23} /></span> <span>Land title deed</span>
                                   </div> 
                                  <div>
-                                      <span>{tour.size }</span>
+                                      <span>{tour.titleDeed }</span>
                                 </div>
                               </div>
-
-                            <div className="py-1 w-full">
-                            <hr />
-                            </div>
-                              
-                            <div className="flex w-full flex-row items-center justify-between">
-                                  <div className="flex flex-row items-center gap-2">
-                                      <span className="text-neutral-500"><MdOutlineEventAvailable size={ 23} /></span> <span>Property availability</span>
-                                  </div> 
-                                 <div>
-                                      <span>{tour.availability }</span>
-                                </div>
-                              </div>
-                              
-                            <div className="py-1 w-full">
-                            <hr />
-                            </div>
-                              
-                            <div className="flex w-full flex-row items-center justify-between">
-                                  <div className="flex flex-row items-center gap-2">
-                                      <span className="text-neutral-500"><IoCarSportOutline size={ 23} /></span> <span>Parking space</span>
-                                  </div> 
-                                 <div>
-                                      <span>{tour.parking_space }</span>
-                                </div>
-                              </div>
-                            
                             <div className="py-1 w-full">
                             <hr />
                             </div>
                              
                             <div className="flex w-full flex-row items-center justify-between">
                                   <div className="flex flex-row items-center gap-2">
-                                      <span className="text-neutral-500"><FaMoneyBillTrendUp size={ 23} /></span> <span>Property deal</span>
+                                      <span className="text-neutral-500"><FaMoneyBillTrendUp size={ 23} /></span> <span>Land deal</span>
                                   </div> 
                                  <div>
                                       <span>{tour.deal }</span>
@@ -454,7 +457,7 @@ const TourClient: React.FC<TourClientProps> = ({
                           </div> 
             
 
-                     <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
+                     {/* <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
                           
                         <div className="flex w-full flex-row items-center justify-between">
                                   <div className="flex flex-row items-center gap-2">
@@ -489,15 +492,15 @@ const TourClient: React.FC<TourClientProps> = ({
                               
                         <div>           
                         </div>
-                          </div>  
+                          </div>   */}
                           
 
-                        {tour.amenities && tour.amenities?.length > 0 && (
+                        {tour.overview !== "" && (
                               <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
                           
                                   <div className="flex w-full flex-row items-center justify-between">
                                       <div className="flex flex-row items-center gap-2">
-                                          <span className="text-xl font-bold">Overview</span>
+                                          <span className="text-xl font-bold">Land overview</span>
                                       </div>
                                   </div>
                                   <div className="py-1 w-full">
@@ -565,7 +568,7 @@ const TourClient: React.FC<TourClientProps> = ({
                               </div>
                          <div className="flex flex-row mx-6 py-1 hover:cursor-pointer justify-center items-center border-[1px] bg-green-700 text-white border-solid border-neutral-400 rounded-lg gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="font-semibold text-md">Reserve Property</span> 
+                                 <span className="font-semibold text-md">Reserve Land</span> 
                               </div>
                           </div>
                           <div className="px-4 py-3">
