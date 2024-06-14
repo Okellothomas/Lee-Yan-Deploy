@@ -111,7 +111,7 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
             <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c-main text-neutral-800">
                               <span className="font-normal"></span> <span className="font-light text-sm text-neutral-700">{ data.type}</span>
             </div>
-             {data.inclusion.map((item, index) => (
+             {data.inclusion.slice(0,2).map((item, index) => (
                     <div key={index} className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
                     <span className="font-normal text-green-700">{item}</span>
                     <span className="text-green-700">
