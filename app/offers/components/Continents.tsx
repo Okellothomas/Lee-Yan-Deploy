@@ -17,14 +17,10 @@ interface ProductListProps {
 const Continents: React.FC<ProductListProps> = ({ products, setMaximumPrice }) => {
   const [sortOption, setSortOption] = useState<string>('popularity');
   const [sortDirection, setSortDirection] = useState<boolean>(true);
-  const [maxPrice, setMaxPrice] = useState<number>(1000);
+  const [maxPrice, setMaxPrice] = useState<number>(100000);
 
   const [dragging, setDragging] = useState(false);
   const sliderRef = useRef(null);
-
-
-
-
 
   const handleMouseDown = () => {
     setDragging(true);
@@ -75,7 +71,12 @@ const Continents: React.FC<ProductListProps> = ({ products, setMaximumPrice }) =
   const handlePriceChange = () => {
     if (sliderRef.current) {
       const newValue = sliderRef.current.value;
-      setMaxPrice(newValue);
+      //setMaxPrice(newValue);
+        const stepSize = 50; // Set the desired step size here (10 in this case)
+
+    const roundedPrice = Math.round((parseInt(newValue)) / stepSize) * stepSize;  // Round to nearest multiple
+    setMaxPrice(roundedPrice);
+    setMaximumPrice(roundedPrice)
       // Perform any additional actions when the price changes
       console.log('Price changed to:', newValue);
     }
