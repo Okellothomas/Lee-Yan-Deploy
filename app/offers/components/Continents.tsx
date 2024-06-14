@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { GiAfrica } from "react-icons/gi";
 
 interface Product {
@@ -18,6 +18,35 @@ const Continents: React.FC<ProductListProps> = ({ products, setMaximumPrice }) =
   const [sortOption, setSortOption] = useState<string>('popularity');
   const [sortDirection, setSortDirection] = useState<boolean>(true);
   const [maxPrice, setMaxPrice] = useState<number>(1000);
+
+  const [dragging, setDragging] = useState(false);
+  const sliderRef = useRef(null);
+
+
+
+
+
+  const handleMouseDown = () => {
+    setDragging(true);
+  };
+
+  const handleMouseUp = () => {
+    if (dragging) {
+      setDragging(false);
+      handlePriceChange();
+    }
+  };
+
+  const handleMouseMove = () => {
+    if (dragging) {
+      handlePriceChange();
+    }
+  };
+
+
+
+
+
 
   const sortedProducts = (): Product[] => {
     const sorted = products
@@ -42,16 +71,34 @@ const Continents: React.FC<ProductListProps> = ({ products, setMaximumPrice }) =
     return sorted;
   };
 
-  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMaxPrice(parseInt(e.target.value));
-    setMaximumPrice(parseInt(e.target.value))
+
+  const handlePriceChange = () => {
+    if (sliderRef.current) {
+      const newValue = sliderRef.current.value;
+      setMaxPrice(newValue);
+      // Perform any additional actions when the price changes
+      console.log('Price changed to:', newValue);
+    }
   };
+  // const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const stepSize = 50; // Set the desired step size here (10 in this case)
+
+  //   const roundedPrice = Math.round((parseInt(e.target.value)) / stepSize) * stepSize;  // Round to nearest multiple
+  //   setMaxPrice(roundedPrice);
+  //   setMaximumPrice(roundedPrice)
+  // };
 
   const handlePriceInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
+    const stepSize = 50; // Set the desired step size here (10 in this case)
+
+  const roundedPrice = Math.round(value / stepSize) * stepSize;  // Round to nearest multiple
+
+  // Update your price state or logic here (assuming `maxPrice` is your state)
+  setMaxPrice(roundedPrice);
     if (!isNaN(value)) {
-      setMaxPrice(value);
-      setMaximumPrice(value)
+      setMaxPrice(roundedPrice);
+      setMaximumPrice(roundedPrice)
     }
   };
 
@@ -66,9 +113,14 @@ const Continents: React.FC<ProductListProps> = ({ products, setMaximumPrice }) =
         <input
           type='range'
           min='0'
-          max='980000000'
+          max='1000'
           value={maxPrice}
-          onChange={handlePriceChange}
+          ref={sliderRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+           onMouseUp={handleMouseUp}
+          // onInput={handlePriceChange}
+          // onChange={handlePriceChange}
           className='w-full'
         />
         <input

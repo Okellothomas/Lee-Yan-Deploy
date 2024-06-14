@@ -32,7 +32,7 @@ interface IParams {
 // Define the AllDestinationsPage component as a server component
 export default function AllDestinationsPage({ tourParams, offerParams }: IParams) {
   // Fetch data inside the render function (server component behavior)
-  const [maximumPrice, setMaximumPrice] = useState<number>(1000);
+  const [maximumPrice, setMaximumPrice] = useState<number>(0);
   const [offers, setOffers] = useState([])
   const [visibleOffers, setVisibleOffers] = useState([])
   const [currentPage, setCurrentPage] = useState(1);
@@ -41,20 +41,11 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
      const startIndex = (currentPage - 1) * PAGE_SIZE;
      useEffect(() => {
       const handleSearch = async () => {
-        //setLoading(true);
-        //setError(null);
-  
         try {
           console.log("Searching....");
   
-          // Fetch listings and user data concurrently
-          const [listingsResponse,
-            //  userResponse
-            ] = await Promise.all([
-              axios.get(`/api/offers`),
-              // axios.get(`/api/stays?checkinDate=${checkinDate}&checkoutDate=${checkoutDate}&city=${city}&county=${county}`),
-              // axios.get(`/api/user`)
-          ]);
+          // Fetch listings data
+          const listingsResponse = await axios.get('/api/offers');
   
           // Handle listings data
           if (!listingsResponse) {
@@ -62,33 +53,29 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
           }
           const listingsData = listingsResponse.data;
   
-          console.log("listing response", listingsResponse)
-          console.log("listingData", listingsData)
+          console.log("Listing response", listingsResponse);
+          console.log("Listing data", listingsData);
           setOffers(listingsData);
-     
         } catch (error) {
-          //setError(error.message);
           console.error("Error fetching data", error);
-        } finally {
-         // setLoading(false);
         }
       };
   
       handleSearch();
     }, []);
-
-    useEffect(()=>{
-
-      if(maximumPrice>0)
-       {
-         
-         const visible_offers = offers.filter(offer => offer.offerprice <= maximumPrice).slice(startIndex, startIndex + PAGE_SIZE);
-         setVisibleOffers(visible_offers)  
-       }
-         else{
-        setVisibleOffers(offers)    
-     }
-     }, [maximumPrice])
+  
+    useEffect(() => {
+      const startIndex = (currentPage - 1) * PAGE_SIZE;
+  
+      let filteredOffers = offers;
+      if (maximumPrice > 0) {
+        filteredOffers = offers.filter(offer => offer.offerprice <= maximumPrice);
+      }
+  
+      const paginatedOffers = filteredOffers.slice(startIndex, startIndex + PAGE_SIZE);
+      console.log("Visible Offers", paginatedOffers);
+      setVisibleOffers(paginatedOffers);
+    }, [maximumPrice, offers, currentPage]);
 
 
   const getToursAndRender = async () => {
@@ -111,9 +98,9 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
 
 
     // Check if there are no listings, display EmptyState component
-    if (visibleOffers.length === 0) {
-      return <EmptyState showReset />;
-    }
+    // if (visibleOffers.length === 0) {
+    //   return <EmptyState showReset />;
+    // }
 
     const totalPages = Math.ceil(offers.length / PAGE_SIZE);
 
@@ -158,10 +145,11 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
               <TourOperators products={products} />
               {/* <TourSize products={products}/> */}
             </div>
+            {visibleOffers.length === 0? <EmptyState showReset /> :
             <div className="col-span-4 all-destination-tour-main-card">
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-8 all-destination-tours">
                 {/* Map through the visible listings array and render ListingCard components */}
-                {offers.map((tour: any) => (
+                {visibleOffers.map((tour: any) => (
                   <OfferMainCard
                     
                     key={tour.id} // Use the listing ID as the unique key
@@ -190,6 +178,7 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
                 )}
               </div>
             </div>
+  }
           </div>
         </Container>
       </div>
