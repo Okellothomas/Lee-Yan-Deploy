@@ -108,17 +108,18 @@ import TourCard from "@/app/components/listing/TourCard";
 import Link from "next/link";
 import TourCardSecondary from "@/app/components/listing/TourCardSecondary";
 import ListingTartiary from "@/app/components/listing/ListingTartiary";
+import getListings, {IListingsParams} from "@/app/actions/getListings";
 
 interface IParams {
     listingId?: string;
-    tourParams: IToursParams;
+    tourParams: IListingsParams;
 }
 
 const ListingPage = async ({ params }: { params: IParams }) => {
     const listing = await getListingById(params) as any;
     const reservations = await getReservations(params) as any
     const currentUser = await getCurrentUser() as any;
-    const tours = await getTours(params.tourParams);
+    const tours = await getListings(params.tourParams);
     const filteredTours = tours.slice(0, 20);
 
     if (!listing) {
