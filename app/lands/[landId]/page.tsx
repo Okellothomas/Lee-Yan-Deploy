@@ -10,21 +10,23 @@ import TourCard from "@/app/components/listing/TourCard";
 import Link from "next/link";
 import TourClient from "./TourClient";
 import TourCardSecondary from "@/app/components/listing/TourCardSecondary";
+import getLandById from "@/app/actions/getLandById";
+import getLands, {LandParams} from "@/app/actions/getLands.";
 
 // Define the interface for the TourPage component props
 interface IParams {
-  tourId?: string;
-  tourParams: IToursParams;
+  landId?: string;
+  tourParams: LandParams;
 }
 
 // TourPage component is defined as an asynchronous function
 const TourPage = async ({ params }: { params: IParams }) => {
-  const tour = await getTourById(params);
+  const tour = await getLandById(params);
   // const reservations = await getReservations(params);
-  const reservations = await getReservations({ listingId: params.tourId });
+  const reservations = await getReservations({ listingId: params.landId });
   const currentUser = await getCurrentUser();
-  const tours = await getTours(params.tourParams);
-  const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
+  const tours = await getLands(params.tourParams);
+  const filteredTours = tours.slice(0, 4);
 
   // Check if there is no tour, display EmptyState component
   if (!tour) {
@@ -58,14 +60,15 @@ const TourPage = async ({ params }: { params: IParams }) => {
       {/* Classic Adventure Tours section */}
       {filteredTours && filteredTours.length > 0 && (
         <Container>
-          <div className="flex flex-col gap-1 pt-5">
-            <h1 className="main-header-black w-full text-center">
-              PREMIUM <span className="main-header-gradient">SIMILAR TOURS</span>
-            </h1>
-            <p className="text-neutral-500 text-sm w-full text-center">
-              You viewed the magical {tour.title} tour - continue your luxury adventure with these premium recommendations for similar exotic journeys handpicked just for you.
-            </p>
-          </div>
+          <div className="mt-4 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-bold text-black">More Land deals</h1>
+                <p className="text-neutral-600">More affordable land deals you may find amazing</p> 
+              </div>
+              <div>
+                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+            </div>
+           </div>
           <div className="grid-cols-page-s pt-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
             {/* Map through the tours array and render TourCard components */}
             {filteredTours.map((tour: any) => (
@@ -80,14 +83,6 @@ const TourPage = async ({ params }: { params: IParams }) => {
                 data={tour}
               />
             ))}
-          </div>
-          <div className="w-full text-center pt-8">
-            <Link
-              className="outline-main-btn px-4 hover:bg-slate-400 hover:text-green-400 hover:shadow-md"
-              href="/hotels"
-            >
-              View all similar premium tours
-            </Link>
           </div>
         </Container>
       )}
