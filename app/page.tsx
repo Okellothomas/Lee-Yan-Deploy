@@ -246,10 +246,15 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
 
     <div className="pt-1 pb-9">
       {counties && counties.length > 0 && (
-        <Container>
-          <div className="">
+          <Container>
+           <div className="flex justify-between items-center">
+              <div>
               <h1 className="mb-2 text-2xl font-bold text-black">Trending destinations you will love</h1>
               <p className="text-neutral-600">Explore in-demand holiday properties, enjoy exciting places to stay.</p>  
+              </div>  
+              <div>
+                <Link href="/stay-s" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+              </div>
           </div> 
           <div className="pt-2 pb-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-1">
             <ListingTartiaryList

@@ -21,10 +21,6 @@ const Sort: React.FC<ProductListProps> = ({ products }) => {
         return products.slice().sort((a, b) => a.price - b.price);
       case 'priceHighestFirst':
         return products.slice().sort((a, b) => b.price - a.price);
-      case 'lengthShortestFirst':
-        return products.slice().sort((a, b) => a.length - b.length);
-      case 'lengthLongestFirst':
-        return products.slice().sort((a, b) => b.length - a.length);
       default:
         // 'popularity' or default sorting
         return products;
@@ -43,8 +39,6 @@ const Sort: React.FC<ProductListProps> = ({ products }) => {
           <option value="popularity">Popularity</option>
           <option value="priceLowestFirst">Price (Lowest First)</option>
           <option value="priceHighestFirst">Price (Highest First)</option>
-          <option value="lengthShortestFirst">Length (Shortest First)</option>
-          <option value="lengthLongestFirst">Length (Longest First)</option>
         </select>
       </label>
 

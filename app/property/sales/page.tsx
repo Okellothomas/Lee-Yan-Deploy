@@ -98,7 +98,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, propert
               <p className="text-neutral-600">From Apparments to Heights, buy our premium properties on sale</p>  
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href="/stay-s" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
             </div>
             <Emblaland
@@ -129,7 +129,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, propert
               <p className="text-neutral-600">Premium choices: highly desirable properties on the market</p>  
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/property-sales', query: { deal: 'trending' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
             </div> 
           <div className="grid-cols-page-s pt-2 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -158,7 +158,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, propert
               <p className="text-neutral-600">Unbeatable offers, budget-friendly, easy on the wallet</p>  
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/property-sales', query: { deal: 'affordable' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
           </div> 
           <div className="grid-cols-page-s pt-3 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -188,7 +188,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, propert
               <p className="text-neutral-600">Amazing deals available, lock in fantastic discounts before they&lsquo;re gone</p>  
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/property-sales', query: { deal: 'affordable' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
           </div> 
           <div className="grid-cols-page-s pt-3 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -218,7 +218,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, propert
               <p className="text-neutral-600">Unparalleled bargains available, seize the opportunity today!</p>   
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href="/stay-s" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
           </div>
           <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
