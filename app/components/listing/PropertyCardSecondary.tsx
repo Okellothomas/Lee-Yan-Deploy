@@ -86,7 +86,7 @@ const PropertyCardSecondary: React.FC<ListingCardProps> = ({
                  <span className="text-neutral-700">{data.title}</span>
               </div>
               <div className="font-light px-2 flex items-center justify-between mt-[-16px] text-neutral-500">
-               <span className="text-neutral-700">Price: Ksh. {data.price}</span> <span className="text-neutral-500">{data.category}</span>  
+               <span className="text-neutral-700 text-sm">Price: Ksh. {data.price}</span> <span className="text-neutral-500 text-sm">{data.category}</span>  
               </div>
               <div className="flex flex-row items-center gap-1">
               </div>

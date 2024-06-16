@@ -142,6 +142,7 @@ import TourSize from "./components/TourSize";
 import { useSearchParams } from 'next/navigation';
 import CountyMainCard from "@/app/components/listing/CountyMainCard";
 import Loader from "../components/container/Loader";
+import CountyMainProperty from "../components/listing/CountyMainProperty";
 
 interface IParams {
   tourId?: string;
@@ -225,7 +226,7 @@ export default function Stay({ tourParams }: IParams) {
           <div className="col-span-4 all-destination-tour-main-card">
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-8 all-destination-tours">
               {visibleTours.map((tour: any) => (
-                <CountyMainCard
+                <CountyMainProperty
                   key={tour.id}
                   data={tour}
                 />

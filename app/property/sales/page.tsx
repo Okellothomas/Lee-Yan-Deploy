@@ -210,7 +210,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, propert
       </div>
     
       <div className="pt-1 pb-5">
-      {propertySales && propertySales.length > 0 && (
+      {counties && counties.length > 0 && (
           <Container>
           <div className="mt-9 flex justify-between items-center">
               <div>
@@ -222,18 +222,16 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, propert
               </div>
           </div>
           <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
-            {propertySales.map((tour: any) => (
-              <PropertyTartiaryList
-                currentUser={currentUser ? {
-                  ...currentUser,
-                  createdAt: currentUser.createdAt.toISOString(),
-                  updatedAt: currentUser.updatedAt.toISOString(),
-                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                } : null} // Pass the current user to each ListingCard
-                key={tour.id} // Use the listing ID as the unique key
-                data={tour} // Pass the listing data to each ListingCard
-              />
-            ))} 
+            <PropertyTartiaryList
+              currentUser={currentUser ? {
+                ...currentUser,
+                createdAt: currentUser.createdAt.toISOString(),
+                updatedAt: currentUser.updatedAt.toISOString(),
+                emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+              } : null} // Pass the current user to each ListingCard
+              data={counties}
+              datas={propertySales}
+            />
           </div>
         </Container>
       )}
