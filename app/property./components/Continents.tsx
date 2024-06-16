@@ -50,8 +50,8 @@ const Contients: React.FC<ProductListProps> = ({ products }) => {
     <div className='border-[1px] border-solid border-neutral-300 outline-none shadow-sm py-4 px-2 rounded-xl'>
         <ul>
         <div className='flex flex-row items-center gap-2'>
-            {/* <GiAfrica size={24} />   */}
-            <p>Nairobi</p>      
+            <GiAfrica size={24} />  
+            <p>Africa</p>      
         </div>
         <div className='py-3'>
           <hr />
@@ -64,7 +64,7 @@ const Contients: React.FC<ProductListProps> = ({ products }) => {
                 onChange={() => handleSortChange('popularity')}
                 className='p-2 h-5 w-5'
             />
-            Runda
+            Kenya
           </label>
           <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -73,7 +73,7 @@ const Contients: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleSortChange('priceLowestFirst')}
               className='p-2 h-5 w-5'
             />
-            Karen
+            Uganda
           </label>
           <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -82,7 +82,7 @@ const Contients: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleSortChange('priceHighestFirst')}
               className='p-2 h-5 w-5'
             />
-            Kileleshwa
+            Tanzania
           </label>
           <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -91,7 +91,7 @@ const Contients: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleSortChange('lengthShortestFirst')}
               className='p-2 h-5 w-5'
             />
-            CBD
+            DRC
           </label>
           <label className='gap-2 text-sm flex flex-row items-center'>
             <input
@@ -100,7 +100,7 @@ const Contients: React.FC<ProductListProps> = ({ products }) => {
               onChange={() => handleSortChange('lengthLongestFirst')}
               className='p-2 h-5 w-5'
             />
-            Round about
+            South Africa
           </label>
         </li>
       </ul>

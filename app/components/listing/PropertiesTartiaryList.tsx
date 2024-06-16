@@ -1,12 +1,12 @@
 'use client';
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { SafeUser, safeListing, safeReservation, safeCounty, safeProperty, safeLand } from "@/app/types";
+import { SafeUser, safeListing, safeReservation, safeCounty, safeProperty } from "@/app/types";
 import "./listing.css";
 
 interface ListingCardProps {
   data: safeCounty[] | safeCounty;
-  datas: safeLand[] | safeLand;
+  datas: safeProperty[] | safeProperty;
   reservation?: safeReservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
@@ -15,7 +15,7 @@ interface ListingCardProps {
   currentUser?: SafeUser | null;
 }
 
-const LandTartiaryList: React.FC<ListingCardProps> = ({
+const PropertiesTartiaryList: React.FC<ListingCardProps> = ({
   data,
   datas,
   reservation,
@@ -51,14 +51,14 @@ const LandTartiaryList: React.FC<ListingCardProps> = ({
               key={county}
               className="col-span-1 pb-3 rounded-xl cursor-pointer group"
             >
-              <Link href={{ pathname: '/land.', query: { county: county }}} passHref>
+              <Link href={{ pathname: '/property.', query: { county: county }}} passHref>
                 <div className="flex h-[auto] flex-col gap-2 w-full main-image-small-screen main-image-small-screen-x">
                   <div className="text-md px-2 pt-1 pb-2 font-semibold text-md truncate max-w-[20rem]">
                     <span className="text-neutral-700">{county}</span>
                   </div>
                   <div className="font-light px-2 flex items-center justify-between mt-[-12px] text-neutral-500">
                     <span className="text-neutral-500 text-sm text-start line-clamp-2">
-                      {countyCountMap[county]} Percels of land
+                      {countyCountMap[county]} properties
                     </span>
                   </div>
                   <div className="flex flex-row items-center gap-1"></div>
@@ -73,4 +73,4 @@ const LandTartiaryList: React.FC<ListingCardProps> = ({
   );
 };
 
-export default LandTartiaryList;
+export default PropertiesTartiaryList;

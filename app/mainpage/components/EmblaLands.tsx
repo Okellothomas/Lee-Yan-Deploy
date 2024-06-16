@@ -92,17 +92,17 @@ const EmblaLands: React.FC<ListingCardProps> = ({
                 return (
                   <div key={cardIndex} className="grid-cols-1 pb-4 relative">
                     <div className="h-[20vh] w-full mx-auto shadow-lg rounded-lg mb-4 relative">
-                      <Link href={`/offer/${offer.id}`} className='text-black'>
+                      <Link href={{ pathname: '/land.', query: { county: offer.county }}} className='text-black'>
                         <div className="overlay absolute inset-0 bg-black opacity-25 rounded-lg"></div>
                         <Image src={offer.imageSrc} width={300} height={300} alt="Image" className="h-full w-full shadow-sm rounded-lg object-cover" />
                       </Link>
                     </div>
                     <div className="text-start relative">
                       <p className="text-sm text-gray-600 pb-1">
-                        <Link href={`/offer/${offer.id}`} className='text-black'>{offer.county}</Link>
+                        <Link href={{ pathname: '/land.', query: { county: offer.county }}} className='text-black'>{offer.county}</Link>
                       </p>
                       <p className="text-sm text-gray-600 pb-1">
-                        <Link href={`/offer/${offer.id}`} className='text-black'>{listingCount} properties</Link>
+                        <Link href={{ pathname: '/land.', query: { county: offer.county }}} className='text-black'>{listingCount} properties</Link>
                       </p>
                     </div>
                   </div>

@@ -93,7 +93,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
               <p className="text-neutral-600">Land investment opportunities await, invest in prime locations.</p>  
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/land-', query: { deal: 'premium' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
             </div>
             <EmblaLands
@@ -124,7 +124,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
               <p className="text-neutral-600">Exclusive parcels, seize incomparable land investment opportunities.</p>  
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/stay-s', query: { type: 'comfortable' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
             </div>  
           <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -153,7 +153,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
               <p className="text-neutral-600">Prime real estate gems, elevate your investment portfolio</p>    
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/land-', query: { deal: 'exclusive' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
             </div>   
           <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -183,7 +183,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
               <p className="text-neutral-600">Remarkable selections available, embrace unmatched potential</p>     
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/land-', query: { deal: 'prime' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
             </div>  
           <div className="grid-cols-page-s pt-3 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -216,19 +216,17 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
                 <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
           </div>
-          <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
-            {lands.slice(0,20).map((tour: any) => (
-              <LandTartiaryList
-                currentUser={currentUser ? {
-                  ...currentUser,
-                  createdAt: currentUser.createdAt.toISOString(),
-                  updatedAt: currentUser.updatedAt.toISOString(),
-                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                } : null} // Pass the current user to each ListingCard
-                key={tour.id} // Use the listing ID as the unique key
-                data={tour} // Pass the listing data to each ListingCard
-              />
-            ))} 
+          <div className="pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-4">
+            <LandTartiaryList
+              currentUser={currentUser ? {
+                ...currentUser,
+                createdAt: currentUser.createdAt.toISOString(),
+                updatedAt: currentUser.updatedAt.toISOString(),
+                emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+              } : null} // Pass the current user to each ListingCard
+              data={counties}
+              datas={lands}
+            />
           </div>
         </Container>
       )}

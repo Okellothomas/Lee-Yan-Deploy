@@ -150,8 +150,7 @@ export default function AllDestinationsPage({ tourParams, offerParams }: IParams
               <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-8 all-destination-tours">
                 {/* Map through the visible listings array and render ListingCard components */}
                 {visibleOffers.map((tour: any) => (
-                  <OfferMainCard
-                    
+                  <OfferMainCard 
                     key={tour.id} // Use the listing ID as the unique key
                     data={tour} // Pass the listing data to each ListingCard
                   />

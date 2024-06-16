@@ -100,19 +100,19 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
        if(county && county ==='all')
         {
             
-            const tours = await prisma.tour.findMany({
+            const properties = await prisma.property.findMany({
                 where: searchParamss,
                 orderBy: {
-                    createAt: 'desc'
+                    createdAt: 'desc'
                 }
             });
         
-            const safeTour = tours.map((tour) => ({
-                ...tour,
-                createAt: tour.createAt.toISOString(),
+            const safeProperty = properties.map((property) => ({
+                ...property,
+                createAt: property.createdAt.toISOString(),
             }));
         
-            return NextResponse.json(safeTour);
+            return NextResponse.json(safeProperty);
         }
         else 
         {

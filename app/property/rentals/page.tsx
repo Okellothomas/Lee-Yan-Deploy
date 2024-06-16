@@ -32,7 +32,8 @@ import PropertyCardMain from "@/app/components/listing/PropertyCardMain";
 import PropertyCardSecondary from "@/app/components/listing/PropertyCardSecondary";
 import PropertyTartiary from "@/app/components/listing/PropertyTartiary";
 import getOffers, {OffersParams} from "@/app/actions/getOffers";
-import PropertyTartiaryList from "@/app/components/listing/PropertyTartiaryList";
+import getCounties, {CountiesParams} from "@/app/actions/getCounties";
+import PropertiesTartiaryList from "@/app/components/listing/PropertiesTartiaryList";
 
 // Define the interface for the Home component props
 interface HotelPageProps {
@@ -40,6 +41,7 @@ interface HotelPageProps {
   tourParams: IToursParams;
   propertyParams: PropertyParams;
   offersParams: OffersParams;
+  countyParams: CountiesParams;
 }
 
 export const metadata: Metadata =  {
@@ -47,7 +49,7 @@ export const metadata: Metadata =  {
 }
 
 // Home component is defined as an asynchronous function
-const DestinationPage = async ({ searchParams, tourParams, propertyParams, offersParams }: HotelPageProps) => {
+const DestinationPage = async ({ searchParams, tourParams, propertyParams, offersParams, countyParams }: HotelPageProps) => {
   // Fetch listings and current user asynchronously
 
   let currentUser: any;
@@ -55,11 +57,12 @@ const DestinationPage = async ({ searchParams, tourParams, propertyParams, offer
         currentUser = await getCurrentUser();
     }
   // const listings = await getListingsHotels({ ...searchParams, hotel: "hotel" });
+  const counties = await getCounties(countyParams);
   const tours = await getTours(tourParams);
   const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
   const filteredTourss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
   const properties = await getProperty(propertyParams); 
-    const offers = await getOffers(offersParams);
+  const offers = await getOffers(offersParams);
   const propertyRentals = properties.filter(property => property.type === "rental");
   const propertyPremium = properties.filter(property => property.type === "rental" && property.deal === "premium");
   const propertyTrending = properties.filter(property => property.type === "rental" && property.deal === "affordable");
@@ -92,7 +95,7 @@ const DestinationPage = async ({ searchParams, tourParams, propertyParams, offer
               <p className="text-neutral-600">Premium rental villas and homes experience the finest accommodation</p>  
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/property-rentals', query: { deal: 'affordable' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
         </div>
           <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -121,7 +124,7 @@ const DestinationPage = async ({ searchParams, tourParams, propertyParams, offer
               <p className="text-neutral-600">Luxurious yet inexpensive rentals where luxury meets affordability.</p>  
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/property-rentals', query: { deal: 'affordable' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
         </div>
           <div className="grid-cols-page-s pt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -151,7 +154,7 @@ const DestinationPage = async ({ searchParams, tourParams, propertyParams, offer
               <p className="text-neutral-600">Exclusive properties and residences, rates for everyone - elevate your lifestyle.</p>  
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/property-rentals', query: { deal: 'trending' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
         </div> 
           <div className="grid-cols-page-s pt-6 pb-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -181,22 +184,20 @@ const DestinationPage = async ({ searchParams, tourParams, propertyParams, offer
               <p className="text-neutral-600">Unlock the extraordinary now - rent top-notch properties and residences!</p>   
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href="/stay-s" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
           </div>
           <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
-            {propertyRentals.slice(0,20).map((tour: any) => (
-              <PropertyTartiaryList
-                currentUser={currentUser ? {
-                  ...currentUser,
-                  createdAt: currentUser.createdAt.toISOString(),
-                  updatedAt: currentUser.updatedAt.toISOString(),
-                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                } : null} // Pass the current user to each ListingCard
-                key={tour.id} // Use the listing ID as the unique key
-                data={tour} // Pass the listing data to each ListingCard
-              />
-            ))} 
+            <PropertiesTartiaryList
+              currentUser={currentUser ? {
+                ...currentUser,
+                createdAt: currentUser.createdAt.toISOString(),
+                updatedAt: currentUser.updatedAt.toISOString(),
+                emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+              } : null} // Pass the current user to each ListingCard
+              data={counties}
+              datas={propertyRentals}
+            />
           </div>
         </Container>
       )}
@@ -212,7 +213,7 @@ const DestinationPage = async ({ searchParams, tourParams, propertyParams, offer
               <p className="text-neutral-600">Premium deals and offers for you</p>  
               </div>  
               <div>
-                <Link href="/" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href="/offers" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
         </div>
         <EmblaMobile
