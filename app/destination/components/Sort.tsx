@@ -10,10 +10,13 @@ interface Product {
 
 interface ProductListProps {
   products: Product[];
+    sortOption:string;
+    setSortOption:React.Dispatch<React.SetStateAction<string>>;
+  
 }
 
-const Sort: React.FC<ProductListProps> = ({ products }) => {
-  const [sortOption, setSortOption] = useState<string>('popularity');
+const Sort: React.FC<ProductListProps> = ({ products, sortOption, setSortOption }) => {
+  // const [sortOption, setSortOption] = useState<string>('popularity');
 
   const sortedProducts = (): Product[] => {
     switch (sortOption) {

@@ -17,32 +17,9 @@ interface ProductListProps {
 const Continents: React.FC<ProductListProps> = ({ products, setMaximumPrice }) => {
   const [sortOption, setSortOption] = useState<string>('popularity');
   const [sortDirection, setSortDirection] = useState<boolean>(true);
-  const [maxPrice, setMaxPrice] = useState<number>(100000);
-
-  const [dragging, setDragging] = useState(false);
+  const [maxPrice, setMaxPrice] = useState<number>(1000);
+  const [tempValue, setTempValue] = useState(500);
   const sliderRef = useRef(null);
-
-  const handleMouseDown = () => {
-    setDragging(true);
-  };
-
-  const handleMouseUp = () => {
-    if (dragging) {
-      setDragging(false);
-      handlePriceChange();
-    }
-  };
-
-  const handleMouseMove = () => {
-    if (dragging) {
-      handlePriceChange();
-    }
-  };
-
-
-
-
-
 
   const sortedProducts = (): Product[] => {
     const sorted = products
@@ -68,26 +45,27 @@ const Continents: React.FC<ProductListProps> = ({ products, setMaximumPrice }) =
   };
 
 
-  const handlePriceChange = () => {
-    if (sliderRef.current) {
-      const newValue = sliderRef.current.value;
-      //setMaxPrice(newValue);
-        const stepSize = 50; // Set the desired step size here (10 in this case)
+  const handleMouseUp = () => {
 
-    const roundedPrice = Math.round((parseInt(newValue)) / stepSize) * stepSize;  // Round to nearest multiple
+    const stepSize = 50; // Set the desired step size here (10 in this case)
+
+    const roundedPrice = Math.round(tempValue / stepSize) * stepSize;  // Round to nearest multiple
     setMaxPrice(roundedPrice);
     setMaximumPrice(roundedPrice)
-      // Perform any additional actions when the price changes
-      console.log('Price changed to:', newValue);
-    }
+    setMaxPrice(tempValue);
+    // Perform any additional actions when the price changes
+    console.log('Price changed to:', tempValue);
   };
-  // const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const stepSize = 50; // Set the desired step size here (10 in this case)
 
-  //   const roundedPrice = Math.round((parseInt(e.target.value)) / stepSize) * stepSize;  // Round to nearest multiple
-  //   setMaxPrice(roundedPrice);
-  //   setMaximumPrice(roundedPrice)
-  // };
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // const stepSize = 50; // Set the desired step size here (10 in this case)
+
+    // const roundedPrice = Math.round((parseInt(e.target.value)) / stepSize) * stepSize;  // Round to nearest multiple
+    // setMaxPrice(roundedPrice);
+    // setMaximumPrice(roundedPrice)
+    setTempValue(parseInt(e.target.value));
+  };
 
   const handlePriceInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
@@ -96,32 +74,29 @@ const Continents: React.FC<ProductListProps> = ({ products, setMaximumPrice }) =
   const roundedPrice = Math.round(value / stepSize) * stepSize;  // Round to nearest multiple
 
   // Update your price state or logic here (assuming `maxPrice` is your state)
-  setMaxPrice(roundedPrice);
-    if (!isNaN(value)) {
-      setMaxPrice(roundedPrice);
-      setMaximumPrice(roundedPrice)
-    }
-  };
+  // setMaxPrice(roundedPrice);
+  //   if (!isNaN(value)) {
+  //     setMaxPrice(roundedPrice);
+  //     setMaximumPrice(roundedPrice)
+  //   }
+   };
 
   return (
     <div className='border-[1px] border-solid border-neutral-300 outline-none shadow-sm py-4 px-2 rounded-xl'>
-      <span>Your budget for the offer:</span>
-      <div className='py-3'>
+      {/* <span>Your budget for the offer:</span> */}
+      {/* <div className='py-3'>
         <hr />
-      </div>
-      <div className='flex flex-col'>
-        <p>Ksh 0 - Ksh {maxPrice}</p>
+      </div> */}
+      {/* <div className='flex flex-col'>
+        <p>Ksh 0 - Ksh {tempValue}</p>
         <input
           type='range'
           min='0'
           max='1000'
           value={maxPrice}
-          ref={sliderRef}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-           onMouseUp={handleMouseUp}
           // onInput={handlePriceChange}
-          // onChange={handlePriceChange}
+          onChange={handlePriceChange}
+          onMouseUp={handleMouseUp}
           className='w-full'
         />
         <input
@@ -130,14 +105,14 @@ const Continents: React.FC<ProductListProps> = ({ products, setMaximumPrice }) =
           onChange={handlePriceInputChange}
           className='mt-2 p-2 border rounded'
         />
-      </div>
-      <ul>
+      </div> */}
+      {/* <ul>
         {sortedProducts().map((product) => (
           <li key={product.id}>
             {product.name} - Price: ${product.price} - Length: {product.length} units
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
