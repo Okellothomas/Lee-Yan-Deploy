@@ -192,12 +192,28 @@ const findAvailableDate = () => {
 
 
     const [showAll, setShowAll] = useState(false);
+    const [showAllFun, setShowAllFun] = useState(false);
+    const [showAllMeal, setShowAllMeal] = useState(false);
   
     const offers = listing.offers || [];
     const displayedOffers = showAll ? offers : offers.slice(0, 7);
 
     const handleShowMore = () => {
         setShowAll(true);
+    };
+
+    const funs = listing.funActivities || [];
+    const displayedFuns = showAllFun ? funs : funs.slice(0, 7);
+
+    const handleShowMoreFun = () => {
+        setShowAllFun(true);
+    };
+
+    const meals = listing.meals || [];
+    const displayedMeals = showAllMeal ? meals : meals.slice(0, 7);
+
+    const handleShowMoreMeal = () => {
+        setShowAllMeal(true);
     };
     
     // const OverviewComponent = ({ listing: any }) => {
@@ -439,6 +455,76 @@ const findAvailableDate = () => {
                         )}
  
                           </div>
+
+                        <p className="pt-6 pb-5 text-lg font-bold text-neutral-800">Meals offered</p>
+
+                         <div className="border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
+                         
+                              {/* {listing.offers !== "" && (
+                                  <div className="flex flex-row justify-between">
+                                      <span className="text-neutral-500"> <span className="text-green-500"><IoCheckmarkDoneCircleOutline size={23} /> </span>{listing.offers} <span className="text-blue-400"> <IoInformationCircleOutline size={23} /></span></span>
+                                  </div>
+                              )} */}
+
+
+                        { meals.length > 0 && (
+                            <div>
+                            {displayedMeals.map((offer, index) => (
+                            <div key={index} className="flex flex-col gap-2 justify-start">
+                                <span className="text-neutral-500 flex flex-row gap-3 justify-start">
+                                <span className="text-neutral-700"><IoCheckmarkDoneCircleOutline size={23} /></span>
+                                {offer}
+                                <span className="text-neutral-400"><IoInformationCircleOutline size={23} /></span>
+                                    </span>
+                                <div className="pb-2 text-neutral-500">
+                                <hr />
+                                </div>
+                            </div>
+                            ))}
+                            {!showAll && offers.length > 7 && (
+                            <button onClick={handleShowMoreMeal} className="text-blue-500 mt-2">
+                                Show More
+                            </button>
+                            )}
+                        </div>
+                        )}
+ 
+                          </div>
+
+                        <p className="pt-6 pb-5 text-lg font-bold text-neutral-800">Fun activites</p>
+
+                         <div className="border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
+                         
+                              {/* {listing.offers !== "" && (
+                                  <div className="flex flex-row justify-between">
+                                      <span className="text-neutral-500"> <span className="text-green-500"><IoCheckmarkDoneCircleOutline size={23} /> </span>{listing.offers} <span className="text-blue-400"> <IoInformationCircleOutline size={23} /></span></span>
+                                  </div>
+                              )} */}
+
+
+                        { funs.length > 0 && (
+                            <div>
+                            {displayedFuns.map((offer, index) => (
+                            <div key={index} className="flex flex-col gap-2 justify-start">
+                                <span className="text-neutral-500 flex flex-row gap-3 justify-start">
+                                <span className="text-neutral-700"><IoCheckmarkDoneCircleOutline size={23} /></span>
+                                {offer}
+                                <span className="text-neutral-400"><IoInformationCircleOutline size={23} /></span>
+                                    </span>
+                                <div className="pb-2 text-neutral-500">
+                                <hr />
+                                </div>
+                            </div>
+                            ))}
+                            {!showAll && offers.length > 7 && (
+                            <button onClick={handleShowMoreFun} className="text-blue-500 mt-2">
+                                Show More
+                            </button>
+                            )}
+                        </div>
+                        )}
+ 
+                        </div>
                           
                          <p className="pt-6 pb-5 text-lg font-bold text-neutral-700">Available beds!</p>
                         

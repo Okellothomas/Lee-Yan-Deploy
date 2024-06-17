@@ -13,7 +13,7 @@ import { FaCheck } from "react-icons/fa6";
 
 
 interface ListingCardProps {
-    data: safeOffer;
+    data: safeListing;
     reservation?: safeReservation;
     onAction?: (id: string) => void;
     disabled?: boolean;
@@ -22,7 +22,7 @@ interface ListingCardProps {
    
 }
 
-const OfferMainCard: React.FC<ListingCardProps> = ({
+const CountyMainCard: React.FC<ListingCardProps> = ({
     data,
     reservation,
     onAction,
@@ -72,7 +72,7 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
 
   return (
       <div
-        onClick={() => router.push(`/offer/${data?.id}`)} //added ?
+        onClick={() => router.push(`/stays/${data?.id}`)} //added ?
         className="col-span-1 group"
       >
           <div className="flex flex-col h-[40vh] w-full border-[1px] rounded-xl border-solid border-neutral-300 py-4 px-4">
@@ -98,7 +98,7 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
                 <span> {data.title} </span>
               </div>
               <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c text-neutral-800">
-                Offer Available for: <span className="text-neutral-500 text-sm">{ data?.days}</span>
+                {data.distance } form center of <span className="text-neutral-500 text-sm">{ data.town}</span>
               </div>
             <div>
              <span className="text-sm px-3 py-[4px] mb-[6px] border-neutral-300 border-solid border-2 text-neutral-700 rounded-lg">{data?.category }</span>            
@@ -111,7 +111,7 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
             <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c-main text-neutral-800">
                               <span className="font-normal"></span> <span className="font-light text-sm text-neutral-700">{ data.type}</span>
             </div>
-             {data.inclusion.slice(0,2).map((item, index) => (
+             {data.offers.slice(0,2).map((item, index) => (
                     <div key={index} className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
                     <span className="font-normal text-green-700">{item}</span>
                     <span className="text-green-700">
@@ -136,7 +136,7 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
             <div className="flex flex-row items-center gap-1">
                   <div><span>Price</span></div> 
                   <div>
-                      <span className="text-md font-semibold">Ksh. {data.offerprice}</span>
+                      <span className="text-md font-semibold">Ksh. {data.offerPrice}</span>
                   </div>
             </div>
                 <div>
@@ -158,4 +158,4 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
   )
 }
 
-export default OfferMainCard
+export default CountyMainCard

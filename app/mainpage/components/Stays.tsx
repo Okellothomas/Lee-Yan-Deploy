@@ -12,7 +12,7 @@ const Stay: React.FC = () => {
     <div className="flex flex-col items-center space-y-5">
         <div className="flex justify-between w-[100%] space-x-5">    
         <div className="relative w-[33.3333%] h-[35vh]">
-          <Link className='cursor-pointer' href="/stay/Nairobi"> 
+          <Link className='cursor-pointer' href={{ pathname: '/stay', query: { county: 'Nairobi' }}}> 
           <Image
             src={imageone}
             alt="Image 1"
@@ -25,7 +25,7 @@ const Stay: React.FC = () => {
             </Link>
           </div>
         <div className="relative w-[33.3333%] h-[35vh]">
-          <Link className='cursor-pointer' href="/stay/Mombasa">
+          <Link className='cursor-pointer' href={{ pathname: '/stay', query: { county: 'Mombasa' }}}>
           <Image
             src={imagetwo}
             alt="Image 2"
@@ -38,7 +38,7 @@ const Stay: React.FC = () => {
          </Link>
         </div>
         <div className="relative w-[33.3333%] h-[35vh]">
-        <Link className='cursor-pointer' href="/stay/Naivasha">
+        <Link className='cursor-pointer' href={{ pathname: '/stay', query: { county: 'Naivasha' }}}>
           <Image
             src={imagethree}
             alt="Image 3"
@@ -53,7 +53,7 @@ const Stay: React.FC = () => {
       </div>
       <div className="flex justify-between w-[100%] space-x-5">
         <div className="relative w-[50%] h-[40vh]">
-         <Link className='cursor-pointer' href="/stay/Kisumu">
+         <Link className='cursor-pointer' href={{ pathname: '/stay', query: { county: 'Kisumu' }}}>
           <Image
             src={imagefour}
             alt="Image 4"
@@ -66,7 +66,7 @@ const Stay: React.FC = () => {
          </Link>
         </div>
         <div className="relative w-[50%] h-[40vh]">
-          <Link className='cursor-pointer' href="/stay/Kajiado">
+          <Link className='cursor-pointer' href={{ pathname: '/stay', query: { county: 'Kajiado' }}}>
           <Image
             src={imagefive}
             alt="Image 5"
