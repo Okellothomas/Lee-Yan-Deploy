@@ -135,7 +135,7 @@ export default function Stay({ tourParams }: IParams) {
               </div>
               {towns.map(town => (
                 <div className="flex pt-1 items-center justify-start" key={town}>
-                  <label>
+                  <label className="flex items-center">
                     <input
                       type="checkbox"
                       value={town}
@@ -157,7 +157,7 @@ export default function Stay({ tourParams }: IParams) {
               </div>
               {categories.map(category => (
                 <div className="flex pt-1 items-center justify-start" key={category}>
-                  <label>
+                  <label className="flex items-center">
                     <input
                       type="checkbox"
                       value={category}
@@ -179,7 +179,7 @@ export default function Stay({ tourParams }: IParams) {
               </div>
               {types.map(type => (
                 <div className="flex pt-1 items-center justify-start" key={type}>
-                  <label>
+                  <label className="flex items-center">
                     <input
                       type="checkbox"
                       value={type}
@@ -201,7 +201,7 @@ export default function Stay({ tourParams }: IParams) {
               </div>
               {offers.map(offers => (
                 <div className="flex pt-1 items-center justify-start" key={offers}>
-                  <label>
+                  <label className="flex items-center">
                     <input
                       type="checkbox"
                       value={offers}
