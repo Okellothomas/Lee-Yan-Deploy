@@ -459,14 +459,6 @@ const findAvailableDate = () => {
                         <p className="pt-6 pb-5 text-lg font-bold text-neutral-800">Meals offered</p>
 
                          <div className="border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
-                         
-                              {/* {listing.offers !== "" && (
-                                  <div className="flex flex-row justify-between">
-                                      <span className="text-neutral-500"> <span className="text-green-500"><IoCheckmarkDoneCircleOutline size={23} /> </span>{listing.offers} <span className="text-blue-400"> <IoInformationCircleOutline size={23} /></span></span>
-                                  </div>
-                              )} */}
-
-
                         { meals.length > 0 && (
                             <div>
                             {displayedMeals.map((offer, index) => (
@@ -494,14 +486,6 @@ const findAvailableDate = () => {
                         <p className="pt-6 pb-5 text-lg font-bold text-neutral-800">Fun activites</p>
 
                          <div className="border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
-                         
-                              {/* {listing.offers !== "" && (
-                                  <div className="flex flex-row justify-between">
-                                      <span className="text-neutral-500"> <span className="text-green-500"><IoCheckmarkDoneCircleOutline size={23} /> </span>{listing.offers} <span className="text-blue-400"> <IoInformationCircleOutline size={23} /></span></span>
-                                  </div>
-                              )} */}
-
-
                         { funs.length > 0 && (
                             <div>
                             {displayedFuns.map((offer, index) => (
@@ -655,26 +639,6 @@ const findAvailableDate = () => {
                                       <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><GiStarGate size={23} /></span><span className="text-md">Verfied: </span></div> <span className="text-neutral-500">{listing.verified}</span>
                                   </div>
                               )}
-                              {/* {listing.bathRoomCount !== 0 && (
-                                  <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><MdOutlineBathroom size={23} /></span><span className="text-md">Bathrooms: </span></div> <span className="text-neutral-500">{listing.bathRoomCount}</span>
-                                  </div>
-                              )} */}
-                              {/* {listing.guestCount !== 0 && (
-                                  <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><FaPeopleGroup size={23} /></span><span className="text-md">Guests: </span></div><span className="text-neutral-500">{listing.hostType}</span>
-                                  </div>
-                              )}
-                              {listing.roomCount !== 0 && (
-                                  <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-neutral-600"><MdOutlineMeetingRoom size={23} /></span><span className="text-md">Rooms: </span></div><span className="text-neutral-500">{listing.roomCount}</span>
-                                  </div>
-                              )}                        
-                              {listing.ratings !== 0 && (
-                                  <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-yellow-600"><PiStarThin size={23} /></span><span className="text-md">Rating: </span></div><span className="text-neutral-500">{listing.ratings}</span>
-                                  </div>
-                              )} */}
                               </div>
                               
                             <div className="w-full py-4">
@@ -702,8 +666,6 @@ const findAvailableDate = () => {
                                       <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><BsFileEarmarkPerson size={23} /></span><span className="text-md">Host Type</span></div><span className="text-neutral-500">{listing.hostType}</span>
                                   </div>
                               )}
-
-                       
                               
                         </div>
 
@@ -729,24 +691,6 @@ const findAvailableDate = () => {
                               handleUnavailableDates={handleUnavailableDates}
                               handleOptions={handleOptions}
                           />
-                          {/* <ListingReservation
-                            price={listing.price}
-                            totalPrice={totalPrice}
-                            onChangeDate={(value) => setDateRange(value)}
-                            dateRange={dateRange}
-                            onSubmit={(payAmount: number) => onCreateReservation(payAmount)}
-                            disabled={isLoading}
-                            disabledDates={disabledDates}
-                            options={options}
-                            setOptions={setOptions}
-                            openoptions={openoptions}
-                            setOpenOptions={setOpenoptions}
-                            numberOfGuestsRef={numberOfGuestsRef}
-                            error={error}
-                            setError={setError}
-                            toggleOptions={toggleOptions}
-                            handleOptions={handleOptions}
-                        /> */}
                       </div>
                   </div>
               </div> 
@@ -754,7 +698,6 @@ const findAvailableDate = () => {
                // clientId: "AZ_ycPr5s3mAA-Xboaqc9ft8hHiaChcr42aZIauAYl3Ax0CDig8L3uc-V0P2Mgx70nQD4p7XKcTbCLBB" }}>
                   clientId: "ATNgosIlt76LLJdYbZjqNuhdI31gc3H_pV7mQa6h4CJ20Xz0F_O2zCDVlD_Xt91iHmftZ3cB4J2kiHS3"
               }}>
-                  
                   <PaymentModal setShowPayModal={setShowPay} 
                   onPaymentComplete={handlePaymentComplete} 
                   totalPrice={totalPrice.toString()}
