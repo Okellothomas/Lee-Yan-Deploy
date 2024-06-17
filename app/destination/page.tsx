@@ -216,7 +216,7 @@ export default function DestinationFilterPage({ searchParams }:SearchParams) {
               <div className="font-semibold text-xl">{visibleTours?.length} Tours</div>
             </div>
             <div>
-              <Sort products={products} sortOption ={sortOption} setSortOption={setSortOption}/>
+              <Sort products={products} sortOption={sortOption} setSortOption={setSortOption}/>
             </div>
           </div>
         </Container>

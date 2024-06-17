@@ -11,7 +11,7 @@ interface Product {
 
 interface ProductListProps {
   products: Product[];
-  country:string;
+  county:string;
   setCounty:React.Dispatch<React.SetStateAction<string>>;
   setCity:React.Dispatch<React.SetStateAction<string>>;
    counties:string[]
@@ -28,7 +28,7 @@ const Contients: React.FC<ProductListProps> = ({ products, county, setCounty, se
     if (selectedCounty === county) {
       setCounty('');  // Uncheck the checkbox if it's already checked
     } else {
-      setCounty(county);
+      setCounty(selectedCounty);
     }
   };
 
@@ -85,7 +85,7 @@ const Contients: React.FC<ProductListProps> = ({ products, county, setCounty, se
             <input
               type="checkbox"
               checked={county  === 'all'}
-               onChange={handleAllChange}
+              onChange={() => handleCheckboxChange("all")}
                 className='p-2 h-5 w-5'
             />
             All
@@ -94,7 +94,7 @@ const Contients: React.FC<ProductListProps> = ({ products, county, setCounty, se
       <label className='gap-2 flex flex-row items-center' key={index}>
         <input
           type="checkbox"
-          checked={county && county[0].toUpperCase() + county.slice(1) === item}
+          checked={county && county.toLowerCase() === item.toLowerCase()}
           onChange={() => handleCheckboxChange(item)}
           className='p-2 h-5 w-5'
         />
