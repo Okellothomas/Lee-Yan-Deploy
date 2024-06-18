@@ -80,7 +80,7 @@ const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps
           <div className="col-span-4">
            <div className="border-[1px] px-6 py-5 border-solid border-neutral-300 rounded-lg">
             <div className="pb-6">
-              <h1 className="text-xl font-semibold">Administators</h1>
+              <h1 className="text-xl font-semibold">Lee-Yan Smart Properties&lsquo; administators</h1>
             </div>
             <div className="pb-4">
                 <hr />

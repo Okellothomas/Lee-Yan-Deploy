@@ -14,24 +14,14 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-
 export async function POST(req: Request, res: NextApiResponse) {
 
- // Read the template from the external file
- //const templatePath = path.join(__dirname, '../../../../../templates/mail_template.html');
- //const templateHTML = fs.readFileSync(templatePath, 'utf8');
-
- 
- // Render the EmailTemplate component to HTML string
  
  if (req.method === 'POST') {
    
    
       const year = new Date().getFullYear(); // Or fetch dynamically if needed
 
-      //const baseUrl = `${window.location.protocol}//${window.location.host}`;   //Wanna ge the base url of the current app
-
-      // Construct the path to the template file dynamically
       
       const body = await req.json();
       
@@ -42,7 +32,6 @@ export async function POST(req: Request, res: NextApiResponse) {
       const tourUrl = `${baseUrl}/client/profile`
       const templateHTML = fs.readFileSync(templatePath, 'utf8');
 
-    // Render the template using string interpolation or a templating library
   const renderedHTML = templateHTML
   .replace(/\{recipientName\}/g, user_name)
   .replace(/\{year\}/g, year.toString())

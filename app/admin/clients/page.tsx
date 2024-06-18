@@ -78,38 +78,40 @@ const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps
             <SideBar />
           </div>
           <div className="col-span-4">
+            <div className="border-[1px] px-6 py-5 border-solid border-neutral-300 rounded-lg">
             <div className="pb-6">
-              <h1 className="text-2xl font-bold">All Clients</h1>
+              <h1 className="text-xl font-bold">Lee-Yan Smart Properties&lsquo; clients</h1>
             </div>
+            <div className="pb-4">
+                <hr />
+              </div>
             <div className="items-center pb-1">
                 {users.length === 0 ? (
                   <div>No client currently registered in the system please come back later!</div>
                 ) : (
                   <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-                    {users.map((listing: any) => (
-                      <UsersCard
-                        currentUser={currentUser ? {
-                          ...currentUser,
-                          createdAt: currentUser.createdAt.toISOString(),
-                          updatedAt: currentUser.updatedAt.toISOString(),
-                          emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                        } : null} // Pass the current user to each ListingCard
-                        key={listing.id} // Use the listing ID as the unique key
-                        data={listing} // Pass the listing data to each ListingCard
-                      />
-                    ))}
-                    <div className="col-span-4">
-                      <hr />
-                    </div>
+                    {users.map((listing: any, index: number) => (
+                        <>
+                          <UsersCard
+                            currentUser={currentUser ? {
+                              ...currentUser,
+                              createdAt: currentUser.createdAt.toISOString(),
+                              updatedAt: currentUser.updatedAt.toISOString(),
+                              emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+                            } : null} // Pass the current user to each ListingCard
+                            key={listing.id} // Use the listing ID as the unique key
+                            data={listing} // Pass the listing data to each ListingCard
+                          />
+                          {index < users.length - 1 && <hr />} {/* Add a horizontal line between items */}
+                        </>
+                      ))}
                   </div>
                 )}
             </div>
           </div>
         </div>
+      </div>
       </Container>
     </div>
   );
 };
-
-export default HostPage;
-
