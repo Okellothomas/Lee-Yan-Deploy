@@ -42,19 +42,23 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
           </h1>
         </div>
         <Container>
-          <div className="grid grid-cols-5 gap-10 pt-16">
-            <div className="col-span-1">
+          <div className="grid grid-cols-6 gap-10 pt-16">
+            <div className="col-span-2">
               <SideBar />
             </div>
             <div className="col-span-4">
+              <div className="border-[1px] px-6 py-5 border-solid border-neutral-300 rounded-lg">
               <div className="pb-2">
-                <h1 className="text-2xl font-bold">All My Tours</h1>
-              </div>
+                <h1 className="text-xl font-semibold">Active reservations</h1>
+                </div>
+                <div className='mb-6'>
+                  <hr />
+                </div>
               <div className="items-center pb-1">
                 {tours.length === 0 ? (
                   <div>No tours found</div>
                 ) : (
-                  <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
+                  <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-8">
                     {tours.map((tour: any) => (
                       <TourMyCard
                         currentUser={currentUser ? {
@@ -71,6 +75,7 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
                 )}
               </div>
               {/* <AdminInfo userParams={userParams} /> */}
+              </div>
             </div>
           </div>
         </Container>

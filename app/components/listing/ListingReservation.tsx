@@ -114,14 +114,14 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                 ) : (
                     <>
                         <div className="flex flex-row items-center mt-0">
-                            <label htmlFor="guests" className="text-right mr-4 text-gray-700">
+                            <label htmlFor="guests" className="text-right mr-2 text-gray-700">
                                 Add guest:
                             </label>
                             <input
                                 id="guests"
                                 type="text"
                                 value={`${options.guests} guest(s)`}
-                                className="pb-2 text-neutral-700 shadow-sm leading-tight focus:outline-none focus:shadow-outline"
+                                className="pb-0 text-neutral-700 leading-tight focus:outline-none focus:shadow-outline"
                                 readOnly
                             />
                         </div>

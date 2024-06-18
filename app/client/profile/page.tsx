@@ -61,7 +61,7 @@ const ProfilePage = async ({ searchParams, tourParams }: HotelPageProps) => {
             </div>
             <hr />
             <div className="flex flex-row justify-between items-center py-8">
-              <p>Country</p>
+              <p>County</p>
               <p>{ currentUser?.country }</p>            
             </div>
             <hr />

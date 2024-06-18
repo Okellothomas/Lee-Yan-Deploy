@@ -28,7 +28,8 @@ interface HotelPageProps {
 const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps) => {
   // Fetch listings, current user, and users asynchronously
   const currentUser = await getCurrentUser();
-  const users = await getClients({ ...userParams, userType: "client" });
+  // const users = await getClients({ ...userParams, userType: "client" });
+  const users = await getClients({ ...userParams, userType: "admin" });
   // const handleDelete = deleteBtn()
 
   // const router = useRouter();
@@ -72,8 +73,8 @@ const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps
         </h1>
       </div>
       <Container>
-        <div className="grid grid-cols-5 gap-10 pt-16">
-          <div className="col-span-1">
+        <div className="grid grid-cols-6 gap-10 pt-16">
+          <div className="col-span-2">
             <SideBar />
           </div>
           <div className="col-span-4">

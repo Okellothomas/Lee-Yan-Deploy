@@ -4,7 +4,6 @@ import Container from "@/app/components/container/Container";
 import SideBar from "../profile/components/SideBar";
 import getmyTours, { ImyToursParams } from "@/app/aagetMethods/getmyTours";
 import TourMyCard from "@/app/aahooks/TourMyCard";
-import TourClientCard from '@/app/aahooks/TourClientCard';
 import RestrictedEmptyState from '@/app/components/container/RestrictedEmptyState';
 
 // Define the interface for the Home component props
@@ -23,27 +22,17 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
       return <div>Error: Current user not found.</div>;
     }
 
-  //   // Fetch tours that match the current user's ID
-  //   const tours = await getmyTours({ ...searchParams, userId: currentUser.id });
-
-  //   // Modify tours to include currentUser.id in the tourists[] field
-  //  const updatedTours = tours.map((tour: any) => ({
-  //     ...tour,
-  //     isCurrentUserTourist: tour.tourists.includes(currentUser.id)
-  //   }));
-
-    const tours = (await getmyTours(searchParams))
-      .filter(tour => tour.tourists.includes(currentUser.id));
-
-    // console.log(tours);
+    // Fetch tours that match the current user's ID
+    const tours = await getmyTours({ ...searchParams, userId: currentUser.id });
 
     // Render the component with the fetched tours
-    // if(currentUser?.userType !== "client") {
-    //   // Render link to homepage if the current user is not an admin
-    //   return (
-    //     <RestrictedEmptyState/>
-    //   );
-    // }
+    if(currentUser?.userType !== "admin") {
+      // Render link to homepage if the current user is not an admin
+      return (
+        <RestrictedEmptyState/>
+      );
+    }
+
     return (
       <div>
         <div className="all-destinations-main-admin-profile flex flex-col items-center justify-center text-lg font-bold">
@@ -58,16 +47,20 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
               <SideBar />
             </div>
             <div className="col-span-4">
+              <div className="border-[1px] px-6 py-5 border-solid border-neutral-300 rounded-lg">
               <div className="pb-2">
-                <h1 className="text-2xl font-bold">All My Tours</h1>
-              </div>
+                <h1 className="text-xl font-semibold">Active reservations</h1>
+                </div>
+                <div className='mb-6'>
+                  <hr />
+                </div>
               <div className="items-center pb-1">
                 {tours.length === 0 ? (
                   <div>No tours found</div>
                 ) : (
-                  <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
+                  <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-8">
                     {tours.map((tour: any) => (
-                      <TourClientCard
+                      <TourMyCard
                         currentUser={currentUser ? {
                           ...currentUser,
                           createdAt: currentUser.createdAt.toISOString(),
@@ -82,6 +75,7 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
                 )}
               </div>
               {/* <AdminInfo userParams={userParams} /> */}
+              </div>
             </div>
           </div>
         </Container>
@@ -95,3 +89,4 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
 };
 
 export default AdministratorsPage;
+
