@@ -75,7 +75,11 @@ export default function Stay({ tourParams }: IParams) {
   const towns = Array.from(new Set(listingsPremium.map(tour => tour.town))).slice(0, 5);
   const categories = Array.from(new Set(listingsPremium.map(tour => tour.category))).slice(0, 5);
   const types = Array.from(new Set(listingsPremium.map(tour => tour.type))).slice(0, 5);
-  const offers = Array.from(new Set(listingsPremium.map(tour => tour.offers))).slice(0, 5);
+  // const offers = Array.from(new Set(listingsPremium.map(tour => tour.offers))).slice(0, 5);
+  const offers = Array.from(
+    new Set(listingsPremium.flatMap(tour => tour.offers))
+  ).slice(0, 5);
+  
   const ratings = Array.from(new Set(listingsPremium.map(tour => tour.ratings))).slice(0, 5);
 
   const handleFilterChange = (filterType, value) => {
