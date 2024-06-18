@@ -51,14 +51,14 @@ const Sort: React.FC<ProductListProps> = ({ products, sortOption, setSortOption 
         </select>
       </label>
 
-      <ul>
+      {/* <ul>
         {sortedProducts().map((product) => (
           <li key={product.id}>
-            {/* Display your product information here */}
+            {/* Display your product information here 
             {product.name} - Price: ${product.price} - Length: {product.length} units
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };

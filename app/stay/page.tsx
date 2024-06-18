@@ -51,15 +51,26 @@ export default function Stay({ tourParams }: IParams) {
   const normalizedCounty = county ? county.toLowerCase() : ""; // Normalize county safely
   const listingsPremium = tours.filter(listing => listing.county && listing.county.toLowerCase() === normalizedCounty);
 
+  // const filteredTours = listingsPremium.filter(tour => {
+  //   return (
+  //     (filters.town.length === 0 || filters.town.includes(tour.town)) &&
+  //     (filters.category.length === 0 || filters.category.includes(tour.category)) &&
+  //     (filters.type.length === 0 || filters.type.includes(tour.type)) &&
+  //     (filters.offers.length === 0 || filters.offers.includes(tour.offers)) &&
+  //     (filters.ratings.length === 0 || filters.ratings.includes(tour.ratings))
+  //   );
+  // });
+
   const filteredTours = listingsPremium.filter(tour => {
     return (
       (filters.town.length === 0 || filters.town.includes(tour.town)) &&
       (filters.category.length === 0 || filters.category.includes(tour.category)) &&
       (filters.type.length === 0 || filters.type.includes(tour.type)) &&
-      (filters.offers.length === 0 || filters.offers.includes(tour.offers)) &&
+      (filters.offers.length === 0 || tour.offers.some(offer => filters.offers.includes(offer))) &&
       (filters.ratings.length === 0 || filters.ratings.includes(tour.ratings))
     );
   });
+  
 
   const sortedTours = filteredTours.sort((a, b) => {
     if (sortOrder === 'lowest') {
@@ -75,7 +86,11 @@ export default function Stay({ tourParams }: IParams) {
   const towns = Array.from(new Set(listingsPremium.map(tour => tour.town))).slice(0, 5);
   const categories = Array.from(new Set(listingsPremium.map(tour => tour.category))).slice(0, 5);
   const types = Array.from(new Set(listingsPremium.map(tour => tour.type))).slice(0, 5);
-  const offers = Array.from(new Set(listingsPremium.map(tour => tour.offers))).slice(0, 5);
+  // const offers = Array.from(new Set(listingsPremium.map(tour => tour.offers))).slice(0, 5);
+  const offers = Array.from(
+    new Set(listingsPremium.flatMap(tour => tour.offers))
+  ).slice(0, 5);
+  
   const ratings = Array.from(new Set(listingsPremium.map(tour => tour.ratings))).slice(0, 5);
 
   const handleFilterChange = (filterType, value) => {
