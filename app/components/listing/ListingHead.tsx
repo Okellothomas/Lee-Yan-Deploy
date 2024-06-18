@@ -6,6 +6,7 @@ import Image from "next/image";
 import HeartButton from "../container/HeartButton";
 import DialogModal from "./DialogModal";
 import { IoImageOutline } from 'react-icons/io5';
+import { PiDotsNineBold } from "react-icons/pi";
 
 interface ListingHeadProps {
     title: string;
@@ -61,8 +62,8 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                                     onClick={() => openModal(index + 1)}
                                 />
                                 {index === imageSrc.slice(1, 3).length - 1 && (
-                                    <div className="absolute bottom-2 right-2 bg-white rounded-full p-2 cursor-pointer" onClick={() => openModal(index + 1)}>
-                                        <IoImageOutline size={24} />
+                                    <div className="absolute bottom-2 right-2 bg-white flex flex-row shadow-xl justify-between rounded-lg px-4 py-2 cursor-pointer" onClick={() => openModal(index + 1)}>
+                                       <span className='mr-2'><PiDotsNineBold size={21} /></span><span className='text-sm'>Show all photos</span>
                                     </div>
                                 )}
                             </div>

@@ -1,9 +1,7 @@
 'use client'
-
 import PaymentModal from "@/app/components/Modals/PaymentModal";
 import Container from "@/app/components/container/Container";
 import ListingHead from "@/app/components/listing/ListingHead";
-import ListingInfo from "@/app/components/listing/ListingInfo";
 import ListingReservation from "@/app/components/listing/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -16,15 +14,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Range } from "react-date-range";
 import toast from "react-hot-toast";
-import { FaPersonShelter } from "react-icons/fa6";
-import { GiPathDistance } from "react-icons/gi";
-import { CiCalendarDate } from "react-icons/ci";
-import { MdOutlineUpdate } from "react-icons/md";
-import { MdOutlineTipsAndUpdates } from "react-icons/md";
-import { CiLocationArrow1 } from "react-icons/ci";
 import { LuBedDouble } from "react-icons/lu";
-import { BsPersonCircle } from "react-icons/bs";
-import { GoPerson } from "react-icons/go";
 import { BsFileEarmarkPerson } from "react-icons/bs";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdOutlineMeetingRoom } from "react-icons/md";
@@ -75,30 +65,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
     const [numberOfDays, setNumberOfDays] = useState(0)
 
     const [error, setError] = useState('');
-
-    // const disabledDates = useMemo(() => {
-    //     let dates: Date[] = [];
-
-    //     reservations.forEach((reservation) => {
-    //         const range = eachDayOfInterval({
-    //             start: new Date(reservation.startDate),
-    //             end: new Date(reservation.endDate)
-    //         });
-
-    //         dates = [...dates, ...range]
-
-    //         console.log("dates------",dates)
-    //         setDisabledTareh(dates)
-    //     })
-    //     console.log("reservations count--",reservations.length)
-
-    //     return dates;
-    // }, [reservations])
-
-    // Inside your useMemo callback
-    
-
-
 
 
     //-----------------------------------------------------------------------------------------------
