@@ -98,8 +98,8 @@ const UsersCard: React.FC<ListingCardProps> = ({
               </div>
           </div>   
           <div className="flex flex-row items-center gap-1">
-                 <div className="font-semibold">
-                    <button className="outline-main-btn" onClick={handleDelete}>Delete</button>
+                 <div className="font-normal">
+                    <button className="text-md py-[5px] hover:bg-green-700 px-7 border-[1px] border-solid border-green-700 hover:text-white rounded-3xl" onClick={handleDelete}>Delete</button>
                 </div>
          </div>
     </div>
