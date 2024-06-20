@@ -23,11 +23,11 @@ import Lago from '../navbar/Lago';
 import Link from "next/link";
 import { RingLoader } from 'react-spinners';
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red; /* Adjust color if needed */
-`;
+// const override = css`
+//   display: block;
+//   margin: 0 auto;
+//   border-color: red; /* Adjust color if needed */
+// `;
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
@@ -139,7 +139,7 @@ const RegisterModal = () => {
              {emailError && <p className="text-red-500">{emailError}</p>} {/* Display manual email error */}
              {isLoading && (
                <div className="loading-spinner">
-                  <RingLoader color={'#123abc'} css={override} size={150} loading={isLoading} />
+                  {/* <RingLoader color={'#123abc'} css={override} size={150} loading={isLoading} /> */}
                 </div>
                 )}
                 
