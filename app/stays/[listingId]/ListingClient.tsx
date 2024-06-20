@@ -1,9 +1,7 @@
 'use client'
-
 import PaymentModal from "@/app/components/Modals/PaymentModal";
 import Container from "@/app/components/container/Container";
 import ListingHead from "@/app/components/listing/ListingHead";
-import ListingInfo from "@/app/components/listing/ListingInfo";
 import ListingReservation from "@/app/components/listing/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
@@ -16,15 +14,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Range } from "react-date-range";
 import toast from "react-hot-toast";
-import { FaPersonShelter } from "react-icons/fa6";
-import { GiPathDistance } from "react-icons/gi";
-import { CiCalendarDate } from "react-icons/ci";
-import { MdOutlineUpdate } from "react-icons/md";
-import { MdOutlineTipsAndUpdates } from "react-icons/md";
-import { CiLocationArrow1 } from "react-icons/ci";
 import { LuBedDouble } from "react-icons/lu";
-import { BsPersonCircle } from "react-icons/bs";
-import { GoPerson } from "react-icons/go";
 import { BsFileEarmarkPerson } from "react-icons/bs";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { MdOutlineMeetingRoom } from "react-icons/md";
@@ -75,30 +65,6 @@ const ListingClient: React.FC<ListingClientProps> = ({
     const [numberOfDays, setNumberOfDays] = useState(0)
 
     const [error, setError] = useState('');
-
-    // const disabledDates = useMemo(() => {
-    //     let dates: Date[] = [];
-
-    //     reservations.forEach((reservation) => {
-    //         const range = eachDayOfInterval({
-    //             start: new Date(reservation.startDate),
-    //             end: new Date(reservation.endDate)
-    //         });
-
-    //         dates = [...dates, ...range]
-
-    //         console.log("dates------",dates)
-    //         setDisabledTareh(dates)
-    //     })
-    //     console.log("reservations count--",reservations.length)
-
-    //     return dates;
-    // }, [reservations])
-
-    // Inside your useMemo callback
-    
-
-
 
 
     //-----------------------------------------------------------------------------------------------
@@ -232,7 +198,7 @@ const findAvailableDate = () => {
     
     function handleUnavailableDates(): void { 
         
-        console.log("date range from listingClient",dateRange)
+        // console.log("date range from listingClient",dateRange)
         
         axios.put(`/api/stays/${listing?.id}`, {
             datesUnavailableFrom: dateRange.startDate,
@@ -256,7 +222,7 @@ const findAvailableDate = () => {
 
     const handlePaymentComplete = async(data: any) => {
         // Handle the data passed from PaymentModal
-        console.log('Payment completed with data:', data);
+        // console.log('Payment completed with data:', data);
         setDataa(data)
 
         const merchantId = data?.Body?.stkCallback.MerchantRequestID
@@ -276,45 +242,47 @@ const findAvailableDate = () => {
         // ...
       };
       
-      const makeReservation = (data:any) =>
+      const makeReservation = () =>
       {
-        const data2 =  {
-            "Body": {
-                "stkCallback": {
-                    "MerchantRequestID": "12345-67890-12345",
-                    "CheckoutRequestID": "abcdefghijklmnopqrstuvwxyz",
-                    "ResultCode": 0,
-                    "ResultDesc": "The service was accepted successfully",
-                    "CallbackMetadata": {
-                        "Item": [
-                            {
-                                "Name": "Amount",
-                                "Value": 100
-                            },
-                            {
-                                "Name": "MpesaReceiptNumber",
-                                "Value": "ABCDEFGHIJ"
-                            },
-                            {
-                                "Name": "Balance",
-                                "Value": 0
-                            },
-                            {
-                                "Name": "TransactionDate",
-                                "Value": "2023-04-26 12:30:00"
-                            },
-                            {
-                                "Name": "PhoneNumber",
-                                "Value": "254712345678"
-                            }
-                        ]
-                    }
+      
+      const data2 =  {
+        "Body": {
+            "stkCallback": {
+                "MerchantRequestID": "12345-67890-12345",
+                "CheckoutRequestID": "abcdefghijklmnopqrstuvwxyz",
+                "ResultCode": 0,
+                "ResultDesc": "The service was accepted successfully",
+                "CallbackMetadata": {
+                    "Item": [
+                        {
+                            "Name": "Amount",
+                            "Value": 100
+                        },
+                        {
+                            "Name": "MpesaReceiptNumber",
+                            "Value": "ABCDEFGHIJ"
+                        },
+                        {
+                            "Name": "Balance",
+                            "Value": 0
+                        },
+                        {
+                            "Name": "TransactionDate",
+                            "Value": "2023-04-26 12:30:00"
+                        },
+                        {
+                            "Name": "PhoneNumber",
+                            "Value": "254712345678"
+                        }
+                    ]
                 }
             }
         }
+    }
+        
        {
         setShowPay(false)
-        console.log("Payment Data",dataa)
+        // console.log("Payment Data",dataa)
         axios.post(`/api/reservations`, {
             totalPrice,  //for totalPrice
             startDate: dateRange.startDate,
@@ -329,26 +297,26 @@ const findAvailableDate = () => {
                 setDateRange(initialDateRange);
                 // redirect to /trips
                 try {
-                    const response = await axios.post('/api/mailing/', 
+                    // const response = await axios.post('/api/mailing/', 
                   
-                      {sender:'Info@devancatours.com',
-                             recipient:'wanjooo.ken@gmail.com',
-                             subject:"Devance Reservations",
-                             user_name:currentUser?.name,
-                             templateName: 'mail_template',
-                             mail_body:`This is a sample test mail from Devance Application and these are the reservatio`
+                    //   {sender:'Info@devancatours.com',
+                    //          recipient:'wanjooo.ken@gmail.com',
+                    //          subject:"Devance Reservations",
+                    //          user_name:currentUser?.name,
+                    //          templateName: 'mail_template',
+                    //          mail_body:`This is a sample test mail from Devance Application and these are the reservatio`
 
-                                },
+                    //             },
 
-                                {
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    }
-                                }
-                    );
+                    //             {
+                    //                 headers: {
+                    //                     'Content-Type': 'application/json'
+                    //                 }
+                    //             }
+                    // );
                 
-                    const data = await response.data;
-                    console.log(data); // handle success message
+                    // const data = await response.data;
+                    // console.log(data); // handle success message
                 
                   } catch (error) {
                     console.error(error); // handle error message
@@ -368,7 +336,7 @@ const findAvailableDate = () => {
             return loginModal.onOpen()
         }
 
-       console.log("Reserve loading...", paymentModal.isOpen)
+    //    console.log("Reserve loading...", paymentModal.isOpen)
         try {
             
             setShowPay(true)
@@ -396,8 +364,8 @@ const findAvailableDate = () => {
             ) +1;
 
             setNumberOfDays(dayCount)
-            console.log("Day range=====>", dateRange)
-            console.log("Day count:====>", dayCount)
+            // console.log("Day range=====>", dateRange)
+            // console.log("Day count:====>", dayCount)
 
             if (dayCount && listing.price) {
                 setTotalPrice((listing.price*options.guests)*dayCount);
@@ -710,10 +678,11 @@ const findAvailableDate = () => {
                               totalPrice={totalPrice}
                               onChangeDate={(value) => setDateRange(value)}
                               dateRange={dateRange}
-                              onSubmit={()=>makeReservation} //(payAmount:number)=>onCreateReservation(payAmount)}
+                              onSubmit={(payAmount:number)=>onCreateReservation(payAmount)}
                               disabled={isLoading}
                               disabledDates={disabledDates} 
                               options={options}
+                              makeReservation={makeReservation}
                               currentUser={currentUser}
                               setOptions = {setOptions}
                               openoptions ={openoptions}

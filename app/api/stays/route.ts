@@ -118,9 +118,9 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
     let checkinDate = checkinDateValue !== 'undefined' ? checkinDateValue : '';
     let checkoutDate = checkoutDateValue !== 'undefined' ? checkoutDateValue : '';
 
-    console.log("County----->", county)
-    console.log("checkinDate-->", checkinDate)
-    console.log("checkoutDate-->", checkoutDate)
+    // console.log("County----->", county)
+    // console.log("checkinDate-->", checkinDate)
+    // console.log("checkoutDate-->", checkoutDate)
     let searchParamss: any = {};
 
         // Remove the userId from the destructuring and handle it separately
@@ -154,7 +154,7 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
             searchParamss.town =  city;
         }
 
-        console.log("Search params", searchParamss)
+        // console.log("Search params", searchParamss)
 
         // if (category) {
         //     query.category = category;
@@ -171,7 +171,7 @@ export async function GET(req:NextRequest, res:NextApiResponse) {
         ...listing,
         createAt: listing.createAt.toISOString(),
     }));
-    console.log("Back end listing---->", safeListing)
+    // console.log("Back end listing---->", safeListing)
     return NextResponse.json(safeListing);
 }
 } catch (error) {

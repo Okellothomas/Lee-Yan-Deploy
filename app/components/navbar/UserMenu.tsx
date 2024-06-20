@@ -160,40 +160,50 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser, handleMenuToggle }) =>
                       <CiUser className="nav-icons-items" size={23} />{" "}
                       <MenuItem
                         onClick={() => {
-                          router.push("/operator/profile");
+                          router.push("/agent/profile");
                           handleMenuItemClick();
                         }}
                         label="My profile"
                       />
                     </div>
                     <div className="flex flex-row items-center">
-                      <IoIosHeartEmpty className="nav-icons-items" size={23} />{" "}
-                      <MenuItem
-                        onClick={() => {
-                          router.push("/favorites");
-                          handleMenuItemClick();
-                        }}
-                        label="My favorites"
-                      />
-                    </div>
-                    <div className="flex flex-row items-center">
-                      <GiKangaroo className="nav-icons-items" size={23} />
-                      <MenuItem
-                        onClick={() => {
-                          tourModal.onOpen();
-                          handleMenuItemClick();
-                        }}
-                        label="Add tour"
-                      />
-                    </div>
-                    <div className="flex flex-row items-center">
-                      <MdOutlineHotel className="nav-icons-items" size={23} />
+                      <TbToolsKitchen3 className="nav-icons-items" size={23} />
                       <MenuItem
                         onClick={() => {
                           rentModal.onOpen();
                           handleMenuItemClick();
                         }}
-                        label="Add hotel/house"
+                        label="Create new stay"
+                      />
+                    </div>
+                    <div className="flex flex-row items-center">
+                      <GiSpookyHouse className="nav-icons-items" size={23} />
+                      <MenuItem
+                        onClick={() => {
+                          propertyModal.onOpen();
+                          handleMenuItemClick();
+                        }}
+                        label="Create new property"
+                      />
+                    </div>
+                     <div className="flex flex-row items-center">
+                      <GiIsland className="nav-icons-items" size={23} />
+                      <MenuItem
+                        onClick={() => {
+                          landModal.onOpen();
+                          handleMenuItemClick();
+                        }}
+                        label="Create new land sale"
+                      />
+                      </div>  
+                    <div className="flex flex-row items-center">
+                      <MdOutlineLocalOffer className="nav-icons-items" size={23} />
+                      <MenuItem
+                        onClick={() => {
+                          offerModel.onOpen();
+                          handleMenuItemClick();
+                        }}
+                        label="Create new offer"
                       />
                     </div>
                     <hr />

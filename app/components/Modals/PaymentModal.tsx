@@ -238,8 +238,6 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
       [payInitiated])
 
 
-
-
     const bodyContent = (
         <div className='payment_modal_container'>
           <div className="payment_modal_main_body">
@@ -264,10 +262,7 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
             <div className="paypal">
             {/* <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID }}> */}
             
-
-
-
-      <div>
+         <div>
                 {isScriptReady ? (
                  
                   <PayPalButtons

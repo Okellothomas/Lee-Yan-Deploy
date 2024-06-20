@@ -28,7 +28,10 @@ interface HotelPageProps {
 const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps) => {
   // Fetch listings, current user, and users asynchronously
   const currentUser = await getCurrentUser();
-  const users = await getClients({ ...userParams, userType: "client" });
+  // const users = await getAdmins({ ...userParams, userType: "admin" });
+  const allUsers = await getAdmins(userParams);
+  const users = allUsers.filter(user => user.userType !== "admin" && user.userType !== "operator");
+
   // const handleDelete = deleteBtn()
 
   // const router = useRouter();
@@ -50,17 +53,18 @@ const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps
         console.log('Failed to delete tour. Please try again.');
     }
   };
+
+
+  // if(currentUser?.userType !== "admin") {
+  //     // Render link to homepage if the current user is not an admin
+  //     return (
+  //       <RestrictedEmptyState/>
+  //     );
+  //   }
   
   // const handleDelete = () => {
 
   // }
-
-  if(currentUser?.userType !== "admin") {
-      // Render link to homepage if the current user is not an admin
-      return (
-        <RestrictedEmptyState/>
-      );
-    }
 
   // Render the Home component with the fetched listings
   return (
@@ -72,37 +76,42 @@ const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps
         </h1>
       </div>
       <Container>
-        <div className="grid grid-cols-5 gap-10 pt-16">
-          <div className="col-span-1">
+        <div className="grid grid-cols-6 gap-10 pt-16">
+          <div className="col-span-2">
             <SideBar />
           </div>
           <div className="col-span-4">
+           <div className="border-[1px] px-6 py-5 border-solid border-neutral-300 rounded-lg">
             <div className="pb-6">
-              <h1 className="text-2xl font-bold">All Clients</h1>
+              <h1 className="text-xl font-semibold">Lee-Yan Smart Properties&lsquo; cliets</h1>
             </div>
+            <div className="pb-4">
+                <hr />
+              </div>
             <div className="items-center pb-1">
                 {users.length === 0 ? (
                   <div>No client currently registered in the system please come back later!</div>
                 ) : (
                   <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-                    {users.map((listing: any) => (
-                      <UsersCard
-                        currentUser={currentUser ? {
-                          ...currentUser,
-                          createdAt: currentUser.createdAt.toISOString(),
-                          updatedAt: currentUser.updatedAt.toISOString(),
-                          emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                        } : null} // Pass the current user to each ListingCard
-                        key={listing.id} // Use the listing ID as the unique key
-                        data={listing} // Pass the listing data to each ListingCard
-                      />
-                    ))}
-                    <div className="col-span-4">
-                      <hr />
-                    </div>
+                    {users.map((listing: any, index: number) => (
+                        <>
+                          <UsersCard
+                            currentUser={currentUser ? {
+                              ...currentUser,
+                              createdAt: currentUser.createdAt.toISOString(),
+                              updatedAt: currentUser.updatedAt.toISOString(),
+                              emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+                            } : null} // Pass the current user to each ListingCard
+                            key={listing.id} // Use the listing ID as the unique key
+                            data={listing} // Pass the listing data to each ListingCard
+                          />
+                          {index < users.length - 1 && <hr />} {/* Add a horizontal line between items */}
+                        </>
+                      ))}
                   </div>
                 )}
             </div>
+          </div>
           </div>
         </div>
       </Container>

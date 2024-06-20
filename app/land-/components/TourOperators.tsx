@@ -35,8 +35,8 @@ const TourOperators: React.FC<ProductListProps> = ({ products }) => {
     <div className='border-[1px] border-solid border-neutral-300 outline-none shadow-sm py-4 px-2 rounded-xl'>
       <ul>
         <div className='flex flex-row items-center gap-2'>
-          <FcAssistant size={25} />
-          <p>Operators</p>
+          {/* <FcAssistant size={25} /> */}
+          <p>Categories</p>
               </div>
         <div className='py-3'>
           <hr />

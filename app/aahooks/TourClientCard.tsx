@@ -1,6 +1,6 @@
 'use client'
 import useCountries from "@/app/hooks/useCountries";
-import { SafeUser, safeListing, safeReservation } from "@/app/types";
+import { SafeUser, safeReservation } from "@/app/types";
 import { Listing, Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
@@ -8,14 +8,14 @@ import { format } from 'date-fns';
 import Image from "next/image";
 import HeartButton from "../components/container/HeartButton";
 import Button from "../components/container/Button";
-import { safeTour } from "@/app/types";
+import { safeTour, safeListing } from "@/app/types";
 import prisma from '@/app/libs/prismadb';
 import toast, { useToaster } from "react-hot-toast";
 import axios from "axios";
 
 
 interface ListingCardProps {
-    data: safeTour;
+    data: safeReservation;
     reservation?: safeReservation;
     onAction?: (id: string) => void;
     disabled?: boolean;
@@ -35,8 +35,13 @@ const TourClientCard: React.FC<ListingCardProps> = ({
 }) => {
     const router = useRouter();
     const { getByValue } = useCountries();
-    const location = getByValue(data?.locationValue || ""); // Handle null locationValue
+    // const location = getByValue(data?.locationValue || ""); // Handle null locationValue
     const toaster = useToaster();
+
+
+    // console.log(
+    //     "More of the data available", data
+    // )
 
     const handleCancel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -48,13 +53,13 @@ const TourClientCard: React.FC<ListingCardProps> = ({
         onAction?.(actionId);
     }, [onAction, actionId, disabled])
 
-    const price = useMemo(() => {
-        if (reservation) {
-            return reservation.totalPrice;
-        }
+    // const price = useMemo(() => {
+    //     if (reservation) {
+    //         return reservation.totalPrice;
+    //     }
 
-        return data?.price || 0; // Handle null data or price
-    }, [reservation, data?.price])
+    //     return data?.price || 0; // Handle null data or price
+    // }, [reservation, data?.price])
 
     const reservationDate = useMemo(() => {
         if (!reservation) {
@@ -71,11 +76,11 @@ const TourClientCard: React.FC<ListingCardProps> = ({
         e.stopPropagation();
         console.log("button clicked");
     try {
-        const response = await axios.delete(`/api/tours/${data?.id}`, {
+        const response = await axios.delete(`/api/stays/${data?.id}`, {
             method: 'DELETE',
         });
         console.log("try is working")
-        toast.success("Tour deleted successfully")
+        toast.success("Stay deleted successfully")
         router.push("/")
     } catch (error) {
         console.error(error);
@@ -83,33 +88,66 @@ const TourClientCard: React.FC<ListingCardProps> = ({
     }
 };
 
+function formatDate(dateString: any) {
+  const date = new Date(dateString);
+  const options = {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  };
+  return new Intl.DateTimeFormat('en-US', options).format(date);
+}
+
 
   return (
       <div
-        onClick={() => router.push(`/tours/${data?.id || ""}`)} // Handle null data or id
+        onClick={() => router.push(`/stays/${data?.Listing.id || ""}`)} // Handle null data or id
         className="col-span-1 cursor-pointer group"
       >
-          <div className="flex flex-col gap-2 w-full main-image-small-screen">
-              <div className="aspect-square w-full relative overflow-hidden rounded-xl">
+          <div className="flex flex-col gap-2 w-full main-image-small-screen border-[1px] border-solid border-neutral-300 pb-1 rounded-xl">
+              <div className="aspect-square w-full h-[25vh] relative overflow-hidden rounded-t-xl">
                   <Image
                       fill
                       alt="Listing"
-                      src={data?.imageSrc[0] || ""} // Handle null data or imageSrc sure one 
-                      className="object-cover h-full w-full transition group-hover:scale-110 main-image-small-screen"
+                      src={data?.Listing.imageSrc[0] || ""} // Handle null data or imageSrc sure one 
+                      className="object-cover h-[25vh] w-full transition group-hover:scale-110 main-image-small-screen"
                   />
                   
               </div>
-              <div className="font-semibold text-md truncate max-w-[15rem]">
-                 <span>{data.title}</span> 
+              <div className="font-semibold text-md mx-2 truncate max-w-[15rem]">
+                 <span>{data.Listing.title}</span> 
               </div>
-              <div className="font-light text-neutral-500">
-                Toursts: {data.guestCount} 
+              <div className="flex justify-between mx-2 items-center">
+                 <div className="font-light text-neutral-500 text-sm">
+               <span className="text-neutral-800">No of guests:</span> {data.Listing.guestCount} 
               </div>
-              <div className="flex flex-row items-center gap-1">
+              <div className="font-light mx-2 text-neutral-500 text-sm">
+                <span className="text-neutral-800">Location:</span> {data.Listing.county}, {data.Listing.town}
+              </div> 
+              </div>
+              <hr />
+              <div className="flex justify-between mx-2 items-center">
+                 <div className="font-light text-neutral-500 text-sm">
+                <span className="text-neutral-800">Amount paid:</span> Ksh. {data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
+              </div>
+              <div className="font-light text-neutral-500 text-sm">
+                  <span className="text-neutral-800">Balance:</span> Ksh. { data.totalPrice  -  data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
+              </div> 
+              </div>
+              <hr />
+              <div className="flex justify-between mx-2 items-center">
+              <div className="font-light text-neutral-500 text-sm">
+                 <span className="text-neutral-800">Check In:</span>: { formatDate(data.startDate)}
+              </div>
+              <div className="font-light text-neutral-500 text-sm">
+                  <span className="text-neutral-800">Check Out:</span> { formatDate(data.endDate)}
+              </div> 
+              </div>
+              {/* <div className="flex flex-row items-center gap-1">
                   <div className="text-sm">
                     {data.depStart} to {data.depEnd}
                   </div>
-              </div>
+              </div> */}
 
               
               {onAction && actionLabel && (

@@ -16,6 +16,7 @@ interface ListingReservationProps {
     onChangeDate: (value: Range) => void;
     onSubmit: (payAmount: number) => void;
     disabled?: boolean;
+    makeReservation: () => void;
     disabledDates: Date[]
     options: { guests: number; rooms: number };
     setOptions: React.Dispatch<React.SetStateAction<any>>;
@@ -38,6 +39,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     disabled,
     disabledDates,
     error,
+    makeReservation,
     currentUser,
     setError,
     options,
@@ -58,13 +60,15 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
 
     const handlePartialPay = () => {
         setPartialPay(true);
-        onSubmit(partialAmount);
+        // onSubmit(partialAmount);
+        makeReservation();
         setOpenDialog(false);
     }
 
     const handleFullPay = () => {
         setPartialPay(false);
-        onSubmit(totalPrice);
+        // onSubmit(totalPrice);
+        makeReservation();
         setOpenDialog(false);
     }
 
@@ -85,7 +89,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     return (
         <div className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden">
             <div className="flex flex-row items-center gap-1 p-4">
-                <div className="text-2xl font-semibold">
+                <div className="text-xl font-semibold">
                     Ksh. {price}
                 </div>
                 <div className="font-light text-neutral-600">
@@ -113,19 +117,19 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                     </>
                 ) : (
                     <>
-                        <div className="flex flex-row items-center mt-2">
-                            <label htmlFor="guests" className="text-right mr-4 text-gray-700">
+                        <div className="flex flex-row items-center mt-0">
+                            <label htmlFor="guests" className="text-right mr-2 text-gray-700">
                                 Add guest:
                             </label>
                             <input
                                 id="guests"
                                 type="text"
                                 value={`${options.guests} guest(s)`}
-                                className="py-2 text-neutral-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className="pb-0 text-neutral-700 leading-tight focus:outline-none focus:shadow-outline"
                                 readOnly
                             />
                         </div>
-                        <div className="bg-white py-2 px-3 md:p-7 shadow-sm" ref={numberOfGuestsRef}>
+                        <div className="bg-white py-1 px-3 md:p-3" ref={numberOfGuestsRef}>
                             <div className="flex flex-col gap-3">
                                 <div className="flex flex-col gap-3">
                                     <div className="flex gap-3 items-center">
@@ -148,22 +152,22 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </>
-                )}
-
+                            </div>
+                    
                 <div className="py-2">
                     <hr />
                 </div>
 
                 <div className="flex flex-col justify-center item-center gap-3">
                     <button
-                        className="border-[1px] mb-[1px] border-solid text-lg font-semibold border-green-700 hover:bg-green-700 px-3 py-2 text-green-700 rounded-2xl hover:text-white"
+                        className="border-[1px] mb-[6px] border-solid text-lg font-semibold border-green-700 hover:bg-green-700 px-3 py-2 text-green-700 rounded-2xl hover:text-white"
                         onClick={handleReserve}
                     >
                         Reserve
                     </button>
                 </div>
+                    </>
+                )}  
             </div>
 
             <hr />

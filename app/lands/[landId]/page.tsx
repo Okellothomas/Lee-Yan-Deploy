@@ -12,6 +12,7 @@ import TourClient from "./TourClient";
 import TourCardSecondary from "@/app/components/listing/TourCardSecondary";
 import getLandById from "@/app/actions/getLandById";
 import getLands, {LandParams} from "@/app/actions/getLands.";
+import getLandReservation from "@/app/actions/getLandReservation";
 
 // Define the interface for the TourPage component props
 interface IParams {
@@ -21,24 +22,24 @@ interface IParams {
 
 // TourPage component is defined as an asynchronous function
 const TourPage = async ({ params }: { params: IParams }) => {
-  const tour = await getLandById(params);
+  const land = await getLandById(params);
   // const reservations = await getReservations(params);
-  const reservations = await getReservations({ listingId: params.landId });
+  const reservations = await getLandReservation({ landId: params.landId });
   const currentUser = await getCurrentUser();
   const tours = await getLands(params.tourParams);
   const filteredTours = tours.slice(0, 4);
 
-  // Check if there is no tour, display EmptyState component
-  if (!tour) {
+  // Check if there is no land, display EmptyState component
+  if (!land) {
     return <EmptyState />;
   }
 
   return (
     <div>
       {/* Header section */}
-      <div className="european-hotel european-hotel-tour flex flex-col items-center justify-center text-lg font-bold">
+      <div className="european-hotel european-hotel-land flex flex-col items-center justify-center text-lg font-bold">
         <h1 className="color-h1-white">
-          {tour.title}
+          {land.title}
           <span className="color-span-green"></span>
         </h1>
       </div>
@@ -46,7 +47,7 @@ const TourPage = async ({ params }: { params: IParams }) => {
       {/* TourClient section */}
       <div className="py-6">
         <TourClient
-          tour={tour}
+          land={land}
           reservations={reservations}
           currentUser={currentUser ? {
                       ...currentUser,
@@ -71,7 +72,7 @@ const TourPage = async ({ params }: { params: IParams }) => {
            </div>
           <div className="grid-cols-page-s pt-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
             {/* Map through the tours array and render TourCard components */}
-            {filteredTours.map((tour: any) => (
+            {filteredTours.map((land: any) => (
               <TourCardSecondary
                 currentUser={currentUser ? {
                   ...currentUser,
@@ -79,8 +80,8 @@ const TourPage = async ({ params }: { params: IParams }) => {
                   updatedAt: currentUser.updatedAt.toISOString(),
                   emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
                 } : null} // Pass the current user to each ListingCard
-                key={tour.id}
-                data={tour}
+                key={land.id}
+                data={land}
               />
             ))}
           </div>

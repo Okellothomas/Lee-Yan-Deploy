@@ -33,35 +33,40 @@ if(currentUser?.userType !== "admin") {
      <h1 className="color-h1-destinations-main-admin-profile">{currentUser?.name}<span className="color-span-green"></span></h1>
       </div>
       <Container>
-        <div className="grid grid-cols-5 gap-10 pt-16">
-            <div className="col-span-1">
+        <div className="grid grid-cols-6 gap-10 pt-16">
+            <div className="col-span-2">
             <SideBar />
             </div>      
-            <div className="col-span-4">
-            <div className="py-6">
-              <h1 className="text-2xl font-bold">Personal Information</h1>            
-            </div>
+          <div className="col-span-4">
+          <div className="border-[1px] px-6 py-5 border-solid border-neutral-300 rounded-lg">
+            <div className="pb-6">
+              <h1 className="text-xl font-semibold">Admin personal details</h1>            
+              </div>
+              <div className="pb-7">
+                <hr />
+              </div>
             <div className="flex flex-row justify-between items-center pb-8">
               <p>Full Name</p>
               <p>{ currentUser?.name}</p>            
             </div>
             <hr />
             <div className="flex flex-row justify-between items-center py-8">
-              <p>Admin Email</p>
+              <p>Email</p>
               <p>{ currentUser?.email}</p>            
             </div>
             <hr />
             <div className="flex flex-row justify-between items-center py-8">
-              <p>Admin Contact</p>
+              <p>Contact</p>
               <p>{ currentUser?.contact }</p>            
             </div>
             <hr />
             <div className="flex flex-row justify-between items-center py-8">
-              <p>Admin Country</p>
+              <p>County</p>
               <p>{ currentUser?.country }</p>            
             </div>
             <hr />
-            </div>      
+            </div>  
+          </div>
         </div>
       </Container>
     </div>

@@ -1,32 +1,9 @@
 import getCurrentUser from "../../actions/getCurrentUsers";
 import getListings, { IListingsParams } from "../../actions/getListings";
 import Container from "../../components/container/Container";
-import EmptyState from "../../components/container/EmptyState";
-import ListingCard from "../../components/listing/ListingCard";
-import Categories from "../../components/navbar/Categories";
-import Search from "../../components/navbar/Search";
 import Link from "next/link";
-import BookingCard from "../../mainpage/components/BookingCard";
-import ListingValue from "../../components/listing/ListingValue";
 import getTours, { IToursParams } from "../../actions/getTours";
-import TourCard from "../../components/listing/TourCard";
-import TheCategoriess from "./TheCategoriess";
-import getListingsHotels from "../../actions/getListingsHotels";
 import { Metadata } from "next";
-import TourCardSecondary from "../../components/listing/TourCardSecondary";
-
-import imagebook from "../../../public/images/maint.jpg"
-import imageone from "../../../public/images/ps.jpeg"
-import imagetwo from "../../../public/images/psa.jpeg"
-import imagethree from "../../../public/images/psb.jpg"
-import imagefour from "../../../public/images/psc.jpg"
-import imagefive from "../../../public/images/ps.jpg"
-import imagesix from "../../../public/images/psd.jpg"
-import Emblawebsite from "../../mainpage/components/Emblawebsite";
-import TourPriceCard from "../../components/listing/TourPriceCard";
-import TourCardLists from "../../components/listing/TourCardLists";
-import EmblaMobile from "../../mainpage/components/EmblaMobile";
-import TourPriceCardMain from "../../components/listing/TourPriceCardMain";
 import EmblaLands from "@/app/mainpage/components/EmblaLands";
 import getCounties, {CountiesParams} from "@/app/actions/getCounties";
 import getLands, {LandParams} from "@/app/actions/getLands.";
@@ -124,7 +101,7 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
               <p className="text-neutral-600">Exclusive parcels, seize incomparable land investment opportunities.</p>  
               </div>  
               <div>
-                <Link href={{ pathname: '/stay-s', query: { type: 'comfortable' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/land-', query: { deal: 'exclusive' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
             </div>  
           <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -231,44 +208,6 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
         </Container>
       )}
       </div>
-    
-      {/* <div className="pt-1 pb-9">
-      {filteredTourss && filteredTourss.length > 0 && (
-        <Container>
-          <div className="">
-              <h1 className="mb-2 text-2xl font-bold text-black">Trending destinations you will love</h1>
-              <p className="text-neutral-600">Luxurious sanctuaries you will find comfortable</p>  
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
-            {filteredTourss.map((tour: any) => (
-              <TourCardLists
-                currentUser={currentUser ? {
-                  ...currentUser,
-                  createdAt: currentUser.createdAt.toISOString(),
-                  updatedAt: currentUser.updatedAt.toISOString(),
-                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                } : null} // Pass the current user to each ListingCard
-                key={tour.id} // Use the listing ID as the unique key
-                data={tour} // Pass the listing data to each ListingCard
-              />
-            ))} 
-          </div>
-        </Container>
-      )}
-      </div> */}
-
-      {/* <div className="flex items-center mt-6 justify-center">
-       <Container>
-          <div className="mt-5">
-            <div className="my-3">
-              <h1 className="mb-2 text-2xl font-bold text-black">Great deals</h1>
-              <p className="text-neutral-600">Premium deals and great offers for you</p>  
-            </div> 
-            <EmblaMobile cardsData={cardsData} />  
-          </div>   
-        </Container>
-      </div> */}
-
     </div>
   );
 };
