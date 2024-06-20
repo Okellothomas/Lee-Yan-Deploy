@@ -88,6 +88,7 @@ model Listing {
   town             String?
   type             String?
   ownerId          String?
+  booked           String?
   bedroom          String[]
   beds             String[]
   offers           String[]
@@ -142,6 +143,7 @@ model Offers {
   type              String?
   ownerId           String?
   subtitle          String?
+  booked            String?
   county            String?
   town              String?
   inclusion         String[]
