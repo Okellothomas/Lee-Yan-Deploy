@@ -1,5 +1,4 @@
 'use client'
-
 import useRentModal from "@/app/hooks/useRentModals"
 import Modal from "./Modal"
 import { useMemo, useState } from "react"
@@ -20,6 +19,7 @@ import Select from "../Inputs/Select"
 import MultiSelect from "../Inputs/MultiSelect"
 import Models from "./Models"
 import Textarea from "../Inputs/Textarea"
+import getCurrentUser from "@/app/actions/getCurrentUsers"
 
 enum STEPS {
     CATEGORY = 0,
@@ -37,9 +37,10 @@ enum STEPS {
     PRICE = 12
 }
 
-const RentModal = () => {
+const RentModal = async () => {
     const rentModal = useRentModal();
     const router = useRouter()
+    const currentUser = await getCurrentUser();
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -69,6 +70,8 @@ const RentModal = () => {
             beds: [],
             bedPhotos: [],
             offers: '',
+            booked: 'no',  // Set default value for booked
+            ownerId: currentUser?.id,  // Set default value for ownerId
             hostPhoto: '',
             childrenCount: 1,
             offerPrice: 1,
@@ -146,7 +149,13 @@ const RentModal = () => {
 
         setIsLoading(true)
 
-        axios.post('/api/stays', data)
+        const postData = {
+            ...data,
+            booked: 'no',
+            ownerId: currentUser?.id
+        };
+
+       axios.post('/api/stays', postData)
             .then(() => {
                 toast.success('Your stay has been created successfully!');
                 router.refresh();

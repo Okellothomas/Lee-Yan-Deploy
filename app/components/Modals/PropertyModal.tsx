@@ -22,6 +22,7 @@ import Modals from "./Modals";
 import Lago from "../navbar/Lago";
 import Models from "./Models";
 import Textarea from "../Inputs/Textarea";
+import getCurrentUser from "@/app/actions/getCurrentUsers"
 
 enum STEPS {
     CATEGORY = 0,
@@ -34,10 +35,11 @@ enum STEPS {
     PRICE = 7
 }
 
-const PropertyModal = () => {
+const PropertyModal = async () => {
 
     const propertyModal = usePropertyModal();
-    const tourModal  = useTourModal();
+    const tourModal = useTourModal();
+    const currentUser = await getCurrentUser();
     const router = useRouter();
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
@@ -61,6 +63,8 @@ const PropertyModal = () => {
             county: '',
             category: '',
             town: '',
+            booked: 'no',  // Set default value for booked
+            ownerId: currentUser?.id,  // Set default value for ownerId
             deal: '',
             size: '',
             imageSrc: [],
@@ -129,8 +133,27 @@ const PropertyModal = () => {
         }
 
         setIsLoading(true);
+
+        const postData = {
+            ...data,
+            booked: 'no',
+            ownerId: currentUser?.id
+        };
         
-        axios.post('/api/property', data)
+        // axios.post('/api/property', data)
+        //     .then(() => {
+        //         toast.success('Property Created Successfully!');
+        //         router.refresh();
+        //         reset();
+        //         setStep(STEPS.CATEGORY);
+        //         propertyModal.onClose();
+        //     }).catch(() => {
+        //         toast.error('Something went wrong');
+        //     }).finally(() => {
+        //         setIsLoading(false);
+        //     });
+        
+        axios.post('/api/property', postData)
             .then(() => {
                 toast.success('Property Created Successfully!');
                 router.refresh();
@@ -141,7 +164,7 @@ const PropertyModal = () => {
                 toast.error('Something went wrong');
             }).finally(() => {
                 setIsLoading(false);
-            });
+            })
     };
 
     const secondaryActionLabel = useMemo(() => {

@@ -11,6 +11,8 @@ import LandCardMain from "@/app/components/listing/LandCardMain";
 import LandCardSecondary from "@/app/components/listing/LandCardSecondary";
 import PropertyTartiary from "@/app/components/listing/PropertyTartiary";
 import LandTartiaryList from "@/app/components/listing/LandTartiaryList";
+import getLandReservation from "@/app/actions/getLandReservation";
+import EmptyState from "@/app/components/container/EmptyState";
 
 // Define the interface for the Home component props
 interface HotelPageProps {
@@ -44,11 +46,11 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
   // const isEmpty = true;
 
   // Check if there are no listings, display EmptyState component
-  // if (listings.length && tours.length === 0) {
-  //   return (
-  //     <EmptyState showReset />
-  //   );
-  // }
+  if (lands.length && lands.length === 0) {
+    return (
+      <EmptyState showReset />
+    );
+  }
 
   // Render the Home component with the fetched listings
   return (

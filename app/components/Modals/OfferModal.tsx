@@ -22,6 +22,7 @@ import Modals from "./Modals";
 import Lago from "../navbar/Lago";
 import Models from "./Models";
 import Textarea from "../Inputs/Textarea";
+import getCurrentUser from "@/app/actions/getCurrentUsers"
 
 enum STEPS {
     CATEGORY = 0,
@@ -33,10 +34,11 @@ enum STEPS {
     PRICE = 6
 }
 
-const OfferModal = () => {
+const OfferModal = async () => {
 
     const offerModal = useOfferModal();
-    const tourModal  = useTourModal();
+    const tourModal = useTourModal();
+    const currentUser = await getCurrentUser();
     const router = useRouter();
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +59,8 @@ const OfferModal = () => {
             action: '',
             town: '',
             county: '',
+            booked: 'no',  // Set default value for booked
+            ownerId: currentUser?.id,  // Set default value for ownerId
             subtitle: '',
             category: '',
             type: [],
@@ -117,8 +121,15 @@ const OfferModal = () => {
         }
 
         setIsLoading(true);
+
+        const postData = {
+            ...data,
+            booked: 'no',
+            ownerId: currentUser?.id
+        };
         
-        axios.post('/api/offers', data)
+        
+        axios.post('/api/offers', postData)
             .then(() => {
                 toast.success('Offer Created Successfully!');
                 router.refresh();
@@ -129,7 +140,20 @@ const OfferModal = () => {
                 toast.error('Something went wrong');
             }).finally(() => {
                 setIsLoading(false);
-            });
+            })
+        
+        // axios.post('/api/offers', data)
+        //     .then(() => {
+        //         toast.success('Offer Created Successfully!');
+        //         router.refresh();
+        //         reset();
+        //         setStep(STEPS.CATEGORY);
+        //         offerModal.onClose();
+        //     }).catch(() => {
+        //         toast.error('Something went wrong');
+        //     }).finally(() => {
+        //         setIsLoading(false);
+        //     });
     };
 
     const secondaryActionLabel = useMemo(() => {

@@ -28,7 +28,7 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
 
 
     const reservations = (await getPropertyReservation({}))
-      .filter(reservation => reservation.userId?.includes(currentUser.id) && reservation.Property.type === 'sale');
+      .filter(reservation => reservation.Property.ownerId === currentUser.id && reservation.Property.type === 'sale');
 
     // console.log("List all reservations, ",reservations);
 

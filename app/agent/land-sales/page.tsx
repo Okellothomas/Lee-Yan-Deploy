@@ -36,7 +36,7 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
   //   }));
 
     const reservations = (await getLandReservation({}))
-      .filter(reservation => reservation.userId?.includes(currentUser.id));
+      .filter(reservation => reservation.Land.ownerId === currentUser.id);
 
     // console.log("List all reservations, ",reservations);
 
