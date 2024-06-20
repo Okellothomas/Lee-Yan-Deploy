@@ -40,6 +40,7 @@ model User {
   county               County[]
   PropertyRreservation PropertyRreservation[]
   LandReservation      LandReservation[]
+  OffersReservation    OffersReservation[]
 }
 
 // Model representing the "Account" entity in the database
@@ -86,6 +87,7 @@ model Listing {
   county           String?
   town             String?
   type             String?
+  ownerId          String?
   bedroom          String[]
   beds             String[]
   offers           String[]
@@ -132,22 +134,34 @@ model Blog {
 }
 
 model Offers {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  title      String // Title of the listing
-  days       String?
-  action     String?
-  category   String?
-  type       String?
-  subtitle   String?
-  county     String?
-  town       String?
-  inclusion  String[]
-  imageSrc   String[] // URL for the listing image
-  price      Int?
-  offerprice Int?
-  createdAt  DateTime @default(now()) // Date and time when the reservation was created
-  userId     String?  @db.ObjectId // Foreign key referencing the "User" model
-  user       User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String              @id @default(auto()) @map("_id") @db.ObjectId
+  title             String // Title of the listing
+  days              String?
+  action            String?
+  category          String?
+  type              String?
+  ownerId           String?
+  subtitle          String?
+  county            String?
+  town              String?
+  inclusion         String[]
+  imageSrc          String[] // URL for the listing image
+  price             Int?
+  offerprice        Int?
+  createdAt         DateTime            @default(now()) // Date and time when the reservation was created
+  userId            String?             @db.ObjectId // Foreign key referencing the "User" model
+  user              User?               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  OffersReservation OffersReservation[]
+}
+
+model OffersReservation {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  user           User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String?  @db.ObjectId // Foreign key referencing the "User" model
+  Offers         Offers?  @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  offerId        String?  @db.ObjectId // Foreign key referencing the "Listing" model
+  paymentDetails Json? // Field for holding payment details
+  createdAt      DateTime @default(now()) // Date and time when the reservation was created
 }
 
 // Model representing the "PaymentLog" entity in the database
@@ -248,6 +262,7 @@ model Property {
   imageSrc             String[] // URL for the listing image
   availability         String?
   type                 String?
+  ownerId              String?
   booked               String?
   deal                 String? //
   parking_space        String?
@@ -297,6 +312,7 @@ model Land {
   deal            String? //
   covered_area    String? // URL
   price           Int?
+  ownerId         String?
   booked          String?
   createdAt       DateTime          @default(now()) // Date and time when the reservation was created
   offerPrice      Int? // Description
