@@ -4,7 +4,7 @@ import Container from "@/app/components/container/Container";
 import ListingReservation from "@/app/components/listing/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { SafeUser, safeListing, safeOffer, safeReservation } from "@/app/types";
+import { SafeUser, safeListing, safeOffer, safeOfferReservation, safeReservation } from "@/app/types";
 import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -40,16 +40,17 @@ import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { BiCategoryAlt } from "react-icons/bi";
 import { GiCash } from "react-icons/gi";
+import Dialog from "@/app/components/listing/Dialog";
 
-const initialDateRange = {
-    startDate: new Date(),
-    endDate: new Date(),
-    key: 'selection'
-}
+// const initialDateRange = {
+//     startDate: new Date(),
+//     endDate: new Date(),
+//     key: 'selection'
+// }
 
 interface TourClientProps {
-    reservations?: safeReservation[];
-    tour: safeOffer & {
+    reservations?: safeOfferReservation[];
+    offer: safeOffer & {
         user: SafeUser
     };
     currentUser?: SafeUser | null;
@@ -57,7 +58,7 @@ interface TourClientProps {
 }
 
 const TourClient: React.FC<TourClientProps> = ({
-    tour,
+    offer,
     reservations = [],
     currentUser,
     locationValue
@@ -66,24 +67,24 @@ const TourClient: React.FC<TourClientProps> = ({
     const loginModal = useLoginModal();
     const router = useRouter();
 
-    const disabledDates = useMemo(() => {
-        let dates: Date[] = [];
+    // const disabledDates = useMemo(() => {
+    //     let dates: Date[] = [];
 
-        reservations.forEach((reservations) => {
-            const range = eachDayOfInterval({
-                start: new Date(reservations.startDate),
-                end: new Date(reservations.endDate)
-            });
+    //     reservations.forEach((reservations) => {
+    //         const range = eachDayOfInterval({
+    //             start: new Date(reservations.startDate),
+    //             end: new Date(reservations.endDate)
+    //         });
 
-            dates = [...dates, ...range]
-        })
+    //         dates = [...dates, ...range]
+    //     })
 
-        return dates;
-    }, [reservations])
+    //     return dates;
+    // }, [reservations])
 
     const [isLoading, setIsLoading] = useState(false);
-    const [totalPrice, setTotalPrice] = useState(tour.price);
-    const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+    // const [totalPrice, setTotalPrice] = useState(offer.price);
+    // const [dateRange, setDateRange] = useState<Range>(initialDateRange);
     const [isOpen, setIsOpen] = useState(false); 
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
@@ -104,11 +105,11 @@ const TourClient: React.FC<TourClientProps> = ({
     const [isOpen17, setIsOpen17] = useState(false);
     const [isOpen18, setIsOpen18] = useState(false);
     const [showPay, setShowPay] = useState(false)
-    // const [selectedPaymentAmount, setSelectedPaymentAmount] = useState<number>(tour.price); // State to track the selected payment amount
-    const [selectedPaymentAmount, setSelectedPaymentAmount] = useState<number>(Number(tour.price as string));
+    // const [selectedPaymentAmount, setSelectedPaymentAmount] = useState<number>(offer.price); // State to track the selected payment amount
+    // const [selectedPaymentAmount, setSelectedPaymentAmount] = useState<number>(Number(offer.price as string));
     const [dataa, setDataa] = useState('')
-    const { getByValue } = useCountries();
-    const coordinates = getByValue(locationValue)?.latlng;
+    // const { getByValue } = useCountries();
+    // const coordinates = getByValue(locationValue)?.latlng;
 
 
     const [numberOfTourists, setNumberOfTourists] = useState(0);
@@ -128,7 +129,7 @@ const TourClient: React.FC<TourClientProps> = ({
 
     const [showAll, setShowAll] = useState(false);
   
-    const offers = tour.inclusion || [];
+    const offers = offer.inclusion || [];
     const displayedOffers = showAll ? offers : offers.slice(0, 7);
 
     const handleShowMore = () => {
@@ -139,114 +140,17 @@ const TourClient: React.FC<TourClientProps> = ({
 //     setNumberOfTourists(parseInt(event.target.value));
 //     setError('');
 
-//     setTotalPrice(tour.price * parseInt(event.target.value))
+//     setTotalPrice(offer.price * parseInt(event.target.value))
     
 //   };
     
      // Function to handle the payment amount selection
-    const handlePaymentAmountSelect = (amount: number) => {
-        setSelectedPaymentAmount(amount);
-    };
+    // const handlePaymentAmountSelect = (amount: number) => {
+    //     setSelectedPaymentAmount(amount);
+    // };
 
 
-
-    // const handlePaymentComplete = (data: any) => {
-    //     // Handle the data passed from PaymentModal
-    //     console.log('Payment completed with data:', data);
-    //     setDataa(data)
-    //     makeReservation(data)
-    //     // You can also update the state or trigger other actions
-    //     // ...
-    //   };
-
-        const handlePaymentComplete = (data: any) => {
-        // Handle the data passed from PaymentModal
-        console.log('Payment completed with data:', data);
-        setDataa(data);
-        // You can also update the state or trigger other actions
-        // ...
-        // Check if payment was successful
-        if (data && data.status === 'COMPLETED') {
-            // Payment was successful, proceed to make reservation
-            makeReservation(data);
-        } else {
-            // Payment failed or was cancelled
-            // Handle accordingly, show error message or take appropriate action
-            console.log('Payment failed or cancelled.');
-            // Optionally, you can show a toast or error message
-            toast.error('Payment failed or was cancelled.');
-        }
-        };
-    
-      const makeReservation = (data:any) => {
-      
-          if (data && data.status === 'COMPLETED') {
-      
-              {
-                  setShowPay(false)
-                  console.log("Payment Data", dataa)
-                  axios.put(`/api/offers/${tour?.id}`, {
-                      from_flag:'reservation',
-                      totalPrice: selectedPaymentAmount,
-                      startDate: dateRange.startDate,
-                      endDate: dateRange.endDate,
-                      tourId: tour?.id,
-                      paymentDetails: data,
-                      userId: currentUser?.id,
-                      slots: options.guests, // Include guests count
-                    //   tourists: tour ? tour.tourists : [],
-                      rooms: options.rooms // Include rooms count
-                  })
-                      .then(async () => {
-                          toast.success('Listing reserved!');
-
-                          setDateRange(initialDateRange);
-                          // redirect to /trips
-                          try {
-                              const response = await axios.post('/api/mailing/',
-                  
-                                  {
-                                      sender: 'Info@devancatours.com',
-                                      recipient: 'wanjooo.ken@gmail.com',
-                                      subject: "Devance Reservations",
-                                      user_name: currentUser?.name,
-                                      templateName: 'tour_mail_template',
-                                      baseUrl: baseUrl,
-                                      mail_body: `This is a sample test mail from Devance Application and these are the reservatio`
-
-                                  },
-
-                                  {
-                                      headers: {
-                                          'Content-Type': 'application/json'
-                                      }
-                                  }
-                              );
-                
-                              const data = await response.data;
-                              console.log(data); // handle success message
-                
-                          } catch (error) {
-                              console.error(error); // handle error message
-                          }
-                          //router.push('/trips');
-                      }).catch(() => {
-                          toast.error('Something went wrong')
-                      }).finally(() => {
-                          setIsLoading(false);
-                      })
-              }
-           } else {
-                // Payment data is missing or payment was not successful
-                // Show error message or take appropriate action
-                // console.log('Error: Payment data is missing or payment was not successful.');
-                // // Optionally, you can show a toast or error message
-                // toast.error('Error: Payment data is missing or payment was not successful.');
-            }
-            };
-
-
-      const onCreateReservation = useCallback(() => {
+    const onCreateReservation = useCallback(() => {
 
         console.log(baseUrl)
 
@@ -254,10 +158,6 @@ const TourClient: React.FC<TourClientProps> = ({
             setError('Specify number of tourists, must be greater than 0.');
             return;
           }
-        // if (options.guests > (tour.guestCount - tour.tourists.length)) {
-        //     setError(`Available slots not enough for requested slots, only ${tour.guestCount - tour.tourists.length} available`);
-        //     return;
-        //   }
 
 
 
@@ -275,9 +175,9 @@ const TourClient: React.FC<TourClientProps> = ({
     }
 
   , [
-        totalPrice,
-        dateRange,
-        tour?.id,
+        // totalPrice,
+        // dateRange,
+        offer?.id,
         router,
         currentUser,
         loginModal,
@@ -285,53 +185,8 @@ const TourClient: React.FC<TourClientProps> = ({
     ]);
     const Map = dynamic(() => import('../../components/container/Map'), {
         ssr: false
-    } )
-
-    // Calucating the price. 
-    useEffect(() => {
-        if (dateRange.startDate && dateRange.endDate) {
-            const dayCount = differenceInCalendarDays(
-                dateRange.endDate,
-                dateRange.startDate
-            );
-
-            // if (dayCount && tour.price) {
-            //     setTotalPrice(dayCount * tour.price);
-            // } else {
-            //     setTotalPrice(tour.price);
-            // }
-        }
-    }, [dateRange, tour.price])
-
-    const category = useMemo(() => {
-        return categories.find((item) =>
-        item.label === tour.category);
-    }, [tour.category])
-
-
-    const handleOptions = (name: 'guests' | 'rooms', operations: any) => {
-      
-            const guestsDets = {
-                ...options,
-                [name]: operations === 'i' ? options[name] + 1 : options[name] - 1,
-            }
-
-            setTotalPrice(tour.price)
-      
-        setOptions((prev) => {
-            return {
-                ...prev,
-                [name]: operations === 'i' ? options[name] + 1 : options[name] - 1,
-            };
-        });
-        
-    };
-
-    const toggleOptions = () => {
-        setOpenoptions(!openoptions)
-    };
-
-
+    })
+    
 
     const handleClickOutside = (event: { target: any; }) => {
         if (numberOfGuestsRef.current && !numberOfGuestsRef.current.contains(event.target)) {
@@ -345,9 +200,347 @@ const TourClient: React.FC<TourClientProps> = ({
         };
     }, []);
 
+    
+    const [partialPay, setPartialPay] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [marking, setMarking] = useState(false);
+
+    const partialAmount = 1000;
+
+    const handlePartialPay = () => {
+        setPartialPay(true);
+        // onSubmit(partialAmount);
+        handlePaymentComplete()
+        setOpenDialog(false);
+    }
+
+    const handleFullPay = () => {
+        setPartialPay(false);
+        // onSubmit(totalPrice);
+        handlePaymentComplete()
+        setOpenDialog(false);
+    }
+
+    const handleReserve = () => {
+        setOpenDialog(true);
+    }
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    }
+
+    const handlePaymentComplete = async() => {
+        // Handle the data passed from PaymentModal
+        // console.log('Payment completed with data:', data);
+        // setDataa(data)
+
+        // const merchantId = data?.Body?.stkCallback.MerchantRequestID
+        // if(merchantId)
+        //     {
+        //         const response = await axios.delete("/api/mpesa/callback", {
+        //             params: { transactionRef: JSON.stringify({merchantRequestId: merchantId})  },
+        //             headers: {
+        //               'Content-Type': 'application/json'
+        //             }
+        //           });
+        //     }
+        // makeReservation(data)
+        if (!currentUser) {
+            return loginModal.onOpen()
+        }
+
+        makeReservation()
+
+      };
+      
+      const makeReservation = () =>
+      {
+        const data2 =  {
+            "Body": {
+                "stkCallback": {
+                    "MerchantRequestID": "12345-67890-12345",
+                    "CheckoutRequestID": "abcdefghijklmnopqrstuvwxyz",
+                    "ResultCode": 0,
+                    "ResultDesc": "The service was accepted successfully",
+                    "CallbackMetadata": {
+                        "Item": [
+                            {
+                                "Name": "Amount",
+                                "Value": 100
+                            },
+                            {
+                                "Name": "MpesaReceiptNumber",
+                                "Value": "ABCDEFGHIJ"
+                            },
+                            {
+                                "Name": "Balance",
+                                "Value": 0
+                            },
+                            {
+                                "Name": "TransactionDate",
+                                "Value": "2023-04-26 12:30:00"
+                            },
+                            {
+                                "Name": "PhoneNumber",
+                                "Value": "254712345678"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+       {
+        setShowPay(false)
+        console.log("Payment Data",dataa)
+              axios.post('/api/offerreservations', {
+                  // totalPrice,  //for totalPrice
+                  // startDate: dateRange.startDate,
+                  // endDate: dateRange.endDate,
+                  landId: offer?.id,
+                  paymentDetails: data2,
+                  userId: currentUser?.id,
+                  // guestDetails: options
+              })
+                  .then(async () => {
+                      toast.success('Listing reserved!');
+
+                      // setDateRange(initialDateRange);
+                      // redirect to /trips
+                      try {
+                          //     const response = await axios.post('/api/mailing/', 
+                  
+                          //       {sender:'Info@devancatours.com',
+                          //              recipient:'wanjooo.ken@gmail.com',
+                          //              subject:"Devance Reservations",
+                          //              user_name:currentUser?.name,
+                          //              templateName: 'mail_template',
+                          //              mail_body:This is a sample test mail from Devance Application and these are the reservatio
+
+                          //                 },
+
+                          //                 {
+                          //                     headers: {
+                          //                         'Content-Type': 'application/json'
+                          //                     }
+                          //                 }
+                          //     );
+                
+                          //     const data = await response.data;
+                          //     console.log(data); // handle success message
+                
+                            } catch (error) {
+                              console.error(error); // handle error message
+                      }
+                //router.push('/trips');
+            }).catch(() => {
+                toast.error('Something went wrong')
+            }).finally(() => {
+                setIsLoading(false);
+            })
+    }
+      }
+
+
+    // const handlePaymentComplete = (data: any) => {
+    //     // Handle the data passed from PaymentModal
+    //     console.log('Payment completed with data:', data);
+    //     setDataa(data)
+    //     makeReservation(data)
+    //     // You can also update the state or trigger other actions
+    //     // ...
+    //   };
+
+
+
+//         const handlePaymentComplete = (data: any) => {
+//         // Handle the data passed from PaymentModal
+//         console.log('Payment completed with data:', data);
+//         setDataa(data);
+//         // You can also update the state or trigger other actions
+//         // ...
+//         // Check if payment was successful
+//         if (data && data.status === 'COMPLETED') {
+//             // Payment was successful, proceed to make reservation
+//             makeReservation(data);
+//         } else {
+//             // Payment failed or was cancelled
+//             // Handle accordingly, show error message or take appropriate action
+//             console.log('Payment failed or cancelled.');
+//             // Optionally, you can show a toast or error message
+//             toast.error('Payment failed or was cancelled.');
+//         }
+//         };
+    
+//       const makeReservation = (data:any) => {
+      
+//           if (data && data.status === 'COMPLETED') {
+      
+//               {
+//                   setShowPay(false)
+//                   console.log("Payment Data", dataa)
+//                   axios.put(`/api/offers/${offer?.id}`, {
+//                       from_flag:'reservation',
+//                       totalPrice: selectedPaymentAmount,
+//                       startDate: dateRange.startDate,
+//                       endDate: dateRange.endDate,
+//                       tourId: offer?.id,
+//                       paymentDetails: data,
+//                       userId: currentUser?.id,
+//                       slots: options.guests, // Include guests count
+//                     //   tourists: offer ? offer.tourists : [],
+//                       rooms: options.rooms // Include rooms count
+//                   })
+//                       .then(async () => {
+//                           toast.success('Listing reserved!');
+
+//                           setDateRange(initialDateRange);
+//                           // redirect to /trips
+//                           try {
+//                               const response = await axios.post('/api/mailing/',
+                  
+//                                   {
+//                                       sender: 'Info@devancatours.com',
+//                                       recipient: 'wanjooo.ken@gmail.com',
+//                                       subject: "Devance Reservations",
+//                                       user_name: currentUser?.name,
+//                                       templateName: 'tour_mail_template',
+//                                       baseUrl: baseUrl,
+//                                       mail_body: `This is a sample test mail from Devance Application and these are the reservatio`
+
+//                                   },
+
+//                                   {
+//                                       headers: {
+//                                           'Content-Type': 'application/json'
+//                                       }
+//                                   }
+//                               );
+                
+//                               const data = await response.data;
+//                               console.log(data); // handle success message
+                
+//                           } catch (error) {
+//                               console.error(error); // handle error message
+//                           }
+//                           //router.push('/trips');
+//                       }).catch(() => {
+//                           toast.error('Something went wrong')
+//                       }).finally(() => {
+//                           setIsLoading(false);
+//                       })
+//               }
+//            } else {
+//                 // Payment data is missing or payment was not successful
+//                 // Show error message or take appropriate action
+//                 // console.log('Error: Payment data is missing or payment was not successful.');
+//                 // // Optionally, you can show a toast or error message
+//                 // toast.error('Error: Payment data is missing or payment was not successful.');
+//             }
+//             };
+
+
+//       const onCreateReservation = useCallback(() => {
+
+//         console.log(baseUrl)
+
+//         if (options.guests <= 0) {
+//             setError('Specify number of tourists, must be greater than 0.');
+//             return;
+//           }
+//         // if (options.guests > (offer.guestCount - offer.tourists.length)) {
+//         //     setError(`Available slots not enough for requested slots, only ${offer.guestCount - offer.tourists.length} available`);
+//         //     return;
+//         //   }
+
+
+
+//         if (!currentUser) {
+//             return loginModal.onOpen()
+//         }
+
+       
+//         try {
+//             setShowPay(true)
+//         } catch (error) {
+//             console.log(error)
+//         }
+//        setIsLoading(true);
+//     }
+
+//   , [
+//         totalPrice,
+//         dateRange,
+//         offer?.id,
+//         router,
+//         currentUser,
+//         loginModal,
+   
+//     ]);
+//     const Map = dynamic(() => import('../../components/container/Map'), {
+//         ssr: false
+//     } )
+
+//     // Calucating the price. 
+//     useEffect(() => {
+//         if (dateRange.startDate && dateRange.endDate) {
+//             const dayCount = differenceInCalendarDays(
+//                 dateRange.endDate,
+//                 dateRange.startDate
+//             );
+
+//             // if (dayCount && offer.price) {
+//             //     setTotalPrice(dayCount * offer.price);
+//             // } else {
+//             //     setTotalPrice(offer.price);
+//             // }
+//         }
+//     }, [dateRange, offer.price])
+
+//     const category = useMemo(() => {
+//         return categories.find((item) =>
+//         item.label === offer.category);
+//     }, [offer.category])
+
+
+//     const handleOptions = (name: 'guests' | 'rooms', operations: any) => {
+      
+//             const guestsDets = {
+//                 ...options,
+//                 [name]: operations === 'i' ? options[name] + 1 : options[name] - 1,
+//             }
+
+//             setTotalPrice(offer.price)
+      
+//         setOptions((prev) => {
+//             return {
+//                 ...prev,
+//                 [name]: operations === 'i' ? options[name] + 1 : options[name] - 1,
+//             };
+//         });
+        
+//     };
+
+//     const toggleOptions = () => {
+//         setOpenoptions(!openoptions)
+//     };
+
+
+
+//     const handleClickOutside = (event: { target: any; }) => {
+//         if (numberOfGuestsRef.current && !numberOfGuestsRef.current.contains(event.target)) {
+//             setOpenoptions(false);
+//         }
+//     };
+//     useEffect(() => {
+//         document.addEventListener('mousedown', handleClickOutside);
+//         return () => {
+//             document.removeEventListener('mousedown', handleClickOutside);
+//         };
+//     }, []);
+
 
 //   const calculateTotalPrice = () => {
-//     return options.guests * tour.price + options.rooms ;
+//     return options.guests * offer.price + options.rooms ;
 //   };
 
   return (
@@ -355,33 +548,33 @@ const TourClient: React.FC<TourClientProps> = ({
           <div className="max-w-sreen-lg mx-auto">
               <div className="flex flex-col mt-6 gap-6">
                   <ListingHead
-                      title={tour.title}
-                      imageSrc={tour.imageSrc}
-                      id={tour.id}
-                      town={tour.town}
+                      title={offer.title}
+                      imageSrc={offer.imageSrc}
+                      id={offer.id}
+                      town={offer.town}
                       currentUser={currentUser}
                   /> 
                   {/* <div className="grid grid-cols-1 md:grid-cols-7 md:grid-10 mt-6">    */}
                   <div className="grid grid-cols-1 gap-8 mt-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5">
                       <div className="order-first-second-first col-span-3 flex flex-col gap-7"> 
                           <div className="flex gap-1 items-start justify-start text-lg text-neutral-800">
-                              <span className="font-bold">{tour.title}, </span> <span>in {tour.county},</span> <span>{ tour.town}</span>
+                              <span className="font-bold">{offer.title}, </span> <span>in {offer.county},</span> <span>{ offer.town}</span>
                           </div> 
                           
                         <div className="border-[1px] mt-[13px] border-solid flex items-center gap-[13px] py-4 px-1 border-neutral-300 h-auto w-full rounded-lg">
-                              {tour.category !== '' && (
+                              {offer.category !== '' && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><MdOutlineCategory size={23} /></span><span className="text-md">Catogry: </span></div> <span className="text-neutral-500">{tour.category}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><MdOutlineCategory size={23} /></span><span className="text-md">Catogry: </span></div> <span className="text-neutral-500">{offer.category}</span>
                                   </div>
                               )}
-                              {tour.days !== '' && (
+                              {offer.days !== '' && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><BsCalendar2Date size={23} /></span><span className="text-md">Duration: </span></div> <span className="text-neutral-500">{tour.days}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><BsCalendar2Date size={23} /></span><span className="text-md">Duration: </span></div> <span className="text-neutral-500">{offer.days}</span>
                                   </div>
                               )}
-                              {tour.subtitle !== '' && (
+                              {offer.subtitle !== '' && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><CiGift size={23} /></span><span className="text-md">Property: </span></div><span className="text-neutral-500">{tour.subtitle}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><CiGift size={23} /></span><span className="text-md">Property: </span></div><span className="text-neutral-500">{offer.subtitle}</span>
                                   </div>
                               )}
                           </div>
@@ -393,7 +586,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                       <span className="text-neutral-500"><BiCategoryAlt size={ 23} /></span> <span>Offer Type</span>
                                   </div> 
                                  <div>
-                                      <span>{tour.type }</span>
+                                      <span>{offer.type }</span>
                                 </div>
                               </div>
                         <div>
@@ -401,7 +594,7 @@ const TourClient: React.FC<TourClientProps> = ({
                         </div>
                           </div>
                 
-                          {tour.inclusion && tour.inclusion?.length > 0 && (
+                          {offer.inclusion && offer.inclusion?.length > 0 && (
                               <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
                           
                                   <div className="flex w-full flex-row items-center justify-between">
@@ -415,7 +608,7 @@ const TourClient: React.FC<TourClientProps> = ({
                         
                                   <div className="flex w-full flex-row items-center justify-between">
                                       <div>
-                                          <span className="text-md text-justify text-neutral-600">{tour.action}</span>
+                                          <span className="text-md text-justify text-neutral-600">{offer.action}</span>
                                       </div>
                                   </div>
                                   <div>
@@ -470,7 +663,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                  <span className="text-red-400"><GiTakeMyMoney size={23 } /></span><span>Price</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="text-red-400 line-through">Ksh. {tour.price}</span> <span></span>
+                                 <span className="text-red-400 line-through">Ksh. {offer.price}</span> <span></span>
                               </div>
                           </div>
                           <div className="px-4 py-3">
@@ -481,7 +674,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                  <span className="text-orange-400"><GiCash size={23 } /></span><span>Offer Price</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span>Ksh. {tour.offerprice}</span> 
+                                 <span>Ksh. {offer.offerprice}</span> 
                               </div>
                           </div>
                           <div className="px-4 py-3">
@@ -503,11 +696,34 @@ const TourClient: React.FC<TourClientProps> = ({
                           <div className="px-4 py-3">
                           <hr />
                               </div>
-                         <div className="flex flex-row mx-6 py-1 hover:cursor-pointer bg-green-700 text-white justify-center items-center border-[1px] border-solid border-neutral-400 rounded-lg gap-3">
+                           <div onClick={handleReserve} className="flex flex-row mx-6 py-1 hover:cursor-pointer bg-green-700 text-white justify-center items-center border-[1px] border-solid border-neutral-400 rounded-lg gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="font-semibold text-md">Reserve Offer</span> 
+                                 <span className="font-bold text-lg">Reserve</span> 
                               </div>
-                          </div>
+                            </div>
+
+
+                           <Dialog
+                                open={openDialog}
+                                onClose={handleCloseDialog}
+                            >
+                                <h2 className="text-xl font-bold mb-4">Confirm Your Booking</h2>
+                                <p>Please choose your payment option.</p>
+                                <div className="mt-4 flex flex-col justify-end gap-4">
+                                    <button className="border-[1px] border-solid border-green-400 rounded-lg px-4 py-2" onClick={handleFullPay} color="primary">
+                                        Pay Full Amount of Ksh. {offer.price}
+                                    </button>
+                                    {offer.price > partialAmount && (
+                                        <button className="border-[1px] border-solid border-green-400 rounded-lg px-4 py-2" onClick={handlePartialPay} color="primary" autoFocus>
+                                            Reserve with Ksh. {partialAmount}
+                                        </button>
+                                    )}
+                                    <button onClick={handleCloseDialog} color="secondary">
+                                        Cancel
+                                    </button>
+                                </div>
+                           </Dialog>     
+                        
                           <div className="px-4 py-3">
                           <hr />
                           </div>
@@ -532,7 +748,7 @@ const TourClient: React.FC<TourClientProps> = ({
                   <PaymentModal 
                         setShowPayModal={setShowPay} 
                         onPaymentComplete={handlePaymentComplete} 
-                        totalPrice={selectedPaymentAmount.toString()} 
+                        totalPrice={offer.price.toString()} 
                     />
                           </PayPalScriptProvider>}
                     </div>

@@ -9,6 +9,8 @@ import RestrictedEmptyState from '@/app/components/container/RestrictedEmptyStat
 import getReservations from '@/app/actions/getReservation';
 import getPropertyReservation from '@/app/actions/getPropertyReservation';
 import PropertyClientCard from '@/app/aahooks/PropertyClientCard';
+import getProperty from '@/app/actions/getProperty';
+import PropertyClientCards from '@/app/aahooks/PropertyClientCards';
 
 // Define the interface for the Home component props
 interface HotelPageProps {
@@ -26,8 +28,11 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
       return <div>Error: Current user not found.</div>;
     }
 
-    const reservations = (await getPropertyReservation({}))
-      .filter(reservation => reservation.Property.ownerId === currentUser.id && reservation.Property.type === 'rental');
+    const reservations = (await getProperty({}))
+      .filter(reservation => reservation.userId === currentUser.id && reservation.type === "rental");
+
+    // const reservations = (await getPropertyReservation({}))
+    //   .filter(reservation => reservation.Property.ownerId === currentUser.id && reservation.Property.type === 'rental');
 
     return (
       <div>
@@ -45,18 +50,18 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
             <div className="col-span-4">
               <div className="col-span-4 border-[1px] border-solid border-neutral-300 rounded-lg py-4 px-6">
               <div className="pb-2">
-                <h1 className="text-xl font-semibold">Active property rentals</h1>
+                <h1 className="text-xl font-semibold">My property rentals</h1>
                 </div>
                <div className="pt-2 pb-4">
               <hr />
             </div>
               <div className="items-center pb-1">
                 {reservations.length === 0 ? (
-                  <div>No active property rentals</div>
+                  <div>My property rentals</div>
                 ) : (
                   <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-8">
                     {reservations.map((reservation: any) => (
-                      <PropertyClientCard
+                      <PropertyClientCards
                         currentUser={currentUser ? {
                           ...currentUser,
                           createdAt: currentUser.createdAt.toISOString(),

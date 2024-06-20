@@ -51,22 +51,22 @@ const LandModal = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const response = await axios.get('/api/users', { params: { userParams: {} } });
-                setCurrentUser(response.data);
-                console.log('Current User:', response.data); // Debugging log
-            } catch (error) {
-                setError(error);
-                console.error('Error fetching user:', error); // Debugging log
-            } finally {
-                setLoading(false);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchUser = async () => {
+    //         try {
+    //             const response = await axios.get('/api/users', { params: { userParams: {} } });
+    //             setCurrentUser(response.data);
+    //             console.log('Current User:', response.data); // Debugging log
+    //         } catch (error) {
+    //             setError(error);
+    //             console.error('Error fetching user:', error); // Debugging log
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
 
-        fetchUser();
-    }, []);
+    //     fetchUser();
+    // }, []);
 
     const {
         register,
@@ -87,7 +87,7 @@ const LandModal = () => {
             overview: '',
             type: '',
             booked: 'no',  // Set default value for booked
-            ownerId: '',  // Set default value for ownerId
+            // ownerId: '',  // Set default value for ownerId
             deal:'',
             town: '',
             county: '',
@@ -154,7 +154,7 @@ const LandModal = () => {
         const postData = {
             ...data,
             booked: 'no',
-            ownerId: currentUser?.id
+            // ownerId: currentUser?.id
         };
         
         console.log('Submitting data:', postData); // Debugging log

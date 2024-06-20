@@ -7,10 +7,12 @@ import TourMyCard from "@/app/aahooks/TourMyCard";
 import TourClientCard from '@/app/aahooks/TourClientCard';
 import RestrictedEmptyState from '@/app/components/container/RestrictedEmptyState';
 import getReservations from '@/app/actions/getReservation';
-import getPropertyReservation from '@/app/actions/getPropertyReservation';
-import PropertyClientCard from '@/app/aahooks/PropertyClientCard';
-import getProperty from '@/app/actions/getProperty';
-import PropertyClientCards from '@/app/aahooks/PropertyClientCards';
+import getLandReservation from '@/app/actions/getLandReservation';
+import LandClientCard from '@/app/aahooks/LandClientCard';
+import getLands from '@/app/actions/getLands.';
+import LandClientCards from '@/app/aahooks/LandClientCards';
+import getOffers from '@/app/actions/getOffers';
+import OffersClientCards from '@/app/aahooks/OffersClientCards';
 
 // Define the interface for the Home component props
 interface HotelPageProps {
@@ -28,12 +30,28 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
       return <div>Error: Current user not found.</div>;
     }
 
-    const reservations = (await getProperty({}))
-      .filter(reservation => reservation.userId === currentUser.id && reservation.type === "sale");
+  //   // Fetch reservations that match the current user's ID
+  //   const reservations = await getmyTours({ ...searchParams, userId: currentUser.id });
 
-    // const reservations = (await getPropertyReservation({}))
-    //   .filter(reservation => reservation.Property.ownerId === currentUser.id && reservation.Property.type === 'rental');
+  //   // Modify reservations to include currentUser.id in the reservationists[] field
+  //  const updatedTours = reservations.map((reservation: any) => ({
+  //     ...reservation,
+  //     isCurrentUserTourist: reservation.reservationists.includes(currentUser.id)
+  //   }));
 
+    
+    const reservations = (await getOffers({}))
+      .filter(reservation => reservation.userId === currentUser.id);
+
+    // console.log("List all reservations, ",reservations);
+
+    // Render the component with the fetched reservations
+    // if(currentUser?.userType !== "client") {
+    //   // Render link to homepage if the current user is not an admin
+    //   return (
+    //     <RestrictedEmptyState/>
+    //   );
+    // }
     return (
       <div>
         <div className="all-destinations-main-admin-profile flex flex-col items-center justify-center text-lg font-bold">
@@ -50,18 +68,18 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
             <div className="col-span-4">
               <div className="col-span-4 border-[1px] border-solid border-neutral-300 rounded-lg py-4 px-6">
               <div className="pb-2">
-                <h1 className="text-xl font-semibold">My property sales</h1>
+               <h1 className="text-xl font-semibold">My offers</h1>
                 </div>
                <div className="pt-2 pb-4">
               <hr />
             </div>
               <div className="items-center pb-1">
                 {reservations.length === 0 ? (
-                  <div>My property sales</div>
+                  <div>My offers</div>
                 ) : (
                   <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-8">
                     {reservations.map((reservation: any) => (
-                      <PropertyClientCards
+                      <OffersClientCards
                         currentUser={currentUser ? {
                           ...currentUser,
                           createdAt: currentUser.createdAt.toISOString(),

@@ -48,22 +48,22 @@ const OfferModal = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const response = await axios.get('/api/users', { params: { userParams: {} } });
-                setCurrentUser(response.data);
-                console.log('Current User:', response.data); // Debugging log
-            } catch (error) {
-                setError(error);
-                console.error('Error fetching user:', error); // Debugging log
-            } finally {
-                setLoading(false);
-            }
-        };
+    // useEffect(() => {
+    //     const fetchUser = async () => {
+    //         try {
+    //             const response = await axios.get('/api/users', { params: { userParams: {} } });
+    //             setCurrentUser(response.data);
+    //             console.log('Current User:', response.data); // Debugging log
+    //         } catch (error) {
+    //             setError(error);
+    //             console.error('Error fetching user:', error); // Debugging log
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
 
-        fetchUser();
-    }, []);
+    //     fetchUser();
+    // }, []);
 
     const {
         register,
@@ -82,7 +82,7 @@ const OfferModal = () => {
             town: '',
             county: '',
             booked: 'no',  // Set default value for booked
-            ownerId: currentUser?.id,  // Set default value for ownerId
+            // ownerId: currentUser?.id,  // Set default value for ownerId
             subtitle: '',
             category: '',
             type: [],
@@ -147,10 +147,10 @@ const OfferModal = () => {
         const postData = {
             ...data,
             booked: 'no',
-            ownerId: currentUser?.id
+            // ownerId: currentUser?.id
         };
         
-        console.log('Submitting data:', postData); // Debugging log
+        // console.log('Submitting data:', postData); // Debugging log
 
         axios.post('/api/offers', postData)
             .then(() => {

@@ -15,8 +15,8 @@ import axios from "axios";
 
 
 interface ListingCardProps {
-    data: safeReservation;
-    reservation?: safeReservation;
+    data: safeListing;
+    reservation?: safeListing;
     onAction?: (id: string) => void;
     disabled?: boolean;
     actionLabel?: string;
@@ -24,7 +24,7 @@ interface ListingCardProps {
     currentUser?: SafeUser | null;
 }
 
-const TourClientCard: React.FC<ListingCardProps> = ({
+const TourClientCards: React.FC<ListingCardProps> = ({
     data,
     reservation,
     onAction,
@@ -61,16 +61,16 @@ const TourClientCard: React.FC<ListingCardProps> = ({
     //     return data?.price || 0; // Handle null data or price
     // }, [reservation, data?.price])
 
-    const reservationDate = useMemo(() => {
-        if (!reservation) {
-            return null;
-        }
+    // const reservationDate = useMemo(() => {
+    //     if (!reservation) {
+    //         return null;
+    //     }
 
-        const start = new Date(reservation.startDate || "");
-        const end = new Date(reservation.endDate || "");
+    //     // const start = new Date(reservation.startDate || "");
+    //     // const end = new Date(reservation.endDate || "");
 
-        return `${format(start, 'pp')} - ${format(end, 'pp')}`
-    }, [reservation])
+    //     return `${format(start, 'pp')} - ${format(end, 'pp')}`
+    // }, [reservation])
 
     const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -101,7 +101,7 @@ function formatDate(dateString: any) {
 
   return (
       <div
-        onClick={() => router.push(`/stays/${data?.Listing.id || ""}`)} // Handle null data or id
+        onClick={() => router.push(`/stays/${data?.id || ""}`)} // Handle null data or id
         className="col-span-1 cursor-pointer group"
       >
           <div className="flex flex-col gap-2 w-full main-image-small-screen border-[1px] border-solid border-neutral-300 pb-1 rounded-xl">
@@ -109,58 +109,40 @@ function formatDate(dateString: any) {
                   <Image
                       fill
                       alt="Listing"
-                      src={data?.Listing.imageSrc[0] || ""} // Handle null data or imageSrc sure one 
+                      src={data?.imageSrc[0] || ""} // Handle null data or imageSrc sure one 
                       className="object-cover h-[25vh] w-full transition group-hover:scale-110 main-image-small-screen"
                   />
                   
               </div>
               <div className="font-semibold text-md mx-2 truncate max-w-[15rem]">
-                 <span>{data.Listing.title}</span> 
+                 <span>{data.title}</span> 
               </div>
               <div className="flex justify-between mx-2 items-center">
                  <div className="font-light text-neutral-500 text-sm">
-               <span className="text-neutral-800">No of guests:</span> {data.Listing.guestCount} 
+               <span className="text-neutral-800">No of guests:</span> {data.guestCount} 
               </div>
               <div className="font-light mx-2 text-neutral-500 text-sm">
-                <span className="text-neutral-800">Location:</span> {data.Listing.county}, {data.Listing.town}
+                <span className="text-neutral-800">Location:</span> {data.county}, {data.town}
               </div> 
               </div>
               <hr />
               <div className="flex justify-between mx-2 items-center">
                  <div className="font-light text-neutral-500 text-sm">
-                <span className="text-neutral-800">Amount paid:</span> Ksh. {data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
+                <span className="text-neutral-800">Price:</span> Ksh. {data.price}
               </div>
               <div className="font-light text-neutral-500 text-sm">
-                  <span className="text-neutral-800">Balance:</span> Ksh. { data.totalPrice  -  data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
+                  <span className="text-neutral-800">Offer price:</span> Ksh. { data.offerPrice}
               </div> 
               </div>
               <hr />
-              <div className="flex justify-between mx-2 items-center">
+              {/* <div className="flex justify-between mx-2 items-center">
               <div className="font-light text-neutral-500 text-sm">
                  <span className="text-neutral-800">Check In:</span>: { formatDate(data.startDate)}
               </div>
               <div className="font-light text-neutral-500 text-sm">
                   <span className="text-neutral-800">Check Out:</span> { formatDate(data.endDate)}
               </div> 
-              </div>
-              <hr />
-              <div className="flex justify-between mx-2 items-center">
-                 <div className="font-light text-neutral-500 text-sm">
-               <span className="text-neutral-800">Client:</span> {data?.user.name} 
-              </div>
-              <div className="font-light mx-2 text-neutral-500 text-sm">
-                <span className="text-neutral-800">Client contact:</span> {data?.user.contact}
-              </div> 
-              </div>
-              <hr />
-              <div className="flex justify-between mx-2 items-center">
-                 <div className="font-light text-neutral-500 text-sm">
-               <span className="text-neutral-800">Client email:</span> {data?.user.email} 
-              </div>
-              {/* <div className="font-light mx-2 text-neutral-500 text-sm">
-                <span className="text-neutral-800">Location:</span> {data.Land.county}, {data.Land.town}
-              </div>  */}
-              </div>
+              </div> */}
               {/* <div className="flex flex-row items-center gap-1">
                   <div className="text-sm">
                     {data.depStart} to {data.depEnd}
@@ -186,4 +168,4 @@ function formatDate(dateString: any) {
   )
 }
 
-export default TourClientCard;
+export default TourClientCards;

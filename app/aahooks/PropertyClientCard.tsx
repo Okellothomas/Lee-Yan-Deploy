@@ -118,11 +118,20 @@ function formatDate(dateString: any) {
                  <span>{data.Property.title}</span> 
               </div>
               <div className="flex justify-between mx-2 items-center">
-                 {/* <div className="font-light text-neutral-500 text-sm">
-               <span className="text-neutral-800">No of guests:</span> {data.property.guestCount} 
-              </div> */}
+                <div className="font-light text-neutral-500 text-sm">
+               <span className="text-neutral-800">Client:</span> {data?.user.name} 
+              </div>
               <div className="font-light mx-2 text-neutral-500 text-sm">
                 <span className="text-neutral-800">Location:</span> {data.Property.county}, {data.Property.town}
+              </div> 
+              </div>
+              <hr />
+              <div className="flex justify-between mx-2 items-center">
+                 <div className="font-light text-neutral-500 text-sm">
+                <span className="text-neutral-800">Client email:</span> {data?.user.email}
+              </div>
+              <div className="font-light text-neutral-500 text-sm">
+                  <span className="text-neutral-800">Client contact:</span> {data?.user.contact}
               </div> 
               </div>
               <hr />

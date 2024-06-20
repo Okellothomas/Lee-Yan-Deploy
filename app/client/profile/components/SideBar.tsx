@@ -7,6 +7,7 @@ import axios from "axios";
 import "./sidebar.css";
 import { GiBed, GiVikingLonghouse, GiSpookyHouse, GiIceland } from "react-icons/gi";
 import { CiImageOn } from "react-icons/ci";
+import { ImGift } from "react-icons/im";
 
 const ProfilePage = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -70,6 +71,17 @@ const ProfilePage = () => {
         </Link>
         <Link href="/client/profile" className="sidebar-image">
           My personal details
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/client/offers">
+          <ImGift className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/client/offers" className="sidebar-image">
+          My offers
         </Link>
       </div>
       <div className="py-3">

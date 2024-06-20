@@ -9,6 +9,8 @@ import RestrictedEmptyState from '@/app/components/container/RestrictedEmptyStat
 import getReservations from '@/app/actions/getReservation';
 import getLandReservation from '@/app/actions/getLandReservation';
 import LandClientCard from '@/app/aahooks/LandClientCard';
+import getLands from '@/app/actions/getLands.';
+import LandClientCards from '@/app/aahooks/LandClientCards';
 
 // Define the interface for the Home component props
 interface HotelPageProps {
@@ -35,8 +37,9 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
   //     isCurrentUserTourist: reservation.reservationists.includes(currentUser.id)
   //   }));
 
-    const reservations = (await getLandReservation({}))
-      .filter(reservation => reservation.Land.ownerId === currentUser.id);
+    
+    const reservations = (await getLands({}))
+      .filter(reservation => reservation.userId === currentUser.id);
 
     // console.log("List all reservations, ",reservations);
 
@@ -63,18 +66,18 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
             <div className="col-span-4">
               <div className="col-span-4 border-[1px] border-solid border-neutral-300 rounded-lg py-4 px-6">
               <div className="pb-2">
-               <h1 className="text-xl font-semibold">Active land sales</h1>
+               <h1 className="text-xl font-semibold">My land sales</h1>
                 </div>
                <div className="pt-2 pb-4">
               <hr />
             </div>
               <div className="items-center pb-1">
                 {reservations.length === 0 ? (
-                  <div>No active land sales</div>
+                  <div>Myland sales</div>
                 ) : (
                   <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-8">
                     {reservations.map((reservation: any) => (
-                      <LandClientCard
+                      <LandClientCards
                         currentUser={currentUser ? {
                           ...currentUser,
                           createdAt: currentUser.createdAt.toISOString(),

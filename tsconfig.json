@@ -24,6 +24,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "server.js", "app/api/mpesa/callback/route.Ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "server.js", "app/api/mpesa/callback/route.Ts", "app/aahooks/PropertyClientCardstsx"],
   "exclude": ["node_modules"]
 }

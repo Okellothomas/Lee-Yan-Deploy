@@ -7,6 +7,12 @@ import axios from "axios";
 import "./sidebar.css";
 import { GiBed, GiVikingLonghouse, GiSpookyHouse, GiIceland } from "react-icons/gi";
 import { CiImageOn } from "react-icons/ci";
+import { GoGift } from "react-icons/go";
+import { TfiGift } from "react-icons/tfi";
+import { RiHotelBedLine } from "react-icons/ri";
+import { MdOutlineRealEstateAgent } from "react-icons/md";
+import { TbBuildingWarehouse } from "react-icons/tb";
+import { FaLandMineOn } from "react-icons/fa6";
 
 const ProfilePage = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -76,6 +82,17 @@ const ProfilePage = () => {
         <hr />
       </div>
       <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/agent/offers">
+          <GoGift className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/agent/offers" className="sidebar-image">
+          My offers
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
         <Link href="/agent/reservations">
           <GiBed className="text-neutral-500" size={25} />
         </Link>
@@ -114,6 +131,61 @@ const ProfilePage = () => {
         </Link>
         <Link href="/agent/land-sales" className="sidebar-image">
           My land sales
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/agent/offer">
+          <TfiGift className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/agent/offer" className="sidebar-image">
+          Active offers
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/agent/reservation">
+          <RiHotelBedLine className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/agent/reservation" className="sidebar-image">
+          Active reservations
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/agent/landsales">
+          <FaLandMineOn className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/agent/landsales" className="sidebar-image">
+          Active land sales
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/agent/propertysales">
+          <MdOutlineRealEstateAgent className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/agent/propertysales" className="sidebar-image">
+          Active property sales
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/agent/propertyrentals">
+          <TbBuildingWarehouse className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/agent/propertyrentals" className="sidebar-image">
+          Active property rentals
         </Link>
       </div>
     </div>

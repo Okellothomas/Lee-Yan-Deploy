@@ -88,6 +88,8 @@ const LandClientCard: React.FC<ListingCardProps> = ({
     }
 };
 
+// console.log("All the User data", data)
+    
 function formatDate(dateString: any) {
   const date = new Date(dateString);
   const options = {
@@ -118,9 +120,9 @@ function formatDate(dateString: any) {
                  <span>{data.Land.title}</span> 
               </div>
               <div className="flex justify-between mx-2 items-center">
-                 {/* <div className="font-light text-neutral-500 text-sm">
-               <span className="text-neutral-800">No of guests:</span> {data.property.guestCount} 
-              </div> */}
+                 <div className="font-light text-neutral-500 text-sm">
+               <span className="text-neutral-800">Client:</span> {data?.user.name} 
+              </div>
               <div className="font-light mx-2 text-neutral-500 text-sm">
                 <span className="text-neutral-800">Location:</span> {data.Land.county}, {data.Land.town}
               </div> 
@@ -132,6 +134,15 @@ function formatDate(dateString: any) {
               </div>
               <div className="font-light text-neutral-500 text-sm">
                   <span className="text-neutral-800">Balance:</span> Ksh. { data.Land.price  -  data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
+              </div> 
+              </div>
+              <hr />
+              <div className="flex justify-between mx-2 items-center">
+                 <div className="font-light text-neutral-500 text-sm">
+                <span className="text-neutral-800">Client email:</span> {data?.user.email}
+              </div>
+              <div className="font-light text-neutral-500 text-sm">
+                  <span className="text-neutral-800">Client contact:</span> {data?.user.contact}
               </div> 
               </div>
               <hr />
