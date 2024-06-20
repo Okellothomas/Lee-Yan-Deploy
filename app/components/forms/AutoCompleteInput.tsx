@@ -96,7 +96,7 @@ const AutocompleteInput: React.FC<AutocompleteInputProps> = ({ searchDestination
         value={inputValue}
         onChange={handleInputChange}
         onFocus={handleInputFocus}
-        placeholder="Enter a county"
+        placeholder="Search destinations"
         ref={inputRef}
         className="w-full px-4 py-2 rounded-md outline-none"
       />
