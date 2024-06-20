@@ -2,7 +2,7 @@
 
 import useTourModal from "@/app/hooks/useTourModel";
 import Modal from "./Modal";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Heading from "../container/Heading";
 import CategoryInput from "../Inputs/CategoryInput";
 import { offers } from "../navbar/OfferCategories";
@@ -24,7 +24,10 @@ import Lago from "../navbar/Lago";
 import Models from "./Models";
 import Textarea from "../Inputs/Textarea";
 import useLandModal from "@/app/hooks/useLandModal";
-import getCurrentUser from "@/app/actions/getCurrentUsers"
+
+interface IParams {
+  userParams: any;
+}
 
 enum STEPS {
     CATEGORY = 0,
@@ -36,15 +39,34 @@ enum STEPS {
     PRICE = 6
 }
 
-const LandModal = async () => {
+const LandModal = () => {
 
     const offerModal = useOfferModal();
     const tourModal = useTourModal();
-    const currentUser = await getCurrentUser();
     const landModal = useLandModal();
     const router = useRouter();
+    const [currentUser, setCurrentUser] = useState<any>(null);
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get('/api/users', { params: { userParams: {} } });
+                setCurrentUser(response.data);
+                console.log('Current User:', response.data); // Debugging log
+            } catch (error) {
+                setError(error);
+                console.error('Error fetching user:', error); // Debugging log
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUser();
+    }, []);
 
     const {
         register,
@@ -65,7 +87,7 @@ const LandModal = async () => {
             overview: '',
             type: '',
             booked: 'no',  // Set default value for booked
-            ownerId: currentUser?.id,  // Set default value for ownerId
+            ownerId: '',  // Set default value for ownerId
             deal:'',
             town: '',
             county: '',
@@ -74,6 +96,7 @@ const LandModal = async () => {
             imageSrc: [],
         }
     });
+
 
     const category = watch('category');
     const location = watch('location');
@@ -134,6 +157,7 @@ const LandModal = async () => {
             ownerId: currentUser?.id
         };
         
+        console.log('Submitting data:', postData); // Debugging log
         
         axios.post('/api/lands', postData)
             .then(() => {

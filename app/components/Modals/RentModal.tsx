@@ -1,7 +1,7 @@
 'use client'
 import useRentModal from "@/app/hooks/useRentModals"
 import Modal from "./Modal"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import Heading from "../container/Heading"
 import CategoryInput from "../Inputs/CategoryInput"
 import { categories } from "../navbar/Categories"
@@ -19,7 +19,6 @@ import Select from "../Inputs/Select"
 import MultiSelect from "../Inputs/MultiSelect"
 import Models from "./Models"
 import Textarea from "../Inputs/Textarea"
-import getCurrentUser from "@/app/actions/getCurrentUsers"
 
 enum STEPS {
     CATEGORY = 0,
@@ -37,12 +36,31 @@ enum STEPS {
     PRICE = 12
 }
 
-const RentModal = async () => {
+const RentModal = () => {
     const rentModal = useRentModal();
     const router = useRouter()
-    const currentUser = await getCurrentUser();
+    const [currentUser, setCurrentUser] = useState<any>(null);
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+   useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get('/api/users', { params: { userParams: {} } });
+                setCurrentUser(response.data);
+                console.log('Current User:', response.data); // Debugging log
+            } catch (error) {
+                setError(error);
+                console.error('Error fetching user:', error); // Debugging log
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUser();
+    }, []);
 
     const {
         register,

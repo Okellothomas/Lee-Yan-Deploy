@@ -2,7 +2,7 @@
 
 import useTourModal from "@/app/hooks/useTourModel";
 import Modal from "./Modal";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Heading from "../container/Heading";
 import CategoryInput from "../Inputs/CategoryInput";
 import { properties } from "../navbar/PropertyCategories";
@@ -22,7 +22,6 @@ import Modals from "./Modals";
 import Lago from "../navbar/Lago";
 import Models from "./Models";
 import Textarea from "../Inputs/Textarea";
-import getCurrentUser from "@/app/actions/getCurrentUsers"
 
 enum STEPS {
     CATEGORY = 0,
@@ -35,14 +34,33 @@ enum STEPS {
     PRICE = 7
 }
 
-const PropertyModal = async () => {
+const PropertyModal = () => {
 
     const propertyModal = usePropertyModal();
     const tourModal = useTourModal();
-    const currentUser = await getCurrentUser();
+    const [currentUser, setCurrentUser] = useState<any>(null);
     const router = useRouter();
     const [step, setStep] = useState(STEPS.CATEGORY);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const response = await axios.get('/api/users', { params: { userParams: {} } });
+                setCurrentUser(response.data);
+                console.log('Current User:', response.data); // Debugging log
+            } catch (error) {
+                setError(error);
+                console.error('Error fetching user:', error); // Debugging log
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUser();
+    }, []);
 
     const {
         register,
@@ -140,6 +158,8 @@ const PropertyModal = async () => {
             ownerId: currentUser?.id
         };
         
+        console.log('Submitting data:', postData); // Debugging log
+
         // axios.post('/api/property', data)
         //     .then(() => {
         //         toast.success('Property Created Successfully!');
