@@ -13,6 +13,7 @@ import TourCardSecondary from "@/app/components/listing/TourCardSecondary";
 import getOfferById from "@/app/actions/getOffersById";
 import getOffers, {OffersParams} from "@/app/actions/getOffers";
 import getPropertyById from "@/app/actions/getPropertyById";
+import getPropertyReservation from "@/app/actions/getPropertyReservation";
 
 // Define the interface for the TourPage component props
 interface IParams {
@@ -27,16 +28,16 @@ interface IParams {
 const TourPage = async ({ params }: { params: IParams }) => {
   // const tour = await getTourById(params);
   // const offer = await getOfferById(params);
-  const offer = await getPropertyById({ propertyId: params.propertyId });
+  const properties = await getPropertyById({ propertyId: params.propertyId });
   // const reservations = await getReservations(params);
-  const reservations = await getReservations({ listingId: params.propertyId });
+  const reservations = await getPropertyReservation({ propertyId: params.propertyId });
   const currentUser = await getCurrentUser();
   const tours = await getTours(params.tourParams);
   const offers = await getOffers(params.offerParams)
   // const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
 
   // Check if there is no tour, display EmptyState component
-  if (!offer) {
+  if (!properties) {
     return <EmptyState />;
   }
 
@@ -45,7 +46,7 @@ const TourPage = async ({ params }: { params: IParams }) => {
       {/* Header section */}
       <div className="european-hotel european-hotel-tour flex flex-col items-center justify-center text-lg font-bold">
         <h1 className="color-h1-white">
-          {offer.title}
+          {properties.title}
           <span className="color-span-green"></span>
         </h1>
       </div>
@@ -53,7 +54,7 @@ const TourPage = async ({ params }: { params: IParams }) => {
       {/* TourClient section */}
       <div className="py-6">
         <TourClient
-          tour={offer}
+          property={properties}
           reservations={reservations}
           currentUser={currentUser ? {
                       ...currentUser,

@@ -7,9 +7,6 @@ import axios from "axios";
 import "./sidebar.css";
 import { GiBed, GiVikingLonghouse, GiSpookyHouse, GiIceland } from "react-icons/gi";
 import { CiImageOn } from "react-icons/ci";
-import { BsPersonFillGear } from "react-icons/bs";
-import { BsPersonCheck } from "react-icons/bs";
-import { MdOutlineRealEstateAgent } from "react-icons/md";
 
 const ProfilePage = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -68,88 +65,55 @@ const ProfilePage = () => {
         <hr />
       </div>
       <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
-        <Link href="/admin/profile">
+        <Link href="/agent/profile">
           <FaRegUser className="text-neutral-500" size={25} />
         </Link>
-        <Link href="/admin/profile" className="sidebar-image">
-          Admin personal details
+        <Link href="/agent/profile" className="sidebar-image">
+          Personal details
         </Link>
       </div>
       <div className="py-3">
         <hr />
       </div>
       <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
-        <Link href="/admin/reservations">
+        <Link href="/agent/reservations">
           <GiBed className="text-neutral-500" size={25} />
         </Link>
-        <Link href="/admin/reservations" className="sidebar-image">
-          Active reservations
+        <Link href="/agent/reservations" className="sidebar-image">
+          My reservations
         </Link>
       </div>
       <div className="py-3">
         <hr />
       </div>
       <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
-        <Link href="/admin/property-sales">
+        <Link href="/agent/property-sales">
           <GiVikingLonghouse className="text-neutral-500" size={25} />
         </Link>
-        <Link href="/admin/property-sales" className="sidebar-image">
-          Active property sales
+        <Link href="/agent/property-sales" className="sidebar-image">
+          My property sales
         </Link>
       </div>
       <div className="py-3">
         <hr />
       </div>
       <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
-        <Link href="/admin/property-rentals">
+        <Link href="/agent/property-rentals">
           <GiSpookyHouse className="text-neutral-500" size={25} />
         </Link>
-        <Link href="/admin/property-rentals" className="sidebar-image">
-          Active property rentals
+        <Link href="/agent/property-rentals" className="sidebar-image">
+          My property rentals
         </Link>
       </div>
       <div className="py-3">
         <hr />
       </div>
       <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
-        <Link href="/admin/land-sales">
+        <Link href="/agent/land-sales">
           <GiIceland className="text-neutral-500" size={25} />
         </Link>
-        <Link href="/admin/land-sales" className="sidebar-image">
-          Active land sales
-        </Link>
-      </div>
-      <div className="py-3">
-        <hr />
-      </div>
-      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
-        <Link href="/admin/clients">
-          <BsPersonCheck className="text-neutral-500" size={25} />
-        </Link>
-        <Link href="/admin/clients" className="sidebar-image">
-          Clients
-        </Link>
-      </div>
-      <div className="py-3">
-        <hr />
-      </div>
-      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
-        <Link href="/admin/administrators">
-          <BsPersonFillGear className="text-neutral-500" size={25} />
-        </Link>
-        <Link href="/admin/administrators" className="sidebar-image">
-          Administrators
-        </Link>
-      </div>
-      <div className="py-3">
-        <hr />
-      </div>
-      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
-        <Link href="/admin/agents">
-          <MdOutlineRealEstateAgent className="text-neutral-500" size={25} />
-        </Link>
-        <Link href="/admin/agents" className="sidebar-image">
-          Agents
+        <Link href="/agent/land-sales" className="sidebar-image">
+          My land sales
         </Link>
       </div>
     </div>
@@ -157,3 +121,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+

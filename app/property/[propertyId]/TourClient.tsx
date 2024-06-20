@@ -4,7 +4,7 @@ import Container from "@/app/components/container/Container";
 import ListingReservation from "@/app/components/listing/ListingReservation";
 import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
-import { SafeUser, safeListing, safeOffer, safeReservation, safeProperty } from "@/app/types";
+import { SafeUser, safeListing, safeOffer, safeReservation, safeProperty, safePropertyReservation } from "@/app/types";
 import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -24,11 +24,8 @@ import { GiWorld } from "react-icons/gi";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import PaymentModal from "@/app/components/Modals/PaymentModal";
-import { IoIosPeople } from "react-icons/io";
 import { FaWhatsapp } from "react-icons/fa";
  import { FiPhoneCall } from "react-icons/fi";
-import ListingHead from "@/app/components/listing/ListingHead";
-import { MdOutlineCategory } from "react-icons/md";
 import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { BiCategoryAlt } from "react-icons/bi";
@@ -41,50 +38,50 @@ import { MdPhotoSizeSelectSmall } from "react-icons/md";
 import { MdOutlineEventAvailable } from "react-icons/md";
 import { IoCarSportOutline } from "react-icons/io5";
  import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import Dialog from "@/app/components/listing/Dialog";
+import ListingHead from "@/app/components/listing/ListingHead";
 
-const initialDateRange = {
-    startDate: new Date(),
-    endDate: new Date(),
-    key: 'selection'
-}
+// const initialDateRange = {
+//     startDate: new Date(),
+//     endDate: new Date(),
+//     key: 'selection'
+// }
 
 interface TourClientProps {
-    reservations?: safeReservation[];
-    tour: safeProperty & {
+    reservations?: safePropertyReservation[];
+    property: safeProperty & {
         user: SafeUser
     };
     currentUser?: SafeUser | null;
-    locationValue: string;
 }
 
 const TourClient: React.FC<TourClientProps> = ({
-    tour,
+    property,
     reservations = [],
     currentUser,
-    locationValue
 }) => {
 
     const loginModal = useLoginModal();
     const router = useRouter();
 
-    const disabledDates = useMemo(() => {
-        let dates: Date[] = [];
+    // const disabledDates = useMemo(() => {
+    //     let dates: Date[] = [];
 
-        reservations.forEach((reservations) => {
-            const range = eachDayOfInterval({
-                start: new Date(reservations.startDate),
-                end: new Date(reservations.endDate)
-            });
+    //     reservations.forEach((reservations) => {
+    //         const range = eachDayOfInterval({
+    //             start: new Date(reservations.startDate),
+    //             end: new Date(reservations.endDate)
+    //         });
 
-            dates = [...dates, ...range]
-        })
+    //         dates = [...dates, ...range]
+    //     })
 
-        return dates;
-    }, [reservations])
+    //     return dates;
+    // }, [reservations])
 
     const [isLoading, setIsLoading] = useState(false);
-    const [totalPrice, setTotalPrice] = useState(tour.price);
-    const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+    // const [totalPrice, setTotalPrice] = useState(property.price);
+    // const [dateRange, setDateRange] = useState<Range>(initialDateRange);
     const [isOpen, setIsOpen] = useState(false); 
     const [isOpen1, setIsOpen1] = useState(false);
     const [isOpen2, setIsOpen2] = useState(false);
@@ -105,11 +102,11 @@ const TourClient: React.FC<TourClientProps> = ({
     const [isOpen17, setIsOpen17] = useState(false);
     const [isOpen18, setIsOpen18] = useState(false);
     const [showPay, setShowPay] = useState(false)
-    // const [selectedPaymentAmount, setSelectedPaymentAmount] = useState<number>(tour.price); // State to track the selected payment amount
-    const [selectedPaymentAmount, setSelectedPaymentAmount] = useState<number>(Number(tour.price as string));
+    // const [selectedPaymentAmount, setSelectedPaymentAmount] = useState<number>(property?.price); // State to track the selected payment amount
+    // const [selectedPaymentAmount, setSelectedPaymentAmount] = useState<number>(Number(property?.price as string));
     const [dataa, setDataa] = useState('')
-    const { getByValue } = useCountries();
-    const coordinates = getByValue(locationValue)?.latlng;
+    // const { getByValue } = useCountries();
+    // const coordinates = getByValue(locationValue)?.latlng;
 
 
     const [numberOfTourists, setNumberOfTourists] = useState(0);
@@ -126,12 +123,11 @@ const TourClient: React.FC<TourClientProps> = ({
     const numberOfGuestsRef = useRef<HTMLInputElement>(null);
 
 
-
     const [showAll, setShowAll] = useState(false);
   
-    const offers = tour.amenities || [];
+    const offers = property.amenities || [];
     const displayedOffers = showAll ? offers : offers.slice(0, 7);
-
+    console.log("display all offers", offers);
     const handleShowMore = () => {
         setShowAll(true);
     };
@@ -142,97 +138,6 @@ const TourClient: React.FC<TourClientProps> = ({
         setItExpanded(!itExpanded);
     };
     
-     // Function to handle the payment amount selection
-    const handlePaymentAmountSelect = (amount: number) => {
-        setSelectedPaymentAmount(amount);
-    };
-
-
-        const handlePaymentComplete = (data: any) => {
-        // Handle the data passed from PaymentModal
-        console.log('Payment completed with data:', data);
-        setDataa(data);
-        // You can also update the state or trigger other actions
-        // ...
-        // Check if payment was successful
-        if (data && data.status === 'COMPLETED') {
-            // Payment was successful, proceed to make reservation
-            makeReservation(data);
-        } else {
-            // Payment failed or was cancelled
-            // Handle accordingly, show error message or take appropriate action
-            console.log('Payment failed or cancelled.');
-            // Optionally, you can show a toast or error message
-            toast.error('Payment failed or was cancelled.');
-        }
-        };
-    
-      const makeReservation = (data:any) => {
-      
-          if (data && data.status === 'COMPLETED') {
-      
-              {
-                  setShowPay(false)
-                  console.log("Payment Data", dataa)
-                  axios.put(`/api/property/${tour?.id}`, {
-                      from_flag:'reservation',
-                      totalPrice: selectedPaymentAmount,
-                      startDate: dateRange.startDate,
-                      endDate: dateRange.endDate,
-                      tourId: tour?.id,
-                      paymentDetails: data,
-                      userId: currentUser?.id,
-                      slots: options.guests, // Include guests count
-                    //   tourists: tour ? tour.tourists : [],
-                      rooms: options.rooms // Include rooms count
-                  })
-                      .then(async () => {
-                          toast.success('Listing reserved!');
-
-                          setDateRange(initialDateRange);
-                          // redirect to /trips
-                          try {
-                              const response = await axios.post('/api/mailing/',
-                  
-                                  {
-                                      sender: 'Info@devancatours.com',
-                                      recipient: 'wanjooo.ken@gmail.com',
-                                      subject: "Devance Reservations",
-                                      user_name: currentUser?.name,
-                                      templateName: 'tour_mail_template',
-                                      baseUrl: baseUrl,
-                                      mail_body: `This is a sample test mail from Devance Application and these are the reservatio`
-
-                                  },
-
-                                  {
-                                      headers: {
-                                          'Content-Type': 'application/json'
-                                      }
-                                  }
-                              );
-                
-                              const data = await response.data;
-                              console.log(data); // handle success message
-                
-                          } catch (error) {
-                              console.error(error); // handle error message
-                          }
-                          //router.push('/trips');
-                      }).catch(() => {
-                          toast.error('Something went wrong')
-                      }).finally(() => {
-                          setIsLoading(false);
-                      })
-              }
-           } else {
-                // Payment data is missing or payment was not successful
-                // Show error message or take appropriate action
-                // console.log('Error: Payment data is missing or payment was not successful.');
-                // // Optionally, you can show a toast or error message
-                // toast.error('Error: Payment data is missing or payment was not successful.');
-            }
-            };
 
 
       const onCreateReservation = useCallback(() => {
@@ -260,9 +165,9 @@ const TourClient: React.FC<TourClientProps> = ({
     }
 
   , [
-        totalPrice,
-        dateRange,
-        tour?.id,
+        // totalPrice,
+        // dateRange,
+        property?.id,
         router,
         currentUser,
         loginModal,
@@ -271,50 +176,6 @@ const TourClient: React.FC<TourClientProps> = ({
     const Map = dynamic(() => import('../../components/container/Map'), {
         ssr: false
     } )
-
-    // Calucating the price. 
-    useEffect(() => {
-        if (dateRange.startDate && dateRange.endDate) {
-            const dayCount = differenceInCalendarDays(
-                dateRange.endDate,
-                dateRange.startDate
-            );
-
-            // if (dayCount && tour.price) {
-            //     setTotalPrice(dayCount * tour.price);
-            // } else {
-            //     setTotalPrice(tour.price);
-            // }
-        }
-    }, [dateRange, tour.price])
-
-    const category = useMemo(() => {
-        return categories.find((item) =>
-        item.label === tour.category);
-    }, [tour.category])
-
-
-    const handleOptions = (name: 'guests' | 'rooms', operations: any) => {
-      
-            const guestsDets = {
-                ...options,
-                [name]: operations === 'i' ? options[name] + 1 : options[name] - 1,
-            }
-
-            setTotalPrice(tour.price)
-      
-        setOptions((prev) => {
-            return {
-                ...prev,
-                [name]: operations === 'i' ? options[name] + 1 : options[name] - 1,
-            };
-        });
-        
-    };
-
-    const toggleOptions = () => {
-        setOpenoptions(!openoptions)
-    };
 
 
 
@@ -330,48 +191,184 @@ const TourClient: React.FC<TourClientProps> = ({
         };
     }, []);
 
+    
+    const [partialPay, setPartialPay] = useState(false);
+    const [openDialog, setOpenDialog] = useState(false);
+    const [marking, setMarking] = useState(false);
 
-//   const calculateTotalPrice = () => {
-//     return options.guests * tour.price + options.rooms ;
-//   };
+    const partialAmount = 1000;
+
+    const handlePartialPay = () => {
+        setPartialPay(true);
+        // onSubmit(partialAmount);
+        handlePaymentComplete()
+        setOpenDialog(false);
+    }
+
+    const handleFullPay = () => {
+        setPartialPay(false);
+        // onSubmit(totalPrice);
+        handlePaymentComplete()
+        setOpenDialog(false);
+    }
+
+    const handleReserve = () => {
+        setOpenDialog(true);
+    }
+
+    const handleCloseDialog = () => {
+        setOpenDialog(false);
+    }
+
+
+    const handlePaymentComplete = async() => {
+        // Handle the data passed from PaymentModal
+        // console.log('Payment completed with data:', data);
+        // setDataa(data)
+
+        // const merchantId = data?.Body?.stkCallback.MerchantRequestID
+        // if(merchantId)
+        //     {
+        //         const response = await axios.delete("/api/mpesa/callback", {
+        //             params: { transactionRef: JSON.stringify({merchantRequestId: merchantId})  },
+        //             headers: {
+        //               'Content-Type': 'application/json'
+        //             }
+        //           });
+        //     }
+        // makeReservation(data)
+        if (!currentUser) {
+            return loginModal.onOpen()
+        }
+
+        makeReservation()
+
+      };
+      
+      const makeReservation = () =>
+      {
+        const data2 =  {
+            "Body": {
+                "stkCallback": {
+                    "MerchantRequestID": "12345-67890-12345",
+                    "CheckoutRequestID": "abcdefghijklmnopqrstuvwxyz",
+                    "ResultCode": 0,
+                    "ResultDesc": "The service was accepted successfully",
+                    "CallbackMetadata": {
+                        "Item": [
+                            {
+                                "Name": "Amount",
+                                "Value": 100
+                            },
+                            {
+                                "Name": "MpesaReceiptNumber",
+                                "Value": "ABCDEFGHIJ"
+                            },
+                            {
+                                "Name": "Balance",
+                                "Value": 0
+                            },
+                            {
+                                "Name": "TransactionDate",
+                                "Value": "2023-04-26 12:30:00"
+                            },
+                            {
+                                "Name": "PhoneNumber",
+                                "Value": "254712345678"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+       {
+        setShowPay(false)
+        console.log("Payment Data",dataa)
+              axios.post('/api/propertyreservations', {
+                  // totalPrice,  //for totalPrice
+                  // startDate: dateRange.startDate,
+                  // endDate: dateRange.endDate,
+                  propertyId: property?.id,
+                  paymentDetails: data2,
+                  userId: currentUser?.id,
+                  // guestDetails: options
+              })
+                  .then(async () => {
+                      toast.success('Listing reserved!');
+
+                      // setDateRange(initialDateRange);
+                      // redirect to /trips
+                      try {
+                          //     const response = await axios.post('/api/mailing/', 
+                  
+                          //       {sender:'Info@devancatours.com',
+                          //              recipient:'wanjooo.ken@gmail.com',
+                          //              subject:"Devance Reservations",
+                          //              user_name:currentUser?.name,
+                          //              templateName: 'mail_template',
+                          //              mail_body:This is a sample test mail from Devance Application and these are the reservatio
+
+                          //                 },
+
+                          //                 {
+                          //                     headers: {
+                          //                         'Content-Type': 'application/json'
+                          //                     }
+                          //                 }
+                          //     );
+                
+                          //     const data = await response.data;
+                          //     console.log(data); // handle success message
+                
+                            } catch (error) {
+                              console.error(error); // handle error message
+                      }
+                //router.push('/trips');
+            }).catch(() => {
+                toast.error('Something went wrong')
+            }).finally(() => {
+                setIsLoading(false);
+            })
+    }
+      }
 
   return (
     <Container>
           <div className="max-w-sreen-lg mx-auto">
               <div className="flex flex-col mt-6 gap-6">
                   <ListingHead
-                      title={tour.title}
-                      imageSrc={tour.imageSrc}
-                      id={tour.id}
-                      town={tour.town}
+                      title={property.title}
+                      imageSrc={property.imageSrc}
+                      id={property.id}
+                      town={property.town}
                       currentUser={currentUser}
                   /> 
                   {/* <div className="grid grid-cols-1 md:grid-cols-7 md:grid-10 mt-6">    */}
                   <div className="grid grid-cols-1 gap-8 mt-4 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5">
                       <div className="order-first-second-first col-span-3 flex flex-col gap-7"> 
                           <div className="flex gap-1 items-start justify-start text-lg text-neutral-800">
-                              <span className="font-bold">{tour.title}, </span> <span>in {tour.county},</span> <span>{ tour.town}</span>
+                              <span className="font-bold">{property.title}, </span> <span>in {property.county},</span> <span>{ property.town}</span>
                           </div> 
     
                         <div className="border-[1px] mt-[13px] border-solid flex items-center gap-[13px] py-4 px-1 border-neutral-300 h-auto w-full rounded-lg">
-                              {tour.roomCount !== 0 && (
+                              {property.roomCount !== 0 && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><MdOutlineMeetingRoom size={23} /></span><span className="text-md">Rooms: </span></div> <span className="text-neutral-500">{tour.roomCount}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-orange-500"><MdOutlineMeetingRoom size={23} /></span><span className="text-md">Rooms: </span></div> <span className="text-neutral-500">{property.roomCount}</span>
                                   </div>
                               )}
-                              {tour.bathRoomCount !== 0 && (
+                              {property.bathRoomCount !== 0 && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><MdOutlineBathtub size={23} /></span><span className="text-md">Bathrooms: </span></div> <span className="text-neutral-500">{tour.bathRoomCount}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-blue-500"><MdOutlineBathtub size={23} /></span><span className="text-md">Bathrooms: </span></div> <span className="text-neutral-500">{property.bathRoomCount}</span>
                                   </div>
                               )}
-                              {tour.bedRoomCount !== 0 && (
+                              {property.bedRoomCount !== 0 && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><MdOutlineBedroomParent size={23} /></span><span className="text-md">Bedrooms: </span></div><span className="text-neutral-500">{tour.bedRoomCount}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-lime-600"><MdOutlineBedroomParent size={23} /></span><span className="text-md">Bedrooms: </span></div><span className="text-neutral-500">{property.bedRoomCount}</span>
                                   </div>
                               )}
-                              {tour.toiletCount !== 0 && (
+                              {property.toiletCount !== 0 && (
                                   <div className="flex flex-row justify-between">
-                                      <div className="flex flex-row items-center gap-2"> <span className="text-neutral-600"><PiToiletBold  size={23} /></span><span className="text-md">Washrooms: </span></div><span className="text-neutral-500">{tour.toiletCount}</span>
+                                      <div className="flex flex-row items-center gap-2"> <span className="text-neutral-600"><PiToiletBold  size={23} /></span><span className="text-md">Washrooms: </span></div><span className="text-neutral-500">{property.toiletCount}</span>
                                   </div>
                               )}
                           </div>
@@ -393,7 +390,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                       <span className="text-neutral-500"><BiCategoryAlt size={ 23} /></span> <span>Property type</span>
                                   </div> 
                                  <div>
-                                      <span>{tour.type }</span>
+                                      <span>{property.type }</span>
                                 </div>
                               </div>
                               
@@ -406,7 +403,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                       <span className="text-neutral-500"><MdPhotoSizeSelectSmall size={ 23} /></span> <span>Property size</span>
                                   </div> 
                                  <div>
-                                      <span>{tour.size }</span>
+                                      <span>{property.size }</span>
                                 </div>
                               </div>
 
@@ -419,7 +416,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                       <span className="text-neutral-500"><MdOutlineEventAvailable size={ 23} /></span> <span>Property availability</span>
                                   </div> 
                                  <div>
-                                      <span>{tour.availability }</span>
+                                      <span>{property.availability }</span>
                                 </div>
                               </div>
                               
@@ -432,7 +429,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                       <span className="text-neutral-500"><IoCarSportOutline size={ 23} /></span> <span>Parking space</span>
                                   </div> 
                                  <div>
-                                      <span>{tour.parking_space }</span>
+                                      <span>{property.parking_space }</span>
                                 </div>
                               </div>
                             
@@ -445,7 +442,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                       <span className="text-neutral-500"><FaMoneyBillTrendUp size={ 23} /></span> <span>Property deal</span>
                                   </div> 
                                  <div>
-                                      <span>{tour.deal }</span>
+                                      <span>{property.deal }</span>
                                 </div>
                             </div>
                               
@@ -464,7 +461,6 @@ const TourClient: React.FC<TourClientProps> = ({
                             <div className="py-1 w-full">
                             <hr />
                             </div>
-                    
                             { offers.length > 0 && (
                             <div>
                             {displayedOffers.map((offer, index) => (
@@ -492,7 +488,7 @@ const TourClient: React.FC<TourClientProps> = ({
                           </div>  
                           
 
-                        {tour.amenities && tour.amenities?.length > 0 && (
+                        {property.amenities && property.amenities?.length > 0 && (
                               <div className="flex flex-col gap-5 items-start border-[1px] border-solid py-4 px-4 border-neutral-300 h-auto w-full rounded-lg">
                           
                                   <div className="flex w-full flex-row items-center justify-between">
@@ -504,10 +500,10 @@ const TourClient: React.FC<TourClientProps> = ({
                                       <hr />
                                   </div>
                         
-                                  {tour.overview !== "" && (
+                                  {property.overview !== "" && (
                                     <div className="flex flex-row justify-between">
                                         <span className={`text-neutral-500 ${itExpanded ? '' : 'line-clamp-4'}`}>
-                                            {tour.overview} {!itExpanded && (
+                                            {property.overview} {!itExpanded && (
                                             <button onClick={ToggleExpands} className="text-blue-600 ml-2">
                                                 Read more
                                             </button>
@@ -530,7 +526,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                  <span className="text-red-400"><GiTakeMyMoney size={23 } /></span><span>Price</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="text-red-400 line-through">Ksh. {tour.price}</span> <span></span>
+                                 <span className="text-red-400 line-through">Ksh. {property.price}</span> <span></span>
                               </div>
                           </div>
                           <div className="px-4 py-3">
@@ -541,7 +537,7 @@ const TourClient: React.FC<TourClientProps> = ({
                                  <span className="text-orange-400"><GiCash size={23 } /></span><span>Offer Price</span> 
                               </div>
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span>Ksh. {tour.offerPrice}</span> 
+                                 <span>Ksh. {property.offerPrice}</span> 
                               </div>
                           </div>
                           <div className="px-4 py-3">
@@ -563,11 +559,33 @@ const TourClient: React.FC<TourClientProps> = ({
                           <div className="px-4 py-3">
                           <hr />
                               </div>
-                         <div className="flex flex-row mx-6 py-1 hover:cursor-pointer justify-center items-center border-[1px] bg-green-700 text-white border-solid border-neutral-400 rounded-lg gap-3">
+                         <div onClick={handleReserve}  className="flex flex-row mx-6 py-1 hover:cursor-pointer justify-center items-center border-[1px] bg-green-700 text-white border-solid border-neutral-400 rounded-lg gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
-                                 <span className="font-semibold text-md">Reserve Property</span> 
+                                 <span className="font-bold text-lg">Reserve</span> 
                               </div>
                           </div>
+
+                        <Dialog
+                                open={openDialog}
+                                onClose={handleCloseDialog}
+                            >
+                                <h2 className="text-xl font-bold mb-4">Confirm Your Booking</h2>
+                                <p>Please choose your payment option.</p>
+                                <div className="mt-4 flex flex-col justify-end gap-4">
+                                    <button className="border-[1px] border-solid border-green-400 rounded-lg px-4 py-2" onClick={handleFullPay} color="primary">
+                                        Pay Full Amount of Ksh. {property.price}
+                                    </button>
+                                    {property.price > partialAmount && (
+                                        <button className="border-[1px] border-solid border-green-400 rounded-lg px-4 py-2" onClick={handlePartialPay} color="primary" autoFocus>
+                                            Reserve with Ksh. {partialAmount}
+                                        </button>
+                                    )}
+                                    <button onClick={handleCloseDialog} color="secondary">
+                                        Cancel
+                                    </button>
+                                </div>
+                        </Dialog>
+                              
                           <div className="px-4 py-3">
                           <hr />
                           </div>
@@ -592,7 +610,7 @@ const TourClient: React.FC<TourClientProps> = ({
                   <PaymentModal 
                         setShowPayModal={setShowPay} 
                         onPaymentComplete={handlePaymentComplete} 
-                        totalPrice={selectedPaymentAmount.toString()} 
+                        totalPrice={property.price.toString()} 
                     />
                           </PayPalScriptProvider>}
                     </div>

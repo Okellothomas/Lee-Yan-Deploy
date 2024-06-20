@@ -198,7 +198,7 @@ const findAvailableDate = () => {
     
     function handleUnavailableDates(): void { 
         
-        console.log("date range from listingClient",dateRange)
+        // console.log("date range from listingClient",dateRange)
         
         axios.put(`/api/stays/${listing?.id}`, {
             datesUnavailableFrom: dateRange.startDate,
@@ -222,7 +222,7 @@ const findAvailableDate = () => {
 
     const handlePaymentComplete = async(data: any) => {
         // Handle the data passed from PaymentModal
-        console.log('Payment completed with data:', data);
+        // console.log('Payment completed with data:', data);
         setDataa(data)
 
         const merchantId = data?.Body?.stkCallback.MerchantRequestID
@@ -241,6 +241,10 @@ const findAvailableDate = () => {
         // You can also update the state or trigger other actions
         // ...
       };
+      
+      const makeReservation = () =>
+      {
+      
       const data2 =  {
         "Body": {
             "stkCallback": {
@@ -275,18 +279,16 @@ const findAvailableDate = () => {
             }
         }
     }
-      const makeReservation = (data2:any) =>
-      {
         
        {
         setShowPay(false)
-        console.log("Payment Data",dataa)
+        // console.log("Payment Data",dataa)
         axios.post(`/api/reservations`, {
             totalPrice,  //for totalPrice
             startDate: dateRange.startDate,
             endDate: dateRange.endDate,
             listingId: listing?.id,
-            paymentDetails:data,
+            paymentDetails:data2,
             guestDetails: options
         })
             .then(async () => {
@@ -295,26 +297,26 @@ const findAvailableDate = () => {
                 setDateRange(initialDateRange);
                 // redirect to /trips
                 try {
-                    const response = await axios.post('/api/mailing/', 
+                    // const response = await axios.post('/api/mailing/', 
                   
-                      {sender:'Info@devancatours.com',
-                             recipient:'wanjooo.ken@gmail.com',
-                             subject:"Devance Reservations",
-                             user_name:currentUser?.name,
-                             templateName: 'mail_template',
-                             mail_body:`This is a sample test mail from Devance Application and these are the reservatio`
+                    //   {sender:'Info@devancatours.com',
+                    //          recipient:'wanjooo.ken@gmail.com',
+                    //          subject:"Devance Reservations",
+                    //          user_name:currentUser?.name,
+                    //          templateName: 'mail_template',
+                    //          mail_body:`This is a sample test mail from Devance Application and these are the reservatio`
 
-                                },
+                    //             },
 
-                                {
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    }
-                                }
-                    );
+                    //             {
+                    //                 headers: {
+                    //                     'Content-Type': 'application/json'
+                    //                 }
+                    //             }
+                    // );
                 
-                    const data = await response.data;
-                    console.log(data); // handle success message
+                    // const data = await response.data;
+                    // console.log(data); // handle success message
                 
                   } catch (error) {
                     console.error(error); // handle error message
@@ -334,7 +336,7 @@ const findAvailableDate = () => {
             return loginModal.onOpen()
         }
 
-       console.log("Reserve loading...", paymentModal.isOpen)
+    //    console.log("Reserve loading...", paymentModal.isOpen)
         try {
             
             setShowPay(true)
@@ -362,8 +364,8 @@ const findAvailableDate = () => {
             ) +1;
 
             setNumberOfDays(dayCount)
-            console.log("Day range=====>", dateRange)
-            console.log("Day count:====>", dayCount)
+            // console.log("Day range=====>", dateRange)
+            // console.log("Day count:====>", dayCount)
 
             if (dayCount && listing.price) {
                 setTotalPrice((listing.price*options.guests)*dayCount);
@@ -676,10 +678,11 @@ const findAvailableDate = () => {
                               totalPrice={totalPrice}
                               onChangeDate={(value) => setDateRange(value)}
                               dateRange={dateRange}
-                              onSubmit={()=>makeReservation} //(payAmount:number)=>onCreateReservation(payAmount)}
+                              onSubmit={(payAmount:number)=>onCreateReservation(payAmount)}
                               disabled={isLoading}
                               disabledDates={disabledDates} 
                               options={options}
+                              makeReservation={makeReservation}
                               currentUser={currentUser}
                               setOptions = {setOptions}
                               openoptions ={openoptions}

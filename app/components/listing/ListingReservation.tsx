@@ -16,6 +16,7 @@ interface ListingReservationProps {
     onChangeDate: (value: Range) => void;
     onSubmit: (payAmount: number) => void;
     disabled?: boolean;
+    makeReservation: () => void;
     disabledDates: Date[]
     options: { guests: number; rooms: number };
     setOptions: React.Dispatch<React.SetStateAction<any>>;
@@ -38,6 +39,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     disabled,
     disabledDates,
     error,
+    makeReservation,
     currentUser,
     setError,
     options,
@@ -58,13 +60,15 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
 
     const handlePartialPay = () => {
         setPartialPay(true);
-        onSubmit(partialAmount);
+        // onSubmit(partialAmount);
+        makeReservation();
         setOpenDialog(false);
     }
 
     const handleFullPay = () => {
         setPartialPay(false);
-        onSubmit(totalPrice);
+        // onSubmit(totalPrice);
+        makeReservation();
         setOpenDialog(false);
     }
 
@@ -148,10 +152,8 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </>
-                )}
-
+                            </div>
+                    
                 <div className="py-2">
                     <hr />
                 </div>
@@ -164,6 +166,8 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                         Reserve
                     </button>
                 </div>
+                    </>
+                )}  
             </div>
 
             <hr />

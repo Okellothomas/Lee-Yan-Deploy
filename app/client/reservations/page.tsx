@@ -6,6 +6,7 @@ import getmyTours, { ImyToursParams } from "@/app/aagetMethods/getmyTours";
 import TourMyCard from "@/app/aahooks/TourMyCard";
 import TourClientCard from '@/app/aahooks/TourClientCard';
 import RestrictedEmptyState from '@/app/components/container/RestrictedEmptyState';
+import getReservations from '@/app/actions/getReservation';
 
 // Define the interface for the Home component props
 interface HotelPageProps {
@@ -23,21 +24,21 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
       return <div>Error: Current user not found.</div>;
     }
 
-  //   // Fetch tours that match the current user's ID
-  //   const tours = await getmyTours({ ...searchParams, userId: currentUser.id });
+  //   // Fetch reservations that match the current user's ID
+  //   const reservations = await getmyTours({ ...searchParams, userId: currentUser.id });
 
-  //   // Modify tours to include currentUser.id in the tourists[] field
-  //  const updatedTours = tours.map((tour: any) => ({
-  //     ...tour,
-  //     isCurrentUserTourist: tour.tourists.includes(currentUser.id)
+  //   // Modify reservations to include currentUser.id in the reservationists[] field
+  //  const updatedTours = reservations.map((reservation: any) => ({
+  //     ...reservation,
+  //     isCurrentUserTourist: reservation.reservationists.includes(currentUser.id)
   //   }));
 
-    const tours = (await getmyTours(searchParams))
-      .filter(tour => tour.tourists.includes(currentUser.id));
+    const reservations = (await getReservations({}))
+      .filter(reservation => reservation.userId?.includes(currentUser.id));
 
-    // console.log(tours);
+    // console.log("List all reservations, ",reservations);
 
-    // Render the component with the fetched tours
+    // Render the component with the fetched reservations
     // if(currentUser?.userType !== "client") {
     //   // Render link to homepage if the current user is not an admin
     //   return (
@@ -58,15 +59,19 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
               <SideBar />
             </div>
             <div className="col-span-4">
+              <div className="col-span-4 border-[1px] border-solid border-neutral-300 rounded-lg py-4 px-6">
               <div className="pb-2">
-                <h1 className="text-2xl font-bold">All My Tours</h1>
-              </div>
+                <h1 className="text-xl font-semibold">Reservations</h1>
+                </div>
+               <div className="pt-2 pb-4">
+              <hr />
+            </div>
               <div className="items-center pb-1">
-                {tours.length === 0 ? (
-                  <div>No tours found</div>
+                {reservations.length === 0 ? (
+                  <div>No active reservations</div>
                 ) : (
-                  <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
-                    {tours.map((tour: any) => (
+                  <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-8">
+                    {reservations.map((reservation: any) => (
                       <TourClientCard
                         currentUser={currentUser ? {
                           ...currentUser,
@@ -74,14 +79,15 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
                           updatedAt: currentUser.updatedAt.toISOString(),
                           emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
                         } : null} // Pass the current user to each ListingCard
-                        key={tour.id} // Use the tour ID as the unique key
-                        data={tour} // Pass the tour data to each ListingCard
+                        key={reservation.id} // Use the reservation ID as the unique key
+                        data={reservation} // Pass the reservation data to each ListingCard
                       />
                     ))}
                   </div>
                 )}
               </div>
               {/* <AdminInfo userParams={userParams} /> */}
+              </div>
             </div>
           </div>
         </Container>

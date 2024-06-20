@@ -35,13 +35,16 @@ const ProfilePage = async ({ searchParams, tourParams }: HotelPageProps) => {
      <h1 className="color-h1-destinations-main-admin-profile">{currentUser?.name}<span className="color-span-green"></span></h1>
       </div>
       <Container>
-        <div className="grid grid-cols-5 gap-10 pt-16">
-            <div className="col-span-1">
+        <div className="grid grid-cols-6 gap-10 pt-16">
+            <div className="col-span-2">
             <SideBar />
             </div>      
-            <div className="col-span-4">
-            <div className="py-6">
-              <h1 className="text-2xl font-bold">Personal Information</h1>            
+            <div className="col-span-4 border-[1px] border-solid border-neutral-300 rounded-lg py-4 px-6">
+            <div className="py-3">
+              <h1 className="text-xl font-semibold">Agent personal information</h1>            
+            </div>
+            <div className="pt-3 pb-2">
+              <hr />
             </div>
             <div className="flex flex-row justify-between items-center pb-8">
               <p>Full Name</p>
@@ -59,7 +62,7 @@ const ProfilePage = async ({ searchParams, tourParams }: HotelPageProps) => {
             </div>
             <hr />
             <div className="flex flex-row justify-between items-center py-8">
-              <p>Country</p>
+              <p>County</p>
               <p>{ currentUser?.country }</p>            
             </div>
             <hr />

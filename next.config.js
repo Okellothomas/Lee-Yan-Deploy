@@ -64,7 +64,7 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
+  reactStrictMode: true,
   env: {
     NEXTAUTH_SECRET: "/Eg1kdPxQf9mnvVYz+zkQpcbdBy72T80nOvS/jF3I+8=",
   },
@@ -107,6 +107,7 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+    unoptimized: true,
   },
   typescript: {
     ignoreBuildErrors: true,
@@ -114,9 +115,16 @@ const nextConfig = {
   eslint: {
     dirs: ['app', 'utils'],
   },
+  // output: 'standalone',
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+    externalDir: true
+  },
+  disableExperimentalFeaturesWarning: true,
 };
 
 module.exports = nextConfig;
+
 
 
 //**********************************************************//

@@ -28,8 +28,10 @@ interface HotelPageProps {
 const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps) => {
   // Fetch listings, current user, and users asynchronously
   const currentUser = await getCurrentUser();
-  // const users = await getClients({ ...userParams, userType: "client" });
-  const users = await getClients({ ...userParams, userType: "admin" });
+  // const users = await getAdmins({ ...userParams, userType: "admin" });
+  const allUsers = await getAdmins(userParams);
+  const users = allUsers.filter(user => user.userType !== "admin" && user.userType !== "operator");
+
   // const handleDelete = deleteBtn()
 
   // const router = useRouter();
@@ -51,17 +53,18 @@ const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps
         console.log('Failed to delete tour. Please try again.');
     }
   };
+
+
+  // if(currentUser?.userType !== "admin") {
+  //     // Render link to homepage if the current user is not an admin
+  //     return (
+  //       <RestrictedEmptyState/>
+  //     );
+  //   }
   
   // const handleDelete = () => {
 
   // }
-
-  if(currentUser?.userType !== "admin") {
-      // Render link to homepage if the current user is not an admin
-      return (
-        <RestrictedEmptyState/>
-      );
-    }
 
   // Render the Home component with the fetched listings
   return (
@@ -78,9 +81,9 @@ const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps
             <SideBar />
           </div>
           <div className="col-span-4">
-            <div className="border-[1px] px-6 py-5 border-solid border-neutral-300 rounded-lg">
+           <div className="border-[1px] px-6 py-5 border-solid border-neutral-300 rounded-lg">
             <div className="pb-6">
-              <h1 className="text-xl font-bold">Lee-Yan Smart Properties&lsquo; clients</h1>
+              <h1 className="text-xl font-semibold">Lee-Yan Smart Properties&lsquo; cliets</h1>
             </div>
             <div className="pb-4">
                 <hr />
@@ -109,9 +112,12 @@ const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps
                 )}
             </div>
           </div>
+          </div>
         </div>
-      </div>
       </Container>
     </div>
   );
 };
+
+export default HostPage;
+

@@ -1,20 +1,20 @@
 import prisma from "@/app/libs/prismadb";
 
 interface IParams {
-    listingId?: string;
+    landId?: string;
     tourId?: string;
     userId?: string;
     authorId?: string;
 }
 
-export default async function getReservations(params: IParams) {
+export default async function getLandReservation(params: IParams) {
     try {
-        const { listingId, userId, tourId, authorId } = params || {};
+        const { landId, userId, tourId, authorId } = params || {};
 
         const query: any = {};
 
-        if (listingId) {
-            query.listingId = listingId;
+        if (landId) {
+            query.landId = landId;
         }
 
         if (tourId) {
@@ -31,10 +31,10 @@ export default async function getReservations(params: IParams) {
             };
         }
 
-        const reservations = await prisma.reservation.findMany({
+        const landreservations = await prisma.landReservation.findMany({
             where: query,
             include: {
-                Listing: true,
+                Land: true,
                 user:true
             },
             orderBy: {
@@ -42,18 +42,16 @@ export default async function getReservations(params: IParams) {
             },
         });
 
-        const safeReservations = reservations.map((reservation) => ({
+        const safeLandRreservation = landreservations.map((reservation) => ({
             ...reservation,
             createdAt: reservation.createdAt.toISOString(),
-            startDate: reservation.startDate.toISOString(),
-            endDate: reservation.endDate.toISOString(),
-            Listing: {
-                ...reservation.Listing,
-                createAt: reservation.Listing?.createAt.toISOString(), // Corrected field name
+            Land: {
+                ...reservation.Land,
+                createAt: reservation.Land?.createdAt.toISOString(), // Corrected field name
             },
         }));
 
-        return safeReservations;
+        return safeLandRreservation;
     } catch (error: any) {
         throw new Error(error);
     }
