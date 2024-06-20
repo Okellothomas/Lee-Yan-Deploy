@@ -275,43 +275,43 @@ const findAvailableDate = () => {
         // You can also update the state or trigger other actions
         // ...
       };
-      const data2 =  {
-        "Body": {
-            "stkCallback": {
-                "MerchantRequestID": "12345-67890-12345",
-                "CheckoutRequestID": "abcdefghijklmnopqrstuvwxyz",
-                "ResultCode": 0,
-                "ResultDesc": "The service was accepted successfully",
-                "CallbackMetadata": {
-                    "Item": [
-                        {
-                            "Name": "Amount",
-                            "Value": 100
-                        },
-                        {
-                            "Name": "MpesaReceiptNumber",
-                            "Value": "ABCDEFGHIJ"
-                        },
-                        {
-                            "Name": "Balance",
-                            "Value": 0
-                        },
-                        {
-                            "Name": "TransactionDate",
-                            "Value": "2023-04-26 12:30:00"
-                        },
-                        {
-                            "Name": "PhoneNumber",
-                            "Value": "254712345678"
-                        }
-                    ]
+      
+      const makeReservation = (data:any) =>
+      {
+        const data2 =  {
+            "Body": {
+                "stkCallback": {
+                    "MerchantRequestID": "12345-67890-12345",
+                    "CheckoutRequestID": "abcdefghijklmnopqrstuvwxyz",
+                    "ResultCode": 0,
+                    "ResultDesc": "The service was accepted successfully",
+                    "CallbackMetadata": {
+                        "Item": [
+                            {
+                                "Name": "Amount",
+                                "Value": 100
+                            },
+                            {
+                                "Name": "MpesaReceiptNumber",
+                                "Value": "ABCDEFGHIJ"
+                            },
+                            {
+                                "Name": "Balance",
+                                "Value": 0
+                            },
+                            {
+                                "Name": "TransactionDate",
+                                "Value": "2023-04-26 12:30:00"
+                            },
+                            {
+                                "Name": "PhoneNumber",
+                                "Value": "254712345678"
+                            }
+                        ]
+                    }
                 }
             }
         }
-    }
-      const makeReservation = (data2:any) =>
-      {
-        
        {
         setShowPay(false)
         console.log("Payment Data",dataa)
@@ -320,7 +320,7 @@ const findAvailableDate = () => {
             startDate: dateRange.startDate,
             endDate: dateRange.endDate,
             listingId: listing?.id,
-            paymentDetails:data,
+            paymentDetails:data2,
             guestDetails: options
         })
             .then(async () => {

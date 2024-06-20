@@ -20,7 +20,14 @@ import { signIn } from 'next-auth/react';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import getCurrentUser from '@/app/actions/getCurrentUsers';
 import Lago from '../navbar/Lago';
-import Link from "next/link"
+import Link from "next/link";
+import { RingLoader } from 'react-spinners';
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red; /* Adjust color if needed */
+`;
 
 const RegisterModal = () => {
     const registerModal = useRegisterModal();
@@ -28,9 +35,22 @@ const RegisterModal = () => {
     const [isLoading, setIsLoading] = useState(false);
     const userType = registerModal.userType
     const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : '';
+    const [emailError, setEmailError] = useState(''); // Error state for email
 
     
-    
+    const checkEmailExists = async (email: any) => {
+        console.log("Main", email)
+        try {
+          const response = await axios.post('/api/checkmail', { email });
+          console.log("response mail check", response)
+          return response.data.exists; // Expecting { exists: true/false }
+        } catch (error) {
+          console.error("Error checking email:", error);
+          return true; // To prevent proceeding with the registration
+
+        }
+      };
+
     const {
         register,
         handleSubmit,
@@ -48,36 +68,44 @@ const RegisterModal = () => {
         }
     });
 
-    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         setIsLoading(true);
+
+         // Check if email exists before submitting
+    const emailExists = await checkEmailExists(data.email);
+    if (emailExists) {
+        setEmailError('Email is already registered');
+        setIsLoading(false);
+        return;
+      }
 
         axios.post('/api/register', {...data, userType:userType})
             .then(async () => {
 
                 try {
-                    const response = await axios.post('/api/mailing/',
+                    // const response = await axios.post('/api/mailing/',
 
-                    // const response: AxiosResponse<any> = await axios.post('/api/mailing/',
+                    // // const response: AxiosResponse<any> = await axios.post('/api/mailing/',
                     
          
-                      {sender:'devancatour@gmail.com',
-                          recipient:data.email,
-                             subject:"Registration Successful",
-                             user_name:data.name,
-                             templateName: 'sign_up_template',
-                             baseUrl: baseUrl,
+                    //   {sender:'devancatour@gmail.com',
+                    //       recipient:data.email,
+                    //          subject:"Registration Successful",
+                    //          user_name:data.name,
+                    //          templateName: 'sign_up_template',
+                    //          baseUrl: baseUrl,
                             
-                                },
+                    //             },
 
-                                {
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    }
-                                }
-                    );
+                    //             {
+                    //                 headers: {
+                    //                     'Content-Type': 'application/json'
+                    //                 }
+                    //             }
+                    // );
                 
-                    const dataa = await response.data;
-                    console.log(dataa); // handle success message
+                    // const dataa = await response.data;
+                    // console.log(dataa); // handle success message
                 
                   } catch (error) {
                     console.error(error); // handle error message
@@ -108,6 +136,13 @@ const RegisterModal = () => {
                 subtitle=''
                 // center
             />
+             {emailError && <p className="text-red-500">{emailError}</p>} {/* Display manual email error */}
+             {isLoading && (
+               <div className="loading-spinner">
+                  <RingLoader color={'#123abc'} css={override} size={150} loading={isLoading} />
+                </div>
+                )}
+                
             <Input
                 id='name'
                 label='Name'

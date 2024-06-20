@@ -60,8 +60,9 @@ import prisma from '@/app/libs/prismadb';
 
 
 import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
    
         console.log("Backend reached....");
         try {
@@ -77,8 +78,9 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
 
             const emailExists = !!user;
             console.log('Email exists:', emailExists);
-
-            res.status(200).json({ exists: emailExists });
+ 
+            return NextResponse.json({ exists: emailExists });
+            //res.status(200).json({ exists: emailExists });
         } catch (error) {
             console.error('An error occurred:', error);
             res.status(500).json({ error: 'An error occurred' });
