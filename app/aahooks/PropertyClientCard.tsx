@@ -145,19 +145,22 @@ function formatDate(dateString: any) {
               </div>
               <hr />
               <div className="flex justify-between mx-2 items-center">
-              {/* <div className="font-light text-neutral-500 text-sm">
-                 <span className="text-neutral-800">Check In:</span>: { formatDate(data.startDate)}
+              <div className="font-light text-neutral-500 text-sm">
+                 <span className="text-neutral-800">Agent:</span>: {data.Property.user.name}
               </div>
               <div className="font-light text-neutral-500 text-sm">
-                  <span className="text-neutral-800">Check Out:</span> { formatDate(data.endDate)}
+                  <span className="text-neutral-800">Agent Contact:</span> {data.Property.user.contact}
+              </div> 
+              </div>
+              <hr />
+              <div className="flex justify-between mx-2 items-center">
+              <div className="font-light text-neutral-500 text-sm">
+                 <span className="text-neutral-800">Agent email:</span> {data.Property.user.email}
+              </div>
+              {/* <div className="font-light text-neutral-500 text-sm">
+                  <span className="text-neutral-800">Host Contact:</span> {data?.user.contact}
               </div>  */}
               </div>
-              {/* <div className="flex flex-row items-center gap-1">
-                  <div className="text-sm">
-                    {data.depStart} to {data.depEnd}
-                  </div>
-              </div> */}
-
               
               {onAction && actionLabel && (
                   <Button

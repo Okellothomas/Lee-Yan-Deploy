@@ -83,12 +83,41 @@ const RegisterModal = () => {
             .then(async () => {
 
                 try {
+
+                const recipients = [
+                                    { email: 'recipient1@example.comleeyan.smartproperties1@gmail.com', name: 'Lee-Yan Smart Properties' },
+                                    { email: data.email, name: data.name },
+                                    // { email: offer.user.email, name: offer.user.name }
+                          ];
+                          
+                              const response = await axios.post('/api/mailing/', 
+
+                                // recipients.forEach(recipient => {
+                                //     sendEmail({
+                                //         sender: 'leeyan.smartproperties1@gmail.com',
+                                //         recipient: recipient.email,
+                                //         subject: "Devance Reservations",
+                                //         user_name: recipient.name,
+                                //         templateName: 'mail_template',
+                                //         // mail_body: This is a sample test mail from Devance Application and these are the reservatio
+                                //     });
+                                // });
+                  
+                                {sender:'leeyan.smartproperties1@gmail.com',
+                                       recipients:recipients,
+                                       subject:"Successful Offer Reservation",
+                                    //    user_name:currentUser?.name,
+                                       templateName: 'mail_template',
+                                    //    mail_body:This is a sample test mail from Devance Application and these are the reservatio
+
+                                  },
+                                          
                     // const response = await axios.post('/api/mailing/',
 
                     // // const response: AxiosResponse<any> = await axios.post('/api/mailing/',
                     
          
-                    //   {sender:'devancatour@gmail.com',
+                    //   {sender:'leeyan.smartproperties1@gmail.com',
                     //       recipient:data.email,
                     //          subject:"Registration Successful",
                     //          user_name:data.name,
@@ -97,15 +126,15 @@ const RegisterModal = () => {
                             
                     //             },
 
-                    //             {
-                    //                 headers: {
-                    //                     'Content-Type': 'application/json'
-                    //                 }
-                    //             }
-                    // );
+                                {
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                }
+                    );
                 
-                    // const dataa = await response.data;
-                    // console.log(dataa); // handle success message
+                    const dataa = await response.data;
+                    console.log(dataa); // handle success message
                 
                   } catch (error) {
                     console.error(error); // handle error message

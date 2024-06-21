@@ -52,7 +52,7 @@ const TourPage = async ({ params }: { params: IParams }) => {
       {/* TourClient section */}
       <div className="py-6">
         <TourClient
-          tour={offer}
+          offer={offer}
           reservations={reservations}
           currentUser={currentUser ? {
                       ...currentUser,

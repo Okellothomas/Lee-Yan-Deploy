@@ -1,6 +1,6 @@
 'use client'
 import useCountries from "@/app/hooks/useCountries";
-import { SafeUser, safeReservation, safeOfferReservation } from "@/app/types";
+import { SafeUser, safeReservation, safePropertyReservation, safeOffer, safeLandReservation, safeOfferReservation } from "@/app/types";
 import { Listing, Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
@@ -24,7 +24,7 @@ interface ListingCardProps {
     currentUser?: SafeUser | null;
 }
 
-const MyOffersClientCard: React.FC<ListingCardProps> = ({
+const OfferAdminCard: React.FC<ListingCardProps> = ({
     data,
     reservation,
     onAction,
@@ -40,8 +40,14 @@ const MyOffersClientCard: React.FC<ListingCardProps> = ({
 
 
     // console.log(
-    //     "More of the data available", data
+    //     "Cool of the data available", data
     // )
+
+    //  console.log(
+    //     "Cool of the data available", data.offer.User
+    // )
+
+
 
     const handleCancel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -80,7 +86,7 @@ const MyOffersClientCard: React.FC<ListingCardProps> = ({
             method: 'DELETE',
         });
         console.log("try is working")
-        toast.success("Stay deleted successfully")
+        toast.success("Land deleted successfully")
         router.push("/")
     } catch (error) {
         console.error(error);
@@ -88,6 +94,8 @@ const MyOffersClientCard: React.FC<ListingCardProps> = ({
     }
 };
 
+// console.log("All the User data", data)
+    
 function formatDate(dateString: any) {
   const date = new Date(dateString);
   const options = {
@@ -117,10 +125,11 @@ function formatDate(dateString: any) {
               <div className="font-semibold text-md mx-2 truncate max-w-[15rem]">
                  <span>{data.Offers.title}</span> 
               </div>
+              <hr />
               <div className="flex justify-between mx-2 items-center">
-                 {/* <div className="font-light text-neutral-500 text-sm">
-               <span className="text-neutral-800">No of guests:</span> {data.Listing.guestCount} 
-              </div> */}
+                 <div className="font-light text-neutral-500 text-sm">
+               <span className="text-neutral-800">Client:</span> {data?.user.name} 
+              </div>
               <div className="font-light mx-2 text-neutral-500 text-sm">
                 <span className="text-neutral-800">Location:</span> {data.Offers.county}, {data.Offers.town}
               </div> 
@@ -131,9 +140,41 @@ function formatDate(dateString: any) {
                 <span className="text-neutral-800">Amount paid:</span> Ksh. {data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
               </div>
               <div className="font-light text-neutral-500 text-sm">
-                  <span className="text-neutral-800">Balance:</span> Ksh. { data.Offers.offerprice  -  data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
+                  <span className="text-neutral-800">Balance:</span> Ksh. { data.Offers.price  -  data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
               </div> 
               </div>
+              <hr />
+              <div className="flex justify-between mx-2 items-center">
+                 <div className="font-light text-neutral-500 text-sm">
+                <span className="text-neutral-800">Client email:</span> {data?.user.email}
+              </div>
+              <div className="font-light text-neutral-500 text-sm">
+                  <span className="text-neutral-800">Client contact:</span> {data?.user.contact}
+              </div> 
+              </div>
+              <hr />
+              <div className="flex justify-between mx-2 items-center">
+              <div className="font-light text-neutral-500 text-sm">
+                 <span className="text-neutral-800">Agent:</span>: {data.Offers.user.name}
+              </div>
+              <div className="font-light text-neutral-500 text-sm">
+                  <span className="text-neutral-800">Agent Contact:</span> {data.Offers.user.contact}
+              </div> 
+              </div>
+              <hr />
+              <div className="flex justify-between mx-2 items-center">
+              <div className="font-light text-neutral-500 text-sm">
+                 <span className="text-neutral-800">Agent email:</span>: {data.Offers.user.email}
+              </div>
+              {/* <div className="font-light text-neutral-500 text-sm">
+                  <span className="text-neutral-800">Host Contact:</span> {data?.user.contact}
+              </div>  */}
+              </div>
+              {/* <div className="flex flex-row items-center gap-1">
+                  <div className="text-sm">
+                    {data?.user.contact}
+                  </div>
+              </div> */}
 
               
               {onAction && actionLabel && (
@@ -154,4 +195,4 @@ function formatDate(dateString: any) {
   )
 }
 
-export default MyOffersClientCard;
+export default OfferAdminCard;

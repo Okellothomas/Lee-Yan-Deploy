@@ -9,6 +9,7 @@ import RestrictedEmptyState from '@/app/components/container/RestrictedEmptyStat
 import getReservations from '@/app/actions/getReservation';
 import getLandReservation from '@/app/actions/getLandReservation';
 import LandClientCard from '@/app/aahooks/LandClientCard';
+import ClientLandCard from '@/app/aahooks/ClientLandCard';
 
 // Define the interface for the Home component props
 interface HotelPageProps {
@@ -74,7 +75,7 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
                 ) : (
                   <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-8">
                     {reservations.map((reservation: any) => (
-                      <LandClientCard
+                      <ClientLandCard
                         currentUser={currentUser ? {
                           ...currentUser,
                           createdAt: currentUser.createdAt.toISOString(),

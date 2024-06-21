@@ -34,7 +34,12 @@ export default async function getLandReservation(params: IParams) {
         const landreservations = await prisma.landReservation.findMany({
             where: query,
             include: {
-                Land: true,
+                // Land: true,
+                Land: {
+                include: {
+                    user: true,
+                },
+                },
                 user:true
             },
             orderBy: {

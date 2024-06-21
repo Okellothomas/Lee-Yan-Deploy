@@ -1,6 +1,6 @@
 'use client'
 import useCountries from "@/app/hooks/useCountries";
-import { SafeUser, safeReservation, safeOfferReservation } from "@/app/types";
+import { SafeUser, safeReservation, safePropertyReservation, safeLandReservation } from "@/app/types";
 import { Listing, Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
@@ -15,8 +15,8 @@ import axios from "axios";
 
 
 interface ListingCardProps {
-    data: safeOfferReservation;
-    reservation?: safeOfferReservation;
+    data: safeLandReservation;
+    reservation?: safeLandReservation;
     onAction?: (id: string) => void;
     disabled?: boolean;
     actionLabel?: string;
@@ -24,7 +24,7 @@ interface ListingCardProps {
     currentUser?: SafeUser | null;
 }
 
-const MyOffersClientCard: React.FC<ListingCardProps> = ({
+const ClientLandCard: React.FC<ListingCardProps> = ({
     data,
     reservation,
     onAction,
@@ -76,11 +76,11 @@ const MyOffersClientCard: React.FC<ListingCardProps> = ({
         e.stopPropagation();
         console.log("button clicked");
     try {
-        const response = await axios.delete(`/api/offer/${data?.id}`, {
+        const response = await axios.delete(`/api/land/${data?.id}`, {
             method: 'DELETE',
         });
         console.log("try is working")
-        toast.success("Stay deleted successfully")
+        toast.success("Land deleted successfully")
         router.push("/")
     } catch (error) {
         console.error(error);
@@ -88,6 +88,8 @@ const MyOffersClientCard: React.FC<ListingCardProps> = ({
     }
 };
 
+// console.log("All the User data", data)
+    
 function formatDate(dateString: any) {
   const date = new Date(dateString);
   const options = {
@@ -101,7 +103,7 @@ function formatDate(dateString: any) {
 
   return (
       <div
-        onClick={() => router.push(`/offer/${data?.Offers.id || ""}`)} // Handle null data or id
+        onClick={() => router.push(`/land/${data?.Land.id || ""}`)} // Handle null data or id
         className="col-span-1 cursor-pointer group"
       >
           <div className="flex flex-col gap-2 w-full main-image-small-screen border-[1px] border-solid border-neutral-300 pb-1 rounded-xl">
@@ -109,21 +111,23 @@ function formatDate(dateString: any) {
                   <Image
                       fill
                       alt="Listing"
-                      src={data?.Offers.imageSrc[0] || ""} // Handle null data or imageSrc sure one 
+                      src={data?.Land.imageSrc[0] || ""} // Handle null data or imageSrc sure one 
                       className="object-cover h-[25vh] w-full transition group-hover:scale-110 main-image-small-screen"
                   />
                   
               </div>
               <div className="font-semibold text-md mx-2 truncate max-w-[15rem]">
-                 <span>{data.Offers.title}</span> 
+                 <span>{data.Land.title}</span> 
               </div>
+              <hr />
               <div className="flex justify-between mx-2 items-center">
                  {/* <div className="font-light text-neutral-500 text-sm">
-               <span className="text-neutral-800">No of guests:</span> {data.Listing.guestCount} 
+               <span className="text-neutral-800">Client:</span> {data?.user.name} 
               </div> */}
               <div className="font-light mx-2 text-neutral-500 text-sm">
-                <span className="text-neutral-800">Location:</span> {data.Offers.county}, {data.Offers.town}
-              </div> 
+                <span className="text-neutral-800">Location:</span> {data.Land.county}, {data.Land.town}
+                </div> 
+              <div></div>
               </div>
               <hr />
               <div className="flex justify-between mx-2 items-center">
@@ -131,9 +135,32 @@ function formatDate(dateString: any) {
                 <span className="text-neutral-800">Amount paid:</span> Ksh. {data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
               </div>
               <div className="font-light text-neutral-500 text-sm">
-                  <span className="text-neutral-800">Balance:</span> Ksh. { data.Offers.offerprice  -  data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
+                  <span className="text-neutral-800">Balance:</span> Ksh. { data.Land.price  -  data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
               </div> 
               </div>
+              <hr />
+              {/* <div className="flex justify-between mx-2 items-center">
+                 <div className="font-light text-neutral-500 text-sm">
+                <span className="text-neutral-800">Client email:</span> {data?.user.email}
+              </div>
+              <div className="font-light text-neutral-500 text-sm">
+                  <span className="text-neutral-800">Client contact:</span> {data?.user.contact}
+              </div> 
+              </div>
+              <hr /> */}
+              {/* <div className="flex justify-between mx-2 items-center"> */}
+              {/* <div className="font-light text-neutral-500 text-sm">
+                 <span className="text-neutral-800">Check In:</span>: { formatDate(data.startDate)}
+              </div>
+              <div className="font-light text-neutral-500 text-sm">
+                  <span className="text-neutral-800">Check Out:</span> { formatDate(data.endDate)}
+              </div>  */}
+              {/* </div> */}
+              {/* <div className="flex flex-row items-center gap-1">
+                  <div className="text-sm">
+                    {data.depStart} to {data.depEnd}
+                  </div>
+              </div> */}
 
               
               {onAction && actionLabel && (
@@ -154,4 +181,4 @@ function formatDate(dateString: any) {
   )
 }
 
-export default MyOffersClientCard;
+export default ClientLandCard;

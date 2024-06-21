@@ -7,6 +7,7 @@ import TourMyCard from "@/app/aahooks/TourMyCard";
 import TourClientCard from '@/app/aahooks/TourClientCard';
 import RestrictedEmptyState from '@/app/components/container/RestrictedEmptyState';
 import getReservations from '@/app/actions/getReservation';
+import StayAdminCards from '@/app/aahooks/StayAdminCards';
 
 // Define the interface for the Home component props
 interface HotelPageProps {
@@ -72,7 +73,7 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
                 ) : (
                   <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-8">
                     {reservations.map((reservation: any) => (
-                      <TourClientCard
+                      <StayAdminCards
                         currentUser={currentUser ? {
                           ...currentUser,
                           createdAt: currentUser.createdAt.toISOString(),

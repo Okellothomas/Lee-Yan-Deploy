@@ -7,17 +7,29 @@ import TourMyCard from "@/app/aahooks/TourMyCard";
 import TourClientCard from '@/app/aahooks/TourClientCard';
 import RestrictedEmptyState from '@/app/components/container/RestrictedEmptyState';
 import getReservations from '@/app/actions/getReservation';
-import getPropertyReservation from '@/app/actions/getPropertyReservation';
-import PropertyClientCard from '@/app/aahooks/PropertyClientCard';
-import ClientPropertyCard from '@/app/aahooks/ClientPropertyCard';
+import getLandReservation from '@/app/actions/getLandReservation';
+import LandClientCard from '@/app/aahooks/LandClientCard';
+import getLands, {LandParams} from '@/app/actions/getLands.';
+import getOfferReservation from '@/app/actions/getOfferReservation';
+import OfferClientCard from '@/app/aahooks/OfferClientCard';
+import getOffers, {OffersParams} from '@/app/actions/getOffers';
+import AllOfferCard from '@/app/aahooks/AllOfferCard';
+import getListings, {IListingsParams} from '@/app/actions/getListings';
+import AllReservationsCard from '@/app/aahooks/AllReservationsCard';
+import AllLandCard from '@/app/aahooks/AllLandCard';
+import getProperty, {PropertyParams} from '@/app/actions/getProperty';
 
 // Define the interface for the Home component props
 interface HotelPageProps {
   searchParams: ImyToursParams; // Search parameters for fetching listings
+  tourParams: OffersParams;
+  listingParams: IListingsParams;
+  landParams: LandParams;
+  propertyParams: PropertyParams;
 }
 
 // Home component is defined as an asynchronous function
-const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
+const AdministratorsPage = async ({ searchParams, tourParams, listingParams, propertyParams, landParams }: HotelPageProps) => {
   try {
     // Fetch the current user
     const currentUser = await getCurrentUser();
@@ -27,9 +39,30 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
       return <div>Error: Current user not found.</div>;
     }
 
-    const reservations = (await getPropertyReservation({}))
-      .filter(reservation => reservation.userId?.includes(currentUser.id) && reservation.Property.type === 'rental');
+  //   // Fetch reservations that match the current user's ID
+  //   const reservations = await getmyTours({ ...searchParams, userId: currentUser.id });
 
+  //   // Modify reservations to include currentUser.id in the reservationists[] field
+  //  const updatedTours = reservations.map((reservation: any) => ({
+  //     ...reservation,
+  //     isCurrentUserTourist: reservation.reservationists.includes(currentUser.id)
+  //   }));
+
+    // const reservations = (await getOfferReservation({}))
+    //   .filter(reservation => reservation.Offers.userId === currentUser.id);
+
+    const properties = await getProperty(propertyParams); 
+    const reservations = properties.filter(property => property.type === "sale");
+
+    // console.log("List all reservations, ",reservations);
+
+    // Render the component with the fetched reservations
+    // if(currentUser?.userType !== "client") {
+    //   // Render link to homepage if the current user is not an admin
+    //   return (
+    //     <RestrictedEmptyState/>
+    //   );
+    // }
     return (
       <div>
         <div className="all-destinations-main-admin-profile flex flex-col items-center justify-center text-lg font-bold">
@@ -46,18 +79,18 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
             <div className="col-span-4">
               <div className="col-span-4 border-[1px] border-solid border-neutral-300 rounded-lg py-4 px-6">
               <div className="pb-2">
-                <h1 className="text-xl font-semibold">My property rentals</h1>
+               <h1 className="text-xl font-semibold">All land sales</h1>
                 </div>
                <div className="pt-2 pb-4">
               <hr />
             </div>
               <div className="items-center pb-1">
                 {reservations.length === 0 ? (
-                  <div>No active property rentals</div>
+                  <div>No land sales</div>
                 ) : (
                   <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-8">
                     {reservations.map((reservation: any) => (
-                      <ClientPropertyCard
+                      <AllLandCard
                         currentUser={currentUser ? {
                           ...currentUser,
                           createdAt: currentUser.createdAt.toISOString(),
