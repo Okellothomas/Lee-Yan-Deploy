@@ -25,7 +25,7 @@ const Lago = () => {
           <div className="items-center">
             <Link href="/">
               <p>
-                Lee-yan smart properties
+                Lee-Yan Smart Properties
               </p>
             </Link>
           </div>

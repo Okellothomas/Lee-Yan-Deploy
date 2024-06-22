@@ -38,7 +38,8 @@ const ProfilePage = async ({ searchParams, tourParams }: HotelPageProps) => {
             <div className="col-span-2">
             <SideBar />
             </div>      
-            <div className="col-span-4 border-[1px] border-solid border-neutral-300 rounded-lg py-4 px-6">
+          <div className="col-span-4">
+            <div className="border-[1px] border-solid border-neutral-300 rounded-lg py-4 px-6">
             <div className="pb-6">
               <h1 className="text-xl font-semibold">My personal information</h1>            
             </div>
@@ -65,6 +66,7 @@ const ProfilePage = async ({ searchParams, tourParams }: HotelPageProps) => {
               <p>{ currentUser?.country }</p>            
             </div>
             <hr />
+            </div>
             </div>      
         </div>
       </Container>

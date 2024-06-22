@@ -34,7 +34,12 @@ export default async function getPropertyReservation(params: IParams) {
         const propertyreservations = await prisma.propertyRreservation.findMany({
             where: query,
             include: {
-                Property: true,
+                // Property: true,
+                Property: {
+                include: {
+                    user: true,
+                },
+                },
                 user:true
             },
             orderBy: {

@@ -3,14 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to Devance Tours</title>
+    <title>Welcome to Lee-Yan Smart Properties</title>
     <style>
-      /* Reset common styles for consistent rendering across email clients */
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Georgia", serif;
         margin: 0;
         padding: 0;
-        background-color: #f0f0f0;
+        background-color: #f8f8f8;
       }
 
       table {
@@ -20,7 +19,7 @@
       td,
       th {
         padding: 10px;
-        border: 1px solid #ddd;
+        border: none;
         text-align: left;
       }
 
@@ -28,80 +27,166 @@
       .container {
         max-width: 600px;
         margin: 0 auto;
-        background-color: #fff;
+        background-color: #ffffff;
         padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
       .header {
-        background-color: #4caf50;
-        color: #fff;
+        background-color: #333333;
+        color: #ffffff;
         padding: 20px;
         text-align: center;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+
+      .header img {
+        max-width: 80px;
+        max-width: 80px;
+        border-radius: 100%;
+      }
+
+      .header h1 {
+        font-size: 24px;
+        margin: 10px 0 0;
+        font-family: "Georgia", serif;
       }
 
       .content {
         padding: 20px;
-      }
-
-      .footer {
-        background-color: #f0f0f0;
-        padding: 10px 20px;
-        text-align: center;
+        font-size: 16px;
+        color: #333333;
+        line-height: 1.6;
       }
 
       .button {
-        background-color: #4caf50;
+        background-color: #c39c73;
         border: none;
-        color: #fff;
-        padding: 10px 20px;
+        color: #ffffff;
+        padding: 12px 24px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-        margin: 4px 2px;
+        margin: 20px 0;
         cursor: pointer;
         border-radius: 4px;
       }
 
       .button:hover {
-        cursor: pointer;
-        opacity: 90%;
+        background-color: #b18c65;
         transition: all 0.3s ease;
+        color: white;
       }
 
-      /* Add more styles as needed */
+      .footer {
+        background-color: #f8f8f8;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 14px;
+        color: #888888;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+
+      .property-highlight {
+        margin: 20px 0;
+        border-top: 1px solid #e0e0e0;
+        padding-top: 20px;
+      }
+
+      .property-highlight img {
+        max-width: 100%;
+        border-radius: 8px;
+      }
+
+      .property-highlight h2 {
+        font-size: 20px;
+        color: #1a1a1a;
+        margin: 10px 0 5px;
+      }
+
+      .property-highlight p {
+        font-size: 14px;
+        color: #666666;
+      }
+
+      .contact-info {
+        margin: 20px 0;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+      }
+
+      .contact-info h3 {
+        font-size: 18px;
+        color: #1a1a1a;
+        margin-bottom: 10px;
+      }
+
+      .contact-info p {
+        font-size: 14px;
+        color: #666666;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <div class="header">
         <img
-          src="../public/images/logo.png"
-          alt="Devance Tours Logo"
-          style="max-width: 200px"
+          src="https://res.cloudinary.com/doamgn1l0/image/upload/v1718981721/yayv34nj3xqxx9wrkau6.jpg"
+          alt="Lee-Yan Smart Properties Logo"
         />
-        <h1>Welcome to Devance Tours</h1>
+        <h1>Welcome to Lee-Yan Smart Properties</h1>
       </div>
       <div class="content">
         <p>Dear {recipientName},</p>
         <p>
-          We are thrilled to inform you that your account has been successfully
-          created with Devance Tours. Thank you for choosing us as your travel
-          partner. We are dedicated to providing exceptional service and
-          unforgettable experiences.
+          We are delighted to welcome you to Lee-Yan Smart Properties. Your
+          account has been successfully created, and we are thrilled to have you
+          with us. Thank you for choosing us for your property needs.
+        </p>
+        <p>
+          Whether you're looking for luxurious stays, rental properties, sales,
+          or land investments, we are here to provide you with the best service
+          and support. Discover our exclusive listings and enjoy a seamless
+          experience.
+        </p>
+        <p>
+          You can now view details about your properties and reservations by
+          clicking the button below:
+        </p>
+        <p>
+          <a href="http://localhost:4000/client/profile" class="button"
+            >View Property Details</a
+          >
         </p>
 
-        <p>
-          You can now view details about your tour reservations, including all
-          relevant information, by clicking the button below:
-        </p>
+        <div class="property-highlight">
+          <h2>Premium selections</h2>
+          <img
+            src="https://res.cloudinary.com/doamgn1l0/image/upload/v1718981750/rfurliahfselsnn86h3g.jpg"
+            alt="Featured Property"
+          />
+          <p>
+            Explore our latest featured property, offering stunning views and
+            exceptional amenities. Ideal for those seeking comfort and luxury.
+          </p>
+        </div>
 
-        <p>
-          <a href="{tourUrl}" class="button">View Tour Details</a>
-        </p>
+        <div class="contact-info">
+          <h3>Contact Us</h3>
+          <p>
+            Have questions or need assistance? Our dedicated team is here to
+            help. Reach out to us anytime at leeyan.smartproperties1@gmail.com
+            or call us at +254 708 443787.
+          </p>
+        </div>
       </div>
       <div class="footer">
-        <p>© {year} Devance Tours. All rights reserved.</p>
+        <p>© {year} Lee-Yan Smart Properties. All rights reserved.</p>
       </div>
     </div>
   </body>

@@ -67,6 +67,8 @@ const TourClient: React.FC<TourClientProps> = ({
     const loginModal = useLoginModal();
     const router = useRouter();
 
+    // console.log("Offer Data", offer)
+
     // const disabledDates = useMemo(() => {
     //     let dates: Date[] = [];
 
@@ -296,7 +298,7 @@ const TourClient: React.FC<TourClientProps> = ({
                   // totalPrice,  //for totalPrice
                   // startDate: dateRange.startDate,
                   // endDate: dateRange.endDate,
-                  landId: offer?.id,
+                  offerId: offer?.id,
                   paymentDetails: data2,
                   userId: currentUser?.id,
                   // guestDetails: options
@@ -307,26 +309,44 @@ const TourClient: React.FC<TourClientProps> = ({
                       // setDateRange(initialDateRange);
                       // redirect to /trips
                       try {
-                          //     const response = await axios.post('/api/mailing/', 
+                          
+                          const recipients = [
+                                    { email: 'recipient1@example.comleeyan.smartproperties1@gmail.com', name: 'Lee-Yan Smart Properties' },
+                                    { email: currentUser?.email, name: currentUser?.name },
+                                    { email: offer.user.email, name: offer.user.name }
+                          ];
+                          
+                              const response = await axios.post('/api/mailing/', 
+
+                                // recipients.forEach(recipient => {
+                                //     sendEmail({
+                                //         sender: 'leeyan.smartproperties1@gmail.com',
+                                //         recipient: recipient.email,
+                                //         subject: "Devance Reservations",
+                                //         user_name: recipient.name,
+                                //         templateName: 'mail_template',
+                                //         // mail_body: This is a sample test mail from Devance Application and these are the reservatio
+                                //     });
+                                // });
                   
-                          //       {sender:'Info@devancatours.com',
-                          //              recipient:'wanjooo.ken@gmail.com',
-                          //              subject:"Devance Reservations",
-                          //              user_name:currentUser?.name,
-                          //              templateName: 'mail_template',
-                          //              mail_body:This is a sample test mail from Devance Application and these are the reservatio
+                                {sender:'leeyan.smartproperties1@gmail.com',
+                                       recipients:recipients,
+                                       subject:"Devance Reservations",
+                                       user_name:currentUser?.name,
+                                       templateName: 'mail_template',
+                                    //    mail_body:This is a sample test mail from Devance Application and these are the reservatio
 
-                          //                 },
+                                          },
 
-                          //                 {
-                          //                     headers: {
-                          //                         'Content-Type': 'application/json'
-                          //                     }
-                          //                 }
-                          //     );
+                                          {
+                                              headers: {
+                                                  'Content-Type': 'application/json'
+                                              }
+                                          }
+                              );
                 
-                          //     const data = await response.data;
-                          //     console.log(data); // handle success message
+                              const data = await response.data;
+                              console.log(data); // handle success message
                 
                             } catch (error) {
                               console.error(error); // handle error message

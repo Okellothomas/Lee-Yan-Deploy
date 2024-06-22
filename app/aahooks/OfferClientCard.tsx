@@ -103,7 +103,7 @@ function formatDate(dateString: any) {
 
   return (
       <div
-        onClick={() => router.push(`/offer/${data?.Offer.id || ""}`)} // Handle null data or id
+        onClick={() => router.push(`/offer/${data?.Offers.id || ""}`)} // Handle null data or id
         className="col-span-1 cursor-pointer group"
       >
           <div className="flex flex-col gap-2 w-full main-image-small-screen border-[1px] border-solid border-neutral-300 pb-1 rounded-xl">
@@ -111,20 +111,21 @@ function formatDate(dateString: any) {
                   <Image
                       fill
                       alt="Listing"
-                      src={data?.Offer.imageSrc[0] || ""} // Handle null data or imageSrc sure one 
+                      src={data?.Offers.imageSrc[0] || ""} // Handle null data or imageSrc sure one 
                       className="object-cover h-[25vh] w-full transition group-hover:scale-110 main-image-small-screen"
                   />
                   
               </div>
               <div className="font-semibold text-md mx-2 truncate max-w-[15rem]">
-                 <span>{data.Offer.title}</span> 
+                 <span>{data.Offers.title}</span> 
               </div>
+              <hr />
               <div className="flex justify-between mx-2 items-center">
                  <div className="font-light text-neutral-500 text-sm">
                <span className="text-neutral-800">Client:</span> {data?.user.name} 
               </div>
               <div className="font-light mx-2 text-neutral-500 text-sm">
-                <span className="text-neutral-800">Location:</span> {data.Offer.county}, {data.Offer.town}
+                <span className="text-neutral-800">Location:</span> {data.Offers.county}, {data.Offers.town}
               </div> 
               </div>
               <hr />
@@ -133,7 +134,7 @@ function formatDate(dateString: any) {
                 <span className="text-neutral-800">Amount paid:</span> Ksh. {data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
               </div>
               <div className="font-light text-neutral-500 text-sm">
-                  <span className="text-neutral-800">Balance:</span> Ksh. { data.Offer.price  -  data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
+                  <span className="text-neutral-800">Balance:</span> Ksh. { data.Offers.price  -  data.paymentDetails.Body.stkCallback.CallbackMetadata.Item[0].Value}
               </div> 
               </div>
               <hr />
@@ -147,18 +148,22 @@ function formatDate(dateString: any) {
               </div>
               <hr />
               <div className="flex justify-between mx-2 items-center">
-              {/* <div className="font-light text-neutral-500 text-sm">
-                 <span className="text-neutral-800">Check In:</span>: { formatDate(data.startDate)}
+              <div className="font-light text-neutral-500 text-sm">
+                 <span className="text-neutral-800">Host:</span>: {data.Offers.user.name}
               </div>
               <div className="font-light text-neutral-500 text-sm">
-                  <span className="text-neutral-800">Check Out:</span> { formatDate(data.endDate)}
+                  <span className="text-neutral-800">Host Contact:</span> {data.Offers.user.contact}
+              </div> 
+              </div>
+              <hr />
+              <div className="flex justify-between mx-2 items-center">
+              <div className="font-light text-neutral-500 text-sm">
+                 <span className="text-neutral-800">Host email:</span>: {data.Offers.user.email}
+              </div>
+              {/* <div className="font-light text-neutral-500 text-sm">
+                  <span className="text-neutral-800">Host Contact:</span> {data?.user.contact}
               </div>  */}
               </div>
-              {/* <div className="flex flex-row items-center gap-1">
-                  <div className="text-sm">
-                    {data.depStart} to {data.depEnd}
-                  </div>
-              </div> */}
 
               
               {onAction && actionLabel && (

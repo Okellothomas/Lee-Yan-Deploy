@@ -63,7 +63,7 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
             <div className="col-span-4">
               <div className="col-span-4 border-[1px] border-solid border-neutral-300 rounded-lg py-4 px-6">
               <div className="pb-2">
-                <h1 className="text-xl font-semibold">Offers</h1>
+                <h1 className="text-xl font-semibold">My offers</h1>
                 </div>
                <div className="pt-2 pb-4">
               <hr />

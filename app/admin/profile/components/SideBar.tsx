@@ -10,6 +10,12 @@ import { CiImageOn } from "react-icons/ci";
 import { BsPersonFillGear } from "react-icons/bs";
 import { BsPersonCheck } from "react-icons/bs";
 import { MdOutlineRealEstateAgent } from "react-icons/md";
+import { ImGift } from "react-icons/im";
+import { TbGiftFilled } from "react-icons/tb";
+import {LuBed} from "react-icons/lu";
+import {GiMushroomHouse} from "react-icons/gi";
+import {GiHouseKeys} from "react-icons/gi";
+import { GiIsland } from "react-icons/gi";
 
 const ProfilePage = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -79,6 +85,17 @@ const ProfilePage = () => {
         <hr />
       </div>
       <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/admin/offers">
+          <ImGift className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/admin/offers" className="sidebar-image">
+          Active offers
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
         <Link href="/admin/reservations">
           <GiBed className="text-neutral-500" size={25} />
         </Link>
@@ -117,6 +134,61 @@ const ProfilePage = () => {
         </Link>
         <Link href="/admin/land-sales" className="sidebar-image">
           Active land sales
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/admin/offer">
+          <TbGiftFilled className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/admin/offer" className="sidebar-image">
+          All offers
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/admin/reservation">
+          <LuBed className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/admin/reservation" className="sidebar-image">
+          All reservations
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/admin/propertysales">
+          <GiMushroomHouse className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/admin/propertysales" className="sidebar-image">
+          All property sales
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/admin/propertyrentals">
+          <GiHouseKeys className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/admin/propertyrentals" className="sidebar-image">
+          All property rentals
+        </Link>
+      </div>
+      <div className="py-3">
+        <hr />
+      </div>
+      <div className="hover:font-semibold text-md flex cursor-pointer flex-row gap-3 py-4 items-center">
+        <Link href="/admin/landsales">
+          <GiIsland className="text-neutral-500" size={25} />
+        </Link>
+        <Link href="/admin/landsales" className="sidebar-image">
+          All land sales
         </Link>
       </div>
       <div className="py-3">
