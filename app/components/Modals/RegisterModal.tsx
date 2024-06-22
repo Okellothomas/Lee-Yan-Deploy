@@ -22,6 +22,7 @@ import getCurrentUser from '@/app/actions/getCurrentUsers';
 import Lago from '../navbar/Lago';
 import Link from "next/link";
 import { RingLoader } from 'react-spinners';
+import Modols from './Modols';
 
 // const override = css`
 //   display: block;
@@ -85,7 +86,7 @@ const RegisterModal = () => {
                 try {
 
                 const recipients = [
-                                    { email: 'recipient1@example.comleeyan.smartproperties1@gmail.com', name: 'Lee-Yan Smart Properties' },
+                                    { email: 'leeyan.smartproperties1@gmail.com', name: data.name },
                                     { email: data.email, name: data.name },
                                     // { email: offer.user.email, name: offer.user.name }
                           ];
@@ -105,9 +106,9 @@ const RegisterModal = () => {
                   
                                 {sender:'leeyan.smartproperties1@gmail.com',
                                        recipients:recipients,
-                                       subject:"Successful Offer Reservation",
+                                       subject:"Congratulations! Registration Successful",
                                     //    user_name:currentUser?.name,
-                                       templateName: 'mail_template',
+                                       templateName: 'sign_up_template',
                                     //    mail_body:This is a sample test mail from Devance Application and these are the reservatio
 
                                   },

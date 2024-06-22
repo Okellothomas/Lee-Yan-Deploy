@@ -77,7 +77,10 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
     const [mpesaprocessing, setMpesaprocessing] = useState(false);
 
     const [formData, setFormData] = useState({ phoneNumber: '' });
-    const [mpesaInitiateData, setMpesaInitiateData] = useState(null)
+  const [mpesaInitiateData, setMpesaInitiateData] = useState(null)
+  
+  const [showPay, setShowPay] = useState(false)
+  const [totalprice , setTotalPrice] = useState(0)
     
 
 
@@ -237,13 +240,44 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
       }},
       [payInitiated])
 
+  
+  const partialAmount = 1000;
+
+    const handlePartialPay = () => {
+        setShowPay(true)
+        // onSubmit(partialAmount);
+    }
+
+    const handleFullPay = () => {
+      // setPartialPay(false);
+      setShowPay(true)
+    }
+
 
     const bodyContent = (
         <div className='payment_modal_container'>
+
+        
+         
           <div className="payment_modal_main_body">
             
           <IoMdClose size={18} className="payment_modal_close_icon" onClick={()=>setShowPayModal(false)}/>
           <h2 style={{fontWeight:'600',fontSize:'16px'}}>Payment</h2>
+
+        <h2 className="text-xl font-bold mb-4">Confirm Your Booking</h2>
+                <p>Please choose your payment option.</p>
+                <div className="mt-4 flex flex-col justify-end gap-4">
+                    <button className="border-[1px] border-solid border-green-400 rounded-lg px-4 py-2" onClick={handleFullPay} color="primary">
+                        Pay Full Amount of Ksh. {totalPrice}
+                    </button>
+                  {parseInt(totalPrice,10) > partialAmount && (
+              <button className="border-[1px] border-solid border-green-400 rounded-lg px-4 py-2"
+                onClick={handlePartialPay} color="primary" autoFocus>
+                            Reserve with Ksh. {partialAmount}
+                        </button>
+                    )}
+                </div>
+       
           <hr style={{color:'gray'}}/>
             <div className="payment_modal_top">
             {paymentOptions.map((option) => (
@@ -256,13 +290,14 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
           </div>
         ))}
                 {/* <div className="payment_option">Paypal</div>
-                <div className="payment_option">Mpesa</div> */}
+                <div className="payment_option">Mpesa</div> *
             </div>
-            {paymentMethod==='Paypal'?
-            <div className="paypal">
-            {/* <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID }}> */}
+            {/* {paymentMethod==='Paypal'?
+            <div className="paypal
+            {/* <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID }}> 
             
-         <div>
+            <div>
+                
                 {isScriptReady ? (
                  
                   <PayPalButtons
@@ -296,10 +331,10 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
         ) : (
           <span>Loading PayPal Script...</span>
         )}
-      </div>
-   
+      </div> */}
+
             </div>
-            : paymentMethod ==='Mpesa'? 
+            {/* : paymentMethod ==='Mpesa'?  */}
             <div className="mpesa">
               {mpesaloading? (<div>Loading...</div>):
               mpesaprocessing? (<div>Processing...</div>):
@@ -307,22 +342,22 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
               
                 (<form onSubmit={handleMpesaPay} className='mpesa_pay_form'>
                   {mpesaPaymentFailure && <div style={{color:"red"}}>Payment failed, please try again</div>}
-                  <div className='mpesa_pay_formGroup'> {/* Wrap labels & inputs */}
-                    <label className="mpesa_pay_label" htmlFor="phoneNumber">Enter Mpesa Number:</label>
-                    <input
-                      type="tel"
-                      id="phoneNumber"
-                      required
-                      value={formData.phoneNumber} // Set value from state
-                      onChange={(e) => {
-                        const newValue = e.target.value;
-                        console.log('New value:', newValue);
-                        setFormData({ ...formData, phoneNumber: newValue });
-                      }}
-                      className='mpesa_pay_phoneNumberInput'
-                    />
-                    {errors.PhoneNumber && <span className='mpesa_pay_error'>Please enter a valid phone number.</span>}
-                  </div>
+                      {showPay && <div className='mpesa_pay_formGroup'> {/* Wrap labels & inputs */}
+                        <label className="mpesa_pay_label" htmlFor="phoneNumber">Enter Mpesa Number:</label>
+                        <input
+                          type="tel"
+                          id="phoneNumber"
+                          required
+                          value={formData.phoneNumber} // Set value from state
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            console.log('New value:', newValue);
+                            setFormData({ ...formData, phoneNumber: newValue });
+                          }}
+                          className='mpesa_pay_phoneNumberInput'
+                        />
+                        {errors.PhoneNumber && <span className='mpesa_pay_error'>Please enter a valid phone number.</span>}
+                      </div>}
                   
                  
                  
@@ -332,10 +367,10 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
                 </form>
                 )}
               
-             </div>: 
+             </div>
              
-             <div className="otherpayment">Payment not defined</div>
-}
+             {/* <div className="otherpayment">Payment not defined</div> */}
+
           </div>
            
         </div>
@@ -347,5 +382,6 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
   
   )
 }
+        
 
 export default PaymentModal
