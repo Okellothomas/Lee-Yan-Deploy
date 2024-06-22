@@ -21,6 +21,7 @@ interface ListingReservationProps {
     options: { guests: number; rooms: number };
     setOptions: React.Dispatch<React.SetStateAction<any>>;
     setError: React.Dispatch<React.SetStateAction<any>>;
+    setShowPay: React.Dispatch<React.SetStateAction<any>>;
     openoptions: boolean;
     error: string;
     setOpenOptions: React.Dispatch<React.SetStateAction<any>>;
@@ -42,6 +43,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     makeReservation,
     currentUser,
     setError,
+    setShowPay,
     options,
     setOptions,
     openoptions,
@@ -73,7 +75,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
     }
 
     const handleReserve = () => {
-        setOpenDialog(true);
+        setShowPay(true);
     }
 
     const handleCloseDialog = () => {
