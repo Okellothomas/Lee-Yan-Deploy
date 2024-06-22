@@ -282,7 +282,6 @@ import Container from "@/app/components/container/Container";
 import { useSearchParams } from 'next/navigation';
 import CountyMainCard from "@/app/components/listing/CountyMainCard";
 import Loader from "../components/container/Loader";
-import { Suspense } from 'react';
 
 interface IParams {
   tourId?: string;
@@ -305,6 +304,13 @@ export default function Stay({ tourParams }: IParams) {
     ratings: []
   });
   const [sortOrder, setSortOrder] = useState(''); // State for sorting order
+  const [expandedFilters, setExpandedFilters] = useState({
+    town: false,
+    category: false,
+    type: false,
+    offers: false,
+    ratings: false
+  });
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -321,7 +327,7 @@ export default function Stay({ tourParams }: IParams) {
     fetchListings();
   }, [tourParams]);
 
-  if (loading) return <div><Loader />...</div>;
+  if (loading) return <div><Loader /></div>;
   if (error) return <div>Error: {error.message}</div>;
 
   const normalizedCounty = county ? county.toLowerCase() : ""; // Normalize county safely
@@ -348,11 +354,11 @@ export default function Stay({ tourParams }: IParams) {
 
   const visibleTours = sortedTours.slice(0, visibleCount);
 
-  const towns = Array.from(new Set(listingsPremium.map(tour => tour.town))).slice(0, 5);
-  const categories = Array.from(new Set(listingsPremium.map(tour => tour.category))).slice(0, 5);
-  const types = Array.from(new Set(listingsPremium.map(tour => tour.type))).slice(0, 5);
-  const offers = Array.from(new Set(listingsPremium.flatMap(tour => tour.offers))).slice(0, 5);
-  const ratings = Array.from(new Set(listingsPremium.map(tour => tour.ratings))).slice(0, 5);
+  const towns = Array.from(new Set(listingsPremium.map(tour => tour.town)));
+  const categories = Array.from(new Set(listingsPremium.map(tour => tour.category)));
+  const types = Array.from(new Set(listingsPremium.map(tour => tour.type)));
+  const offers = Array.from(new Set(listingsPremium.flatMap(tour => tour.offers)));
+  const ratings = Array.from(new Set(listingsPremium.map(tour => tour.ratings)));
 
   const handleFilterChange = (filterType, value) => {
     setFilters(prevFilters => {
@@ -369,12 +375,46 @@ export default function Stay({ tourParams }: IParams) {
     setSortOrder(event.target.value);
   };
 
+  const toggleExpand = (filterType) => {
+    setExpandedFilters(prevState => ({ ...prevState, [filterType]: !prevState[filterType] }));
+  };
+
   if (visibleTours.length === 0) {
     return <EmptyState showReset />;
   }
 
   const loadMore = () => {
     setVisibleCount(prevCount => prevCount + 12);
+  };
+
+  const renderFilters = (items, filterType) => {
+    const visibleItems = expandedFilters[filterType] ? items : items.slice(0, 10);
+    return (
+      <div className="border-[1px] border-solid border-neutral-300 rounded-lg px-4 py-6">
+        <h3 className="font-semibold">{filterType.charAt(0).toUpperCase() + filterType.slice(1)}</h3>
+        <div className="py-1">
+          <hr />
+        </div>
+        {visibleItems.map(item => (
+          <div className="flex pt-1 items-center justify-start" key={item}>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                value={item}
+                className="mr-2 h-[20px] w-[20px]"
+                onChange={() => handleFilterChange(filterType, item)}
+              />
+              <span className="mr-1">{item}</span>
+            </label>
+          </div>
+        ))}
+        {items.length > 5 && (
+          <button className="text-green-700 hover:text-blue-700" onClick={() => toggleExpand(filterType)}>
+            {expandedFilters[filterType] ? 'View Less' : 'View More'}
+          </button>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -404,115 +444,12 @@ export default function Stay({ tourParams }: IParams) {
       <Container>
         <div className="pt-0 items-start grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
           <div className="col-span-1 flex flex-col gap-6 all-destination-products">
-            <div className="border-[1px] border-solid border-neutral-300 rounded-lg px-4 py-6">
-              <h3 className="font-semibold">Towns</h3>
-              <div className="py-1">
-                <hr />
-              </div>
-              {towns.map(town => (
-                <div className="flex pt-1 items-center justify-start" key={town}>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      value={town}
-                      className="mr-2 h-[20px] w-[20px]"
-                      onChange={() => handleFilterChange('town', town)}
-                    />
-                    <span className="mr-1">{town}</span>
-                  </label>
-                </div>
-              ))}
-              {listingsPremium.length > 5 && (
-                <button>View More</button>
-              )}
-            </div>
-            <div className="border-[1px] border-solid border-neutral-300 rounded-lg px-4 py-6">
-              <h3 className="font-semibold">Category</h3>
-              <div className="py-1">
-                <hr />
-              </div>
-              {categories.map(category => (
-                <div className="flex pt-1 items-center justify-start" key={category}>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      value={category}
-                      className="mr-2 p-2 h-[20px] w-[20px]"
-                      onChange={() => handleFilterChange('category', category)}
-                    />
-                    <span className="mr-1">{category}</span>
-                  </label>
-                </div>
-              ))}
-              {listingsPremium.length > 5 && (
-                <button>View More</button>
-              )}
-            </div>
-            <div className="border-[1px] border-solid border-neutral-300 rounded-lg px-4 py-6">
-              <h3 className="font-semibold">Deal</h3>
-              <div className="py-1">
-                <hr />
-              </div>
-              {offers.map(offers => (
-                <div className="flex pt-1 items-center justify-start" key={offers}>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      value={offers}
-                      className="mr-2 p-2 h-[20px] w-[20px]"
-                      onChange={() => handleFilterChange('offers', offers)}
-                    />
-                    <span className="mr-1">{offers}</span>
-                  </label>
-                </div>
-              ))}
-              {listingsPremium.length > 5 && (
-                <button>View More</button>
-              )}
-            </div>
-            <div className="border-[1px] border-solid border-neutral-300 rounded-lg px-4 py-6">
-              <h3 className="font-semibold">Ratings</h3>
-              <div className="py-1">
-                <hr />
-              </div>
-              {ratings.map(ratings => (
-                <div className="flex pt-1 items-center justify-start" key={ratings}>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      value={ratings}
-                      className="mr-2 p-2 h-[20px] w-[20px]"
-                      onChange={() => handleFilterChange('ratings', ratings)}
-                    />
-                    <span><span className="mr-1">{ratings}</span><span>reviews</span></span>
-                  </label>
-                </div>
-              ))}
-              {listingsPremium.length > 5 && (
-                <button>View More</button>
-              )}
-            </div>
-            <div className="sticky top-0 border-[1px] border-solid border-neutral-300 rounded-lg px-4 py-6">
-              <h3 className="font-semibold">Type</h3>
-              <div className="py-1">
-                <hr />
-              </div>
-              {types.map(type => (
-                <div className="flex pt-1 items-center justify-start" key={type}>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      value={type}
-                      className="mr-2 p-2 h-[20px] w-[20px]"
-                      onChange={() => handleFilterChange('type', type)}
-                    />
-                    <span className="mr-1">{type}</span>
-                  </label>
-                </div>
-              ))}
-              {listingsPremium.length > 5 && (
-                <button>View More</button>
-              )}
+            <div className="mt-2">{renderFilters(towns, 'town')}</div>
+            <div className="mt-2">{renderFilters(categories, 'category')}</div>
+            <div className="mt-2">{renderFilters(offers, 'offers')}</div>
+            <div className="mt-2">{renderFilters(ratings, 'ratings')}</div>
+            <div className="mt-2 -webkit-sticky sticky top-0" style={{ position: 'sticky', top: '20px', zIndex: 10 }}>
+              {renderFilters(types, 'type')}
             </div>
           </div>
           <div className="col-span-4 all-destination-tour-main-card">
@@ -540,6 +477,7 @@ export default function Stay({ tourParams }: IParams) {
     </div>
   );
 }
+
 
 
 
