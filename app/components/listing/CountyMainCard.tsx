@@ -94,32 +94,32 @@ const CountyMainCard: React.FC<ListingCardProps> = ({
                 </div>
             
            <div className="w-[32vw] main-image-small-spans">
-              <div className="text-lg py-0.5 w-[30vw] font-semibold main-image-small-spans-c-title">
+              <div className="text-lg py-[3px] w-[30vw] font-semibold main-image-small-spans-c-title">
                 <span> {data.title} </span>
               </div>
-              <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c text-neutral-800">
+              <div className="font-normal py-[3px] w-[30vw] main-image-small-spans-c text-neutral-800">
                 {data.distance } form center of <span className="text-neutral-500 text-sm">{ data.town}</span>
               </div>
             <div>
              <span className="text-sm px-3 py-[4px] mb-[6px] border-neutral-300 border-solid border-2 text-neutral-700 rounded-lg">{data?.category }</span>            
             </div>
-              <div className="flex flex-row py-0.5 items-center gap-1">
+              <div className="flex flex-row py-[3px] items-center gap-1">
                   <div>
                      <span className="font-normal main-image-small-spans-c">Location:</span> <span className="text-neutral-700 underline">{ data?.county },</span> <span className="text-neutral-500 underline">{ data.town }</span>
                   </div>
                 </div> 
-            <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c-main text-neutral-800">
-                              <span className="font-normal"></span> <span className="font-light text-sm text-neutral-700">{ data.type}</span>
+            <div className="font-normal py-py-[3px] w-[30vw] main-image-small-spans-c-main text-neutral-800">
+                              <span className="font-normal"></span>Stay type: <span className="font-light text-sm text-neutral-700">{ data.type}</span>
             </div>
-             {data.offers.slice(0,2).map((item, index) => (
-                    <div key={index} className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
+             {data.offers.slice(1,2).map((item, index) => (
+                    <div key={index} className="font-normal flex gap-3 items-center py-[3px] w-[30vw] main-image-small-spans-c">
                     <span className="font-normal text-green-700">{item}</span>
                     <span className="text-green-700">
                         <FaCheck size={18} />
                     </span>
                     </div>
                 ))}
-            <div className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
+            <div className="font-normal flex gap-3 items-center py-[3px] w-[30vw] main-image-small-spans-c">
                 <span className="font-normal text-green-700">Initial deposit</span> <span className="text-green-700"> <FaCheck size={18} /></span>
             </div> 
             {/* <div>
@@ -128,19 +128,19 @@ const CountyMainCard: React.FC<ListingCardProps> = ({
                 </div>
             </div>
                 
-            <div className="flex flex-col items-center pr-5 gap-3">
-            <div className="text-red-600">
+            <div className="flex flex-col items-center pr-5 gap-0">
+            <div className="text-red-600 mb-1">
                  {/* <div className="text-sm main-image-small-spans-c-btn"><span>Save</span></div>    */}
-                <div className="main-image-small-spans-c-btn">Ksh. <span className="text-md line-through">{data.price }</span></div>
+                <div className="main-image-small-spans-c-btn">Price: Ksh. <span className="text-md line-through">{data.price }</span></div>
               </div>
-            <div className="flex flex-row items-center gap-1">
-                  <div><span>Price</span></div> 
+            <div className="flex flex-row items-center mb-1 gap-1">
+                  <div><span>Offer: </span></div> 
                   <div>
                       <span className="text-md font-semibold">Ksh. {data.offerPrice}</span>
                   </div>
             </div>
-                <div>
-                  <span className=" border-green-500 text-green-500 border-solid px-4 py-2 border-2 bg-white hover:bg-green-500 hover:text-white cursor-pointer text-md rounded-xl main-image-small-spans-c-btn" >See availability</span>        
+                <div className="mt-1">
+                  <span className=" border-green-700 text-green-700 border-solid px-4 py-2 border-2 bg-white hover:bg-green-700 hover:text-white cursor-pointer text-sm rounded-xl main-image-small-spans-c-btn" >See availability</span>        
                 </div>
             </div> 
 
