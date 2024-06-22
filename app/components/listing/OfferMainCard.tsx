@@ -109,9 +109,9 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
                   </div>
                 </div> 
             <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c-main text-neutral-800">
-                              <span className="font-normal"></span> <span className="font-light text-sm text-neutral-700">{ data.type}</span>
+                              <span className="font-normal"></span>Offer type: <span className="font-light text-sm text-neutral-700">{ data.type}</span>
             </div>
-             {data.inclusion.slice(0,2).map((item, index) => (
+             {data.inclusion.slice(1,2).map((item, index) => (
                     <div key={index} className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
                     <span className="font-normal text-green-700">{item}</span>
                     <span className="text-green-700">
@@ -131,16 +131,16 @@ const OfferMainCard: React.FC<ListingCardProps> = ({
             <div className="flex flex-col items-center pr-5 gap-3">
             <div className="text-red-600">
                  {/* <div className="text-sm main-image-small-spans-c-btn"><span>Save</span></div>    */}
-                <div className="main-image-small-spans-c-btn">Ksh. <span className="text-md line-through">{data.price }</span></div>
+                <div className="main-image-small-spans-c-btn">Price: Ksh. <span className="text-md line-through">{data.price }</span></div>
               </div>
             <div className="flex flex-row items-center gap-1">
-                  <div><span>Price</span></div> 
+                  <div><span>Offer: </span></div> 
                   <div>
                       <span className="text-md font-semibold">Ksh. {data.offerprice}</span>
                   </div>
             </div>
                 <div>
-                  <span className=" border-green-500 text-green-500 border-solid px-4 py-2 border-2 bg-white hover:bg-green-500 hover:text-white cursor-pointer text-md rounded-xl main-image-small-spans-c-btn" >See availability</span>        
+                  <span className=" border-green-700 text-green-700 border-solid px-4 py-2 border-2 bg-white hover:bg-green-700 hover:text-white cursor-pointer text-sm rounded-xl main-image-small-spans-c-btn" >See availability</span>        
                 </div>
             </div> 
 

@@ -155,7 +155,7 @@ export default function Stay({ tourParams }: IParams) {
             <div className="items-center py-2 pl-2 pr-6 sm:pr-1 text-start all-destination-filter">
               <p className="">Filter Results:</p>
             </div>
-            <div className="font-semibold text-xl">{visibleTours.length} Properties</div>
+            <div className="font-semibold text-lg">{visibleTours.length} Properties</div>
           </div>
           <div>
             <select className="border-[1px] border-solid border-neutral-300 px-4 py-1 rounded-lg" onChange={handleSortChange} value={sortOrder}>
