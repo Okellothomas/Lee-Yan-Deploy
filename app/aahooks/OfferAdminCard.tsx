@@ -82,7 +82,7 @@ const OfferAdminCard: React.FC<ListingCardProps> = ({
         e.stopPropagation();
         console.log("button clicked");
     try {
-        const response = await axios.delete(`/api/offer/${data?.id}`, {
+        const response = await axios.delete(`/api/offers/${data?.id}`, {
             method: 'DELETE',
         });
         console.log("try is working")

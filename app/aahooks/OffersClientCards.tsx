@@ -12,6 +12,7 @@ import { safeTour, safeListing } from "@/app/types";
 import prisma from '@/app/libs/prismadb';
 import toast, { useToaster } from "react-hot-toast";
 import axios from "axios";
+import EditDialogBoxOffer from "./EditDialogBoxOffer";
 
 
 interface ListingCardProps {
@@ -37,6 +38,7 @@ const OffersClientCards: React.FC<ListingCardProps> = ({
     const { getByValue } = useCountries();
     // const location = getByValue(data?.locationValue || ""); // Handle null locationValue
     const toaster = useToaster();
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
 
     // console.log(
@@ -71,6 +73,18 @@ const OffersClientCards: React.FC<ListingCardProps> = ({
 
     //     return `${format(start, 'pp')} - ${format(end, 'pp')}`
     // }, [reservation])
+
+    const openDialog = (e: MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation(); // Stop event propagation to parent
+        setIsDialogOpen(true);
+    };
+    const closeDialog = () => {
+        setIsDialogOpen(false);
+    };
+    const handleEdit: React.MouseEventHandler<HTMLDivElement> = (e) => {
+        openDialog(e);
+    };
+
 
     const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -163,9 +177,14 @@ function formatDate(dateString: any) {
               )}
           </div>   
           <div className="flex flex-row items-center gap-1">
-                 <div className="hidden invisible font-semibold">
-                    <button className="outline-main-btn" onClick={handleDelete}>Delete</button>
+                 <div className="font-semibold">
+                    <button className="outline-main-btn" onClick={handleEdit}>Edit</button>
                 </div>
+
+                {isDialogOpen &&
+                   <EditDialogBoxOffer isOpen={isDialogOpen} onClose={closeDialog} data={data} users={data}>
+                 
+                  </EditDialogBoxOffer>}
          </div>
     </div>
   )
