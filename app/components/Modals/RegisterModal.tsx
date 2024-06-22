@@ -21,7 +21,7 @@ import useLoginModal from '@/app/hooks/useLoginModal';
 import getCurrentUser from '@/app/actions/getCurrentUsers';
 import Lago from '../navbar/Lago';
 import Link from "next/link";
-import { RingLoader } from 'react-spinners';
+import { BarLoader, DotLoader } from 'react-spinners';
 
 // const override = css`
 //   display: block;
@@ -138,9 +138,9 @@ const RegisterModal = () => {
             />
              {emailError && <p className="text-red-500">{emailError}</p>} {/* Display manual email error */}
              {isLoading && (
-               <div className="loading-spinner">
-                  {/* <RingLoader color={'#123abc'} css={override} size={150} loading={isLoading} /> */}
-                </div>
+               <div className="loading-indicator flex justify-center items-center">
+               <DotLoader color="#3498db" size={50} />  {/* Or use BarLoader for a different style */}
+             </div>
                 )}
                 
             <Input

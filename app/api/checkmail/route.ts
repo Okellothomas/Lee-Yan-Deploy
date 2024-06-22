@@ -59,17 +59,20 @@ import prisma from '@/app/libs/prismadb';
 
 
 
-import { NextApiRequest, NextApiResponse } from 'next';
+//import { NextApiRequest, NextApiResponse } from 'next';
 import { NextResponse } from 'next/server';
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: Request) {
    
         console.log("Backend reached....");
         try {
-            const { email } = req.body;
+            const body = await req.json();
+            const { email } = body;
+
+            console.log('Email back', email)
 
             if (!email) {
-                return res.status(400).json({ error: 'Email is required' });
+                return NextResponse.json({status:400})
             }
 
             const user = await prisma.user.findUnique({
@@ -83,7 +86,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
             //res.status(200).json({ exists: emailExists });
         } catch (error) {
             console.error('An error occurred:', error);
-            res.status(500).json({ error: 'An error occurred' });
+            return NextResponse.json({ resultcode: 500, error: 'An error occurred' });
         }
     } 
 
