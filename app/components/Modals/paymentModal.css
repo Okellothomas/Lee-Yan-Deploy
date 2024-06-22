@@ -12,7 +12,7 @@
   right:0;
   margin:auto;
 }
-.payment_modal_main_body 
+/* .payment_modal_main_body 
 {
   background: white;
   margin: auto;
@@ -20,6 +20,16 @@
   height: 40%;
   padding: 10px 20px;
   position: relative;
+} */
+.payment_modal_main_body {
+  background: white;
+  margin: auto;
+  width: 40%;
+  min-height: 40%;
+  max-height: 80%; 
+  padding: 10px 20px;
+  position: relative;
+  overflow-y: auto; /* Enable vertical scrollbar if content overflows */
 }
 .payment_modal_top 
 {
@@ -50,16 +60,22 @@
   position:absolute;
   top: 0;
   right: 0;
+  margin:4px;
+  font-size:18px;
+  font-weight: 500;
 }
 
 .payment_modal_close_icon:hover 
 {
    cursor: pointer;
+   background-color: red;
+   color: white;
+   font-size: 18px;
 }
 
 .mpesa_pay_form {
   max-width: 500px;
-  margin: 0 auto;
+  margin: 5px auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 4px;

@@ -15,7 +15,7 @@ import useRegisterModal from '@/app/hooks/useRegisterModal';
 import Modal from './Modal';
 import Heading from '../container/Heading';
 import Input from '../Inputs/Input';
-import toast from 'react-hot-toast';
+import toast from 'react-hot-toast'; 
 import Button from '../container/Button';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { useRouter } from 'next/navigation';
@@ -56,9 +56,10 @@ interface ModalProps {
     setShowPayModal: React.Dispatch<React.SetStateAction<boolean>>;
     onPaymentComplete: (data: any) => void; // Define a callback prop
     totalPrice:string,
+    makeReservation:()=>void;
     currentUser?: SafeUser | null
   }
-const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete, totalPrice, currentUser }) => {
+const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete,makeReservation, totalPrice, currentUser }) => {
 
   
     const [isScriptReady, scriptLoadPromise] = usePayPalScriptReducer();
@@ -79,8 +80,12 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
     const [formData, setFormData] = useState({ phoneNumber: '' });
   const [mpesaInitiateData, setMpesaInitiateData] = useState(null)
   
-  const [showPay, setShowPay] = useState(false)
-  const [totalprice , setTotalPrice] = useState(0)
+  const [showPayForm, setShowPayForm] = useState(false)
+  const [payAmount , setPayAmount] = useState(0)
+
+  const [isColoredPartial, setIsColoredPartial] = useState(false);
+  const [isColoredFull, setIsColoredFull] = useState(false);
+
     
 
 
@@ -105,8 +110,12 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
     });
 
     const paymentOptions = ['Paypal', 'Mpesa'];
-    
-  
+    // THIS IS  A TEMPORARY FUNCTION, FOR DEMO, WE WILL USE THE ONE BELOW
+    const handleMpesaPay2 = ()=> 
+      {
+        makeReservation()         
+      }
+        //BELOW IS THE FUNCTION AFTER WE EMPLEMENT MPESA
     const handleMpesaPay = async (event:any) => {
       event.preventDefault()
       try {
@@ -126,7 +135,7 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
   
         console.log("Access Tokennne", access_token)
   
-        const finalData = {PhoneNumber:formData.phoneNumber,Amount:totalPrice, accessToken:access_token}
+        const finalData = {PhoneNumber:formData.phoneNumber,Amount:payAmount, accessToken:access_token}
 
     
 
@@ -244,13 +253,22 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
   const partialAmount = 1000;
 
     const handlePartialPay = () => {
-        setShowPay(true)
+      
+      setShowPayForm(!isColoredPartial)
+      setIsColoredPartial(!isColoredPartial); // Toggle the state
+      setIsColoredFull(false); // Toggle the state
+      setPayAmount(partialAmount)
+
         // onSubmit(partialAmount);
     }
 
     const handleFullPay = () => {
       // setPartialPay(false);
-      setShowPay(true)
+      setShowPayForm(!isColoredFull)
+      setIsColoredFull(!isColoredFull); // Toggle the state
+      setIsColoredPartial(false); // Toggle the state
+      setPayAmount(parseInt(totalPrice))  
+
     }
 
 
@@ -262,16 +280,20 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
           <div className="payment_modal_main_body">
             
           <IoMdClose size={18} className="payment_modal_close_icon" onClick={()=>setShowPayModal(false)}/>
-          <h2 style={{fontWeight:'600',fontSize:'16px'}}>Payment</h2>
+          <h2 style={{fontWeight:'900',fontSize:'16px', textAlign:'center'}}>Payment</h2>
 
-        <h2 className="text-xl font-bold mb-4">Confirm Your Booking</h2>
-                <p>Please choose your payment option.</p>
+        <h2 className="text-xl mb-4" style={{fontWeight:'700'}}>Pay to complete Your Booking</h2>
+                <p>Choose to either pay full amount now, or partially pay and complete the payment on checkin.</p>
                 <div className="mt-4 flex flex-col justify-end gap-4">
-                    <button className="border-[1px] border-solid border-green-400 rounded-lg px-4 py-2" onClick={handleFullPay} color="primary">
+                    <button  className={`border-[1px] border-solid rounded-lg px-4 py-2 ${
+        isColoredFull ? 'bg-green-400 text-white' : '' // Conditionally apply classes
+      }`} onClick={handleFullPay} color="primary">
                         Pay Full Amount of Ksh. {totalPrice}
                     </button>
                   {parseInt(totalPrice,10) > partialAmount && (
-              <button className="border-[1px] border-solid border-green-400 rounded-lg px-4 py-2"
+              <button  className={`border-[1px] border-solid rounded-lg px-4 py-2 ${
+                isColoredPartial ? 'bg-green-400 text-white' : '' // Conditionally apply classes
+              }`}
                 onClick={handlePartialPay} color="primary" autoFocus>
                             Reserve with Ksh. {partialAmount}
                         </button>
@@ -279,7 +301,7 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
                 </div>
        
           <hr style={{color:'gray'}}/>
-            <div className="payment_modal_top">
+            {/* <div className="payment_modal_top">
             {paymentOptions.map((option) => (
           <div
             key={option}
@@ -288,7 +310,7 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
           >
             {option}
           </div>
-        ))}
+        ))} */}
                 {/* <div className="payment_option">Paypal</div>
                 <div className="payment_option">Mpesa</div> *
             </div>
@@ -332,17 +354,19 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
           <span>Loading PayPal Script...</span>
         )}
       </div> */}
-
-            </div>
+{/* 
+            </div> */}
             {/* : paymentMethod ==='Mpesa'?  */}
             <div className="mpesa">
               {mpesaloading? (<div>Loading...</div>):
               mpesaprocessing? (<div>Processing...</div>):
 
               
-                (<form onSubmit={handleMpesaPay} className='mpesa_pay_form'>
+                (
+                      showPayForm && 
+                <form onSubmit={handleMpesaPay2} className='mpesa_pay_form'>
                   {mpesaPaymentFailure && <div style={{color:"red"}}>Payment failed, please try again</div>}
-                      {showPay && <div className='mpesa_pay_formGroup'> {/* Wrap labels & inputs */}
+                      <div className='mpesa_pay_formGroup'> {/* Wrap labels & inputs */}
                         <label className="mpesa_pay_label" htmlFor="phoneNumber">Enter Mpesa Number:</label>
                         <input
                           type="tel"
@@ -357,7 +381,8 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
                           className='mpesa_pay_phoneNumberInput'
                         />
                         {errors.PhoneNumber && <span className='mpesa_pay_error'>Please enter a valid phone number.</span>}
-                      </div>}
+                      </div>
+                      
                   
                  
                  
@@ -365,6 +390,7 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
                     Pay with Mpesa
                   </button>
                 </form>
+                      
                 )}
               
              </div>

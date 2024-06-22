@@ -32,7 +32,7 @@ const initialDateRange = {
     startDate: new Date(),
     endDate: new Date(),
     key: 'selection'
-}
+} 
 
 interface ListingClientProps {
     reservations?: safeReservation[];
@@ -690,6 +690,7 @@ const findAvailableDate = () => {
                               numberOfGuestsRef = {numberOfGuestsRef}
                               error = {error}
                               setError = {setError}
+                              setShowPay={setShowPay}
                               toggleOptions = {toggleOptions}
                               handleUnavailableDates={handleUnavailableDates}
                               handleOptions={handleOptions}
@@ -703,6 +704,7 @@ const findAvailableDate = () => {
               }}>
                   <PaymentModal setShowPayModal={setShowPay} 
                   onPaymentComplete={handlePaymentComplete} 
+                  makeReservation={makeReservation}
                   totalPrice={totalPrice.toString()}
                   currentUser = {currentUser}
                   />
