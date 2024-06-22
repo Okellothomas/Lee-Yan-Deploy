@@ -78,7 +78,8 @@ const OfferAdminCard: React.FC<ListingCardProps> = ({
 
     //     return `${format(start, 'pp')} - ${format(end, 'pp')}`
     // }, [reservation])
-   const openDialog = () => {
+    const openDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
         setIsDialogOpen(true);
     };
 
