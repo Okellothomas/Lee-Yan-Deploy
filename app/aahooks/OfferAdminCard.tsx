@@ -99,7 +99,7 @@ const OfferAdminCard: React.FC<ListingCardProps> = ({
             method: 'DELETE',
         });
         console.log("try is working")
-        toast.success("Land deleted successfully")
+        toast.success("Offer deleted successfully")
         router.push("/")
     } catch (error) {
         console.error(error);
@@ -230,7 +230,7 @@ function formatDate(dateString: any) {
                     </div>
                 </div>
             )}
-    </div>
+    </div> 
   )
 }
 
