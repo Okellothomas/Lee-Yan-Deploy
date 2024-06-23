@@ -79,9 +79,9 @@ const DestinationPage = async ({ searchParams, tourParams, propertyParams, offer
   // Render the Home component with the fetched listings
   return (
     <div>
-    <div className="all-main-property-rentals flex flex-col items-center justify-center text-lg font-bold">
-        <h1 className="color-property-sales-main text-white pb-5">TOP TIRE RENTALS AT ECONOMICAL RATES</h1>
-        <p className="text-white banner-title-one font-bold text-3xl">Rent our premium properties</p>
+    <div className="all-main-property-rentals flex flex-col items-center justify-center banner-btn-m text-lg font-bold">
+        <h1 className="mb-3">TOP TIRE RENTALS AT ECONOMICAL RATES</h1>
+        <h2 className="">Rent our premium properties</h2>
         {/* <div className="destination-search">
           <Search /> 
         </div> */}

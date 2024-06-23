@@ -78,7 +78,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
     const year = new Date().getFullYear();
 
     const body = await req.json();
-    const { sender, recipients, subject, mail_body, templateName, baseUrl } = body;
+    const { sender, recipients, subject, mail_body, title, checkIn, checkOut, templateName, baseUrl } = body;
 
     const templatePath = path.join(__dirname, `../../../../../templates/${templateName}.html`);
     const templateHTML = fs.readFileSync(templatePath, 'utf8');
@@ -88,6 +88,9 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
       const emailPromises = recipients.map(async ({ email, name }) => {
         const renderedHTML = templateHTML
           .replace(/\{recipientName\}/g, name)
+          .replace(/\{title\}/g, title)
+          .replace(/\{checkIn\}/g, checkIn)
+          .replace(/\{checkOut\}/g, checkOut)
           .replace(/\{year\}/g, year.toString())
           .replace(/\{tourUrl}/g, tourUrl);
 

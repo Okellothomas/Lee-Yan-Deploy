@@ -199,17 +199,17 @@ function formatDate(dateString: any) {
                   />
               )}
           </div>   
-          <div className="flex flex-row items-center gap-1">
+          {/* <div className="flex flex-row items-center gap-1">
                  <div className="font-semibold">
                     <button className="outline-main-btn" 
                     onClick={openDialog}
                     // onClick={handleDelete}
                     >Delete</button>
                 </div>
-         </div>
+         </div> */}
 
 
-            {isDialogOpen && (
+            {/* {isDialogOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
                     <div className="bg-white p-6 rounded shadow-lg">
                         <p>Are you sure you want to delete this item?</p>
@@ -229,7 +229,7 @@ function formatDate(dateString: any) {
                         </div>
                     </div>
                 </div>
-            )}
+            )} */}
     </div> 
   )
 }

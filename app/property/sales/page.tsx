@@ -81,9 +81,9 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, propert
   // Render the Home component with the fetched listings
   return (
     <div>
-    <div className="all-main-property-sales flex flex-col items-center justify-center text-lg font-bold">
-        <h1 className="color-property-sales-main text-white pb-5">PREMIUM PROPERTIES ON SALE</h1>
-        <p className="text-white banner-title-one font-bold text-3xl">Purchase high-end properties</p>
+    <div className="all-main-property-sales flex flex-col items-center banner-btn-m justify-center text-lg font-bold">
+        <h1 className="mb-3">PREMIUM PROPERTIES ON SALE</h1>
+        <h2 className="">Purchase high-end properties</h2>
         {/* <div className="destination-search">
           <Search /> 
         </div> */}

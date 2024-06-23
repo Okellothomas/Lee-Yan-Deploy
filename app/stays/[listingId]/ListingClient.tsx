@@ -297,26 +297,40 @@ const findAvailableDate = () => {
                 setDateRange(initialDateRange);
                 // redirect to /trips
                 try {
-                    // const response = await axios.post('/api/mailing/', 
+
+                    const recipients = [
+                                    { email: 'leeyan.smartproperties1@gmail.com', name: currentUser?.name },
+                                    { email: currentUser?.email, name: currentUser?.name },
+                                    { email: listing.hostEmail, name: listing.hostName }
+                          ];
+                          
+                              const response = await axios.post('/api/mailing/', 
+
                   
-                    //   {sender:'Info@devancatours.com',
-                    //          recipient:'wanjooo.ken@gmail.com',
-                    //          subject:"Devance Reservations",
-                    //          user_name:currentUser?.name,
-                    //          templateName: 'mail_template',
-                    //          mail_body:`This is a sample test mail from Devance Application and these are the reservatio`
+                                {sender:'leeyan.smartproperties1@gmail.com',
+                                       recipients:recipients,
+                                       subject:"Congratulations! Reservation Successful",
+                                    //    user_name:currentUser?.name,
+                                    templateName: 'mail_template',
+                                    title: listing.title,
+                                    category: listing.category,
+                                    town: listing.town,
+                                    type: listing.type,
+                                    offer: listing.offers,
+                                    county: listing.county,
+                                    stay: listing.imageSrc[0]
+                                    //    mail_body:This is a sample test mail from Devance Application and these are the reservatio
+                                  },
 
-                    //             },
-
-                    //             {
-                    //                 headers: {
-                    //                     'Content-Type': 'application/json'
-                    //                 }
-                    //             }
-                    // );
+                                {
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
+                                }
+                    );
                 
-                    // const data = await response.data;
-                    // console.log(data); // handle success message
+                    const data = await response.data;
+                    console.log(data); // handle success message
                 
                   } catch (error) {
                     console.error(error); // handle error message
