@@ -5,7 +5,7 @@ import "./banner.css"
 const Banner = () => {
     const router = useRouter();
   return (
-    <div className="flex flex-col justify-start items-start gap-9 banner-btn">
+    <div className="flex flex-col justify-start items-start gap-9 banner-btn-main-sure">
       {/* <h2>LEE-YAN SMART PROPERTIES</h2>  */}
       <h1 className="">LEE-YAN SMART PROPERTIES</h1> 
       <h2>Secure. Reliable. Affordable</h2> 
