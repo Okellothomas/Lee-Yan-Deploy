@@ -40,6 +40,7 @@ import { IoCarSportOutline } from "react-icons/io5";
  import { FaMoneyBillTrendUp } from "react-icons/fa6";
 import Dialog from "@/app/components/listing/Dialog";
 import ListingHead from "@/app/components/listing/ListingHead";
+import Link from "next/link";
 
 // const initialDateRange = {
 //     startDate: new Date(),
@@ -542,12 +543,12 @@ const TourClient: React.FC<TourClientProps> = ({
                           </div>
                           <div className="px-4 py-3">
                           <hr />
-                              </div>
-                           <div className="flex flex-row mx-6 py-1 hover:cursor-pointer justify-center items-center border-[1px] border-solid border-green-500 rounded-lg gap-3">
+                          </div>
+                           <Link href="https://wa.me/254708443787" className="flex flex-row mx-6 py-1 hover:cursor-pointer justify-center items-center border-[1px] border-solid border-green-500 rounded-lg gap-3">
                               <div className="flex flex-row gap-3 justify-center items-center">
                                  <span className="text-green-400"><FaWhatsapp size={24 } /></span>
                               </div>
-                            </div>
+                            </Link>
                           <div className="px-4 py-3">
                           <hr />
                               </div>

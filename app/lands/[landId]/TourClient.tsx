@@ -44,6 +44,7 @@ import { RiArticleFill } from "react-icons/ri";
 import { PiSubtitles } from "react-icons/pi";
 import { MdOutlineCategory } from "react-icons/md";
 import Dialog from "@/app/components/listing/Dialog";
+import Link from "next/link";
 
 // const initialDateRange = {
 //     startDate: new Date(),
@@ -742,11 +743,11 @@ const TourClient: React.FC<TourClientProps> = ({
                           <div className="px-4 py-3">
                           <hr />
                               </div>
-                           <div className="flex flex-row mx-6 py-1 hover:cursor-pointer justify-center items-center border-[1px] border-solid border-green-500 rounded-lg gap-3">
+                           <Link href="https://wa.me/254708443787" className="flex flex-row mx-6 py-1 hover:cursor-pointer justify-center items-center border-[1px] border-solid border-green-500 rounded-lg gap-3">
                               <div className="flex flex-row gap-3 justify-center items-center">
                                  <span className="text-green-400"><FaWhatsapp size={24 } /></span>
                               </div>
-                            </div>
+                          </Link>
                           <div className="px-4 py-3">
                           <hr />
                               </div>

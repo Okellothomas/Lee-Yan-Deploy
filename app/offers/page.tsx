@@ -24,6 +24,7 @@ export default function Stay({ tourParams }: IParams) {
   const [visibleCount, setVisibleCount] = useState(12); // Initial visible count
   const [filters, setFilters] = useState({
     town: [],
+    county: [],
     category: [],
     type: [],
     offers: [],
@@ -32,6 +33,7 @@ export default function Stay({ tourParams }: IParams) {
   const [sortOrder, setSortOrder] = useState(''); // State for sorting order
   const [expandedFilters, setExpandedFilters] = useState({
     town: false,
+    county: false,
     category: false,
     type: false,
     offers: false,
@@ -62,6 +64,7 @@ export default function Stay({ tourParams }: IParams) {
   const filteredTours = listingsPremium.filter(tour => {
     return (
       (filters.town.length === 0 || filters.town.includes(tour.town)) &&
+      (filters.county.length === 0 || filters.county.includes(tour.county)) &&
       (filters.category.length === 0 || filters.category.includes(tour.category)) &&
       (filters.type.length === 0 || filters.type.includes(tour.type))
       // (filters.offers.length === 0 || tour.offers.some(offer => filters.offers.includes(offer))) &&
@@ -81,6 +84,7 @@ export default function Stay({ tourParams }: IParams) {
   const visibleTours = sortedTours.slice(0, visibleCount);
 
   const towns = Array.from(new Set(listingsPremium.map(tour => tour.town)));
+  const counties = Array.from(new Set(listingsPremium.map(tour => tour.county)));
   const categories = Array.from(new Set(listingsPremium.map(tour => tour.category)));
   const types = Array.from(new Set(listingsPremium.map(tour => tour.type)));
   // const offers = Array.from(new Set(listingsPremium.flatMap(tour => tour.offers)));
@@ -170,6 +174,7 @@ export default function Stay({ tourParams }: IParams) {
       <Container>
         <div className="pt-0 items-start grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
           <div className="col-span-1 flex flex-col gap-6 all-destination-products">
+            <div className="mt-2">{renderFilters(counties, 'county')}</div>
             <div className="mt-2">{renderFilters(towns, 'town')}</div>
             <div className="mt-2">{renderFilters(categories, 'category')}</div>
             {/* <div className="mt-2">{renderFilters(offers, 'offers')}</div> */}

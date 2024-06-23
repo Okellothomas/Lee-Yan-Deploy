@@ -161,7 +161,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
                 <p className="text-neutral-600">Find amazing high-end places to stay, discover your dream palace</p> 
               </div>
               <div>
-                <Link href={{ pathname: '/stay-s', query: { type: 'luxurious' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/stays-', query: { type: 'luxurious' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
             </div>
         </div>
         <div className="grid-cols-page-s mt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -191,7 +191,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
                 <p className="text-neutral-600">Book from our top rated properties for unforgettable stay</p> 
               </div>
               <div>
-                <Link href={{ pathname: '/stay-s', query: { type: 'premium' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/stays-', query: { type: 'premium' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
         </div> 
         <div className="grid-cols-page-s pt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -221,7 +221,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
               <p className="text-neutral-600">Luxurious sanctuaries you will find comfortable</p> 
               </div>  
               <div>
-                <Link href={{ pathname: '/stay-s', query: { type: 'comfortable' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/stays-', query: { type: 'comfortable' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
           </div> 
           <div className="grid-cols-page-s mt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">

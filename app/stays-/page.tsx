@@ -1,189 +1,209 @@
-
 'use client'
-import Link from "next/link";
-import getCurrentUser from "../actions/getCurrentUsers";
-import getTours, { IToursParams } from "../actions/getTours";
-import Container from "../components/container/Container"; 
-import EmptyState from "../components/container/EmptyState";
-import TourMainCard from "../components/listing/TourMainCard";
-import Contients from "./components/Continents";
-import Sort from "./components/Sort";
-import TourStyles from "./components/TourStyles";
-
-import TourOperators from "./components/TourOperators";
-import TourSize from "./components/TourSize";
-// import { Metadata } from "next";
-import SearchMain from "../mainpage/components/SearchMain";
-import OfferMainCard from "../components/listing/OfferMainCard";
-import getOffers, { OffersParams } from "../actions/getOffers";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import EmptyState from "@/app/components/container/EmptyState";
+import StayMainCard from "@/app/components/listing/StayMainCard";
+import Container from "@/app/components/container/Container";
+import { useSearchParams } from 'next/navigation';
+import CountyMainCard from "@/app/components/listing/CountyMainCard";
+import Loader from "../components/container/Loader";
 
-// Define the interface for component props
 interface IParams {
   tourId?: string;
-  tourParams: IToursParams;
-  offerParams: OffersParams;
+  tourParams: any;
+  type?: string; // Make county optional
 }
 
-// export const metadata: Metadata =  {
-//   title: "All Destinations",
-// }
-// Define the AllDestinationsPage component as a server component
-export default function AllDestinationsPage({ tourParams, offerParams }: IParams) {
-  // Fetch data inside the render function (server component behavior)
-  const [maximumPrice, setMaximumPrice] = useState<number>(0);
-  const [offers, setOffers] = useState([])
-  const [visibleOffers, setVisibleOffers] = useState([])
-  const [currentPage, setCurrentPage] = useState(1);
+export default function Stay({ tourParams }: IParams) {
+  const searchParams = useSearchParams();
+  const type = searchParams ? searchParams.get('type') : null;
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(12); // Initial visible count
+  const [filters, setFilters] = useState({
+    town: [],
+    county: [],
+    category: [],
+    type: [],
+    offers: [],
+    ratings: []
+  });
+  const [sortOrder, setSortOrder] = useState(''); // State for sorting order
+  const [expandedFilters, setExpandedFilters] = useState({
+    town: false,
+    county: false,
+    category: false,
+    type: false,
+    offers: false,
+    ratings: false
+  });
 
-    const PAGE_SIZE = 15;
-     const startIndex = (currentPage - 1) * PAGE_SIZE;
-     useEffect(() => {
-      const handleSearch = async () => {
-        try {
-          console.log("Searching....");
-  
-          // Fetch listings data
-          const listingsResponse = await axios.get('/api/stays');
-  
-          // Handle listings data
-          if (!listingsResponse) {
-            throw new Error('Failed to fetch listings data');
-          }
-          const listingsData = listingsResponse.data;
-  
-          console.log("Listing response", listingsResponse);
-          console.log("Listing data", listingsData);
-          setOffers(listingsData);
-        } catch (error) {
-          console.error("Error fetching data", error);
-        }
-      };
-  
-      handleSearch();
-    }, []);
-  
-    useEffect(() => {
-      const startIndex = (currentPage - 1) * PAGE_SIZE;
-  
-      let filteredOffers = offers;
-      if (maximumPrice > 0) {
-        filteredOffers = offers.filter(offer => offer.offerprice <= maximumPrice);
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const response = await axios.get('/api/stays', { params: tourParams });
+        setTours(response.data);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
       }
-  
-      const paginatedOffers = filteredOffers.slice(startIndex, startIndex + PAGE_SIZE);
-      console.log("Visible Offers", paginatedOffers);
-      setVisibleOffers(paginatedOffers);
-    }, [maximumPrice, offers, currentPage]);
+    };
 
+    fetchListings();
+  }, [tourParams]);
 
-  const getToursAndRender = async () => {
-    //const tours = await getTours(tourParams);
-   // const currentUser = await getCurrentUser();
-    
-   
-   
+  if (loading) return <div><Loader /></div>;
+  if (error) return <div>Error: {error.message}</div>;
 
- 
-    const PAGE_SIZE = 15;
-    const currentPage = 1;
-    const startIndex = (currentPage - 1) * PAGE_SIZE;
-   // const visibleTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(startIndex, startIndex + PAGE_SIZE);
-   
-  
+  const normalizedCounty = type ? type.toLowerCase() : ""; // Normalize county safely
+  const listingsPremium = tours.filter(listing => listing.type && listing.type.toLowerCase() === normalizedCounty);
 
-    const products: any = [];
-
-
-
-    // Check if there are no listings, display EmptyState component
-    // if (visibleOffers.length === 0) {
-    //   return <EmptyState showReset />;
-    // }
-
-    const totalPages = Math.ceil(offers.length / PAGE_SIZE);
-
+  const filteredTours = listingsPremium.filter(tour => {
     return (
-      <div>
-        <div className="offers-main flex flex-col items-center justify-center text-lg font-bold">
-          <h1 className="alldestinations-white-main">
-            All Stays <span className="color-span-green"></span>
-          </h1>
-        </div>
-        <Container>
-      <div className="Search-main-page w-full flex justify-center items-center text-center rounded-full">
-        <SearchMain />
-      </div>
-      </Container>
-        {/* <Container>
-          <p className="text-neutral-600 leading-8 pt-10 pb-2 text-md">Embark on unparalleled travel experiences with our prime tour selection. Curated by experts, these journeys transport you to sought-after destinations. From African safaris to cruising the Galápagos Islands, immerse yourself in luxurious adventures filled with natural beauty, wildlife, and historic treasures. Explore the Grand Canyon and beyond on helicopter tours, redefining your travel expectations.</p>
-        </Container> */}
-        <Container>
-          <div className="py-3">
-            <hr />
-          </div>
-        </Container>
-        <Container>
-          <div className="flex flex-row justify-between items-center py-3">
-            <div className="flex font-bold flex-row gap-40 items-center">
-              <div className="rounded-2xl items-center py-2 pl-2 pr-6 sm:pr-1 text-start all-destination-filter">
-                <p className="">Filter By:</p>
-              </div>
-              <div className="font-semibold text-xl">{offers.length} Stays Available</div>
-            </div>
-            <div>
-              <Sort products={products} />
-            </div>
-          </div>
-        </Container>
-        <Container>
-          <div className="pt-0 items-start grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
-            <div className="col-span-1 flex flex-col gap-6 all-destination-products">
-            <Contients products={products} setMaximumPrice={setMaximumPrice}/> 
-              <TourStyles products={products} />
-              <TourOperators products={products} />
-              {/* <TourSize products={products}/> */}
-            </div>
-            {visibleOffers.length === 0? <EmptyState showReset /> :
-            <div className="col-span-4 all-destination-tour-main-card">
-              <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-8 all-destination-tours">
-                {/* Map through the visible listings array and render ListingCard components */}
-                {visibleOffers.map((tour: any) => (
-                  <OfferMainCard 
-                    key={tour.id} // Use the listing ID as the unique key
-                    data={tour} // Pass the listing data to each ListingCard
-                  />
-                ))}
-              </div>
-              {/* Pagination */}
-              <div className="flex justify-center items-center mt-4">
-                {currentPage > 1 && (
-                  <Link href={`/alldestinations?page=${currentPage - 1}`}>
-                    <p className="mx-2 p-2 bg-gray-500 text-white">Previous</p>
-                  </Link>
-                )}
-                {Array.from({ length: totalPages }).map((_, index) => (
-                  <Link key={index} href={`/alldestinations?page=${index + 1}`}>
-                    <p className={`mx-2 p-2 ${currentPage === index + 1 ? "bg-gray-500 text-white" : "bg-gray-300"}`}>
-                      {index + 1}
-                    </p>
-                  </Link>
-                ))}
-                {currentPage < totalPages && (
-                  <Link href={`/alldestinations?page=${currentPage + 1}`}>
-                    <p className="mx-2 p-2 bg-gray-500 text-white">Next</p>
-                  </Link>
-                )}
-              </div>
-            </div>
+      (filters.town.length === 0 || filters.town.includes(tour.town)) &&
+      (filters.county.length === 0 || filters.county.includes(tour.county)) &&
+      (filters.category.length === 0 || filters.category.includes(tour.category)) &&
+      (filters.type.length === 0 || filters.type.includes(tour.type)) &&
+      (filters.offers.length === 0 || tour.offers.some(offer => filters.offers.includes(offer))) &&
+      (filters.ratings.length === 0 || filters.ratings.includes(tour.ratings))
+    );
+  });
+
+  const sortedTours = filteredTours.sort((a, b) => {
+    if (sortOrder === 'lowest') {
+      return a.price - b.price;
+    } else if (sortOrder === 'highest') {
+      return b.price - a.price;
+    }
+    return 0;
+  });
+
+  const visibleTours = sortedTours.slice(0, visibleCount);
+
+  const towns = Array.from(new Set(listingsPremium.map(tour => tour.town)));
+  const counties = Array.from(new Set(listingsPremium.map(tour => tour.county)));
+  const categories = Array.from(new Set(listingsPremium.map(tour => tour.category)));
+  const types = Array.from(new Set(listingsPremium.map(tour => tour.type)));
+  const offers = Array.from(new Set(listingsPremium.flatMap(tour => tour.offers)));
+  const ratings = Array.from(new Set(listingsPremium.map(tour => tour.ratings)));
+
+  const handleFilterChange = (filterType, value) => {
+    setFilters(prevFilters => {
+      const currentFilters = prevFilters[filterType];
+      if (currentFilters.includes(value)) {
+        return { ...prevFilters, [filterType]: currentFilters.filter(item => item !== value) };
+      } else {
+        return { ...prevFilters, [filterType]: [...currentFilters, value] };
+      }
+    });
+  };
+
+  const handleSortChange = (event) => {
+    setSortOrder(event.target.value);
+  };
+
+  const toggleExpand = (filterType) => {
+    setExpandedFilters(prevState => ({ ...prevState, [filterType]: !prevState[filterType] }));
+  };
+
+  if (visibleTours.length === 0) {
+    return <EmptyState showReset />;
   }
+
+  const loadMore = () => {
+    setVisibleCount(prevCount => prevCount + 12);
+  };
+
+  const renderFilters = (items, filterType) => {
+    const visibleItems = expandedFilters[filterType] ? items : items.slice(0, 10);
+    return (
+      <div className="border-[1px] border-solid border-neutral-300 rounded-lg px-4 py-6">
+        <h3 className="font-semibold">{filterType.charAt(0).toUpperCase() + filterType.slice(1)}</h3>
+        <div className="py-1">
+          <hr />
+        </div>
+        {visibleItems.map(item => (
+          <div className="flex pt-1 items-center justify-start" key={item}>
+            <label className="flex items-center">
+              <input
+                type="checkbox"
+                value={item}
+                className="mr-2 h-[20px] w-[20px]"
+                onChange={() => handleFilterChange(filterType, item)}
+              />
+              <span className="mr-1">{item}</span>
+            </label>
           </div>
-        </Container>
+        ))}
+        {items.length > 10 && (
+          <button className="text-green-700 hover:text-blue-700" onClick={() => toggleExpand(filterType)}>
+            {expandedFilters[filterType] ? 'View Less' : 'View More'}
+          </button>
+        )}
       </div>
     );
   };
 
-  // Return the result of the render function
-  return getToursAndRender();
+  return (
+    <div>
+      <div className="alldestinations-main flex flex-col items-center justify-center text-lg font-bold">
+        <h1 className="alldestinations-white-main">
+          <span className="text-white">Our {type || "luxurious"} stays</span>
+        </h1>
+      </div>
+      <Container>
+        <div className="flex flex-row justify-between items-center pt-10 pb-3">
+          <div className="flex font-bold flex-row gap-40 items-center">
+            <div className="items-center py-2 pl-2 pr-6 sm:pr-1 text-start all-destination-filter">
+              <p className="">Filter Results:</p>
+            </div>
+            <div className="font-semibold text-lg">{visibleTours.length} Properties</div>
+          </div>
+          <div>
+            <select className="border-[1px] border-solid border-neutral-300 px-4 py-1 rounded-lg" onChange={handleSortChange} value={sortOrder}>
+              <option value="">Sort by price</option>
+              <option value="lowest">Price: Lowest to Highest</option>
+              <option value="highest">Price: Highest to Lowest</option>
+            </select>
+          </div>
+        </div>
+      </Container>
+      <Container>
+        <div className="pt-0 items-start grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
+          <div className="col-span-1 flex flex-col gap-6 all-destination-products">
+            <div className="mt-2">{renderFilters(counties, 'county')}</div>
+            <div className="mt-2">{renderFilters(towns, 'town')}</div>
+            <div className="mt-2">{renderFilters(categories, 'category')}</div>
+            <div className="mt-2">{renderFilters(offers, 'offers')}</div>
+            <div className="mt-2">{renderFilters(ratings, 'ratings')}</div>
+            <div className="mt-2 sticky top-0">
+              {renderFilters(types, 'type')}
+            </div>
+           </div>
+           <div className="col-span-4 all-destination-tour-main-card">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 2xl:grid-cols-1 gap-8 all-destination-tours">
+              {visibleTours.map((tour: any) => (
+                <CountyMainCard
+                  key={tour.id}
+                  data={tour}
+                />
+              ))}
+            </div>
+            {visibleCount < filteredTours.length && (
+              <div className="flex justify-center items-center mt-4">
+                <button
+                  onClick={loadMore}
+                  className="mx-2 px-10 py-3 text-md border-[1px] border-solid border-green-900 text-green-900 hover:bg-green-900 rounded-lg hover:text-white"
+                >
+                  Load More
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </Container>
+    </div>
+  );
 }

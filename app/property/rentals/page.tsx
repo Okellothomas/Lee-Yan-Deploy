@@ -184,7 +184,7 @@ const DestinationPage = async ({ searchParams, tourParams, propertyParams, offer
               <p className="text-neutral-600">Unlock the extraordinary now - rent top-notch properties and residences!</p>   
               </div>  
               <div>
-                <Link href="/stay-s" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href="/properties" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
               </div>
           </div>
           <div className="grid-cols-page-s pt-3 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
@@ -203,7 +203,7 @@ const DestinationPage = async ({ searchParams, tourParams, propertyParams, offer
       )}
       </div>
 
-  <div className="flex items-center mt-0 justify-center">
+  {/* <div className="flex items-center mt-0 justify-center">
         {offers && Array.isArray(offers) && offers.length > 0 && (
     <Container>
       <div className="mt-0">
@@ -234,7 +234,7 @@ const DestinationPage = async ({ searchParams, tourParams, propertyParams, offer
       </div>
     </Container>
   )}
-      </div>
+      </div> */}
 
     </div>
   );

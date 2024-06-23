@@ -51,7 +51,7 @@ const LandTartiaryList: React.FC<ListingCardProps> = ({
               key={county}
               className="col-span-1 pb-3 rounded-xl cursor-pointer group"
             >
-              <Link href={{ pathname: '/land.', query: { county: county }}} passHref>
+              <Link href={{ pathname: '/lands-', query: { county: county }}} passHref>
                 <div className="flex h-[auto] flex-col gap-2 w-full main-image-small-screen main-image-small-screen-x">
                   <div className="text-md px-2 pt-1 pb-2 font-semibold text-md truncate max-w-[20rem]">
                     <span className="text-neutral-700">{county}</span>

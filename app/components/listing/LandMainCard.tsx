@@ -109,7 +109,7 @@ const LandMainCard: React.FC<ListingCardProps> = ({
                   </div>
                 </div> 
             <div className="font-normal py-0.5 w-[30vw] main-image-small-spans-c-main text-neutral-800">
-                              <span className="font-normal"></span> <span className="font-light text-sm text-neutral-700">{ data.type}</span>
+                <span className="font-normal"></span>Title deed: <span className="font-light text-sm text-neutral-700">{ data.type}</span>
             </div>
              {/* {data.offers.slice(0,2).map((item, index) => (
                     <div key={index} className="font-normal flex gap-3 items-center py-0.5 w-[30vw] main-image-small-spans-c">
@@ -140,7 +140,7 @@ const LandMainCard: React.FC<ListingCardProps> = ({
                   </div>
             </div>
                 <div>
-                  <span className=" border-green-500 text-green-500 border-solid px-4 py-2 border-2 bg-white hover:bg-green-500 hover:text-white cursor-pointer text-md rounded-xl main-image-small-spans-c-btn" >See availability</span>        
+                  <span className=" border-green-700 text-green-700 border-solid px-4 py-2 border-2 bg-white hover:bg-green-700 hover:text-white cursor-pointer text-sm rounded-xl main-image-small-spans-c-btn" >See availability</span>        
                 </div>
             </div> 
 

@@ -26,6 +26,7 @@ export default function Stay({ tourParams }: IParams) {
     town: [],
     category: [],
     type: [],
+    county: [],
     offers: [],
     ratings: [],
     amenities: []
@@ -35,6 +36,7 @@ export default function Stay({ tourParams }: IParams) {
     town: false,
     category: false,
     type: false,
+    county: false,
     offers: false,
     ratings: false,
     amenities: false,
@@ -59,11 +61,12 @@ export default function Stay({ tourParams }: IParams) {
   if (error) return <div>Error: {error.message}</div>;
 
  const normalizedCounty = county ? county.toLowerCase() : ""; // Normalize county safely
- const listingsPremium = tours.filter(listing => listing.county && listing.county.toLowerCase() === normalizedCounty);
+ const listingsPremium = tours//.filter(listing => listing.county && listing.county.toLowerCase() === normalizedCounty);
 
   const filteredTours = listingsPremium.filter(tour => {
     return (
       (filters.town.length === 0 || filters.town.includes(tour.town)) &&
+      (filters.county.length === 0 || filters.county.includes(tour.county)) &&
       (filters.category.length === 0 || filters.category.includes(tour.category)) &&
       (filters.type.length === 0 || filters.type.includes(tour.type)) &&
       (filters.offers.length === 0 || tour.offers.some(offer => filters.offers.includes(offer))) &&
@@ -84,6 +87,7 @@ export default function Stay({ tourParams }: IParams) {
   const visibleTours = sortedTours.slice(0, visibleCount);
 
   const towns = Array.from(new Set(listingsPremium.map(tour => tour.town)));
+  const counties = Array.from(new Set(listingsPremium.map(tour => tour.county)));
   const categories = Array.from(new Set(listingsPremium.map(tour => tour.category)));
   const types = Array.from(new Set(listingsPremium.map(tour => tour.type)));
   const offers = Array.from(new Set(listingsPremium.flatMap(tour => tour.offers)));
@@ -151,7 +155,7 @@ export default function Stay({ tourParams }: IParams) {
     <div>
       <div className="alldestinations-main flex flex-col items-center justify-center text-lg font-bold">
         <h1 className="alldestinations-white-main">
-          <span className="text-white">Properties in {county || "Nairobi"}</span>
+          <span className="text-white">Exclusive  {county || "properties"} on sales</span>
         </h1>
       </div>
       <Container>
@@ -174,6 +178,7 @@ export default function Stay({ tourParams }: IParams) {
       <Container>
         <div className="pt-0 items-start grid grid-cols-5 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
           <div className="col-span-1 flex flex-col gap-6 all-destination-products">
+            <div className="mt-2">{renderFilters(counties, 'county')}</div>
             <div className="mt-2">{renderFilters(towns, 'town')}</div>
             <div className="mt-2">{renderFilters(categories, 'category')}</div>
             <div className="mt-2">{renderFilters(amenities, 'amenities')}</div>
