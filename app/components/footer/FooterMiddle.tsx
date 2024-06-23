@@ -42,7 +42,7 @@ const FooterMiddle = () => {
         <div className="mb-3 hover:underline cursor-pointer"><Link href={{ pathname: '/services', query: { category: 'Hotel' } }}>Hotels</Link></div>
         <div className="mb-3 hover:underline cursor-pointer"><Link href={{ pathname: '/services', query: { category: 'Apartment' } }}>Apartments</Link></div>
         <div className="mb-3 hover:underline cursor-pointer"><Link href={{ pathname: '/services', query: { category: 'Resort' } }}>Resorts</Link></div>
-        <div className="mb-3 hover:underline cursor-pointer"><Link href={{ pathname: '/services', query: { category: 'Guest house' }}}>Guest houses</Link></div>
+        <div className="mb-3 hover:underline cursor-pointer"><Link href={{ pathname: '/services', query: { category: 'Guesthouse' }}}>Guest houses</Link></div>
           {/* <div onClick={() => signUpModal.onOpen('host')} className="mb-3 hover:underline cursor-pointer">Villas</div> 
           <div onClick={() => signUpModal.onOpen('operator')} className="mb-3 hover:underline cursor-pointer">Hotels</div> 
           <div onClick={() => router.push("/staycation")} className="mb-3 hover:underline cursor-pointer">Homes</div> 
