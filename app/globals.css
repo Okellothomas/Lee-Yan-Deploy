@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Kanit:wght@300&family=Poppins&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 /* Apply base, components, and utilities styles from Tailwind CSS */
@@ -331,8 +332,9 @@
 .banner-btn-main-sure h1 {
   color: wheat;
   /* color: var(--logocolor, #55E4D6); */
-  font-family: "Sora", sans-serif;
-  font-size: 44px;
+  /* font-family: "Sora", sans-serif; */
+  font-family: "Raleway", sans-serif;
+  font-size: 48px;
   font-style: normal;
   font-weight: 800;
   line-height: normal;
@@ -654,6 +656,23 @@
   height: 33vh;
   margin-top: -8% !important;
 }
+
+.all-destinations-main-about {
+  background-image: url('../public/images/about.png');
+  /* Replace 'your-image.jpg' with the path to your image */
+  background-color: rgba(0, 0, 0, 0.22);
+  /* Red color with 60% opacity */
+  background-blend-mode: overlay;
+  /* Blend the background image and color */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+  height: 33vh;
+  margin-top: -8% !important;
+}
+
+
 
 .all-destinations-main-main {
   background-image: url('../public/images/adventure2.jpg');

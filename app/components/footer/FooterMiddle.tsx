@@ -30,10 +30,10 @@ const FooterMiddle = () => {
 
       <div>
          <p className="text-xl font-semibold mb-4">Company</p>
-          <div onClick={() => signUpModal.onOpen('host')} className="mb-3 hover:underline cursor-pointer">About us</div> 
-          <div onClick={() => signUpModal.onOpen('operator')} className="mb-3 hover:underline cursor-pointer">Contact us</div> 
-          <div onClick={() => router.push("/staycation")} className="mb-3 hover:underline cursor-pointer">Privacy policy</div> 
-          <div onClick={() => router.push("/couplevacay")} className="mb-3 hover:underline cursor-pointer">Terms and conditions</div>
+          <div onClick={() => router.push("/about")} className="mb-3 hover:underline cursor-pointer">About us</div> 
+          <div onClick={() => router.push("/contact")} className="mb-3 hover:underline cursor-pointer">Contact us</div> 
+          <div onClick={() => router.push("/policy")} className="mb-3 hover:underline cursor-pointer">Privacy policy</div> 
+          <div onClick={() => router.push("/terms")} className="mb-3 hover:underline cursor-pointer">Terms and conditions</div>
           <div onClick={() => signUpModal.onOpen()} className="mb-3 hover:underline cursor-pointer">Sign up</div> 
       </div>
 
