@@ -214,8 +214,8 @@ const TourClient: React.FC<TourClientProps> = ({
     }
 
     const handleReserve = () => {
-        setOpenDialog(true);
-    }
+        setShowPay(true);
+    } 
 
     const handleCloseDialog = () => {
         setOpenDialog(false);
@@ -612,6 +612,7 @@ const TourClient: React.FC<TourClientProps> = ({
                         setShowPayModal={setShowPay} 
                         onPaymentComplete={handlePaymentComplete} 
                         totalPrice={property.price.toString()} 
+                        makeReservation={makeReservation}
                     />
                           </PayPalScriptProvider>}
                     </div>

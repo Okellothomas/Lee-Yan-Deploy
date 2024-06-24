@@ -312,7 +312,7 @@ const findAvailableDate = () => {
                                        subject:"Congratulations! Reservation Successful",
                                     //    user_name:currentUser?.name,
                                     templateName: 'mail_template',
-                                    title: listing.title,
+                                    title: "Title stringgggg", //listing.title,
                                     category: listing.category,
                                     town: listing.town,
                                     type: listing.type,
@@ -724,7 +724,7 @@ const findAvailableDate = () => {
                   />
              </PayPalScriptProvider>}
 
-
+   
 
           </div>  
     </Container>

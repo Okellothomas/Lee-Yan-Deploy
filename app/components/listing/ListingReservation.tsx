@@ -159,7 +159,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                 <div className="py-2">
                     <hr />
                 </div>
-
+               
                 <div className="flex flex-col justify-center item-center gap-3">
                     <button
                         className="border-[1px] mb-[6px] border-solid text-lg font-semibold border-green-700 hover:bg-green-700 px-3 py-2 text-green-700 rounded-2xl hover:text-white"
@@ -168,6 +168,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
                         Reserve
                     </button>
                 </div>
+
                     </>
                 )}  
             </div>
