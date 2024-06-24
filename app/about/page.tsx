@@ -31,7 +31,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
       <div className="pt-8 pb-0">
         <div>
           <Container>
-            <div className="pb-10">
+            <div className="pb-[92px]">
               <div className="pb-6">
                 <h1 className="mb-2 text-2xl font-semibold text-black">Stay collections</h1>
                 <p className="text-neutral-600">We offer curated handpicked selection of exceptional accommodations stays and experiences.</p>
@@ -64,7 +64,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
             </div> 
           </Container>  
         </div>
-        <div className="first-card-main py-10">
+        <div className="first-card-main pt-10 pb-[92px]">
           <Container>
             <div className="">
               <div className="pb-6">
@@ -101,7 +101,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
         </div>
         <div>
           <Container>
-            <div className="py-10">
+            <div className="pt-10 pb-16">
               <div className="pb-6">
                 <h1 className="mb-2 text-2xl font-semibold text-black">Land Collections</h1>
                 <p className="text-neutral-600">Prime parcels: Explore our diverse selection of exceptional land opportunities.</p>
@@ -134,7 +134,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
             </div> 
           </Container>  
         </div>
-        <div className="first-card-main py-10">
+        <div className="first-card-main pt-10 pb-[92px]">
           <Container>
             <div className="">
               <div className="pb-6">
