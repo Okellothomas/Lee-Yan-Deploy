@@ -18,15 +18,18 @@ import toast from "react-hot-toast"
 import useBlogModal from "@/app/hooks/useBlogModel";
 import Modals from "./Modals";
 import Lago from "../navbar/Lago";
+import Textarea from "../Inputs/Textarea";
+import Select from "../Inputs/Select";
+import Models from "./Models";
 
 enum STEPS {
-    CATEGORY = 0,
-    IMAGES = 1, 
-    DESCRIPTION = 2,
+    CATEGORY = 0, 
+    DESCRIPTION = 1,
+    IMAGES = 2,
     DESCRIPTION1 = 3,
     DESCRIPTION2 = 4,
     DESCRIPTION3 = 5,
-    PRICE = 6
+    PRICE = 6,
 }
 
 const BlogModal = () => {
@@ -54,6 +57,10 @@ const BlogModal = () => {
             hotelLink: '',
             description: '', // not done
             subtitle: '',
+            county: '',
+            town: '',
+            price: '',
+            type: '',
             descriptionone: '',
             subtitleone: '',
             descriptiontwo: '',
@@ -79,6 +86,7 @@ const BlogModal = () => {
     const description = watch('description'); //done
     const depStart = watch('depStart');
     const depEnd = watch('depEnd');
+    const type = watch('type'); //
 
     const Map = useMemo(() => dynamic(() => import('../container/Map'), {
         ssr: false
@@ -165,9 +173,9 @@ const BlogModal = () => {
 
     if (step === STEPS.DESCRIPTION) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[57vh] overflow-y-auto">
                 <Heading
-                    title="How would you describe your place?"
+                    title="Essential details?"
                     subtitle="Short and sweet works best!"
                 />
                 <Input
@@ -180,31 +188,85 @@ const BlogModal = () => {
                 />
                 <hr />
                 <Input
+                    id="county"
+                    label="County"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
+                />
+                <hr />
+                <Input
+                    id="town"
+                    label="Town"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
+                />
+                <hr />
+                <Input
+                    id="price"
+                    label="Price"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                    required
+                />
+                <hr />
+                <Input
+                    id="hotelLink"
+                    label="news article link"
+                    disabled={isLoading}
+                    register={register}
+                    error={errors}
+                />
+                <hr />
+                 <Select
+                    id="type"
+                    label="news type"
+                    options={[
+                        { value: 'Stay', label: 'Stay' },
+                        { value: 'Land', label: 'Land' },
+                        { value: 'Property', label: 'Property' },
+                    ]}
+                    value={type}
+                    onChange={(value) => setCustomValue('type', value)}
+                    disabled={isLoading}
+                    register={register}
+                    style={{ height: '7vh', width: '100%' }}
+                    error={errors}
+                />
+                <hr />
+                <ImageUpload
+                    value={imageSrc[0] || ''}
+                    onChange={(value) => setCustomValue('imageSrc', [value])}
+                />
+                <hr />
+                <Textarea
                     id="description"
                     label="Description"
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                    style={{ height: '10vh', width: '100%' }}
-                    className="p-0"
                 />
-                <hr />
+                {/* <hr />
                 <Input
                     id="hotelLink"
                     label="Youtube link"
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                />
+                /> */}
             </div>
         )
     }
 
      if (step === STEPS.DESCRIPTION1) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[57vh] overflow-y-auto">
                 <Heading
-                    title="How would you describe your place?"
+                    title="More Info?"
                     subtitle="Short and sweet works best!"
                 />
                 <Input
@@ -215,14 +277,16 @@ const BlogModal = () => {
                     error={errors}
                 />
                 <hr />
-                <Input
+                <ImageUpload
+                    value={imageSrc[1] || ''}
+                    onChange={(value) => setCustomValue('imageSrc', [value])}
+                />
+                <Textarea
                     id="descriptionone"
                     label="Description"
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                    style={{ height: '10vh', width: '100%' }}
-                    className="p-0"
                 />
                 <hr />
                 <Input
@@ -233,14 +297,16 @@ const BlogModal = () => {
                     error={errors}
                 />
                 <hr />
-                <Input
+                <ImageUpload
+                    value={imageSrc[2] || ''}
+                    onChange={(value) => setCustomValue('imageSrc', [value])}
+                />
+                <Textarea
                     id="descriptiontwo"
                     label="Description"
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                    style={{ height: '10vh', width: '100%' }}
-                    className="p-0"
                 />
             </div>
         )
@@ -248,9 +314,9 @@ const BlogModal = () => {
 
      if (step === STEPS.DESCRIPTION2) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[57vh] overflow-y-auto">
                 <Heading
-                    title="How would you describe your place?"
+                    title="More Info?"
                     subtitle="Short and sweet works best!"
                 />
                 <Input
@@ -261,14 +327,16 @@ const BlogModal = () => {
                     error={errors}
                 />
                 <hr />
-                <Input
+                <ImageUpload
+                    value={imageSrc[3] || ''}
+                    onChange={(value) => setCustomValue('imageSrc', [value])}
+                />
+                <Textarea
                     id="descriptionthree"
                     label="Description"
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                    style={{ height: '10vh', width: '100%' }}
-                    className="p-0"
                 />
                 <hr />
                 <Input
@@ -279,14 +347,16 @@ const BlogModal = () => {
                     error={errors}
                 />
                 <hr />
-                <Input
+                <ImageUpload
+                    value={imageSrc[4] || ''}
+                    onChange={(value) => setCustomValue('imageSrc', [value])}
+                />
+                <Textarea
                     id="descriptionfour"
                     label="Description"
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                    style={{ height: '10vh', width: '100%' }}
-                    className="p-0"
                 />
             </div>
         )
@@ -294,7 +364,7 @@ const BlogModal = () => {
 
     if (step === STEPS.DESCRIPTION3) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[57vh] overflow-y-auto">
                 <Heading
                     title="How would you describe your place?"
                     subtitle="Short and sweet works best!"
@@ -307,14 +377,16 @@ const BlogModal = () => {
                     error={errors}
                 />
                 <hr />
-                <Input
+                <ImageUpload
+                    value={imageSrc[5] || ''}
+                    onChange={(value) => setCustomValue('imageSrc', [value])}
+                />
+                <Textarea
                     id="descriptionfive"
                     label="Description"
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                    style={{ height: '10vh', width: '100%' }}
-                    className="p-0"
                 />
                 <hr />
                 <Input
@@ -325,14 +397,16 @@ const BlogModal = () => {
                     error={errors}
                 />
                 <hr />
-                <Input
+                <ImageUpload
+                    value={imageSrc[6] || ''}
+                    onChange={(value) => setCustomValue('imageSrc', [value])}
+                />
+                <Textarea
                     id="descriptionsix"
                     label="Description"
                     disabled={isLoading}
                     register={register}
                     error={errors}
-                    style={{ height: '10vh', width: '100%' }}
-                    className="p-0"
                 />
             </div>
         )
@@ -340,9 +414,9 @@ const BlogModal = () => {
 
     if (step === STEPS.IMAGES) {
         bodyContent = (
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 max-h-[57vh] overflow-y-auto">
                 <Heading
-                    title="Add 4 photos of your place"
+                    title="Add a gallery"
                     subtitle="Show guests what your place looks like!"
                 /> 
                 {/* <ImageUpload
@@ -359,7 +433,7 @@ const BlogModal = () => {
 
 
   return (
-      <Modal
+      <Models
           title={<Lago />}
           isOpen={blogModal.isOpen}
           onClose={blogModal.onClose}

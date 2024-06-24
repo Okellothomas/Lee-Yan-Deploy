@@ -12,12 +12,13 @@ const FooterMiddle = () => {
       <div className="flex text-black justify-between items-center pt-3 pb-5 gap-6 md:text-md">
          <div className="">
           <p className="text-xl font-semibold mb-4">Explore</p>
-          <div onClick={() => router.push("/")} className="mb-3 hover:underline cursor-pointer">Home</div>
-          <div onClick={() => router.push("/blog")} className="mb-3 hover:underline cursor-pointer">Blogs</div> 
-          <div onClick={() => router.push("/new")} className="mb-3 hover:underline cursor-pointer">News</div> 
-          <div onClick={() => router.push("/gallery")} className="mb-3 hover:underline cursor-pointer">Gallery</div> 
-          <div onClick={() => loginModal.onOpen()} className="mb-3 hover:underline cursor-pointer">Sign in</div> 
+          <div onClick={() => router.push("/")} className="mb-3 font-[300] hover:underline cursor-pointer">Home</div>
+          <div onClick={() => router.push("/blogs")} className="mb-3 font-[300] hover:underline cursor-pointer">Blogs</div> 
+          <div onClick={() => router.push("/news")} className="mb-3 font-[300] hover:underline cursor-pointer">News</div> 
+          <div onClick={() => router.push("/gallery")} className="mb-3 font-[300] hover:underline cursor-pointer">Gallery</div> 
+          <div onClick={() => loginModal.onOpen()} className="mb-3 font-[300] hover:underline cursor-pointer">Sign in</div> 
       </div>
+
       <div>
          <p className="text-xl font-semibold mb-4">Quick Links</p>
           <div onClick={() => router.push("/stay-s")} className="mb-3 hover:underline cursor-pointer">Stays</div> 

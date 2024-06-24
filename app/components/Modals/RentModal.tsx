@@ -618,7 +618,6 @@ const RentModal = () => {
                     error={errors}
                 />
                 <hr />
-                <hr />
                 <Select
                     id="hostType"
                     label="host type?"

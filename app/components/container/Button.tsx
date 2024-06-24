@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({
       <button
           onClick={onClick}
           disabled={disabled}
-          className={`btn-main relative disabled:opacity-70 disabled:cursor-not-allowed hover:opacity-80 transition items-center ${small ? 'py-1' : 'py-2'} ${small ? 'text-sm' : 'text-md'} ${small ? 'font-light' : 'font-semibold'}`}>
+          className={`px-7 py-2 rounded-3xl border-[1px] border-solid border-green-700 text-green-700 hover:bg-green-700 hover:text-white relative disabled:opacity-70 disabled:cursor-not-allowed hover:opacity-80 transition items-center ${small ? 'py-1' : 'py-2'} ${small ? 'text-sm' : 'text-md'} ${small ? 'font-light' : 'font-semibold'}`}>
           {Icon && (
               <Icon
                 size={24}

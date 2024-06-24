@@ -88,7 +88,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
     <Container>
       <div className="mt-5">
         <div className="my-3">
-          <h1 className="mb-2 text-2xl font-bold text-black">Great deals</h1>
+          <h1 className="mb-2 text-2xl font-semibold text-black">Great deals</h1>
           <p className="text-neutral-600">Premium deals and offers for you</p>
         </div>
         <EmblaMobile
@@ -114,7 +114,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
        <Container>
           <div className="mt-8">
             <div className="my-3">
-              <h1 className="mb-2 text-2xl font-bold text-black">Top premium destinations</h1>
+              <h1 className="mb-2 text-2xl font-semibold text-black">Top premium destinations</h1>
               <p className="text-neutral-600">Our top rated luxurious places to stay have a lot to offer</p>  
             </div> 
             <Stay />  
@@ -126,7 +126,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
           <div className="mt-5">
             <div className="my-3 flex justify-between items-center">
               <div>
-              <h1 className="mb-2 text-2xl font-bold text-black">Exclusive Properties</h1>
+              <h1 className="mb-2 text-2xl font-semibold text-black">Exclusive Properties</h1>
               <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p>
               </div>  
               <div>
@@ -157,7 +157,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
       <Container>
         <div className="mt-9 flex justify-between items-center">
               <div>
-              <h1 className="mb-2 text-2xl font-bold text-black">Luxurious Properties</h1>
+              <h1 className="mb-2 text-2xl font-semibold text-black">Luxurious Properties</h1>
                 <p className="text-neutral-600">Find amazing high-end places to stay, discover your dream palace</p> 
               </div>
               <div>
@@ -187,7 +187,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
       <Container>
         <div className="mt-9 flex justify-between items-center">
               <div>
-                <h1 className="mb-2 text-2xl font-bold text-black">Book our prime unique properties</h1>
+                <h1 className="mb-2 text-2xl font-semibold text-black">Book our prime unique properties</h1>
                 <p className="text-neutral-600">Book from our top rated properties for unforgettable stay</p> 
               </div>
               <div>
@@ -217,7 +217,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
         <Container>
             <div className="flex justify-between items-center">
               <div>
-              <h1 className="mb-2 text-2xl font-bold text-black">Exclusive comfort</h1>
+              <h1 className="mb-2 text-2xl font-semibold text-black">Exclusive comfort</h1>
               <p className="text-neutral-600">Luxurious sanctuaries you will find comfortable</p> 
               </div>  
               <div>
@@ -247,7 +247,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
           <Container>
            <div className="flex justify-between items-center">
               <div>
-              <h1 className="mb-2 text-2xl font-bold text-black">Trending destinations you will love</h1>
+              <h1 className="mb-2 text-2xl font-semibold text-black">Trending destinations you will love</h1>
               <p className="text-neutral-600">Explore in-demand holiday properties, enjoy exciting places to stay.</p>  
               </div>  
               <div>
@@ -277,7 +277,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
               <Image src={imagebook} alt=""  className="h-[230px] w-[230px] shadow-md rounded-br-full rounded-t-full"/>
             </div>
             <div>
-              <h3 className="pb-5 font-bold text-2xl">Get great discounts</h3>
+              <h3 className="pb-5 font-semibold text-2xl">Get great discounts</h3>
               <p className="pb-5 text-neutral-600">Book now and save 8% plus while the offers still last.</p>
               <div className="flex justify-start items-center gap-9">
                 <Link href="/" className="bg-green-500 px-6 py-2 rounded-3xl">Sign Up</Link>

@@ -33,16 +33,20 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
     if (searchParams.userId) {
         currentUser = await getCurrentUser();
     }
-  const listings = await getNews({ ...searchParams, category: "news" });
-  const tours = await getTours(tourParams);
-  const filteredListings = listings.slice(0, 4);
-  const filteredListingss = listings.slice(4, 8);
-   const filteredToursss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
-  const filteredTourss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
+  const allnews = await getNews(searchParams);
+  // const lands = await getNews({ ...searchParams, category: "news", type: "Land" });
+  // const property = await getNews({ ...searchParams, category: "news", type: "Property" });
+  // const tours = await getTours(tourParams);
+  const filteredStays = allnews.filter(listing => listing.category === "news" && listing.type === "Stay");
+  const filteredLands = allnews.filter(listing => listing.category === "news" && listing.type === "Land");
+  const filteredPropertys = allnews.filter(listing => listing.category === "news" && listing.type === "Property");
+  // const filteredListingss = listings.slice(4, 8);
+  //  const filteredToursss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
+  // const filteredTourss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
   // const isEmpty = true;
 
   // Check if there are no listings, display EmptyState component
-  if (listings.length === 0) {
+  if (allnews.length === 0) {
     return (
       <EmptyState showReset />
     );
@@ -51,45 +55,58 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
   // Render the Home component with the fetched listings
   return (
     <div>
-    <div className="all-destinations-main flex flex-col items-center justify-center text-lg font-bold">
-        <h1 className="color-h1-destinations-main">Important <span className="color-span-green">Updates</span></h1>
+    <div className="all-destinations-main-news flex flex-col items-center justify-center text-lg font-bold">
+        <h1 className="text-2xl mt-[52px] text-white"> Weekly news articles </h1>
         {/* <div className="destination-search">
           <Search /> 
         </div> */}
       </div>
+      <div className="pt-1 pb-6">
+      {filteredStays && filteredStays.length > 0 && (
       <Container>
-      <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
-        {/* Map through the listings array and render ListingCard components */}
-        {filteredListings.map((listing: any) => {
-          return (
-            <NewsCard
-              currentUser={currentUser ? {
-                      ...currentUser,
-                      createdAt: currentUser.createdAt.toISOString(),
-                      updatedAt: currentUser.updatedAt.toISOString(),
-                      emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-              } : null} // Pass the current user to each ListingCard
-              key={listing.id} // Use the listing ID as the unique key
-              data={listing} // Pass the listing data to each ListingCard
-            />
-          );
-        })}
-        </div>
-      </Container>
-      
-      <div className="tour-booking flex flex-col py-12 my-9 items-center justify-center text-lg font-bold">
-        <h1 className="color-h1-white-page">How to book with us</h1>
-        <Container>
-          <div className="pt-10 pb-5 main-page-cards">
-            <BookingCard />
-          </div>
-        </Container>
+       <div className="mt-6 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-semibold text-black">Stays news articles</h1>
+                <p className="text-neutral-600">Stays updated: discover the latest trends and news about our properties.</p> 
+              </div>
+              <div>
+                <Link href={{ pathname: '/stays-', query: { type: 'luxurious' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+            </div>
       </div>
-
-      <Container>
-      <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
+      <div className="grid-cols-page-s pt-4 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
         {/* Map through the listings array and render ListingCard components */}
-        {filteredListingss.map((listing: any) => {
+        {filteredStays.slice(0,4).map((listing: any) => {
+          return (
+            <NewsCard
+              currentUser={currentUser ? {
+                      ...currentUser,
+                      createdAt: currentUser.createdAt.toISOString(),
+                      updatedAt: currentUser.updatedAt.toISOString(),
+                      emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+              } : null} // Pass the current user to each ListingCard
+              key={listing.id} // Use the listing ID as the unique key
+              data={listing} // Pass the listing data to each ListingCard
+            />
+          );
+        })}
+        </div>
+        </Container>
+          )}
+      </div>
+      <div className="first-card-main pt-1 pb-6">
+      {filteredLands && filteredLands.length > 0 && (
+      <Container>
+        <div className="mt-6 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-semibold text-black">Property news articles</h1>
+                <p className="text-neutral-600">Explore property insights: Latest real estate trends and news for investors.</p> 
+              </div>
+              <div>
+                <Link href={{ pathname: '/stays-', query: { type: 'luxurious' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+            </div>
+        </div>
+        <div className="grid-cols-page-s mt-3 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
+          {filteredLands.slice(0,4).map((listing: any) => {
           return (
             <NewsCard
               currentUser={currentUser ? {
@@ -105,25 +122,41 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
         })}
         </div>
       </Container>
-
-      {filteredToursss && filteredToursss.length > 0 && (
-        <Container>
-          <div className="flex w-full py-6 h-auto flex-col gap-1 pt-11">
-            <h1 className="main-header-black w-full text-center">PREMIUM <span className="main-header-gradient">TRENDING TOURS</span></h1>
-            <p className="text-neutral-500 text-sm w-full text-center">Be the envy of your friends by booking one of our highly coveted, limited-availability tours to the world&lsquo;s hottest, must-visit destinations.</p>
-          </div>
-          <div className="trending-list-main-page pt-4 pl-16 pb-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-6">
-            {filteredToursss.map((tour: any) => (
-              <ListingValue
-                data={tour}
-                key={tour.id}
-                title={tour.title}
-                locationValue={""}
-              />
-            ))}
-          </div>
-        </Container>
       )}
+      </div>
+      
+      <div className="pt-1 pb-6">
+      {filteredPropertys && filteredPropertys.length > 0 && (
+      <Container>
+       <div className="mt-6 flex justify-between items-center">
+              <div>
+              <h1 className="mb-2 text-2xl font-semibold text-black">Land news articles</h1>
+                <p className="text-neutral-600">Stay informed: Discover latest land trends, opportunities, and market insights.</p> 
+              </div>
+              <div>
+                <Link href={{ pathname: '/stays-', query: { type: 'luxurious' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+            </div>
+      </div>
+      <div className="grid-cols-page-s pt-4 pb-0 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
+        {/* Map through the listings array and render ListingCard components */}
+        {filteredPropertys.slice(0,4).map((listing: any) => {
+          return (
+            <NewsCard
+              currentUser={currentUser ? {
+                      ...currentUser,
+                      createdAt: currentUser.createdAt.toISOString(),
+                      updatedAt: currentUser.updatedAt.toISOString(),
+                      emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
+              } : null} // Pass the current user to each ListingCard
+              key={listing.id} // Use the listing ID as the unique key
+              data={listing} // Pass the listing data to each ListingCard
+            />
+          );
+        })}
+        </div>
+          </Container>
+        )}
+      </div>
     </div>
   );
 };

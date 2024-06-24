@@ -47,13 +47,13 @@ const NewsCard: React.FC<ListingCardProps> = ({
                         {data.title}
                     </div>
                 </div>
-                <div className="h-[53vh] w-full relative overflow-hidden rounded-xl">
+                <div className="h-[33vh] w-full relative overflow-hidden rounded-xl">
                     {data?.imageSrc[0] ? (
                         <Image
                             fill
                             alt="Listing"
                             src={data?.imageSrc[0]}
-                            className="object-cover h-full w-full transition group-hover:scale-110"
+                            className="object-cover h-full w-full border-b-[6px] border-solid border-green-700 transition group-hover:scale-110"
                         />
                     ) : data?.hotelLink !== "" ? (
                         <iframe
@@ -66,11 +66,14 @@ const NewsCard: React.FC<ListingCardProps> = ({
                         ></iframe>
                     ) : null}
                 </div>
-                {/* <div className="flex flex-row items-center gap-1">
-                    <div className="text-md text-neutral-600 truncate max-w-[20rem]">
-                        {data.description}
+                <div className="flex flex-row mx-2 justify-between items-center gap-1">
+                    <div className="text-md truncate max-w-[20rem]">
+                       <span className='hover:text-green-700'>View news article</span> 
                     </div>
-                </div> */}
+                    <div>
+                        <span className='text-neutral-600'>Ksh. {data.price}</span>
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -120,6 +120,10 @@ model Blog {
   subtitle         String?
   descriptionone   String?
   subtitleone      String?
+  county           String?
+  town             String?
+  price            String?
+  type             String?
   descriptiontwo   String?
   subtitletwo      String?
   descriptionthree String?

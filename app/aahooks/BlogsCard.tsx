@@ -58,21 +58,21 @@ const BlogsCard: React.FC<ListingCardProps> = ({
 
     return (
         <div>
-            <div className="flex flex-col gap-2 w-full main-image-small-screen">
+            <div className="flex flex-col h-[47vh] gap-2 w-full main-image-small-screen">
                 <div className="flex flex-row items-center gap-1">
-                    <div className="font-bold text-md text-green-600 truncate max-w-[20rem]">
-                        {data.title.toUpperCase()}
+                    <div className="font-bold text-md text-neutral-700 truncate max-w-[20rem]">
+                        {data.title}
                     </div>
                 </div>
 
-               <div className="h-[60vh] w-full overflow-hidden rounded-xl relative">
+               <div className="h-[53vh] w-full overflow-hidden rounded-xl relative">
                 {data.imageSrc.map((image, index) => (
-                    <div key={index} className={`absolute top-0 left-0 w-full h-full transition-opacity ${index === 0 ? 'opacity-100' : 'opacity-0'}`}>
+                    <div key={index} className={`absolute top-0 left-0 w-full h-[53vh] transition-opacity ${index === 0 ? 'opacity-100' : 'opacity-0'}`}>
                         <Image
-                            // fill
+                            fill
                             alt={`Image ${index + 1}`}
                             src={image}
-                            className="object-cover h-full w-full cursor-pointer"
+                            className="object-cover h-[53vh] w-full cursor-pointer"
                             onClick={() => openDialog(index)}
                         />
                     </div>
@@ -82,6 +82,14 @@ const BlogsCard: React.FC<ListingCardProps> = ({
                         <PiImagesSquareLight className="h-6 w-6 text-gray-600" onClick={() => openDialog(0)} />
                     </div>
                 )}
+                </div>
+                <div className="flex mx-3 justify-between flex-row items-center gap-1">
+                <div className="font-normal text-md text-neutral-700">
+                  {data.county}, {data.town}     
+                </div>
+                <div className="font-normal text-md text-neutral-500">
+                   Ksh. {data.price}
+                </div>
             </div>
 
 
@@ -125,6 +133,8 @@ const BlogsCard: React.FC<ListingCardProps> = ({
                                 </Dialog.Title>
                                 <div className="mt-2">
                                     <Image
+                                        height={100}
+                                        width={100}
                                         key={currentImageIndex}
                                         alt={`Image ${currentImageIndex + 1}`}
                                         src={data.imageSrc[currentImageIndex]}
