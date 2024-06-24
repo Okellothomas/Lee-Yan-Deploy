@@ -50,7 +50,7 @@ const AdministratorsPage = async ({ searchParams, tourParams, listingParams, pro
 
     // const reservations = (await getOfferReservation({}))
     //   .filter(reservation => reservation.Offers.userId === currentUser.id);
-
+  
     const properties = await getProperty(propertyParams); 
     const reservations = properties.filter(property => property.type === "sale");
 

@@ -73,8 +73,8 @@ const OffersClientCards: React.FC<ListingCardProps> = ({
 
     //     return `${format(start, 'pp')} - ${format(end, 'pp')}`
     // }, [reservation])
-
-    const openDialog = (e: MouseEvent<HTMLDivElement>) => {
+   
+    const openDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation(); // Stop event propagation to parent
         setIsDialogOpen(true);
     };
@@ -150,7 +150,7 @@ function formatDate(dateString: any) {
               <div className="font-light text-neutral-500 text-sm">
                   <span className="text-neutral-800">Offer price:</span> Ksh. { data.offerprice}
               </div> 
-              </div>
+              </div> 
               <hr />
               <div className="flex justify-between mx-2 items-center">
               {/* <div className="font-light text-neutral-500 text-sm">

@@ -3,7 +3,7 @@ import getCurrentUser from "@/app/actions/getCurrentUsers";
 import prisma from "@/app/libs/prismadb";
 
 interface IParams {
-    offerId?: string;
+    listingId?: string;
 }
 
 export async function DELETE(
@@ -16,15 +16,15 @@ export async function DELETE(
         return NextResponse.error();
     }
 
-    const { offerId } = params;
+    const { listingId } = params;
 
-    if (!offerId || typeof offerId !== 'string') {
+    if (!listingId || typeof listingId !== 'string') {
         throw new Error('Invalid ID');
     }
 
-    const listing = await prisma.offers.deleteMany({
+    const listing = await prisma.land.deleteMany({
         where: {
-            id: offerId,
+            id: listingId,
             userId: currentUser.id
         }
     });
@@ -43,15 +43,15 @@ export async function GET(
         return NextResponse.error();
     }
 
-    const { offerId } = params;
+    const { listingId } = params;
 
-    if (!offerId || typeof offerId !== 'string') {
+    if (!listingId || typeof listingId !== 'string') {
         throw new Error('Invalid ID');
     }
 
-    const listing = await prisma.offers.findUnique({
+    const listing = await prisma.land.findUnique({
         where: {
-            id: offerId
+            id: listingId
         }
     });
    
@@ -62,3 +62,81 @@ export async function GET(
 
     return NextResponse.json(listing);
 }
+
+export async function PUT(
+    request: Request,
+    { params }: { params: IParams }
+  ) {
+  
+    console.log("Update reached...")
+    const currentUser = await getCurrentUser();
+  
+    if (!currentUser) {
+      return NextResponse.json({
+          message: "Unauthorised"
+        }, {
+          status: 401,
+        }) // Return 401 for unauthorized access
+    }
+  
+    const { listingId } = params;
+    const formData = await request.json(); // Assuming JSON data
+
+
+    const property = await prisma.property.findUnique({ where: { id:listingId } });
+
+    const {
+        title,
+        county,
+        town,
+        size,
+        category,
+        type,
+        deal,
+        covered_area,
+        price,
+        booked,
+        offerPrice,
+        titleDeed,
+        overview
+      } = formData;
+      
+      const finalUpdateValues = {
+        title,
+        county,
+        town,
+        size,
+        category,
+        type,
+        deal,
+        covered_area,
+        price: parseInt(price, 10),
+        booked,
+        offerPrice: parseInt(offerPrice, 10),
+        titleDeed,
+        overview
+      };
+      
+
+    try {
+
+      const updateTour = await prisma.land.update({
+        where: {
+          id: listingId,
+        },
+        data: finalUpdateValues, // Use updatedTourData object for selective updates
+      });
+      return NextResponse.json(updateTour);
+
+    } catch (error) {
+
+      console.error("Error updating tour:", error);
+      return NextResponse.json({
+          message: "Internal Server error"
+        }, {
+          status: 500,
+        }) 
+        // Return 500 for unexpected errors
+    }
+      
+    }

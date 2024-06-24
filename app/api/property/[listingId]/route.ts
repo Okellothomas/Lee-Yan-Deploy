@@ -86,36 +86,48 @@ export async function PUT(
 
     const property = await prisma.property.findUnique({ where: { id:propertyId } });
 
-
-    const {id,guestCount,save, roomCount,
-      title, overView, house, hotel, hostName, cohostName, hostContact, hotelLink, oneBedroom, twoBedroom, threebedRoom, commonPlace,price, description
-    } = formData
-
-
-    const finalUpdateValues ={guestCount: parseInt(guestCount, 10),
-      //title, depStart, depEnd, tripStyle,save, rooms, ourLink, guestCount,price,country,continent,Locations,desciption
-    //   room: parseInt(room, 10),
-     save: parseInt(save, 10),
-      roomCount: parseInt(roomCount, 10),
-      price: parseInt(price, 10),
-      title:title,
-      overView:overView,
-      house:house,
-      hotel:hotel,
-      hotelLink:hotelLink,
-      hostName:hostName,
-      cohostName:cohostName,
-      hostContact:hostContact,
-      oneBedroom:oneBedroom,
-      twoBedroom: twoBedroom,
-      threebedRoom: threebedRoom,
-      commonPlace:commonPlace,
-    //   locations:locations,
-      description:description,
-    //   country:country,
-    //   continent:continent,
+    const {
+      title,
+      hotelLink,
+      category,
+      roomCount,
+      bathRoomCount,
+      bedRoomCount,
+      toiletCount,
+      county,
+      town,
+      size,
+      availability,
+      type,
+      deal,
+      parking_space,
+      price,
+      offerPrice,
+      amenities,
+      overview
+    } = formData;
     
-    }
+    const finalUpdateValues = {
+      title,
+      hotelLink,
+      category,
+      roomCount: parseInt(roomCount, 10),
+      bathRoomCount: parseInt(bathRoomCount, 10),
+      bedRoomCount: parseInt(bedRoomCount, 10),
+      toiletCount: parseInt(toiletCount, 10),
+      county,
+      town,
+      size,
+      availability: availability,
+      type,
+      deal,
+      parking_space: parking_space,
+      price: parseInt(price, 10),
+      offerPrice: parseInt(offerPrice, 10),
+      amenities,
+      overview
+    };
+    
 
     try {
 

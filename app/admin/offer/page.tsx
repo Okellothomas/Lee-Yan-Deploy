@@ -92,7 +92,7 @@ const AdministratorsPage = async ({ searchParams, tourParams }: HotelPageProps) 
                         key={reservation.id} // Use the reservation ID as the unique key
                         data={reservation} // Pass the reservation data to each ListingCard
                       />
-                    ))}
+                    ))} 
                   </div>
                 )}
               </div>

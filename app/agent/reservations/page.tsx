@@ -85,7 +85,7 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
                         data={reservation} // Pass the reservation data to each ListingCard
                       />
                     ))}
-                  </div>
+                  </div> 
                 )}
               </div>
               {/* <AdminInfo userParams={userParams} /> */}
