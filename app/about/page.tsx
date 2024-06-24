@@ -60,7 +60,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                 </div>
                 <div className="w-[50%]">
                   <p className="text-justify leading-9 mb-4">Lee-Yan Smart Properties offers a curated selection of exceptional accommodations designed to cater to your accommodation needs. From chic urban apartments in bustling towns centers to cozy countryside cottages, luxurious beachfront villas, and rustic mountain cabins, we offer a diverse range of options. Our collection includes boutique hotels, spacious family homes, romantic getaways for couples, and unique stays like treehouses and houseboats. Each property in our collection is handpicked to ensure comfort, style, and unforgettable experiences, no matter your preference or destination.</p>
-                  <Link href="" className="px-6 py-2 mt-6 text-green-700 rounded-xl border-[1px] border-solid border-green-700 hover:bg-green-700 hover:text-white">View all stays</Link>
+                  <Link href="/stay-s" className="px-6 py-2 mt-6 text-green-700 rounded-xl border-[1px] border-solid border-green-700 hover:bg-green-700 hover:text-white">View all stays</Link>
                 </div>
               </div>
             </div> 
@@ -76,7 +76,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
               <div className="flex justify-between gap-2">
                 <div className="w-[50%]">
                   <p className="text-justify leading-9 mb-4">Lee-Yan Smart Properties offers a curated selection of exceptional accommodations designed to cater to your accommodation needs. From chic urban apartments in bustling towns centers to cozy countryside cottages, luxurious beachfront villas, and rustic mountain cabins, we offer a diverse range of options. Our collection includes boutique hotels, spacious family homes, romantic getaways for couples, and unique stays like treehouses and houseboats. Each property in our collection is handpicked to ensure comfort, style, and unforgettable experiences, no matter your preference or destination.</p>
-                  <Link href="" className="px-6 py-2 mt-6 text-green-700 rounded-xl border-[1px] border-solid border-green-700 hover:bg-green-700 hover:text-white">View all property rentals</Link>
+                  <Link href="/properties" className="px-6 py-2 mt-6 text-green-700 rounded-xl border-[1px] border-solid border-green-700 hover:bg-green-700 hover:text-white">View all property rentals</Link>
                 </div>
                 <div className="relative w-[47%] group">
                   <div className="relative">
@@ -130,7 +130,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                 </div>
                 <div className="w-[50%]">
                   <p className="text-justify leading-9 mb-4">We feature a diverse array of prime parcels for discerning investors and developers. Our portfolio includes picturesque countryside acreage, fertile agricultural plots, and strategically located urban lots primed for development. From expansive beachfront properties to serene mountain retreats, we offer land suitable for various purposes. Whether you&lsquo;re looking to build a residential community, commercial complex, or private estate, our collection has the perfect canvas for your vision. Each parcel in our Land Collections is carefully selected for its potential, location, and value, ensuring exceptional opportunities for growth and investment.</p>
-                  <Link href="" className="px-6 py-2 mt-6 text-green-700 rounded-xl border-[1px] border-solid border-green-700 hover:bg-green-700 hover:text-white">View all land collections</Link>
+                  <Link href="/land" className="px-6 py-2 mt-6 text-green-700 rounded-xl border-[1px] border-solid border-green-700 hover:bg-green-700 hover:text-white">View all land collections</Link>
                 </div>
               </div>
             </div> 
@@ -146,7 +146,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
               <div className="flex justify-between gap-2">
                 <div className="w-[50%]">
                   <p className="text-justify leading-9 mb-4">We also feature an impressive array of exceptional homes and investments. Our diverse portfolio includes modern city apartments, spacious suburban houses, and luxurious beachfront villas. From cozy starter homes to expansive family estates, we offer properties to suit every lifestyle and budget. Our collection also features unique finds such as charming countryside cottages, sleek penthouses with panoramic views, and historic townhouses full of character. Each property in our sales collection is carefully selected for its quality, location, and potential, ensuring valuable opportunities for homeowners and investors alike.</p>
-                  <Link href="" className="px-6 py-2 mt-6 text-green-700 rounded-xl border-[1px] border-solid border-green-700 hover:bg-green-700 hover:text-white">View all property sales</Link>
+                  <Link href="/properties" className="px-6 py-2 mt-6 text-green-700 rounded-xl border-[1px] border-solid border-green-700 hover:bg-green-700 hover:text-white">View all property sales</Link>
                 </div>
                 <div className="relative w-[47%] group">
                   <div className="relative">
@@ -200,7 +200,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                 </div>
                 <div className="w-[50%]">
                   <p className="text-justify leading-9 mb-4">For stays, enjoy discounted rates on luxurious vacation rentals, from beachfront villas to urban apartments. Our property sales offers include reduced prices on select homes, from cozy condos to spacious family houses. Take advantage of special rates on long-term rentals, ranging from city lofts to suburban residences. For land enthusiasts, we offer limited-time deals on prime parcels, including urban lots and rural acreage. Each offer in our collection represents unparalleled value, carefully curated to meet various needs and budgets.</p>
-                  <Link href="" className="px-6 py-2 mt-6 text-green-700 rounded-xl border-[1px] border-solid border-green-700 hover:bg-green-700 hover:text-white">View all land collections</Link>
+                  <Link href="/offers" className="px-6 py-2 mt-6 text-green-700 rounded-xl border-[1px] border-solid border-green-700 hover:bg-green-700 hover:text-white">View all land collections</Link>
                 </div>
               </div>
             </div> 
