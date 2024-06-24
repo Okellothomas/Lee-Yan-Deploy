@@ -58,7 +58,7 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
               <div className="items-center pb-1">
                 {reservations.length === 0 ? (
                   <div>My property rentals</div>
-                ) : (
+                ) : ( 
                   <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-8">
                     {reservations.map((reservation: any) => (
                       <PropertyClientCards

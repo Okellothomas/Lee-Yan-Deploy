@@ -3,7 +3,7 @@ import useCountries from "@/app/hooks/useCountries";
 import { SafeUser, safeReservation, safeProperty, safePropertyReservation } from "@/app/types";
 import { Listing, Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { format } from 'date-fns';
 import Image from "next/image";
 import HeartButton from "../components/container/HeartButton";
@@ -12,6 +12,7 @@ import { safeTour, safeListing } from "@/app/types";
 import prisma from '@/app/libs/prismadb';
 import toast, { useToaster } from "react-hot-toast";
 import axios from "axios";
+import EditDialogBoxPropertySales from "./EditDialogBoxPropertySales";
 
 
 interface ListingCardProps {
@@ -72,6 +73,15 @@ const PropertyClientCards: React.FC<ListingCardProps> = ({
     //     return `${format(start, 'pp')} - ${format(end, 'pp')}`
     // }, [reservation])
 
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const openDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation(); // Stop event propagation to parent
+        setIsDialogOpen(true);
+    };
+    const closeDialog = () => {
+        setIsDialogOpen(false);
+    };
+    
     const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         console.log("button clicked");
@@ -164,7 +174,18 @@ function formatDate(dateString: any) {
                     <button className="outline-main-btn" onClick={handleDelete}>Delete</button>
                 </div>
          </div>
-    </div>
+
+         <div className="flex flex-row items-center gap-1">
+                 <div className="font-semibold">
+                    <button className="outline-main-btn" onClick={openDialog}>Edit</button>
+                </div>
+
+                {isDialogOpen &&
+                   <EditDialogBoxPropertySales isOpen={isDialogOpen} onClose={closeDialog} data={data} users={data}>
+                 
+                  </EditDialogBoxPropertySales>}
+         </div>
+    </div> 
   )
 }
 

@@ -98,7 +98,7 @@ const AdministratorsPage = async ({ searchParams, tourParams, listingParams }: H
                     ))}
                   </div>
                 )}
-              </div>
+              </div> 
               {/* <AdminInfo userParams={userParams} /> */}
               </div>
             </div>

@@ -3,7 +3,7 @@ import useCountries from "@/app/hooks/useCountries";
 import { SafeUser, safeReservation, safePropertyReservation } from "@/app/types";
 import { Listing, Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { format } from 'date-fns';
 import Image from "next/image";
 import HeartButton from "../components/container/HeartButton";
@@ -72,8 +72,23 @@ const PropertyClientCard: React.FC<ListingCardProps> = ({
     //     return `${format(start, 'pp')} - ${format(end, 'pp')}`
     // }, [reservation])
 
-    const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const openDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
+        setIsDialogOpen(true);
+    };
+
+    const closeDialog = () => {
+        setIsDialogOpen(false);
+    };
+
+    const confirmDelete = () => {
+        closeDialog();
+        handleDelete();
+    };
+
+    const handleDelete = async () => {
+        // e.stopPropagation();
         console.log("button clicked");
     try {
         const response = await axios.delete(`/api/property/${data?.id}`, {
@@ -176,6 +191,39 @@ function formatDate(dateString: any) {
                     <button className="outline-main-btn" onClick={handleDelete}>Delete</button>
                 </div>
          </div>
+
+
+         <div className="flex flex-row items-center gap-1">
+                 <div className="font-semibold">
+                    <button className="outline-main-btn" 
+                    onClick={openDialog}
+                    // onClick={handleDelete}
+                    >Delete</button>
+                </div>
+         </div>
+
+
+            {isDialogOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+                    <div className="bg-white p-6 rounded shadow-lg">
+                        <p>Are you sure you want to delete this item?</p>
+                        <div className="flex justify-end gap-2 mt-4">
+                            <button
+                                className="bg-red-500 text-white px-4 py-2 rounded"
+                                onClick={confirmDelete}
+                            >
+                                Confirm
+                            </button>
+                            <button
+                                className="bg-gray-300 text-black px-4 py-2 rounded"
+                                onClick={closeDialog}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
     </div>
   )
 }

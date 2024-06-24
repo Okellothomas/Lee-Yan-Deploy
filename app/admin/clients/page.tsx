@@ -89,7 +89,7 @@ const HostPage = async ({ searchParams, tourParams, userParams }: HotelPageProps
                 <hr />
               </div>
             <div className="items-center pb-1">
-                {users.length === 0 ? (
+                {users.length === 0 ? ( 
                   <div>No client currently registered in the system please come back later!</div>
                 ) : (
                   <div className="pt-2 grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 2xl:grid-cols-4 gap-8">

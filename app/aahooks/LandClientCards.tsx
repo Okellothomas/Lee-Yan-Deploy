@@ -3,7 +3,7 @@ import useCountries from "@/app/hooks/useCountries";
 import { SafeUser, safeReservation, safePropertyReservation, safeLand, safeLandReservation } from "@/app/types";
 import { Listing, Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { format } from 'date-fns';
 import Image from "next/image";
 import HeartButton from "../components/container/HeartButton";
@@ -12,6 +12,7 @@ import { safeTour, safeListing } from "@/app/types";
 import prisma from '@/app/libs/prismadb';
 import toast, { useToaster } from "react-hot-toast";
 import axios from "axios";
+import EditDialogBoxLandSales from "./EditDialogBoxLandSales";
 
 
 interface ListingCardProps {
@@ -72,11 +73,20 @@ const LandClientCards: React.FC<ListingCardProps> = ({
     //     return `${format(start, 'pp')} - ${format(end, 'pp')}`
     // }, [reservation])
 
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const openDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation(); // Stop event propagation to parent
+        setIsDialogOpen(true);
+    };
+    const closeDialog = () => {
+        setIsDialogOpen(false);
+    };
+
     const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         console.log("button clicked");
     try {
-        const response = await axios.delete(`/api/land/${data?.id}`, {
+        const response = await axios.delete(`/api/lands/${data?.id}`, {
             method: 'DELETE',
         });
         console.log("try is working")
@@ -163,6 +173,17 @@ function formatDate(dateString: any) {
                  <div className="hidden invisible font-semibold">
                     <button className="outline-main-btn" onClick={handleDelete}>Delete</button>
                 </div>
+         </div>
+
+         <div className="flex flex-row items-center gap-1">
+                 <div className="font-semibold">
+                    <button className="outline-main-btn" onClick={openDialog}>Edit</button>
+                </div>
+
+                {isDialogOpen &&
+                   <EditDialogBoxLandSales isOpen={isDialogOpen} onClose={closeDialog} data={data} users={data}>
+                 
+                  </EditDialogBoxLandSales>}
          </div>
     </div>
   )

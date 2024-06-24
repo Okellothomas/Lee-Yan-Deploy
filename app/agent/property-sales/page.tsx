@@ -70,7 +70,7 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
                         } : null} // Pass the current user to each ListingCard
                         key={reservation.id} // Use the reservation ID as the unique key
                         data={reservation} // Pass the reservation data to each ListingCard
-                      />
+                      /> 
                     ))}
                   </div>
                 )}

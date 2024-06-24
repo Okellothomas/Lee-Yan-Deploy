@@ -89,7 +89,7 @@ const AdministratorsPage = async ({ searchParams }: HotelPageProps) => {
                       />
                     ))}
                   </div>
-                )}
+                )} 
               </div>
               {/* <AdminInfo userParams={userParams} /> */}
               </div>

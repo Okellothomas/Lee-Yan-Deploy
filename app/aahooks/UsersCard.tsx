@@ -63,8 +63,23 @@ const UsersCard: React.FC<ListingCardProps> = ({
     }, [onAction, actionId, disabled])
 
 
-    const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const openDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
+        setIsDialogOpen(true);
+    };
+
+    const closeDialog = () => {
+        setIsDialogOpen(false);
+    };
+
+    const confirmDelete = () => {
+        closeDialog();
+        handleDelete();
+    };
+
+    const handleDelete = async () => {
+        // e.stopPropagation();
         console.log("button clicked");
     try {
         const response = await axios.delete(`/api/register/${data?.id}`, {
@@ -99,9 +114,31 @@ const UsersCard: React.FC<ListingCardProps> = ({
           </div>   
           <div className="flex flex-row items-center gap-1">
                  <div className="font-normal">
-                    <button className="text-md py-[5px] hover:bg-green-700 px-7 border-[1px] border-solid border-green-700 hover:text-white rounded-3xl" onClick={handleDelete}>Delete</button>
+                    <button className="text-md py-[5px] hover:bg-green-700 px-7 border-[1px] border-solid border-green-700 hover:text-white rounded-3xl" onClick={openDialog}>Delete</button>
                 </div>
          </div>
+
+         {isDialogOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
+                    <div className="bg-white p-6 rounded shadow-lg">
+                        <p>Are you sure you want to delete this item?</p>
+                        <div className="flex justify-end gap-2 mt-4">
+                            <button
+                                className="bg-red-500 text-white px-4 py-2 rounded"
+                                onClick={confirmDelete}
+                            >
+                                Confirm
+                            </button>
+                            <button
+                                className="bg-gray-300 text-black px-4 py-2 rounded"
+                                onClick={closeDialog}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
     </div>
   )
 }

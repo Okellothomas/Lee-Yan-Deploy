@@ -3,7 +3,7 @@ import useCountries from "@/app/hooks/useCountries";
 import { SafeUser, safeReservation } from "@/app/types";
 import { Listing, Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { format } from 'date-fns';
 import Image from "next/image";
 import HeartButton from "../components/container/HeartButton";
@@ -12,7 +12,8 @@ import { safeTour, safeListing } from "@/app/types";
 import prisma from '@/app/libs/prismadb';
 import toast, { useToaster } from "react-hot-toast";
 import axios from "axios";
-
+import EditDialogBoxStays from "./EditDialogBoxStays";
+ 
 
 interface ListingCardProps {
     data: safeListing;
@@ -64,14 +65,25 @@ const TourClientCards: React.FC<ListingCardProps> = ({
     // const reservationDate = useMemo(() => {
     //     if (!reservation) {
     //         return null;
-    //     }
+    //      }
 
     //     // const start = new Date(reservation.startDate || "");
     //     // const end = new Date(reservation.endDate || "");
 
     //     return `${format(start, 'pp')} - ${format(end, 'pp')}`
     // }, [reservation])
-
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const openDialog = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation(); // Stop event propagation to parent
+        setIsDialogOpen(true);
+    };
+    const closeDialog = () => {
+        setIsDialogOpen(false);
+    };
+    // const handleEdit: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    //     openDialog(e);
+    // };
+    
     const handleDelete = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         console.log("button clicked");
@@ -163,6 +175,16 @@ function formatDate(dateString: any) {
                  <div className="hidden invisible font-semibold">
                     <button className="outline-main-btn" onClick={handleDelete}>Delete</button>
                 </div>
+         </div>
+         <div className="flex flex-row items-center gap-1">
+                 <div className="font-semibold">
+                    <button className="outline-main-btn" onClick={openDialog}>Edit</button>
+                </div>
+
+                {isDialogOpen &&
+                   <EditDialogBoxStays isOpen={isDialogOpen} onClose={closeDialog} data={data} users={data}>
+                 
+                  </EditDialogBoxStays>}
          </div>
     </div>
   )

@@ -99,44 +99,102 @@ export async function PUT(
     }
   
     const { listingId } = params;
-    const formData = await request.json(); // Assuming JSON data
+    const {anUpdate,formData} = await request.json(); // Assuming JSON data
 
 
     const listing = await prisma.listing.findUnique({ where: { id:listingId } });
 
+if(anUpdate)
+  {
+    const {
+      title,
+      hotelLink,
+      category,
+      roomCount,
+      bathRoomCount,
+      guestCount,
+      bedCount,
+      bedroomCount,
+      childrenCount,
+      funActivities,
+      meals,
+      hostExperience,
+      county,
+      town,
+      type,
+      // booked,
+      bedroom,
+      // beds,
+      offers,
+      price,
+      offerPrice,
+      hostName,
+      joinDate,
+      hostType,
+      hostEmail,
+      hostContact,
+      distance,
+      overView
+    } = formData;
+    
+    const finalUpdateValues = {
+      title,
+      hotelLink,
+      category,
+      roomCount: parseInt(roomCount, 10),
+      bathRoomCount: parseInt(bathRoomCount, 10),
+      guestCount: parseInt(guestCount, 10),
+      bedCount: parseInt(bedCount, 10),
+      bedroomCount: parseInt(bedroomCount, 10),
+      childrenCount: parseInt(childrenCount, 10),
+      funActivities,
+      meals,
+      hostExperience,
+      county,
+      town,
+      type,
+      // booked: Boolean(booked),
+      bedroom,
+      // beds: parseInt(beds, 10),
+      offers,
+      price: parseInt(price, 10),
+      offerPrice: parseInt(offerPrice, 10),
+      hostName,
+      joinDate,
+      hostType,
+      hostEmail,
+      hostContact,
+      distance: distance.toString(),
+      overView
+    };
+  
+    try {
 
+      const updateOffer = await prisma.listing.update({
+        where: {
+          id: listingId,
+        },
+        data: finalUpdateValues, // Use updatedTourData object for selective updates
+      });
+      return NextResponse.json(updateOffer);
+
+    } catch (error) {
+
+      console.error("Error updating tour:", error);
+      return NextResponse.json({
+          message: "Internal Server error"
+        }, {
+          status: 500,
+        }) 
+        // Return 500 for unexpected errors
+    }
+  }
+  else
+  {
     const {id,guestCount,save, roomCount,
       title, overView, house, hotel, hostName,datesUnavailableFrom, datesUnavailableTo, cohostName, hostContact, hotelLink, oneBedroom, twoBedroom, threebedRoom, commonPlace,price, description
     } = formData
 
-
-    // const finalUpdateValues ={guestCount: parseInt(guestCount, 10),
-    //   //title, depStart, depEnd, tripStyle,save, rooms, ourLink, guestCount,price,country,continent,Locations,desciption
-    // //   room: parseInt(room, 10),
-    //  save: parseInt(save, 10),
-    //   roomCount: parseInt(roomCount, 10),
-    //   price: parseInt(price, 10),
-    //   title:title,
-    //   overView:overView,
-    //   house:house,
-    //   hotel:hotel,
-    //   hotelLink:hotelLink,
-    //   hostName:hostName,
-    //   cohostName:cohostName,
-    //   hostContact:hostContact,
-    //   oneBedroom:oneBedroom,
-    //   twoBedroom: twoBedroom,
-      
-    //   threebedRoom: threebedRoom,
-    //   commonPlace:commonPlace,
-    // //   locations:locations,
-    //   description:description,
-    // //   country:country,
-    // //   continent:continent,
-    
-    // }
-    console.log("datesUnavailableFrom dates", datesUnavailableFrom)
-    console.log("datesUnavailableTo dates", datesUnavailableTo)
     const dateRange = generateDateRange(datesUnavailableFrom, datesUnavailableTo);  
     console.log("date ranges",dateRange)
     try {
@@ -159,5 +217,7 @@ export async function PUT(
         }) 
         // Return 500 for unexpected errors
     }
+
+  }
       
     }
