@@ -61,7 +61,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
       <div className="pt-8 pb-0">
       <Container>
        <div className="my-6 items-center bg-neutral-200 p-6 rounded-lg">
-        <h4>Privacy Policy</h4>
+        <p>Privacy Policy</p>
             <div className="text-green-700 h-[2px] py-1">
               <hr />
             </div>

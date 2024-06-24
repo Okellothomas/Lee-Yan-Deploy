@@ -1,369 +1,212 @@
-import getCurrentUser from "../actions/getCurrentUsers";
 import getListings, { IListingsParams } from "../actions/getListings";
 import Container from "../components/container/Container";
-import EmptyState from "../components/container/EmptyState";
-import ListingCard from "../components/listing/ListingCard";
-import Categories from "../components/navbar/Categories";
-import Search from "../components/navbar/Search";
 import Link from "next/link";
-import BookingCard from "../mainpage/components/BookingCard";
-import ListingValue from "../components/listing/ListingValue";
 import getTours, { IToursParams } from "../actions/getTours";
-import TourCard from "../components/listing/TourCard";
-import TheCategoriess from "./TheCategoriess";
-import getListingsHotels from "../actions/getListingsHotels";
 import { Metadata } from "next";
-import TourCardSecondary from "../components/listing/TourCardSecondary";
-
-import imagebook from "../../public/images/maint.jpg"
-import imageone from "../../public/images/ps.jpeg"
-import imagetwo from "../../public/images/psa.jpeg"
-import imagethree from "../../public/images/psb.jpg"
-import imagefour from "../../public/images/psc.jpg"
-import imagefive from "../../public/images/ps.jpg"
-import imagesix from "../../public/images/psd.jpg"
-import Emblawebsite from "../mainpage/components/Emblawebsite";
-import TourPriceCard from "../components/listing/TourPriceCard";
-import TourCardLists from "../components/listing/TourCardLists";
-import EmblaMobile from "../mainpage/components/EmblaMobile";
-import TourPriceCardMain from "../components/listing/TourPriceCardMain";
+import stay from "../../public/images/bq.png"
+import land from "../../public/images/bq.png"
+import sale from "../../public/images/bq.png"
+import rental from "../../public/images/bq.png"
+import Image from "next/image";
 
 // Define the interface for the Home component props
 interface HotelPageProps {
     searchParams: IListingsParams; // Search parameters for fetching listings
-     tourParams: IToursParams;
+    tourParams: IToursParams;
 }
 
-export const metadata: Metadata =  {
-  title: "About",
+export const metadata: Metadata = {
+  title: "Hotel",
 }
 
 // Home component is defined as an asynchronous function
 const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => {
-  // Fetch listings and current user asynchronously
-
-  const cardsData = [
-  {
-    image: imageone,
-    title: 'AmzonCorp',
-    country: 'Get prime land?',
-    description: 'Brussels is a quick train ride from all the action',
-  },
-  {
-    image: imagetwo,
-    title: 'Devancatour',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagesix,
-    title: 'AmzonCorp',
-    country: 'Our prime hotel?',
-    description: 'Brussels is a quick train ride from all the action',
-  },
-  {
-    image: imagefour,
-    title: 'Title 4',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagefive,
-    title: 'Title 5',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imagesix,
-    title: 'Title 6',
-    country: 'Seize the moment!',
-    description: 'Save 15% or more when you book and stay before October 1, 2024',
-  },
-  {
-    image: imageone,
-    title: 'Title 7',
-    country: 'Country 7',
-    description: 'Description 7',
-    },
-  {
-    image: imagesix,
-    title: 'Title 8',
-    country: 'Country 7',
-    description: 'Description 7',
-    },
-  {
-    image: imageone,
-    title: 'Title 9',
-    country: 'Country 7',
-    description: 'Description 7',
-  },
-  ];
-  
-
-const cardsDatas = [
-  {
-    image: imageone,
-    title: 'AmzonCorp',
-    country: 'Meru',
-    description: '100 properties',
-  },
-  {
-    image: imagetwo,
-    title: 'Devancatour',
-    country: 'Diani',
-    description: '40 properties',
-  },
-  {
-    image: imagesix,
-    title: 'AmzonCorp',
-    country: 'Kisii',
-    description: '140 properties',
-  },
-  {
-    image: imagefour,
-    title: 'Title 4',
-    country: 'Naivasha',
-    description: '20 properties',
-  },
-  {
-    image: imagefive,
-    title: 'Title 5',
-    country: 'Kakamega',
-    description: '30 properties',
-  },
-  {
-    image: imagesix,
-    title: 'Title 6',
-    country: 'Homabay',
-    description: '10 properties',
-  },
-  {
-    image: imageone,
-    title: 'Title 7',
-    country: 'Machakos',
-    description: '30 properties',
-    },
-  {
-    image: imagesix,
-    title: 'Title 8',
-    country: 'Garisa',
-    description: '10 properties',
-    },
-  {
-    image: imageone,
-    title: 'Title 9',
-    country: 'Kirinyaga',
-    description: '64 properties',
-  },
-  {
-    image: imageone,
-    title: 'AmzonCorp',
-    country: 'Meru',
-    description: '100 properties',
-  },
-  {
-    image: imagetwo,
-    title: 'Devancatour',
-    country: 'Diani',
-    description: '40 properties',
-  },
-  {
-    image: imagesix,
-    title: 'AmzonCorp',
-    country: 'Kisii',
-    description: '140 properties',
-  },
-  {
-    image: imagefour,
-    title: 'Title 4',
-    country: 'Naivasha',
-    description: '20 properties',
-  },
-  {
-    image: imagefive,
-    title: 'Title 5',
-    country: 'Kakamega',
-    description: '30 properties',
-  },
-  {
-    image: imagesix,
-    title: 'Title 6',
-    country: 'Homabay',
-    description: '10 properties',
-  },
-  {
-    image: imageone,
-    title: 'Title 7',
-    country: 'Machakos',
-    description: '30 properties',
-    },
-  {
-    image: imagesix,
-    title: 'Title 8',
-    country: 'Garisa',
-    description: '10 properties',
-    },
-  {
-    image: imageone,
-    title: 'Title 9',
-    country: 'Kirinyaga',
-    description: '64 properties',
-  },
-];
-
-  let currentUser: any;
-    if (searchParams.userId) {
-        currentUser = await getCurrentUser();
-    }
-  // const listings = await getListingsHotels({ ...searchParams, hotel: "hotel" });
-  const tours = await getTours(tourParams);
-  const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
-  const filteredTourss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
-  // const isEmpty = true;
-
-  // Check if there are no listings, display EmptyState component
-  // if (listings.length && tours.length === 0) {
-  //   return (
-  //     <EmptyState showReset />
-  //   );
-  // }
 
   // Render the Home component with the fetched listings
   return (
     <div>
-    <div className="all-about flex flex-col items-center justify-center text-lg font-bold">
-        {/* <h1 className="color-property-sales-main text-white pb-5">PREMIUM PROPERTIES ON SALE</h1>
-        <p className="text-white font-semibold text-2xl">Buy now, save more</p> */}
-        <h1 className="banner-title color-property-sales-main text-wheat pb-5">HOME OF PREMIUM PROPERTIES ON RENTAL AND SALE</h1> 
-        <h2 className="banner-title-one text-white font-semibold text-2xl">Discounted premium properties available</h2> 
-        {/* <div className="destination-search">
-          <Search /> 
-        </div> */}
+      <div className="all-destinations-main-about flex flex-col items-center justify-center text-lg font-bold">
+        <h1 className="text-2xl font-bold mt-[52px] text-white"> About Us </h1>
       </div>
-       <div className="flex items-center mt-6 pb-6 justify-center">
-       <Container>
-          <div className="mt-5">
-            <div className="my-3">
-              <h1 className="mb-2 text-2xl font-bold text-black">Properties On Sale</h1>
-              <p className="text-neutral-600">From Castle to Villas, our premium properties on sale</p>  
+      <div className="pt-8 pb-0">
+        <div>
+          <Container>
+            <div className="pb-10">
+              <div className="pb-6">
+                <h1 className="mb-2 text-2xl font-semibold text-black">Stay collections</h1>
+                <p className="text-neutral-600" style={{ lineHeight: '2' }}>We offer curated handpicked selection of exceptional accommodations stays and experiences.</p>
+              </div>
+              <div className="flex justify-between gap-2">
+                <div className="relative w-[44%] group">
+                  <div className="relative">
+                    <Image
+                      height={200}
+                      width={200}
+                      alt="Listing"
+                      src={sale}
+                      className="object-cover h-auto w-full"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-50"></div>
+                  </div>
+                  <Image
+                    height={200}
+                    width={200}
+                    alt="Overlay"
+                    src={sale}
+                    className="absolute top-11 left-12  h-auto w-full transform transition-transform duration-300 group-hover:translate-y-[-10px]"
+                  />
+                </div>
+                <div className="w-[50%]">
+                  <p className="text-justify" style={{ lineHeight: '1.6' }}>Lee-Yan Smart Properties offers a curated selection of exceptional accommodations designed to cater to your accommodation needs. From chic urban apartments in bustling towns centers to cozy countryside cottages, luxurious beachfront villas, and rustic mountain cabins, we offer a diverse range of options. Our collection includes boutique hotels, spacious family homes, romantic getaways for couples, and unique stays like treehouses and houseboats. Each property in our collection is handpicked to ensure comfort, style, and unforgettable experiences, no matter your preference or destination.</p>
+                  <Link href="">View all stays</Link>
+                </div>
+              </div>
             </div> 
-            <Emblawebsite cardsData={cardsDatas} />  
-          </div>   
-        </Container>
-      </div>
-      <div className="pt-1 pb-9">
-      {filteredTours && filteredTours.length > 0 && (
-        <Container>
-          <div className="mt-9">
-              <h1 className="mb-2 text-2xl font-bold text-black">Luxurious Properties</h1>
-              <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p>  
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
-              <TourCardSecondary
-                currentUser={currentUser ? {
-                  ...currentUser,
-                  createdAt: currentUser.createdAt.toISOString(),
-                  updatedAt: currentUser.updatedAt.toISOString(),
-                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                } : null} // Pass the current user to each ListingCard
-                key={tour.id} // Use the listing ID as the unique key
-                data={tour} // Pass the listing data to each ListingCard
-              />
-            ))} 
-          </div>
-        </Container>
-      )}
-      </div>
-     <div className="first-card-main pt-1 pb-9">
-      {filteredTours && filteredTours.length > 0 && (
-        <Container>
-          <div className="mt-9">
-              <h1 className="mb-2 text-2xl font-bold text-black">Luxurious Properties</h1>
-              <p className="text-neutral-600">From Castle to Villas, select an exclusive place to stay</p>  
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
-              <TourCardSecondary
-                currentUser={currentUser ? {
-                  ...currentUser,
-                  createdAt: currentUser.createdAt.toISOString(),
-                  updatedAt: currentUser.updatedAt.toISOString(),
-                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                } : null} // Pass the current user to each ListingCard
-                key={tour.id} // Use the listing ID as the unique key
-                data={tour} // Pass the listing data to each ListingCard
-              />
-            ))} 
-          </div>
-        </Container>
-      )}
-      </div>
-      
-    <div className="pt-1 pb-9">
-      {filteredTours && filteredTours.length > 0 && (
-        <Container>
-          <div className="mt-9">
-              <h1 className="mb-2 text-2xl font-bold text-black">Book our prime unique properties</h1>
-              <p className="text-neutral-600">Book from our top rated properties for unforgettable stay</p>  
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
-            {filteredTours.map((tour: any) => (
-              <TourPriceCardMain
-                currentUser={currentUser ? {
-                  ...currentUser,
-                  createdAt: currentUser.createdAt.toISOString(),
-                  updatedAt: currentUser.updatedAt.toISOString(),
-                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                } : null} // Pass the current user to each ListingCard
-                key={tour.id} // Use the listing ID as the unique key
-                data={tour} // Pass the listing data to each ListingCard
-              />
-            ))} 
-          </div>
-        </Container>
-      )}
-      </div>
-    
-      <div className="pt-1 pb-9">
-      {filteredTourss && filteredTourss.length > 0 && (
-        <Container>
-          <div className="">
-              <h1 className="mb-2 text-2xl font-bold text-black">Trending destinations you will love</h1>
-              <p className="text-neutral-600">Luxurious sanctuaries you will find comfortable</p>  
-          </div> 
-          <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
-            {filteredTourss.map((tour: any) => (
-              <TourCardLists
-                currentUser={currentUser ? {
-                  ...currentUser,
-                  createdAt: currentUser.createdAt.toISOString(),
-                  updatedAt: currentUser.updatedAt.toISOString(),
-                  emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
-                } : null} // Pass the current user to each ListingCard
-                key={tour.id} // Use the listing ID as the unique key
-                data={tour} // Pass the listing data to each ListingCard
-              />
-            ))} 
-          </div>
-        </Container>
-      )}
-      </div>
-
-      <div className="flex items-center mt-6 justify-center">
-       <Container>
-          <div className="mt-5">
-            <div className="my-3">
-              <h1 className="mb-2 text-2xl font-bold text-black">Great deals</h1>
-              <p className="text-neutral-600">Premium deals and great offers for you</p>  
+          </Container>  
+        </div>
+        <div className="first-card-main py-10">
+          <Container>
+            <div className="">
+              <div className="pb-6">
+                <h1 className="mb-2 text-2xl font-semibold text-black">Property rentals collections</h1>
+                <p className="text-neutral-600" style={{ lineHeight: '1.6' }}>Explore our diverse rental options of top-quality properties.</p>
+              </div>
+              <div className="flex justify-between gap-2">
+                <div className="w-[50%]">
+                  <p className="text-justify" style={{ lineHeight: '1.6' }}>Lee-Yan Smart Properties offers a curated selection of exceptional accommodations designed to cater to your accommodation needs. From chic urban apartments in bustling towns centers to cozy countryside cottages, luxurious beachfront villas, and rustic mountain cabins, we offer a diverse range of options. Our collection includes boutique hotels, spacious family homes, romantic getaways for couples, and unique stays like treehouses and houseboats. Each property in our collection is handpicked to ensure comfort, style, and unforgettable experiences, no matter your preference or destination.</p>
+                  <Link href="">View all property rentals</Link>
+                </div>
+                <div className="relative w-[47%] group">
+                  <div className="relative">
+                    <Image
+                      height={200}
+                      width={200}
+                      alt="Listing"
+                      src={sale}
+                      className="object-cover h-auto w-full"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-50"></div>
+                  </div>
+                  <Image
+                    height={200}
+                    width={200}
+                    alt="Overlay"
+                    src={sale}
+                    className="absolute top-11 left-12  h-auto w-full transform transition-transform duration-300 group-hover:translate-y-[-10px]"
+                  />
+                </div>
+              </div>
             </div> 
-            <EmblaMobile cardsData={cardsData} />  
-          </div>   
-        </Container>
+          </Container>  
+        </div>
+        <div>
+          <Container>
+            <div className="py-10">
+              <div className="pb-6">
+                <h1 className="mb-2 text-2xl font-semibold text-black">Land Collections</h1>
+                <p className="text-neutral-600" style={{ lineHeight: '1.6' }}>Prime parcels: Explore our diverse selection of exceptional land opportunities.</p>
+              </div>
+              <div className="flex justify-between gap-2">
+                <div className="relative w-[44%] group">
+                  <div className="relative">
+                    <Image
+                      height={200}
+                      width={200}
+                      alt="Listing"
+                      src={sale}
+                      className="object-cover h-auto w-full"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-50"></div>
+                  </div>
+                  <Image
+                    height={200}
+                    width={200}
+                    alt="Overlay"
+                    src={sale}
+                    className="absolute top-11 left-12  h-auto w-full transform transition-transform duration-300 group-hover:translate-y-[-10px]"
+                  />
+                </div>
+                <div className="w-[50%]">
+                  <p className="text-justify" style={{ lineHeight: '1.6' }}>We feature a diverse array of prime parcels for discerning investors and developers. Our portfolio includes picturesque countryside acreage, fertile agricultural plots, and strategically located urban lots primed for development. From expansive beachfront properties to serene mountain retreats, we offer land suitable for various purposes. Whether you're looking to build a residential community, commercial complex, or private estate, our collection has the perfect canvas for your vision. Each parcel in our Land Collections is carefully selected for its potential, location, and value, ensuring exceptional opportunities for growth and investment.</p>
+                  <Link href="">View all land collections</Link>
+                </div>
+              </div>
+            </div> 
+          </Container>  
+        </div>
+        <div className="first-card-main py-10">
+          <Container>
+            <div className="">
+              <div className="pb-6">
+                <h1 className="mb-2 text-2xl font-semibold text-black">Property sales collections</h1>
+                <p className="text-neutral-600" style={{ lineHeight: '1.6' }}>Premium properties for sale: Explore our diverse selection of exceptional homes.</p>
+              </div>
+              <div className="flex justify-between gap-2">
+                <div className="w-[50%]">
+                  <p className="text-justify" style={{ lineHeight: '1.6' }}>We also feature an impressive array of exceptional homes and investments. Our diverse portfolio includes modern city apartments, spacious suburban houses, and luxurious beachfront villas. From cozy starter homes to expansive family estates, we offer properties to suit every lifestyle and budget. Our collection also features unique finds such as charming countryside cottages, sleek penthouses with panoramic views, and historic townhouses full of character. Each property in our sales collection is carefully selected for its quality, location, and potential, ensuring valuable opportunities for homeowners and investors alike.</p>
+                  <Link href="">View all property sales</Link>
+                </div>
+                <div className="relative w-[47%] group">
+                  <div className="relative">
+                    <Image
+                      height={200}
+                      width={200}
+                      alt="Listing"
+                      src={sale}
+                      className="object-cover h-auto w-full"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-50"></div>
+                  </div>
+                  <Image
+                    height={200}
+                    width={200}
+                    alt="Overlay"
+                    src={sale}
+                    className="absolute top-11 left-12  h-auto w-full transform transition-transform duration-300 group-hover:translate-y-[-10px]"
+                  />
+                </div>
+              </div>
+            </div> 
+          </Container>  
+        </div>
+        <div>
+          <Container>
+            <div className="py-10">
+              <div className="pb-6">
+                <h1 className="mb-2 text-2xl font-semibold text-black">Offer Collections</h1>
+                <p className="text-neutral-600" style={{ lineHeight: '1.6' }}>Exclusive deals: Explore our curated selection of special property opportunities.</p>
+              </div>
+              <div className="flex justify-between gap-2">
+                <div className="relative w-[44%] group">
+                  <div className="relative">
+                    <Image
+                      height={200}
+                      width={200}
+                      alt="Listing"
+                      src={sale}
+                      className="object-cover h-auto w-full"
+                    />
+                    <div className="absolute inset-0 bg-black opacity-50"></div>
+                  </div>
+                  <Image
+                    height={200}
+                    width={200}
+                    alt="Overlay"
+                    src={sale}
+                    className="absolute top-11 left-12  h-auto w-full transform transition-transform duration-300 group-hover:translate-y-[-10px]"
+                  />
+                </div>
+                <div className="w-[50%]">
+                  <p className="text-justify" style={{ lineHeight: '1.6' }}>For stays, enjoy discounted rates on luxurious vacation rentals, from beachfront villas to urban apartments. Our property sales offers include reduced prices on select homes, from cozy condos to spacious family houses. Take advantage of special rates on long-term rentals, ranging from city lofts to suburban residences. For land enthusiasts, we offer limited-time deals on prime parcels, including urban lots and rural acreage. Each offer in our collection represents unparalleled value, carefully curated to meet various needs and budgets.</p>
+                  <Link href="">View all land collections</Link>
+                </div>
+              </div>
+            </div> 
+          </Container>  
+        </div>
       </div>
-
     </div>
   );
 };
 
-export default DestinationPage
+export default DestinationPage;
