@@ -39,7 +39,8 @@ const Carousel = () => {
                             {/* Add a div for the overlay */}
                             {/* <div className="overlay absolute inset-0 bg-black bg-opacity-15"></div> */}
                             <Image
-                                src={images[0].src}
+                                // src={images[0].src}
+                                src="https://res.cloudinary.com/doamgn1l0/image/upload/v1718981750/rfurliahfselsnn86h3g.jpg"
                                 // src={images[index].src}
                                 fill={true}
                                 layout="fill"
