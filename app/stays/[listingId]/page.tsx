@@ -51,7 +51,9 @@ const ListingPage = async ({ params }: { params: IParams }) => {
                       emailVerified: currentUser.emailVerified ? currentUser.emailVerified.toISOString() : null
              } : null} // Pass the current user to each ListingCard
          />
-            </div>
+        </div>
+        
+        {/* <div></div> */}
             
         {/* Classic Adventure Tours section */}
         {filteredTours && filteredTours.length > 0 && (
