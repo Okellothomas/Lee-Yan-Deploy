@@ -28,7 +28,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
   return (
     <div>
       <div className="all-destinations-main-about flex flex-col items-center justify-center text-lg font-bold">
-        <h1 className="text-2xl font-bold mt-[52px] text-white"> About Us </h1>
+        <h1 className="text-3xl font-bold mt-[52px] text-white"> About Us </h1>
       </div>
       <div className="pt-8 pb-0">
         <div>
