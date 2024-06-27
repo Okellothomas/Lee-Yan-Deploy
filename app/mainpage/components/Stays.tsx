@@ -14,7 +14,9 @@ const Stay: React.FC = () => {
         <div className="relative w-[33.3333%] h-[35vh]">
           <Link className='cursor-pointer' href={{ pathname: '/stay', query: { county: 'Nairobi' }}}> 
           <Image
-            src={imageone}
+            height={200}
+            width={200}
+            src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719467470/a3rsa1vs2cibj92fuoee.jpg"
             alt="Image 1"
             className="object-cover w-full h-[35vh] rounded-lg shadow-lg"
           />
@@ -27,7 +29,9 @@ const Stay: React.FC = () => {
         <div className="relative w-[33.3333%] h-[35vh]">
           <Link className='cursor-pointer' href={{ pathname: '/stay', query: { county: 'Mombasa' }}}>
           <Image
-            src={imagetwo}
+            height={200}
+            width={200}
+            src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719464343/z3sklz8ubrmkforifcln.jpg"
             alt="Image 2"
             className="object-cover w-full h-[35vh] rounded-lg shadow-lg"
           />
@@ -40,7 +44,9 @@ const Stay: React.FC = () => {
         <div className="relative w-[33.3333%] h-[35vh]">
         <Link className='cursor-pointer' href={{ pathname: '/stay', query: { county: 'Naivasha' }}}>
           <Image
-            src={imagethree}
+            height={200}
+            width={200}
+            src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719467429/rhlbw54ohwgttqpktjkh.jpg"
             alt="Image 3"
             className="object-cover w-full h-[35vh] rounded-lg shadow-lg"
           />
@@ -55,7 +61,9 @@ const Stay: React.FC = () => {
         <div className="relative w-[50%] h-[40vh]">
          <Link className='cursor-pointer' href={{ pathname: '/stay', query: { county: 'Kisumu' }}}>
           <Image
-            src={imagefour}
+            height={200}
+            width={200}
+            src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719467452/jd16mxn5wlpbcmwvn0h5.jpg"
             alt="Image 4"
             className="object-cover w-full h-[40vh] rounded-lg shadow-lg"
           />
@@ -68,7 +76,9 @@ const Stay: React.FC = () => {
         <div className="relative w-[50%] h-[40vh]">
           <Link className='cursor-pointer' href={{ pathname: '/stay', query: { county: 'Kajiado' }}}>
           <Image
-            src={imagefive}
+            height={200}
+            width={200}
+            src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719467440/vyjoucdzbg1vnrmooknz.jpg"
             alt="Image 5"
             className="object-cover w-full h-[40vh] rounded-lg shadow-lg"
           />

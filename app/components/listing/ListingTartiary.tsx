@@ -83,8 +83,8 @@ const ListingTartiary: React.FC<ListingCardProps> = ({
                 <div className="text-md px-2 pt-1 pb-2 font-semibold text-md truncate max-w-[20rem]">
                     <span className="text-neutral-700">{data.title}</span>
                 </div>
-                <div className="font-light px-2 flex items-center justify-between mt-[-12px] text-neutral-500">
-                    <span className="text-neutral-500 text-sm text-start line-clamp-2">{data.overView}</span>
+                <div className="px-2 flex items-center justify-between mt-[-12px] text-neutral-600">
+                    <span className="text-neutral-600 text-sm text-start line-clamp-2">{data.overView}</span>
                 </div>
                 <div className="font-light  px-2 flex items-center justify-between mt-[-6px] text-neutral-500">
                     <span className="text-neutral-800 text-sm">Price: Ksh. {data.price}</span>

@@ -16,9 +16,10 @@
   /* Set default font family and background color for the HTML element */
   html {
     background-color: #f5f5f5de;
-    font-family: "Kanit", sans-serif;
+    /* font-family: "Kanit", sans-serif; */
+    font-family: "Raleway", sans-serif;
     /* font-family: "Sora", sans-serif; */
-     font-weight: 300; 
+     /* font-weight: 300;  */
     /* font-style: normal; */
   }
 
@@ -583,7 +584,7 @@
 }
 
 .all-main-property-sales {
-  background-image: url('../public/images/rental5.jpg');
+  background-image: url('https://res.cloudinary.com/dqibclcaq/image/upload/v1719474301/cfdn43noitknv5clsn56.jpg');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.37);
   /* Red color with 60% opacity */
@@ -598,7 +599,7 @@
 }
 
 .all-main-property-rentals {
-  background-image: url('../public/images/lands.jpg');
+  background-image: url('https://res.cloudinary.com/dqibclcaq/image/upload/v1719474244/tf1pgtvtgfbzwpb8lkpf.jpg');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.37);
   /* Red color with 60% opacity */
@@ -613,7 +614,7 @@
 }
 
 .all-land-sales {
-  background-image: url('../public/images/lend4.jpg');
+  background-image: url('https://res.cloudinary.com/dqibclcaq/image/upload/v1719474269/itadaqml0m2klh6228vc.jpg');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.37);
   /* Red color with 60% opacity */
@@ -628,7 +629,7 @@
 }
 
 .all-about {
-  background-image: url('../public/images/about.png');
+  background-image: url('https://res.cloudinary.com/dqibclcaq/image/upload/v1719464161/kejjipegzyc2f3yzvz7e.png');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.37);
   /* Red color with 60% opacity */
@@ -658,7 +659,7 @@
 }
 
 .all-destinations-main-about {
-  background-image: url('../public/images/about.png');
+  background-image: url('https://res.cloudinary.com/dqibclcaq/image/upload/v1719464161/kejjipegzyc2f3yzvz7e.png');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.22);
   /* Red color with 60% opacity */

@@ -107,7 +107,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
 
             <div className="flex flex-col px-4 justify-between item-center gap-1">
                 {error && <div className="text-red-400 text-sm pt-1">{error}</div>}
-                {currentUser.userType === 'admin' || currentUser.userType === 'operator' ? (
+                {currentUser?.userType === 'admin' || currentUser?.userType === 'operator' ? (
                     <>
                         <button
                             className="border-[1px] border-solid mb-3 hover:bg-green-700 hover:text-white border-green-700 rounded-full py-2 px-3 focus:outline-none"

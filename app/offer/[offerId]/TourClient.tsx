@@ -331,8 +331,8 @@ const TourClient: React.FC<TourClientProps> = ({
                   
                                 {sender:'leeyan.smartproperties1@gmail.com',
                                        recipients:recipients,
-                                       subject:"Devance Reservations",
-                                       user_name:currentUser?.name,
+                                       subject:"Successful Offer Reservation",
+                                    //    user_name:currentUser?.name,
                                        templateName: 'mail_template',
                                     //    mail_body:This is a sample test mail from Devance Application and these are the reservatio
 

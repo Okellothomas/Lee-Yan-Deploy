@@ -84,8 +84,8 @@ const EmblaMobile: React.FC<ListingCardProps> = ({
                   </div>
                   <div className="relative flex justify-between embla-last z-10">
                     <div>
-                      <p className="text-lg font-bold pb-2">{offer.title}</p>
-                      <p className="text-sm flex pb-4 gap-4">
+                      <p className="text-lg font-bold pb-2 line-clamp-1">{offer.title}</p>
+                      <p className="text-sm flex pb-4 gap-4 line-clamp-1">
                         {offer.action}
                       </p>
                       <button

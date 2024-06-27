@@ -65,7 +65,7 @@ const ListingCardMain: React.FC<ListingCardProps> = ({
   return (
       <div
         onClick={() => router.push(`/stays/${data?.id}`)} //added ?
-        className="col-span-1 bg-white shadow-md pb-3 rounded-xl cursor-pointer group"
+        className="col-span-1 bg-white shadow-sm pb-3 rounded-xl cursor-pointer group"
       >
           <div className="flex h-[50vh] flex-col gap-[6px] w-full main-image-small-screen">
               <div className="aspect-square w-full relative overflow-hidden rounded-t-xl">
@@ -89,9 +89,9 @@ const ListingCardMain: React.FC<ListingCardProps> = ({
              </div>
               <div className="flex flex-row gap-1 items-center px-4">
               <div>
-                <span className="font-bold text-neutral-800">{data?.county},</span>      
+                <span className="text-neutral-800">{data?.county},</span>      
               </div>
-              <div className="text-sm truncate max-w-[10rem]">
+              <div className="text-sm text-neutral-600 truncate max-w-[10rem]">
                  {data?.town}
               </div>
              </div>
@@ -114,7 +114,7 @@ const ListingCardMain: React.FC<ListingCardProps> = ({
                   </div>
                   { data.offerPrice !== 0 && (
                       <div>
-                          <span className="text-neutral-800">Price: </span> <span className="font-semibold text-neutral-600">Ksh. {data.price}</span>
+                          <span className="text-neutral-800">Price: </span> <span className="text-neutral-700">Ksh. {data.price}</span>
                       </div>
                   )}
                   {/* {!reservation && (
