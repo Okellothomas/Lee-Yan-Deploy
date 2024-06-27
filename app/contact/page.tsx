@@ -3,13 +3,33 @@ import toast from "react-hot-toast";
 import axios from 'axios';
 import Container from "../components/container/Container";
 import { useState } from 'react';
+import Image from "next/image";
+import getOffers, {OffersParams} from "../actions/getOffers";
+import getCurrentUser from "../actions/getCurrentUsers";
+import EmblaMobile from "../mainpage/components/EmblaMobile";
 
-const ContactMe = () => {
+// interface HomeProps {
+//   offerParams: OffersParams; //
+// }
+
+
+const ContactMe =  () => {
+
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+
+  //  let currentUser: any;
+  //   if (offerParams.userId){
+  //       currentUser = await getCurrentUser();
+  //   }
+
+  // const offers = await getOffers(offerParams);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +40,7 @@ const ContactMe = () => {
         {
           sender: email,
           subject: "Contact Form Submission",
-          message: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`
+          message: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nSubject: ${subject}\nMessage: ${message}`
         },
         {
           headers: {
@@ -37,6 +57,7 @@ const ContactMe = () => {
       setName('');
       setEmail('');
       setPhone('');
+      setSubject('');
       setMessage('');
     } catch (error) {
       console.error(error); // handle error message
@@ -51,24 +72,32 @@ const ContactMe = () => {
        <div className="all-destinations-main-about flex flex-col items-center justify-center text-lg font-bold">
         <h1 className="text-3xl font-bold mt-[52px] text-white"> Contact Us </h1>
       </div>
-      <Container>
-        <div className="pt-8 pb-0">
-          <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto">
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+      <div>
+
+          <Container>
+            <div className="pt-[60px]">
+              <div className="pb-6">
+                <h1 className="mb-2 text-2xl font-semibold text-black">Let us here from you!</h1>
+                <p className="text-neutral-600">Got questions? Reach out: We're here to assist your inquiries.</p>
+              </div>
+            <div className="flex justify-between gap-6">
+                
+            <form onSubmit={handleSubmit} className="w-[55%] mx-auto border-[1px] border-solid border-neutral-300 shadow-sm px-4 py-3 rounded-lg">
+            <div className="mb-2">
+              <label className="block text-neutral-700 text-sm font-bold mb-1" htmlFor="name">
                 Name
               </label>
               <input 
                 id="name" 
-                type="text" 
+                type="text"   
                 value={name} 
                 onChange={(e) => setName(e.target.value)} 
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                className="shadow appearance-none border bg-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                 required 
               />
             </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            <div className="mb-2">
+              <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="email">
                 Email
               </label>
               <input 
@@ -80,8 +109,8 @@ const ContactMe = () => {
                 required 
               />
             </div>
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="phone">
+            <div className="mb-2">
+              <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="phone">
                 Phone
               </label>
               <input 
@@ -92,9 +121,22 @@ const ContactMe = () => {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                 required 
               />
+              </div>
+              <div className="mb-2">
+              <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="email">
+                Subject
+              </label>
+              <input 
+                id="subject" 
+                type="text" 
+                value={subject} 
+                onChange={(e) => setSubject(e.target.value)} 
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                required 
+              />
             </div>
-            <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="message">
+            <div className="mb-2">
+              <label className="block text-gray-700 text-sm font-bold mb-1" htmlFor="message">
                 Message
               </label>
               <textarea 
@@ -114,9 +156,62 @@ const ContactMe = () => {
                 {isLoading ? 'Sending...' : 'Send Message'}
               </button>
             </div>
-          </form>
+            </form>
+                  
+              <div className="relative w-[43%] group">
+                  <div className="relative">
+                    <Image
+                      height={200}
+                      width={200}
+                      alt="Listing"
+                      src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719485020/f4p4dyoeroifphaay859.jpg"
+                      className="object-cover rounded-xl border-t-[5px] border-solid border-green-700 h-auto w-full"
+                    />
+                    <div className="absolute inset-0 rounded-xl bg-black opacity-60"></div>
+                  </div>
+                  <Image
+                    height={200}
+                    width={200}
+                    alt="Overlay"
+                    src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719485020/f4p4dyoeroifphaay859.jpg"
+                    className="absolute top-11 left-12 rounded-xl border-b-[5px] border-solid border-green-700 h-auto w-full transform transition-transform duration-300 group-hover:translate-y-[-10px]"
+                  />
+                </div>
+                  
+              </div>
+            </div> 
+          </Container> 
+
+        {/* <div className="flex items-center mt-6 justify-center">
+        {offers && Array.isArray(offers) && offers.length > 0 && (
+          <Container>
+            <div className="mt-5">
+              <div className="my-3">
+                <h1 className="mb-2 text-2xl font-semibold text-black">Great deals</h1>
+                <p className="text-neutral-600">Premium deals and offers for you</p>
+              </div>
+              <EmblaMobile
+                data={offers}
+                currentUser={
+                  currentUser
+                    ? {
+                        ...currentUser,
+                        createdAt: currentUser.createdAt.toISOString(),
+                        updatedAt: currentUser.updatedAt.toISOString(),
+                        emailVerified: currentUser.emailVerified
+                          ? currentUser.emailVerified.toISOString()
+                          : null,
+                      }
+                    : null
+                }
+              />
+            </div>
+          </Container>
+          )}
+        </div> */}
+        
+
         </div>
-      </Container>
     </div>
   );
 };
