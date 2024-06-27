@@ -100,7 +100,7 @@ const Emblawebsite: React.FC<ListingCardProps> = ({
                       </Link>
                     </div>
                     <div className="text-start relative">
-                      <p className="text-sm text-gray-600 pb-1">
+                      <p className="text-sm font-semibold text-gray-800 pb-1">
                         <Link href={{ pathname: '/stay', query: { county: offer.county }}} className='text-black'>{offer?.county}</Link>
                       </p>
                       <p className="text-sm text-gray-600 pb-1">
