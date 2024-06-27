@@ -45,7 +45,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                       height={200}
                       width={200}
                       alt="Listing"
-                      src={sale}
+                      src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719464130/i5xpwcxv6q3gaaaovtfb.png"
                       className="object-cover rounded-xl border-t-[5px] border-solid border-green-700 h-auto w-full"
                     />
                     <div className="absolute inset-0 rounded-xl bg-black opacity-60"></div>
@@ -54,7 +54,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                     height={200}
                     width={200}
                     alt="Overlay"
-                    src={sale}
+                    src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719464130/i5xpwcxv6q3gaaaovtfb.png"
                     className="absolute top-11 left-12 rounded-xl border-b-[5px] border-solid border-green-700   h-auto w-full transform transition-transform duration-300 group-hover:translate-y-[-10px]"
                   />
                 </div>
@@ -84,7 +84,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                       height={200}
                       width={200}
                       alt="Listing"
-                      src={stay}
+                      src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719427038/ttaudr3g5uguub9w3d1j.jpg"
                       className="object-cover rounded-xl border-t-[5px] border-solid border-green-700 h-auto w-full"
                     />
                     <div className="absolute inset-0 rounded-xl bg-black opacity-60"></div>
@@ -93,7 +93,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                     height={200}
                     width={200}
                     alt="Overlay"
-                    src={stay}
+                    src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719427038/ttaudr3g5uguub9w3d1j.jpg"
                     className="absolute top-11 left-12 rounded-xl border-b-[5px] border-solid border-green-700   h-auto w-full transform transition-transform duration-300 group-hover:translate-y-[-10px]"
                   />
                 </div>
@@ -115,7 +115,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                       height={200}
                       width={200}
                       alt="Listing"
-                      src={land}
+                      src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719427153/amejr1c4iqsl8kbgkkc5.jpg"
                       className="object-cover rounded-xl border-t-[5px] border-solid border-green-700 h-auto w-full"
                     />
                     <div className="absolute inset-0 rounded-xl bg-black opacity-60"></div>
@@ -124,7 +124,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                     height={200}
                     width={200}
                     alt="Overlay"
-                    src={land}
+                    src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719427153/amejr1c4iqsl8kbgkkc5.jpg"
                     className="absolute top-11 left-12 rounded-xl border-b-[5px] border-solid border-green-700   h-auto w-full transform transition-transform duration-300 group-hover:translate-y-[-10px]"
                   />
                 </div>
@@ -154,7 +154,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                       height={200}
                       width={200}
                       alt="Listing"
-                      src={offer}
+                      src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719427212/hnunwzhklfyz66aexf8u.jpg"
                       className="object-cover rounded-xl border-t-[5px] border-solid border-green-700 h-auto w-full"
                     />
                     <div className="absolute inset-0 rounded-xl bg-black opacity-60"></div>
@@ -163,7 +163,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                     height={200}
                     width={200}
                     alt="Overlay"
-                    src={offer}
+                    src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719427212/hnunwzhklfyz66aexf8u.jpg"
                     className="absolute top-11 left-12 rounded-xl border-b-[5px] border-solid border-green-700   h-auto w-full transform transition-transform duration-300 group-hover:translate-y-[-10px]"
                   />
                 </div>
@@ -185,7 +185,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                       height={200}
                       width={200}
                       alt="Listing"
-                      src={offers}
+                      src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719427178/exkchi4blmmj6i7g165o.jpg"
                       className="object-cover rounded-xl border-t-[5px] border-solid border-green-700 h-auto w-full"
                     />
                     <div className="absolute inset-0 rounded-xl bg-black opacity-60"></div>
@@ -194,7 +194,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                     height={200}
                     width={200}
                     alt="Overlay"
-                    src={offers}
+                    src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719427178/exkchi4blmmj6i7g165o.jpg"
                     className="absolute top-11 left-12 rounded-xl border-b-[5px] border-solid border-green-700   h-auto w-full transform transition-transform duration-300 group-hover:translate-y-[-10px]"
                   />
                 </div>

@@ -628,7 +628,7 @@
 }
 
 .all-about {
-  background-image: url('../public/images/about.png');
+  background-image: url('https://res.cloudinary.com/dqibclcaq/image/upload/v1719464161/kejjipegzyc2f3yzvz7e.png');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.37);
   /* Red color with 60% opacity */
@@ -658,7 +658,7 @@
 }
 
 .all-destinations-main-about {
-  background-image: url('../public/images/about.png');
+  background-image: url('https://res.cloudinary.com/dqibclcaq/image/upload/v1719464161/kejjipegzyc2f3yzvz7e.png');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.22);
   /* Red color with 60% opacity */
