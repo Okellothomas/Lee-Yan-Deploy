@@ -27,7 +27,7 @@ import { EventNotifier, getSSEWriter } from 'ts-sse'
 import {z} from 'zod'
 
 
-
+ 
 
 
 import io from 'socket.io-client'
@@ -273,7 +273,7 @@ const PaymentModal: React.FC<ModalProps> = ({ setShowPayModal, onPaymentComplete
 
 
     const bodyContent = (
-        <div className='payment_modal_container'>
+        <div className='payment_modal_container z-50'>
 
         
          
