@@ -583,7 +583,7 @@
 }
 
 .all-main-property-sales {
-  background-image: url('../public/images/rental5.jpg');
+  background-image: url('https://res.cloudinary.com/dqibclcaq/image/upload/v1719474301/cfdn43noitknv5clsn56.jpg');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.37);
   /* Red color with 60% opacity */
@@ -598,7 +598,7 @@
 }
 
 .all-main-property-rentals {
-  background-image: url('../public/images/lands.jpg');
+  background-image: url('https://res.cloudinary.com/dqibclcaq/image/upload/v1719474244/tf1pgtvtgfbzwpb8lkpf.jpg');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.37);
   /* Red color with 60% opacity */
@@ -613,7 +613,7 @@
 }
 
 .all-land-sales {
-  background-image: url('../public/images/lend4.jpg');
+  background-image: url('https://res.cloudinary.com/dqibclcaq/image/upload/v1719474269/itadaqml0m2klh6228vc.jpg');
   /* Replace 'your-image.jpg' with the path to your image */
   background-color: rgba(0, 0, 0, 0.37);
   /* Red color with 60% opacity */

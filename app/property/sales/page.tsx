@@ -241,14 +241,14 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, propert
         <Container>
           <div className="border flex justify-start gap-9 items-center border-solid border-neutral-400 py-10 px-11 rounded-xl shadow-sm">
             <div>
-              <Image src={imagebook} alt=""  className="h-[230px] w-[230px] shadow-md rounded-br-full rounded-t-full"/>
+              <Image src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719474226/mwbzgdyrbfolvx88hotu.jpg" height={200} width={200} alt=""  className="h-[230px] w-[230px] shadow-md rounded-br-full rounded-t-full"/>
             </div>
             <div>
               <h3 className="pb-5 font-bold text-2xl">Get one in a lifetime affordable deals </h3>
               <p className="pb-5 text-neutral-600">buys our properties at varied discounts, to meet your needs.</p>
               <div className="flex justify-start items-center gap-9">
-                <Link href="/" className="bg-green-500 px-6 py-2 rounded-3xl">Sign Up</Link>
-                <Link href="/" className="bg-green-500 px-6 py-2 rounded-3xl">Login</Link>
+                <Link href="/" className="bg-green-700 text-white px-6 py-2 rounded-3xl">Sign Up</Link>
+                <Link href="/" className="bg-green-700 text-white px-6 py-2 rounded-3xl">Login</Link>
               </div>
             </div>
           </div>
