@@ -247,8 +247,8 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, propert
               <h3 className="pb-5 font-bold text-2xl">Get one in a lifetime affordable deals </h3>
               <p className="pb-5 text-neutral-600">buys our properties at varied discounts, to meet your needs.</p>
               <div className="flex justify-start items-center gap-9">
-                <Link href="/" className="bg-green-700 text-white px-6 py-2 rounded-3xl">Sign Up</Link>
-                <Link href="/" className="bg-green-700 text-white px-6 py-2 rounded-3xl">Login</Link>
+                <Link href="/" className="hover:bg-green-700 border-[1px] border-solid border-green-700 hover:text-white text-green-700 px-7 py-2 rounded-3xl">Sign Up</Link>
+                <Link href="/" className="hover:bg-green-700 border-[1px] border-solid border-green-700 hover:text-white text-green-700 px-7 py-2 rounded-3xl">Login</Link>
               </div>
             </div>
           </div>

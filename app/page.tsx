@@ -280,8 +280,8 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
               <h3 className="pb-5 font-semibold text-2xl">Get great discounts</h3>
               <p className="pb-5 text-neutral-600">Book now and save 8% plus while the offers still last.</p>
               <div className="flex justify-start items-center gap-9">
-                <Link href="/" className="bg-green-700 px-6 py-2 text-white rounded-3xl">Sign Up</Link>
-                <Link href="/" className="bg-green-700 px-6 py-2  text-white rounded-3xl">Login</Link>
+                <Link href="/" className="hover:bg-green-700 border-[1px] border-solid border-green-700 hover:text-white text-green-700 px-7 py-2 rounded-3xl">Sign Up</Link>
+                <Link href="/" className="hover:bg-green-700 border-[1px] border-solid border-green-700 hover:text-white text-green-700 px-7 py-2 rounded-3xl">Login</Link>
               </div>
             </div>
           </div>
