@@ -81,7 +81,7 @@ const ContactMe =  () => {
             <div className="pt-[60px]">
               <div className="pb-6">
                 <h1 className="mb-2 text-2xl font-semibold text-black">Let us hear from you!</h1>
-                <p className="text-neutral-600">Got questions? Reach out: We're here to assist your inquiries.</p>
+                <p className="text-neutral-600">Got questions? Reach out: We&apos;re here to assist your inquiries.</p>
               </div>
             <div className="flex justify-between gap-6">
                 
@@ -195,13 +195,13 @@ const ContactMe =  () => {
             <div className="flex justify-between gap-6">
               
               <div className="w-full flex justify-between rounded-lg gap-6 border-[1px] border-solid border-neutral-300 px-6 py-3">
-                <div className="border-[1px] text-green-800 rounded-lg border-solid border-neutral-300 px-3 py-2">
+                <div className="border-[1px] text-green-800 flex gap-4 rounded-lg border-solid border-neutral-300 px-6 py-4">
                   <FaWhatsapp size={28 } /> <span>+25708443787</span>
                 </div> 
-                <div className="border-[1px] text-blue-800 rounded-lg border-solid border-neutral-300 px-3 py-2">
+                <div className="border-[1px] text-blue-800 flex gap-4 rounded-lg border-solid border-neutral-300 px-6 py-4">
                   <MdOutlineMarkEmailRead size={28 } /> <span>leeyan.smartproperties1@gmail.com</span>
                 </div>  
-                <div className="border-[1px] text-green-800 rounded-lg border-solid border-neutral-300 px-3 py-2">
+                <div className="border-[1px] text-green-800 flex gap-4 rounded-lg border-solid border-neutral-300 px-6 py-4">
                   <LuPhoneCall size={28 } /> <span>+25708443787</span>
                 </div>  
               </div>
