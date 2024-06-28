@@ -312,7 +312,7 @@ const findAvailableDate = () => {
                                        subject:"Congratulations! Reservation Successful",
                                     //    user_name:currentUser?.name,
                                     templateName: 'mail_template',
-                                    title: "Title stringgggg", //listing.title,
+                                    title: listing.title,
                                     category: listing.category,
                                     town: listing.town,
                                     type: listing.type,
