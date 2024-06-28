@@ -37,7 +37,7 @@ export default function Stay({ tourParams }: IParams) {
     category: false,
     type: false,
     offers: false,
-    ratings: false
+    ratings: false 
   });
 
   useEffect(() => {

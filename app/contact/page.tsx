@@ -77,8 +77,13 @@ const ContactMe =  () => {
           <Container>
             <div className="pt-[60px]">
               <div className="pb-6">
+<<<<<<< HEAD
                 <h1 className="mb-2 text-2xl font-semibold text-black">Let us hear from you!</h1>
                 <p className="text-neutral-600">Got questions? Reach out: We're here to assist your inquiries.</p>
+=======
+                <h1 className="mb-2 text-2xl font-semibold text-black">Let us here from you!</h1>
+                <p className="text-neutral-600">Got questions? Reach out: We&apos;re here to assist your inquiries.</p>
+>>>>>>> ce701f9fd745d629f875715971ddd416056a6d63
               </div>
             <div className="flex justify-between gap-6">
                 

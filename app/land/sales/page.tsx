@@ -37,14 +37,16 @@ const DestinationPage = async ({ searchParams, tourParams, countyParams, landPar
   // const listings = await getListingsHotels({ ...searchParams, hotel: "hotel" });
   const tours = await getTours(tourParams);
   const counties = await getCounties(countyParams);
-  const lands = await getLands(landParams);
+  const allLands = await getLands(landParams);
+  
+  const lands = allLands.filter(property => property.landReservation.length === 0);
   const landPremium = lands.filter(property => property.deal === "premium");
   const landTrending = lands.filter(property => property.deal === "exclusive");
   const LandHot = lands.filter(property => property.deal === "prime");
   const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
   const filteredTourss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
-  // const isEmpty = true;
-
+  // const isEmpty = true; 
+  console.log("Landsssss", lands)
   // Check if there are no listings, display EmptyState component
   if (lands.length && lands.length === 0) {
     return (

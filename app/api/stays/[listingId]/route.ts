@@ -144,7 +144,7 @@ if(anUpdate)
       roomCount: parseInt(roomCount, 10),
       bathRoomCount: parseInt(bathRoomCount, 10),
       guestCount: parseInt(guestCount, 10),
-      bedCount: parseInt(bedCount, 10),
+      bedcount: parseInt(bedCount, 10),
       bedroomCount: parseInt(bedroomCount, 10),
       childrenCount: parseInt(childrenCount, 10),
       funActivities,

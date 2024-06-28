@@ -61,8 +61,9 @@ const DestinationPage = async ({ searchParams, tourParams, propertyParams, offer
   const tours = await getTours(tourParams);
   const filteredTours = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 4);
   const filteredTourss = tours.filter(tour => tour.tourists.length < tour.guestCount).slice(0, 20);
-  const properties = await getProperty(propertyParams); 
-  const offers = await getOffers(offersParams);
+  const allProperties = await getProperty(propertyParams); 
+  const properties = allProperties.filter(property => property.propertyreservations.length === 0);
+  const offers = await getOffers(offersParams); 
   const propertyRentals = properties.filter(property => property.type === "rental");
   const propertyPremium = properties.filter(property => property.type === "rental" && property.deal === "premium");
   const propertyTrending = properties.filter(property => property.type === "rental" && property.deal === "affordable");
