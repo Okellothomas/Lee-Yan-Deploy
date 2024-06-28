@@ -78,7 +78,7 @@ const ContactMe =  () => {
             <div className="pt-[60px]">
               <div className="pb-6">
                 <h1 className="mb-2 text-2xl font-semibold text-black">Let us here from you!</h1>
-                <p className="text-neutral-600">Got questions? Reach out: We're here to assist your inquiries.</p>
+                <p className="text-neutral-600">Got questions? Reach out: We&apos;re here to assist your inquiries.</p>
               </div>
             <div className="flex justify-between gap-6">
                 

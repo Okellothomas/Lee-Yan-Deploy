@@ -299,13 +299,13 @@ const findAvailableDate = () => {
                 try {
 
                     const recipients = [
-                                    { email: 'leeyan.smartproperties1@gmail.com', name: currentUser?.name },
+                                    { email: 'leeyan.smartproperties1@gmail.com', name: 'Admin' },
                                     { email: currentUser?.email, name: currentUser?.name },
                                     { email: listing.hostEmail, name: listing.hostName }
                           ];
                           
                               const response = await axios.post('/api/mailing/', 
-
+ 
                   
                                 {sender:'leeyan.smartproperties1@gmail.com',
                                        recipients:recipients,
@@ -316,6 +316,8 @@ const findAvailableDate = () => {
                                     category: listing.category,
                                     town: listing.town,
                                     type: listing.type,
+                                    checkIn: dateRange.startDate,
+                                    checkOut: dateRange.endDate,
                                     offer: listing.offers,
                                     county: listing.county,
                                     stay: listing.imageSrc[0]
@@ -675,7 +677,7 @@ const findAvailableDate = () => {
 
                           <div className="w-full py-4">
                            <hr />
-                          </div>
+                          </div> 
 
                               {listing.hostType !== "" && (
                                   <div className="flex flex-row pb-3 justify-start gap-3">

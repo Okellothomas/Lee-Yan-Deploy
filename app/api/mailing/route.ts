@@ -80,12 +80,22 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
     const body = await req.json();
     const { sender, recipients, subject, mail_body, title, checkIn, checkOut, templateName, baseUrl } = body;
 
-    const templatePath = path.join(__dirname, `../../../../../templates/${templateName}.html`);
-    const templateHTML = fs.readFileSync(templatePath, 'utf8');
+    // const templatePath = path.join(__dirname, `../../../../../templates/${templateName}.html`);
+    // const templateHTML = fs.readFileSync(templatePath, 'utf8');
     const tourUrl = `${baseUrl}/client/profile`;
 
     try {
       const emailPromises = recipients.map(async ({ email, name }) => {
+        
+        let templatePath; //= path.join(__dirname, `../../../../../templates/${templateName}.html`);
+        if(name === 'Admin')
+          {
+         templatePath = path.join(__dirname, `../../../../../templates/admin_template.html`);
+          } 
+          else {
+            templatePath = path.join(__dirname, `../../../../../templates/${templateName}.html`);
+          }
+        const templateHTML = fs.readFileSync(templatePath, 'utf8');
         const renderedHTML = templateHTML
           .replace(/\{recipientName\}/g, name)
           .replace(/\{title\}/g, title)

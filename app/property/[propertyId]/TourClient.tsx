@@ -521,7 +521,7 @@ const TourClient: React.FC<TourClientProps> = ({
                   </div>
 
                       <div className="order-first-second order-first-second-one col-span-2" style={{ position: 'sticky', top: '10vh' }}>
-                          <div className="border-neutral-300 pt-4 px-4  bg-white border-solid w-full rounded-lg h-auto border-[1px]" style={{ position: 'sticky', top: '10vh' }}>
+                          <div className="border-neutral-300 pt-4 px-4 bg-white border-solid w-full rounded-lg h-auto border-[1px]" style={{ position: 'sticky', top: '10vh' }}>
                           <div className="flex flex-row px-4 justify-between item-center gap-3">
                               <div className="flex flex-row gap-3 justify-between items-center">
                                  <span className="text-red-400"><GiTakeMyMoney size={23 } /></span><span>Price</span> 

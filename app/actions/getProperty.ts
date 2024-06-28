@@ -16,7 +16,7 @@ export default async function getProperty(
 ) {
     try {
         const {
-            userId,
+            userId, 
             roomCount,
             guestCount,
             // bathroomCount,
@@ -79,6 +79,9 @@ export default async function getProperty(
 
         const properties = await prisma.property.findMany({
             where: query,
+            include: {
+                propertyreservations: true
+            },
             orderBy: {
                 createdAt: 'desc'
             }

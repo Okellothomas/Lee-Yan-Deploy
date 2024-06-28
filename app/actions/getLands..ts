@@ -78,10 +78,13 @@ export default async function getLands(
         //             }
         //         }
         //     }
-        // }
+        // } 
 
         const lands = await prisma.land.findMany({
             where: query,
+            include: {
+                landReservation: true, // Include the related reservations
+              },
             orderBy: {
                 createdAt: 'desc'
             }

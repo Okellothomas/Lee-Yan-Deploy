@@ -21,6 +21,7 @@ import useLoginModal from '@/app/hooks/useLoginModal';
 import { useRouter } from 'next/navigation';
 import Link from "next/link"
 import Lago from '../navbar/Lago';
+import { DotLoader } from 'react-spinners';
 
 const LoginModal = () => {
     const router = useRouter()
@@ -75,6 +76,11 @@ const LoginModal = () => {
                 // center
             /> */}
             <p className='font-semibold'>Login to your account</p>
+            {isLoading && (
+               <div className="loading-indicator flex justify-center items-center">
+               <DotLoader color="#3498db" size={50} />  {/* Or use BarLoader for a different style */}
+             </div>
+                )}
             <Input
                 id='email'
                 label='Email'
