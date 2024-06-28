@@ -7,6 +7,9 @@ import Image from "next/image";
 import getOffers, {OffersParams} from "../actions/getOffers";
 import getCurrentUser from "../actions/getCurrentUsers";
 import EmblaMobile from "../mainpage/components/EmblaMobile";
+import {FaWhatsapp} from "react-icons/fa";
+import {MdOutlineMarkEmailRead} from "react-icons/md";
+import { LuPhoneCall } from "react-icons/lu";
 
 // interface HomeProps {
 //   offerParams: OffersParams; //
@@ -77,13 +80,8 @@ const ContactMe =  () => {
           <Container>
             <div className="pt-[60px]">
               <div className="pb-6">
-<<<<<<< HEAD
                 <h1 className="mb-2 text-2xl font-semibold text-black">Let us hear from you!</h1>
                 <p className="text-neutral-600">Got questions? Reach out: We're here to assist your inquiries.</p>
-=======
-                <h1 className="mb-2 text-2xl font-semibold text-black">Let us here from you!</h1>
-                <p className="text-neutral-600">Got questions? Reach out: We&apos;re here to assist your inquiries.</p>
->>>>>>> ce701f9fd745d629f875715971ddd416056a6d63
               </div>
             <div className="flex justify-between gap-6">
                 
@@ -195,13 +193,16 @@ const ContactMe =  () => {
                 <p className="text-neutral-600">Feel free to also send us your inquiries and we will promptly provide feedback.</p>
               </div>
             <div className="flex justify-between gap-6">
-                
+              
               <div className="w-full flex justify-between rounded-lg gap-6 border-[1px] border-solid border-neutral-300 px-6 py-3">
-                <div className="border-[1px] rounded-lg border-solid border-neutral-300 px-3 py-2">
+                <div className="border-[1px] text-green-800 rounded-lg border-solid border-neutral-300 px-3 py-2">
+                  <FaWhatsapp size={28 } /> <span>+25708443787</span>
                 </div> 
-                 <div className="border-[1px] rounded-lg border-solid border-neutral-300 px-3 py-2">
+                <div className="border-[1px] text-blue-800 rounded-lg border-solid border-neutral-300 px-3 py-2">
+                  <MdOutlineMarkEmailRead size={28 } /> <span>leeyan.smartproperties1@gmail.com</span>
                 </div>  
-                 <div className="border-[1px] rounded-lg border-solid border-neutral-300 px-3 py-2">
+                <div className="border-[1px] text-green-800 rounded-lg border-solid border-neutral-300 px-3 py-2">
+                  <LuPhoneCall size={28 } /> <span>+25708443787</span>
                 </div>  
               </div>
                   
