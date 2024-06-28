@@ -77,7 +77,7 @@ const ContactMe =  () => {
           <Container>
             <div className="pt-[60px]">
               <div className="pb-6">
-                <h1 className="mb-2 text-2xl font-semibold text-black">Let us here from you!</h1>
+                <h1 className="mb-2 text-2xl font-semibold text-black">Let us hear from you!</h1>
                 <p className="text-neutral-600">Got questions? Reach out: We're here to assist your inquiries.</p>
               </div>
             <div className="flex justify-between gap-6">
@@ -180,35 +180,30 @@ const ContactMe =  () => {
                   
               </div>
             </div> 
-          </Container> 
+         </Container>
+        
 
-        {/* <div className="flex items-center mt-6 justify-center">
-        {offers && Array.isArray(offers) && offers.length > 0 && (
-          <Container>
-            <div className="mt-5">
-              <div className="my-3">
-                <h1 className="mb-2 text-2xl font-semibold text-black">Great deals</h1>
-                <p className="text-neutral-600">Premium deals and offers for you</p>
+        <Container>
+            <div className="pt-[60px]">
+              <div className="pb-6">
+                <h1 className="mb-2 text-2xl font-semibold text-black">You can also contact us through!</h1>
+                <p className="text-neutral-600">Feel free to also send us your inquiries and we will promptly provide feedback.</p>
               </div>
-              <EmblaMobile
-                data={offers}
-                currentUser={
-                  currentUser
-                    ? {
-                        ...currentUser,
-                        createdAt: currentUser.createdAt.toISOString(),
-                        updatedAt: currentUser.updatedAt.toISOString(),
-                        emailVerified: currentUser.emailVerified
-                          ? currentUser.emailVerified.toISOString()
-                          : null,
-                      }
-                    : null
-                }
-              />
-            </div>
+            <div className="flex justify-between gap-6">
+                
+              <div className="w-full flex justify-between rounded-lg gap-6 border-[1px] border-solid border-neutral-300 px-6 py-3">
+                <div className="border-[1px] rounded-lg border-solid border-neutral-300 px-3 py-2">
+                </div> 
+                 <div className="border-[1px] rounded-lg border-solid border-neutral-300 px-3 py-2">
+                </div>  
+                 <div className="border-[1px] rounded-lg border-solid border-neutral-300 px-3 py-2">
+                </div>  
+              </div>
+                  
+              </div>
+            </div> 
           </Container>
-          )}
-        </div> */}
+        
         
 
         </div>
