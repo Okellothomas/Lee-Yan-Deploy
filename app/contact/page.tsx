@@ -195,13 +195,13 @@ const ContactMe =  () => {
             <div className="flex justify-between gap-6">
               
               <div className="w-full flex justify-between rounded-lg gap-6 border-[1px] border-solid border-neutral-300 px-6 py-3">
-                <div className="border-[1px] text-green-800 flex gap-4 rounded-lg border-solid border-neutral-300 px-6 py-4">
+                <div className="border-[1px] text-green-800 flex gap-2 rounded-lg border-solid border-neutral-300 px-10 py-5">
                   <FaWhatsapp size={28 } /> <span>+25708443787</span>
                 </div> 
-                <div className="border-[1px] text-blue-800 flex gap-4 rounded-lg border-solid border-neutral-300 px-6 py-4">
+                <div className="border-[1px] text-blue-800 flex gap-3 rounded-lg border-solid border-neutral-300 px-10 py-5">
                   <MdOutlineMarkEmailRead size={28 } /> <span>leeyan.smartproperties1@gmail.com</span>
                 </div>  
-                <div className="border-[1px] text-green-800 flex gap-4 rounded-lg border-solid border-neutral-300 px-6 py-4">
+                <div className="border-[1px] text-green-800 flex gap-2 rounded-lg border-solid border-neutral-300 px-10 py-5">
                   <LuPhoneCall size={28 } /> <span>+25708443787</span>
                 </div>  
               </div>
