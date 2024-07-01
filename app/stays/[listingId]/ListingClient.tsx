@@ -9,7 +9,7 @@ import usePaymentModal from "@/app/hooks/usePaymentModal";
 import { SafeUser, safeListing, safeReservation } from "@/app/types";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import axios from "axios";
-import { differenceInCalendarDays, eachDayOfInterval, startOfDay } from "date-fns";
+import { differenceInCalendarDays, eachDayOfInterval, format, parseISO, startOfDay } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Range } from "react-date-range";
@@ -33,6 +33,11 @@ const initialDateRange = {
     endDate: new Date(),
     key: 'selection'
 } 
+
+const formatDate = (isoDateString:any) => {
+    const date = parseISO(isoDateString);
+    return format(date, 'dd/MM/yyyy');
+  };
 
 interface ListingClientProps {
     reservations?: safeReservation[];
@@ -316,8 +321,8 @@ const findAvailableDate = () => {
                                     category: listing.category,
                                     town: listing.town,
                                     type: listing.type,
-                                    checkIn: dateRange.startDate,
-                                    checkOut: dateRange.endDate,
+                                    checkIn: formatDate(dateRange.startDate),
+                                    checkOut: formatDate(dateRange.endDate),
                                     offer: listing.offers,
                                     county: listing.county,
                                     stay: listing.imageSrc[0]

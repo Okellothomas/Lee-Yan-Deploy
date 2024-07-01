@@ -6,7 +6,7 @@ import { categories } from "@/app/components/navbar/Categories";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { SafeUser, safeListing, safeReservation } from "@/app/types";
 import axios from "axios";
-import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
+import { differenceInCalendarDays, eachDayOfInterval, format, parseISO } from "date-fns";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Range } from "react-date-range";
@@ -34,9 +34,16 @@ import { IoIosPeople } from "react-icons/io";
 
 const initialDateRange = {
     startDate: new Date(),
-    endDate: new Date(),
+    endDate: new Date(), 
     key: 'selection'
 }
+
+const formatDate = (isoDateString:any) => {
+    const date = parseISO(isoDateString);
+    return format(date, 'dd/MM/yyyy');
+  };
+
+
 
 interface TourClientProps {
     reservations?: safeReservation[];
@@ -185,11 +192,15 @@ const TourClient: React.FC<TourClientProps> = ({
                               const response = await axios.post('/api/mailing/',
                   
                                   {
+                                      
                                       sender: 'Info@devancatours.com',
                                       recipient: 'wanjooo.ken@gmail.com',
                                       subject: "Devance Reservations",
                                       user_name: currentUser?.name,
                                       templateName: 'tour_mail_template',
+                                      checkIn: formatDate(dateRange.startDate),
+                                      checkOut: formatDate(dateRange.endDate),
+                                      title:tour.title,  
                                       baseUrl: baseUrl,
                                       mail_body: `This is a sample test mail from Devance Application and these are the reservatio`
 
