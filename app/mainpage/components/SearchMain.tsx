@@ -78,14 +78,14 @@ const SearchMain = () => {
     }, []);
 
     return (
-        <div className="shadow-md 2xl:w-[900px] xl:w-[900px] border-[1px] border-solid border-neutral-300 bg-white rounded-full py-2 px-4 flex justify-center items-center">
+        <div className="search-main-container shadow-md sm:w-[full] sm:py-1 2xl:w-[900px] xl:w-[900px] border-[1px] border-solid border-neutral-300 bg-white rounded-full py-2 px-4 flex justify-center items-center">
             <div className="pl-4 w-auto items-center text-center hover:rounded-full hover:cursor-pointer">
                 <div className="flex flex-auto gap-4 items-center w-auto">
                     <AutocompleteInput searchDestination={searchDestination} setSearchDestination={setSearchDestination} />
                 </div>
             </div>
             <hr className="h-[24px] w-[0.8px] bg-neutral-400 mx-auto"/>
-            <div className="w-auto items-center text-center hover:rounded-full hover:cursor-pointer">
+            <div className="search-main-container-two w-auto items-center text-center hover:rounded-full hover:cursor-pointer">
                 <label htmlFor="checkin-date" className="text-md hover:cursor-pointer">Check In</label>
                 <DatePicker 
                     id="checkin-date"
@@ -98,7 +98,7 @@ const SearchMain = () => {
                 />
             </div>
             <hr className="h-[24px] w-[0.8px] bg-neutral-400 mx-auto"/>
-            <div className="items-center w-auto text-center hover:rounded-full hover:cursor-pointer">
+            <div className="search-main-container-two items-center w-auto text-center hover:rounded-full hover:cursor-pointer">
                 <label htmlFor="checkout-date" className="text-md hover:cursor-pointer">Check Out</label>
                 <DatePicker
                     id="checkout-date"
@@ -111,7 +111,7 @@ const SearchMain = () => {
                 />
             </div>
             <hr className="h-[24px] w-[0.8px] bg-neutral-400 mx-auto"></hr>
-            <div className="flex flex-col px-2 justify-between items-center gap-1 relative">
+            <div className="search-main-container-three flex flex-col px-2 justify-between items-center gap-1 relative">
                 <div className="flex flex-row items-center mt-2" ref={dropdownRef}>
                     <div className="relative w-40">
                         <label

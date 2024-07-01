@@ -15,10 +15,10 @@ const Logo = () => {
           <Image
           onClick={() => router.push('/')}
           alt="logo"
-          className="cursor-pointer rounded-full logo-image-background-image"
           height="50"
           width="50"
           src={logo}
+          className="cursor-pointer 2xl:h-[50px] 2xl:w-[50px] xl:h-[50px] xl:w-[50px] rounded-full logo-image-background-image"
         />
         </div>
         <div className="text-xl font-bold">

@@ -70,7 +70,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                 <p className="text-neutral-600">Explore stay experiences: Insider tips, stories, and recommendations for travelers.</p> 
               </div>
               <div>
-                <Link href={{ pathname: '/stays-', query: { type: 'luxurious' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/blogs-', query: { type: 'Stay' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
             </div>
       </div>
       <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
@@ -102,7 +102,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                 <p className="text-neutral-600">Property insights unveiled: Expert advice, market trends, and investment strategies.</p> 
               </div>
               <div>
-                <Link href={{ pathname: '/stays-', query: { type: 'luxurious' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/blogs-', query: { type: 'Property' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
             </div>
         </div>
         <div className="grid-cols-page-s mt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -134,7 +134,7 @@ const DestinationPage = async ({ searchParams, tourParams }: HotelPageProps) => 
                 <p className="text-neutral-600">Explored investment strategies, development tips, and market analyses.</p> 
               </div>
               <div>
-                <Link href={{ pathname: '/stays-', query: { type: 'luxurious' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/blogs-', query: { type: 'Land' }}} className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
             </div>
       </div>
       <div className="grid-cols-page-s pt-6 pb-4 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-6">
