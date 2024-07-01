@@ -14,7 +14,7 @@ const FooterBottom = () => {
       <div className="text-md footer-main-texts">
         All rights reserved Lee-Yan Smart Properties &copy;2024
       </div>
-      <div className="flex flex-row gap-7 text-neutral-600 justify-end items-center">
+      <div className="flex flex-row gap-7 text-neutral-600 footer-main-texts-main-s justify-end items-center">
         <Link href="https://wa.me/254708443787" target="_blank"><IoLogoWhatsapp size={27} /></Link>
         <Link href="https://www.instagram.com/leeyan.smartproperties1?igsh=MWF4cTZsaWRsM2dycA==" target="_blank"><AiFillInstagram size={27} /></Link>
         <Link href="https://www.tiktok.com/@leeyan.smartproperties1?_t=8nGu3P74zH3&_r=1" target="_blank"><FaTiktok size={27} /></Link>

@@ -864,6 +864,15 @@
    /* border-bottom: 1px solid rgba(225, 225, 225, 0.92)!important; */
  }
 
+ .footermiddle-large {
+  display: block;
+ }
+
+ .footermiddle-small {
+   display: none;
+  visibility: hidden;
+ }
+
 /* small Screen */
 
 @media (orientation: portrait) and (min-width: 0px) and (max-width: 641px) {
@@ -1141,6 +1150,68 @@
       width: 45px;
     }
 
+    .stay-first-sm{
+      display: none;
+      visibility: hidden;
+    }
+
+    .stay-first{
+      height: 250px;
+    }
+
+    /* .embla{
+      display: none;
+      visibility: hidden;
+    } */
+
+    .Emblawebsite-small{
+      display: none;
+      visibility: hidden;
+    }
+
+    .Stay-small{
+      margin-top: 20px;
+      margin-bottom: 60px;
+    }
+
+    .ListingTartiaryList-small{
+      display: none;
+      visibility: hidden;
+    }
+
+    .main-page-small{
+      display: none;
+      visibility: hidden;
+    }
+
+    /* .footermiddle-small {
+      display: inline-block !important;
+    } */
+
+    .footermiddle-large{
+      display: none;
+      visibility: hidden;
+    }
+
+     .footermiddle-small {
+       display: block !important;
+       visibility: visible !important;
+     }
+
+   .footer-main-texts{
+    display: none;
+    visibility: hidden;
+   }
+
+   .footer-main-texts-main-s{
+    justify-content: space-between!important;
+    gap: 60px!important;
+   }
+
+   .Stay-all{
+    display: none;
+    visibility: hidden;
+   }
 
 }
 

@@ -112,7 +112,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
     </Container>
   )}
       </div>
-      <div className="mt-7">
+      <div className="Stay-small mt-7">
        <Container>
           <div className="mt-8">
             <div className="my-3">
@@ -123,7 +123,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
           </div>   
         </Container>
       </div>
-      <div className="flex items-center mt-6 pb-6 justify-center">
+      <div className="Emblawebsite-small flex items-center mt-6 pb-6 justify-center">
        <Container>
           <div className="mt-5">
             <div className="my-3 flex justify-between items-center">
@@ -132,7 +132,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
               <p className="text-neutral-600 sm:text-sm">From Castle to Villas, select an exclusive place to stay</p>
               </div>  
               <div>
-                <Link href="/stay-s" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 sm:text-sm border-solid hover:text-green-600">View all</Link>
+                <Link href="/stay-s" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 sm:text-sm border-solid hover:text-green-600"><span>View</span> <span className="Stay-all">all</span></Link>
               </div>
             </div> 
             <Emblawebsite
@@ -163,7 +163,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
                 <p className="text-neutral-600 sm:text-sm">Find amazing high-end places to stay, discover your dream palace</p> 
               </div>
               <div>
-                <Link href={{ pathname: '/stays-', query: { type: 'luxurious' }}} className="px-4 py-1 sm:text-sm border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/stays-', query: { type: 'luxurious' }}} className="px-4 py-1 sm:text-sm border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600"><span>View</span> <span className="Stay-all">all</span></Link>
             </div>
         </div>
         <div className="grid-cols-page-s mt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -193,7 +193,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
                 <p className="text-neutral-600 sm:text-sm">Book from our top rated properties for unforgettable stay</p> 
               </div>
               <div>
-                <Link href={{ pathname: '/stays-', query: { type: 'premium' }}} className="px-4 py-1 sm:text-sm border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/stays-', query: { type: 'premium' }}} className="px-4 py-1 sm:text-sm border-[1px] rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600"><span>View</span> <span className="Stay-all">all</span></Link>
               </div>
         </div> 
         <div className="grid-cols-page-s pt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -223,7 +223,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
               <p className="text-neutral-600 sm:text-sm">Luxurious sanctuaries you will find comfortable</p> 
               </div>  
               <div>
-                <Link href={{ pathname: '/stays-', query: { type: 'comfortable' }}} className="px-4 py-1 border-[1px] sm:text-sm rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600">View all</Link>
+                <Link href={{ pathname: '/stays-', query: { type: 'comfortable' }}} className="px-4 py-1 border-[1px] sm:text-sm rounded-lg shadow-sm border-neutral-300 border-solid hover:text-green-600"><span>View</span> <span className="Stay-all">all</span></Link>
               </div>
           </div> 
           <div className="grid-cols-page-s mt-6 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4 gap-8">
@@ -244,7 +244,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
       )}
     </div>
 
-    <div className="pt-1 pb-9">
+    <div className="ListingTartiaryList-small pt-1 pb-9">
       {counties && counties.length > 0 && (
           <Container>
            <div className="flex justify-between items-center">
@@ -253,7 +253,7 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
               <p className="text-neutral-600 sm:text-sm">Explore in-demand holiday properties, enjoy exciting places to stay.</p>  
               </div>  
               <div>
-                <Link href="/stay-s" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 sm:text-sm border-solid hover:text-green-600">View all</Link>
+                <Link href="/stay-s" className="px-4 py-1 border-[1px] rounded-lg shadow-sm border-neutral-300 sm:text-sm border-solid hover:text-green-600"><span>View</span> <span className="Stay-all">all</span></Link>
               </div>
           </div> 
           <div className="pt-2 pb-2 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-5 2xl:grid-cols-5 gap-1">
@@ -272,11 +272,11 @@ const Home = async ({ searchParams, tourParams, offerParams, countyParams }: Hom
       )}
       </div>
 
-     <div className="pt-1 pb-0 sm:hidden">
+     <div className="pt-1 pb-0">
         <Container>
-          <div className="border flex justify-start gap-9 items-center border-solid border-neutral-400 py-10 px-11 rounded-xl shadow-sm">
+          <div className="border flex justify-start sm:gap-3 gap-9 items-center border-solid border-neutral-400 sm:px-2 py-10 px-11 rounded-xl shadow-sm">
             <div>
-              <Image src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719464198/qh3orlzttjzev4hlh3sd.jpg" height={200} width={200} alt=""  className="h-[230px] w-[230px] shadow-md rounded-br-full rounded-t-full"/>
+              <Image src="https://res.cloudinary.com/dqibclcaq/image/upload/v1719464198/qh3orlzttjzev4hlh3sd.jpg" height={200} width={200} alt=""  className="h-[230px] w-[230px] main-page-small shadow-md rounded-br-full rounded-t-full"/>
             </div>
             <div>
               <h3 className="pb-5 font-semibold text-2xl">Get great discounts</h3>
